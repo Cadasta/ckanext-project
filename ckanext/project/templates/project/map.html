@@ -1,0 +1,55 @@
+{% extends "project/read_base.html" %}
+
+{% set pkg = c.pkg_dict %}
+
+{% block breadcrumb_content %}
+  {{ super() }}
+  <li><div class="icon-lnr-chevron-right"></div></li>
+  <a class='active' href="/dataset/{{c.id}}/map">Map</a>
+{% endblock %}
+
+{% block primary_nav_tabs %}
+      <li><a  href="/project/{{ pkg.name }}">OVERVIEW</a></li>
+      <li><a  href='parcels'>PARCELS</a></li>
+      <li class="active-nav">MAP</li>
+      <li><a  href='surveys'>SURVEYS</a></li>
+      <li><a  href='resources'>RESOURCES</a></li>
+      <li><a  href='activity_stream'>ACTIVITY STREAM</a></li>
+{% endblock %}
+
+{% block primary_content_inner %}
+
+    <div id='big_map'></div>
+    <meta id='data' data-obj='{{all_parcels | safe }}'>
+
+    {% if new %}
+
+        <div>
+        <form name='new_parcel' action="/project/{{c.id}}/parcels" method="POST">
+            <input type='text' name='parcel_geom' id='parcel_geom'>
+            <br><input type="submit" value="Save">
+        </form>
+        </div>
+
+    {% elif edit %}
+
+        <div>
+        <form name='new_parcel' action="/project/{{c.id}}/edit_parcel/{{parcel_id}}" method="POST">
+            <input type='text' name='parcel_geom' id='parcel_geom'>
+            <br><input type="submit" value="Save">
+        </form>
+        </div>
+
+    {% else %}
+
+        <!--<div>-->
+        <!--<form name='new_parcel' action="/project/{{c.id}}/parcel/{{parcel_id}}" method="POST">-->
+            <!--<input type='text' name='parcel_geom' id='parcel_geom'>-->
+            <!--<br><input type="submit" value="Save">-->
+        <!--</form>-->
+        <!--</div>-->
+    {% endif %}
+
+    {% resource 'project/big_map.js' %}
+
+{% endblock %}

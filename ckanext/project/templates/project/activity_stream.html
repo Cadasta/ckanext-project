@@ -1,0 +1,35 @@
+{% extends "project/read_base.html" %}
+
+{% set pkg = c.pkg_dict %}
+
+{% block breadcrumb_content %}
+  {{ super() }}
+  <li><div class="icon-lnr-chevron-right"></div></li>
+  <a href="/dataset/{{c.id}}/surveys" class="active"> Activity Stream</a>
+{% endblock %}
+
+{% block primary_nav_tabs %}
+      <li><a  href="/project/{{ pkg.name }}">OVERVIEW</a></li>
+      <li><a  href='parcels'>PARCELS</a></li>
+      <li><a  href='map'>MAP</a></li>
+      <li><a  href='surveys'>SURVEYS</a></li>
+      <li><a  href='resources'>RESOURCES</a></li>
+      <li class="active-nav">ACTIVITY STREAM</li>
+{% endblock %}
+
+
+{% block primary_content_inner %}
+<div id="project-content">
+  <div>
+
+      <!-- Use Nunjucks templates here in .js -->
+      <div id="nunjuck-activity-list"></div>
+
+  </div>
+
+</div>
+
+    {% resource 'project/nunjucksmin.js' %}
+    {% resource 'project/nunjucks_js/activity_list.js' %}
+
+{% endblock %}

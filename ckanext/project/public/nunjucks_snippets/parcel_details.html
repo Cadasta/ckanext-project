@@ -1,0 +1,89 @@
+<!--<div>PARCEL DETAILS</div>-->
+
+<div id="parcel-details-overview">
+
+    <div class="id-title">
+        Parcel ID: {{parcel_details.id}}
+    </div>
+
+    <div class="details">
+        {% for row in parcel_details.relationships %}
+
+        <div class="owner">{{ row.first_name }} {{ row.last_name }}</div>
+
+        <div class="inline-details">
+            <div class="details-title">Tenure Type:</div>
+            <div class="details-data"> {{ row.relationship_type }}</div>
+        </div>
+
+        <div class="inline-details">
+            <div class="details-title">Date Created:</div>
+            <div class="details-data"> {{ row.time_created }}</div>
+        </div>
+
+        <div class="inline-details">
+            <div class="details-title">Status:</div>
+
+            {% if row.active %}
+            <div class="details-data"> Active</div>
+            {% else %}
+            <div class="details-data"> Inactive</div>
+            {% endif %}
+
+            {% endfor %}
+        </div>
+    </div>
+
+    {#
+    {% if parcel_details.id %}
+
+    <div>Owner</div>
+    <div> {{ parcel_details.relationships[0].first_name }} {{ parcel_details.relationships[0].last_name }}</div>
+
+
+    <div>Parcel ID</div>
+    <div> {{ parcel_details.id }}</div>
+
+    {% endif %}
+    {% if parcel_details.area %}
+
+    <div> Area</div>
+    <div> {{ parcel_details.area }}</div>
+
+    {% endif %}
+    {% if parcel_details.land_use %}
+
+    <div> Landuse</div>
+    <div> {{ parcel_details.land_use }}</div>
+
+    {% endif %}
+    {% if parcel_details.gov_pin %}
+
+    <div> Government ID</div>
+    <div> {{ parcel_details.gov_pin }}</div>
+
+    {% endif %}
+    {% if parcel_details.time_created %}
+
+    <div>Date Created</div>
+    <div> {{ parcel_details.time_created }}</div>
+
+    {% endif %}
+    {% if parcel_details.time_updated %}
+
+    <div>Date Updated</div>
+    <div> {{ parcel_details.time_updated }}</div>
+
+    {% endif %}
+    {% if parcel_details.active %}
+
+    <div>Status</div>
+    <div> {{ parcel_details.active }}</div>
+
+    {% endif %}
+
+    #}
+
+
+</div>
+

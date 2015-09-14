@@ -1,0 +1,989 @@
+#project-nav-bar {
+    padding-left:25px;
+    padding-top:40px;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 10px;
+    background:none;
+    background-color:#eef2f5;
+}
+
+.clearfix:before, .clearfix:after {
+    content: " ";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+.wrapper {
+    box-shadow:none;
+}
+
+
+.small-heading {
+    color: #256c97;
+    font-size:12px;
+    font-weight:bold;
+    display: inline-block;
+    padding-bottom:10px;
+
+}
+
+.project-block {
+    display: inline-block;
+    text-align:left;
+    background-color:white;
+    font-size:10px;
+    border: none;
+    text-align:top;
+    vertical-align:top;
+    overflow:auto;
+}
+
+
+#summary-stats {
+    height:200px;
+}
+
+
+#big_map {
+  position:relative;
+   width:100%;
+   height:500px;
+}
+
+
+table {
+    text-align:center;
+    border: 1px solid #dcdfe1;
+    width:90%
+}
+
+
+.inline-block {
+    display: inline-block;
+}
+
+
+#sub-nav {
+    display: inline-block;
+    position: relative;
+    width: 70px;
+    padding-left: 10px;
+    font-size: 8px;
+    background-color: white;
+    z-index: 1000;
+    text-align: left;
+    border: 1px solid #dcdfe1;
+}
+
+.toolbar {
+  margin:0;
+  background-color: white;
+  padding: 10px;
+}
+
+#package_read_title {
+    height:150px;
+    width:100%;
+}
+
+.btn-list {
+    display: inline-block;
+    float:right;
+    position:relative;
+}
+
+
+.project-summary-stats {
+    font-size: 20px;
+}
+
+
+.span9 {
+    margin-left: 0;
+    width: 100%;
+    padding: 0;
+}
+
+.page-header {
+    margin-left: 0;
+    background-color:white;
+    padding:0;
+}
+
+subtab {
+    text-align: left;
+    padding-left: 50px;
+    line-height: 50px;
+    background-color: #B6B8B4;
+    border: 1px solid #8B8C8A;
+    color: black;
+}
+
+
+#project-extent {
+    border: 1px solid #dcdfe1;
+    width:291px;
+    height:291px;
+    display:inline-block;
+    float:right;
+}
+
+#small_map {
+    position:relative;
+    width:100%;
+    height:100%;
+}
+
+#parcel_map {
+    position:relative;
+    width:100%;
+    height:100%;
+}
+
+
+#project-resource-summary {
+    float:right;
+    width:295px;
+    font-size:10px;
+    height:200px;
+    padding-top:12px;
+    padding-left:12px;
+    border: 1px solid #dcdfe1;
+}
+
+/* RW - commenting this out for now.  Make the CSS selector more specific so that only #project-content in a certain parent div gets 100% width.
+
+.module-content {
+    margin:0;
+    width:100%;
+    padding:0;
+}
+
+
+
+/*#project-content {*/
+    /*margin:0;*/
+    /*padding:0;*/
+    /*height:100%;*/
+    /*background-color: #eef2f5;*/
+/*}
+*/
+
+#project-content {
+    margin:0;
+    padding:0;
+    /*background-color: #eef2f5;*/
+}
+
+#project-content ul {
+    padding: 0;
+    margin:0;
+}
+
+.project-title {
+    font-size: 18px;
+    color: #2d3644;
+    display:inline-block;
+    padding-top:18px;
+    padding-bottom: 20px;
+    padding-left:25px;
+
+}
+
+#project-title {
+    border-bottom: 1px solid #dcdfe1;
+}
+
+.span3 {
+    width: 100%;
+    margin:0;
+    margin-top: 13px;
+    /* min-height:220px; */
+    margin-bottom:50px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+
+/* top nav toolbar */
+
+.masthead-header {
+    background-color:#2d3644;
+    height: 45px;
+    text-align: center;
+}
+
+header .header-container {
+    width:1024px;
+    margin: auto;
+    height:100%
+
+}
+
+.masthead-header span {
+    padding-right: 35px;
+    padding-top: 14px;
+    display: inline-block;
+    float:left;
+}
+
+
+.masthead-header ul li {
+    padding-right: 35px;
+    display: inline-block;
+    float:left;
+}
+
+.masthead-header ul li a {
+    color: #858c92;
+    font-weight: semi-bold;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+
+/* Sarah's row modification.  Putting it back to default to we don't throw of the default CKAN look and feel. */
+/*.row {*/
+    /*height:0;*/
+    /*border:none;*/
+    /*background-color: #eef2f5;*/
+    /*width:860px;*/
+    /*border: none;*/
+/*}*/
+
+.row {
+margin-left: -20px;
+}
+
+#content {
+    width: 860px;
+}
+
+li {
+    display: inline-block;
+}
+
+.block {
+    display: block;
+}
+
+.bold {
+    font-weight:bold;
+}
+
+.link {
+    color: #3c95c1;
+}
+
+
+.toolbar .breadcrumb a {
+    font-size: 10px;
+    font-family: 'Open Sans';
+    color: #256c97;
+
+}
+
+.toolbar .breadcrumb {
+    padding:0;
+    margin:0;
+    background-color:white;
+    height:25px;
+    line-height: 0;
+}
+
+.toolbar {
+    padding:0;
+    border-top: 1px solid #dcdfe1;
+    border-left: 1px solid #dcdfe1;
+    border-right: 1px solid #dcdfe1;
+}
+
+
+
+#project-desc {
+    width: 510px;
+    display: inline-block;
+    height: 292px;
+    border: 1px solid #dcdfe1;
+}
+
+#project-desc .small-heading {
+    margin: 20px 0 20px 20px;
+}
+
+#project-desc table {
+    text-align: center;
+    text-align: left;
+    margin-left: 20px;
+    width:40%;
+    border:none;
+
+}
+
+#project-desc table td {
+    text-align: center;
+    text-align: left;
+    margin-left: 20px;
+    width: 100px;
+
+}
+
+#project-desc .description {
+    margin-left: 20px;
+}
+
+/* RW - removed fixed height so activity feed will push down without an internal scrollbar */
+#project-activity-summary {
+    width:510px;
+    padding-top:12px;
+    padding-left:25px;
+    float:left;
+    border: 1px solid #dcdfe1;
+
+}
+
+
+footer {
+    background-color: #eef2f5;
+    height: 50px;
+    width:100%;
+    bottom:0;
+    position: fixed;
+    border-top: 1px solid #dcdfe1;
+}
+
+.project-control-buttons-right {
+    display: inline-block;
+    float: right;
+    padding-top:18px;
+    padding-right: 25px;
+}
+
+.project-control-buttons-right span {
+    margin-left: 8px;
+}
+
+#project-header {
+    height:315px;
+    margin: 40px 0 0 0;
+}
+
+#project-nav-bar li {
+    vertical-align:bottom;
+    margin-right: 40px;
+}
+
+.section .site-search .simple-input {
+    display: inline;
+}
+
+#project-nav-bar li a {
+    color: #2d3644;
+    font-weight: semi-bold;
+    text-decoration: none;
+
+}
+
+#project-nav-bar li a:hover {
+    color: #256c97;
+    font-weight: bold;
+    border-bottom: 2px solid #256c97;
+    text-decoration: none;
+}
+
+#project-nav-bar li a:active {
+    color: #256c97;
+    font-weight: bold;
+    border-bottom: 2px solid #256c97;
+    text-decoration: none;
+}
+
+
+#content {
+    background-color:#eef2f5;
+}
+
+
+.module-content:last-child {
+    margin-bottom: 0;
+     padding-bottom: 0;
+}
+
+#main-div {
+    background-image: none;
+    background-color:#eef2f5;
+}
+
+.nav-tabs {
+    border-bottom: none;
+}
+
+header .page-header-new {
+    border: 1px solid #dcdfe1;
+    height:135px;
+}
+
+ul, ol {
+     padding: 0;
+     margin: 0;
+}
+
+
+.masthead .nav-collapse {
+    width: 800px;
+    float: right;
+    background-color: yellow;
+}
+
+form .lang-select {
+    margin:0;
+    display:inline-block;
+}
+
+.field {
+    margin:0;
+}
+
+#language-selector {
+    margin-left:20px;
+    padding-top:16px;
+}
+
+
+
+#footer-container {
+    height:50px;
+    vertical-align:center;
+    color:black;
+    background-color: #eef2f5;
+    width: 1024px;
+    margin: auto;
+}
+
+#footer-container div {
+    display:inline-block;
+    float:left;
+}
+
+#footer-container #footer-logo {
+    font-size: 26px;
+    color: black;
+    float: right;
+    display: block;
+    padding-top: 14px;
+}
+
+.search-field {
+    padding-left: 50px;
+    padding-top: 45px;
+    margin:0;
+    padding-bottom:0;
+}
+
+.activity-block {
+    display: block;
+    width: 90%;
+    border-bottom: 1px solid #dcdfe1;
+    height: 35px;
+}
+
+.resource-block {
+    display: block;
+    width: 90%;
+    height: 35px;
+}
+
+
+#field-sitewide-search {
+    width: 100px;
+}
+
+
+#header-logo {
+    padding-left: 20px;
+    float: left;
+}
+
+#header-profile-options {
+    padding-right: 0;
+    float: right;
+    max-width: 80px;
+}
+
+
+.toolbar .breadcrumb li:after {
+    content: "";
+    padding: 0;
+    margin: 0;
+    font-size: 8px;
+    font-weight: bold;
+}
+
+input[type="text"] {
+    margin: 0;
+}
+
+.search-box-field{
+    padding-bottom: 5px;
+    padding-left: 40px;
+}
+
+
+.table {
+    margin:auto;
+    margin-bottom: 20px;
+}
+
+
+.table tr th {
+    font-size: 12px;
+    color: white;
+    background-color: #51617A;
+    font-weight: 400;
+    text-align: center;
+
+}
+
+
+.table tr {
+    border: 1px solid #dcdfe1;
+}
+
+.table tr td {
+    font-size: 10px;
+    color: black;
+    background-color: white;
+    text-align: center;
+}
+
+
+
+#project-result-text {
+    padding-left:20px;
+    font-size: 14px;
+}
+
+#all-rights-reserved {
+    padding-top: 16px;
+}
+
+.header-container span ul li {
+    padding-right: 0;
+    margin-right: 35px;
+    margin-bottom: 10px;
+    height: 21px;
+    cursor: pointer;
+}
+
+.header-container span ul li:hover {
+    border-bottom: 2px solid white;
+    font-weight: semi-bold;
+    text-decoration: none;
+}
+
+.header-container span ul li:active {
+    border-bottom: 2px solid white;
+    font-weight: semi-bold;
+    text-decoration: none;
+}
+
+.search-form .control-order-by {
+    margin-right:20px;
+}
+
+dataset-list {
+    padding-bottom: 20px;
+}
+
+.toolbar .breadcrumb .active a, .toolbar .breadcrumb a.active {
+    font-weight: bold;
+    color: #8b8b8b;
+}
+
+#profile_options {
+    margin-right: 15px;
+}
+
+#about-button {
+    margin-right: 15px;
+}
+
+.sub_nav_active {
+    color: #256c97;
+    font-weight: bold;
+    border-bottom: 2px solid #256c97;
+    text-decoration: none;
+}
+
+.add-project-element.icon-icon_add_parcel {
+    position: relative;
+    top: 20px;
+    right: -70px;
+    float: right
+}
+
+.filter-box {
+    background-color: white;
+    padding: 20px;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:active {
+    text-decoration: none;
+}
+
+a {
+    border:none;
+}
+
+.sort-box {
+    margin-right: 20px;
+}
+
+.search {
+    float:right;
+}
+
+.login-block {
+    border: 1px solid #dcdfe1;
+    padding-bottom:40px;
+    text-align:center;
+}
+
+.secondary-login-block {
+    background-color: white;
+    border: 1px solid #dcdfe1;
+    height: 50px;
+    text-align:center;
+}
+
+
+.loginMaskRow {
+    width: 370px;
+    margin: 15px auto;
+    height: 50px;
+    border: 1px solid #DBDBDA;
+
+}
+
+.loginMaskLabel {
+    font-size:16px;
+}
+
+.loginMaskInput {
+    width: 300px;
+    padding-left:20px;
+    position: relative;
+    z-index: 2;
+    border-style: solid;
+    border-radius: 0;
+    float: right;
+    height: 40px;
+}
+
+.loginMaskInput input:focus {
+    border: none;
+    outline:0;
+}
+
+.loginMaskRow:hover {
+    border: 1px solid #256C97;
+}
+
+.loginMaskRow:active {
+    border: 1px solid #256C97;
+}
+
+
+.add-account-button {
+    padding-top:18px;
+}
+
+.cadasta-button {
+    background-color: #256C97;
+    border: none;
+    color: white;
+    padding: 10px 30px 10px 30px;
+    margin-top: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* RW - Commenting this out for now.  Let's make the CSS selector more specific, so that we're only making the inputs on the Login Page (for example) this size.   */
+/*input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {*/
+    /*background-color: #ffffff;*/
+    /*border: 1px solid #cccccc;*/
+    /*-webkit-box-shadow: none;*/
+    /*border-radius: none;*/
+    /*-moz-box-shadow: none;*/
+    /*box-shadow: none;*/
+    /*-webkit-transition: none;*/
+    /*-moz-transition: none;*/
+    /*-o-transition: none;*/
+    /*transition: none;*/
+/*}*/
+
+
+#field-login {
+    height: 40px;
+    border-radius: 0;
+    border: none;
+   /* position: relative;
+    z-index: 2;
+    padding: 0;
+    width: 350px; */
+}
+
+
+input[type=checkbox] {
+    position: relative;
+    top: 0;
+    padding: 0;
+    margin: 0;
+    }
+
+#field-password input:focus {
+    border: none;
+    outline: 0;
+}
+
+
+#project-nav-bar li.active-nav {
+    color: #256c97;
+    font-weight: bold;
+    border-bottom: 2px solid #256c97;
+    text-decoration: none;
+}
+
+#content .project_content_inner_wrapper{
+
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #DBDBDA;
+
+}
+
+input[type="text"].register-input {
+    width: 356px;
+    height: 40px;
+    border: none;
+}
+
+input[type="text"].register-input :focus {
+    outline: 0;
+}
+
+.filter-box .filter-group{
+    
+}
+
+.filter-group label, .filter-group select {
+    display: inline;
+}
+
+.filter-box .left{
+    float:left;
+}
+
+.filter-box .right{
+    float:right;
+}
+
+
+.login-block textarea:focus, .login-block input[type="text"]:focus, .login-block input[type="password"]:focus, .login-block input[type="datetime"]:focus, .login-block input[type="datetime-local"]:focus, .login-block input[type="date"]:focus, .login-block input[type="month"]:focus, .login-block input[type="time"]:focus, .login-block input[type="week"]:focus, .login-block input[type="number"]:focus, .login-block input[type="email"]:focus, .login-block input[type="url"]:focus, .login-block input[type="search"]:focus, .login-block input[type="tel"]:focus, .login-block input[type="color"]:focus, .login-block .uneditable-input:focus {
+    border-color: #5EA9DD;
+}
+
+.login-block textarea, input[type="text"], .login-block input[type="password"], .login-block input[type="datetime"], .login-block input[type="datetime-local"], .login-block input[type="date"], .login-block input[type="month"], .login-block input[type="time"], .login-block input[type="week"], .login-block input[type="number"], .login-blockinput[type="email"], .login-block input[type="url"], .login-block input[type="search"], .login-block input[type="tel"], .login-block input[type="color"], .login-block .uneditable-input {
+    border: 1px solid #CCCCCB;
+}
+
+.login-block select, .login-block textarea, .login-block input[type="text"], .login-block input[type="password"], .login-block input[type="datetime"], .login-block input[type="datetime-local"], .login-block input[type="date"], .login-block input[type="month"], .login-block input[type="time"], .login-block input[type="week"], .login-block input[type="number"], .login-block input[type="email"], .login-block input[type="url"], .login-block input[type="search"], .login-block input[type="tel"], .login-block input[type="color"], .login-block .uneditable-input {
+    height: 40px;
+    line-height: 40px;
+    border-radius: 1px;
+}
+
+.login-block .form-horizontal .control-group {
+    margin-bottom: 30px;
+}
+
+.login-block .form-horizontal .controls {
+     margin-left: 0px;
+}
+
+.login-block .form-horizontal .control-label {
+    display: none;
+}
+
+.page-heading {
+    margin-top: 10px;
+    color: #256C97;
+    text-transform: uppercase;
+    font-size: 24pt;
+    font-weight: 400;
+}
+
+.login-block form{
+    margin: 20px 0 20px;
+}
+
+/* Add to CKAN flash-messages area for upload file messages*/
+.flash-messages.success {
+    -webkit-box-shadow: 0 0 0 1px #ffffff;
+    -moz-box-shadow: 0 0 0 1px #ffffff;
+    box-shadow: 0 0 0 1px #ffffff;
+
+    color: #468847;
+    background-color: #dff0d8;
+    border: 1px solid #d6e9c6;
+
+    padding: 10px;
+}
+
+.flash-messages.err {
+    -webkit-box-shadow: 0 0 0 1px #ffffff;
+    -moz-box-shadow: 0 0 0 1px #ffffff;
+    box-shadow: 0 0 0 1px #ffffff
+
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+
+    padding: 10px;
+
+}
+
+.parcel-details-table {
+    border:none;
+    margin:0 20px 20px 20px;
+    background-color:white;
+}
+
+
+.parcel-details-table th {
+    color: #444444;
+    background-color: white;
+    border-bottom: 1px solid #dcdfe1;
+    text-align: left;
+}
+
+
+.parcel-details-table td {
+    color: #444444;
+    background-color: white;
+    border-bottom: 1px solid #dcdfe1;
+    text-align: left;
+    line-height: 35px;
+
+}
+
+
+
+
+.parcel-details-content {
+display: inline-block;
+    text-align: left;
+    font-size: 10px;
+    border: 1px solid #dcdfe1;
+    text-align: top;
+    vertical-align: top;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    float: left;
+    background-color:white;
+    width:100%;
+}
+
+.right {
+    float: right;
+    margin-right:20px;
+}
+
+.project-primary-block{
+    /*border: 1px solid #dcdfe1;*/
+    background-color: white;
+    padding: 20px;
+    /* todo this should be updated so that the div expands as needed */
+    overflow: scroll;
+    height: 300px;
+}
+
+.header-primary {
+    background-color:white;
+    height: auto;
+    min-height: 500px;
+    border: 1px solid #dcdfe1;
+}
+
+
+.parcel-details-content .small-heading {
+    margin: 20px 0 0 20px;
+}
+
+#parcel-details-overview{
+    height: 150px;
+    margin: 15px;
+    color: rgb(93, 93, 93);
+}
+
+#parcel-details-overview .details-title {
+    font-weight: bold;
+}
+
+#parcel-details-overview .details-data {
+    margin: 0px 0px 0px 10px;
+}
+
+#parcel-details-overview .details{
+    margin: 15px 0px;
+}
+
+#parcel-details-overview .inline-details {
+    display: flex;
+}
+
+#parcel-details-overview table{
+    margin:20px;
+}
+
+#parcel-details-overview .id-title {
+    font-size: 24px;
+    text-transform: uppercase;
+    color: rgb(108,112,116);
+
+}
+
+#parcel-details-overview .owner {
+    font-size: 16px;
+    padding: 0px 0px 10px 0px;
+}
+
+#overview-background {
+    margin: 12px 12px 12px 12px;
+    height:auto;
+}
+
+#overview-background .parcel-details-return {
+    margin: 20px 12px 20px 10px;
+    font-weight: bold;
+}
+
+#form_upload_content {
+    margin: 20px 0 0 20px;
+}

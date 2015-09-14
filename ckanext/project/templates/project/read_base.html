@@ -1,0 +1,51 @@
+{% extends 'page.html' %}
+
+
+{% block content_action %}
+{% endblock %}
+
+{% block content_primary_nav %}
+
+<div id='project-title'>
+    <span class="project-title">{{ pkg.title }} </span>
+    {% block header_buttons %}
+     <span class="project-control-buttons-right">
+      <div class="icon-icon_edit"></div>
+      <div class="icon-icon_export"></div>
+      <!--{% if h.check_access('package_update', {'id':pkg.id }) %}-->
+            <!--{% link_for _(''), controller='package', action='edit', id=pkg.name, class_='button', icon='wrench' %}-->
+      <!--{% endif %}-->
+      <a href="/project/{{ pkg.name }}/form_data_upload"><div class="icon-icon_add"></div></a>
+    {% endblock %}
+     </span>
+
+
+    <div id="project-nav-bar">
+
+        {% block primary_nav_tabs %}
+        <li class="active-nav">OVERVIEW</li>
+        <li><a  href='{{ pkg.name }}/parcels'>PARCELS</a></li>
+        <li><a  href='{{ pkg.name }}/map'>MAP</a></li>
+        <li><a  href='{{ pkg.name }}/surveys'>SURVEYS</a></li>
+        <li><a  href='{{ pkg.name }}/resources'>RESOURCES</a></li>
+        <li><a  href='{{ pkg.name }}/activity_stream'>ACTIVITY STREAM</a></li>
+        {% endblock %}
+    </div>
+
+</div>
+{% endblock %}
+
+{% block primary_content_inner %}
+{% endblock %}
+
+{% block secondary_content %}
+{% endblock %}
+
+
+{% block links %}
+<!--todo move script tags to a better place-->
+<script src='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.css' rel='stylesheet' />
+<link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.2/leaflet.draw.css' rel='stylesheet' />
+<script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.2/leaflet.draw.js'></script>
+{% endblock %}

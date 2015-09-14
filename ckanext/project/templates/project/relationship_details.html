@@ -1,0 +1,74 @@
+{% extends "project/read.html" %}
+
+{% set pkg = c.pkg_dict %}
+
+
+{% set logged_in = true if c.userobj else false %}
+
+{% block breadcrumb_content_selected %}{% endblock %}
+{% block breadcrumb_content %}
+  {{ super() }}
+  <li><div class="icon-lnr-chevron-right"></div></li>
+  <a href="/dataset/{{c.id}}/parcel/{{ c.parcel_id }}"> {{ c.parcel_id }}</a>
+  <li><div class="icon-lnr-chevron-right"></div></li>
+  <a class="active" href="/dataset/{{c.id}}/parcel/{{ c.parcel_id }}/relationship/{{c.relationship_id}}"> {{ c.relationship_id}} </a>
+
+{% endblock %}
+
+{% block content_action %}
+    <a href='/project/{{c.id}}/parcel/{{ c.parcel_id }}/edit_relationship/{{c.relationship_id}}'> Edit Relationship </a>
+
+{% endblock %}
+
+{% block content_primary_nav %}
+
+{% endblock %}
+
+{% block primary_content_inner %}
+<table id="personDetailsTable" class="table">
+        <thead>
+            <tr>
+                <th>Field</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+              <td>First Name: </td>
+              <td> {{relationship.parcel_id}} </td>
+            </tr>
+            <tr>
+              <td>Last Name: </td>
+              <td> {{relationship.person_id}} </td>
+            </tr>
+            <tr>
+              <td>City: </td>
+              <td> {{relationship.tenure_type}} </td>
+            </tr>
+            <tr>
+              <td>State: </td>
+              <td> {{relationship.acquired_date}} </td>
+            </tr>
+            <tr>
+              <td>Zipcode: </td>
+              <td> {{relationship.how_acquired}} </td>
+            </tr>
+            <tr>
+              <td>Email: </td>
+              <td>{{relationship.time_created}} </td>
+            </tr>
+        </tbody>
+      </table>
+
+
+
+  {% block form %}{% endblock %}
+{% endblock %}
+
+{% block secondary_content %}
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+{% endblock %}
+

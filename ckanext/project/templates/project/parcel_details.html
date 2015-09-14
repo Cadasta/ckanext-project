@@ -1,0 +1,91 @@
+{% extends "project/read_base.html" %}
+
+{% set pkg = c.pkg_dict %}
+
+{% set logged_in = true if c.userobj else false %}
+
+
+{% block breadcrumb_content %}
+  {{ super() }}
+  <li><div class="icon-lnr-chevron-right"></div></li>
+  <a class='active' href="/dataset/{{c.id}}/parcel/{{ c.parcel_id }}"> {{ c.parcel_id }}</a>
+{% endblock %}
+
+
+
+  {% block content_primary_nav %}
+
+  <div id='project-title'>
+     <span class="project-title">{{ pkg.title }} </span>
+
+    <div id="project-nav-bar">
+
+    {% block primary_nav_tabs %}
+          <li><a  href="/project/{{ pkg.name }}">OVERVIEW</a></li>
+          <li class="active-nav">PARCELS</li>
+          <li><a href='../map'>MAP</a></li>
+          <li><a  href='../surveys'>SURVEYS</a></li>
+          <li><a  href='../resources'>RESOURCES</a></li>
+          <li><a  href='../activity_stream'>ACTIVITY STREAM</a></li>
+    {% endblock %}
+    </div>
+
+  </div>
+  {% endblock %}
+
+
+{% block primary_content_inner %}
+
+  <div class="parcel-details-return"><a href="/project/{{ pkg.name }}/parcels">< Back to Parcels list</a>
+   <span class="right">
+      <div class="icon-icon_edit"></div>
+      <div class="icon-icon_export"></div>
+      <!--{% if h.check_access('package_update', {'id':pkg.id }) %}-->
+            <!--{% link_for _(''), controller='package', action='edit', id=pkg.name, class_='button', icon='wrench' %}-->
+      <!--{% endif %}-->
+      <a href="/project/{{ pkg.name }}/form_data_upload"><div class="icon-icon_add"></div></a>
+     </span>
+  </div>
+
+  <div id='project-desc' class="project-block">
+
+         <!--<span class="small-heading">PARCEL DETAILS</span>-->
+      <a class='right' href='/project/{{c.id}}/edit_parcel/{{ c.parcel_id }}' >...</a>
+
+      <div id="nunjuck-parcel-details-list"></div>
+
+  </div>
+
+  <div class='project-block' id="project-extent">
+
+
+
+    <div id='parcel_map'></div>
+    <!--<meta id="small_map_data" data-obj="{{ parcel_geom }}">-->
+    <meta id="small_popup_url" data-obj="http://50.112.108.132:5000/dataset/{{ pkg.name }}/parcel/">
+  </div>
+
+
+
+
+{% endblock %}
+
+{% block secondary_content %}
+    <div id="project-content">
+
+        <div id="nunjuck-parcel-details-history"></div>
+
+        <div id="nunjuck-parcel-details-relationships"></div>
+
+        <div id="nunjuck-parcel-details-resources"></div>
+
+
+    </div>
+
+    {% resource 'project/nunjucksmin.js' %}
+    {% resource 'project/nunjucks_js/parcel_details.js' %}
+    {% resource 'project/customCSS.css' %}
+{% endblock %}
+
+
+

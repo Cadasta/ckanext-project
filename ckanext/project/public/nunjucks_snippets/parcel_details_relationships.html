@@ -1,0 +1,33 @@
+
+        <div class="parcel-details-content">
+             <a class="small-heading" href="{{ c.parcel_id }}/relationship_history">RELATIONSHIP HISTORY</a>
+            <a class='right' href='/project/{{c.id}}/parcel/{{ c.parcel_id }}/new/relationship'> ... </a>
+
+         <table class="parcel-details-table">
+            <thead>
+                <tr>
+                    <th>RELATIONSHIP ID</th>
+                    <th>TYPE</th>
+                    <th>PARTY ID</th>
+                    <th>NAME</th>
+                    <th>DATE CREATED</th>
+                    <th>DATE UPDATED</th>
+                    <th>IMAGE</th>
+                </tr>
+            </thead>
+            <tbody>
+             {% for relationship in parcel_relationships %}
+                <tr>
+                  <td><a href='/project/{{c.id}}/parcel/{{ c.parcel_id }}/relationship/{{relationship.relationship_id}}' > {{ relationship.relationship_id }} </a></td>
+                  <td> {{ relationship.relationship_type }} </td>
+                  <td><a href='/project/{{c.id}}/party/{{ relationship.party_id }}' > {{ relationship.party_id }} </a></td>
+                  <td> {{ relationship.first_name }} {{ relationship.last_name }} </td>
+                  <td> {{ relationship.time_created }} </td>
+                  <td> {{ relationship.time_updated }} </td>
+                  <td> View Map </td>
+
+                </tr>
+              {% endfor %}
+            </tbody>
+         </table>
+        </div>

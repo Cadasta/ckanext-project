@@ -42,6 +42,7 @@ class projectPlugin(plugins.SingletonPlugin, lib_plugins.DefaultDatasetForm):
     def update_config(self, config):
         tk.add_template_directory(config, 'templates')
         tk.add_public_directory(config, 'public')
+        tk.add_resource('fanstatic', 'project')
         # If ckan is more than 2.3, use the 2.4+ toolkit method
         if not tk.check_ckan_version(max_version='2.3'):
             tk.add_ckan_admin_tab(config, 'ckanext_project_admins', 'project Config')
@@ -139,8 +140,85 @@ class projectPlugin(plugins.SingletonPlugin, lib_plugins.DefaultDatasetForm):
                       action='manage_project_admins', ckan_icon='picture'),
             m.connect('ckanext_project_admin_remove', '/ckan-admin/project_admin_remove',
                       action='remove_project_admin')
+
+    #rerouting existing CKAN routes
         map.redirect('/projects', '/project')
         map.redirect('/projects/{url:.*}', '/project/{url}')
+
+
+        map.redirect('/group/{url:.*}', '/organization/{url}',
+                     _redirect_code='301 Moved Permanently')
+        map.redirect('/group', '/organization',
+                     _redirect_code='301 Moved Permanently')
+        map.redirect('/groups/{url:.*}', '/organization/{url}',
+                     _redirect_code='301 Moved Permanently')
+        map.redirect('/groups', '/organization',
+                     _redirect_code='301 Moved Permanently')
+
+        map.redirect('/dataset/{url:.*}', '/project/{url}',
+                     _redirect_code='301 Moved Permanently')
+        map.redirect('/dataset', '/project',
+                     _redirect_code='301 Moved Permanently')
+        map.redirect('/datasets/{url:.*}', '/project/{url}',
+                     _redirect_code='301 Moved Permanently')
+        map.redirect('/datasets', '/project',
+                     _redirect_code='301 Moved Permanently')
+        map.redirect('/projects', '/project',
+                      _redirect_code='301 Moved Permanently')
+
+
+      #new_routes
+
+        controller = 'ckanext.project.upload_controller:Upload_Controller'
+        parcel_controller = 'ckanext.project.parcel_controller:Parcel_Controller'
+        map_controller = 'ckanext.project.map_controller:Map_Controller'
+        relationship = 'ckanext.project.relationship_controller:Cadasta_Relationship_Controller'
+
+
+        #project
+        map.connect('project_surveys', '/project/{id}/surveys', controller=controller, action='show_surveys')
+        map.connect('project_parcels', '/project/{id}/parcels', controller=parcel_controller, action='read_parcels')
+        map.connect('project_resources', '/project/{id}/resources', controller=controller, action='read_resources')
+        map.connect('project_activity_stream', '/project/{id}/activity_stream', controller=controller, action='read_activity_stream')
+        map.connect('project_survey_template', '/project/{id}/survey_template', controller=controller, action='read_survey_template')
+        map.connect('project_form_data_upload', '/project/{id}/form_data_upload', controller=controller, action='form_data_upload')
+
+
+        #big map
+        map.connect('project_map', '/project/{id}/map', controller=map_controller, action='show_map')
+        map.connect('edit_project_map', '/project/{id}/edit_map', controller=map_controller, action='edit_map')
+        map.connect('show_parcel_map', '/project/{id}/parcel/{parcel_id}/map', controller=map_controller, action='show_parcel_map')
+        map.connect('edit_parcel_map', '/project/{id}/edit_parcel/{parcel_id}/map', controller=map_controller, action='edit_parcel_map')
+        map.connect('new_parcel_map', '/project/{id}/new/parcel/map', controller=map_controller, action='new_parcel_map')
+
+        map.connect('show_relationship_map', '/project/{id}/parcel/{parcel_id}/relationship/{relationship_id}/map', controller=relationship, action='show_relationship_map')
+        map.connect('edit_relationship_map', '/project/{id}/parcel/{parcel_id}/edit_relationship/{relationship_id}/map', controller=relationship, action='edit_relationship_map')
+        map.connect('new_relationships_map', '/project/{id}/parcel/{parcel_id}/new/relationship/map', controller=relationship, action='new_relationship_map')
+
+
+
+        #parcels
+        map.connect('parcel_details', '/project/{id}/parcel/{parcel_id}', controller=parcel_controller, action='read_parcel_details')
+        map.connect('edit_parcel_details', '/project/{id}/edit_parcel/{parcel_id}', controller=parcel_controller, action='edit_parcel_details')
+        map.connect('new_parcel', '/project/{id}/new/parcel', controller=parcel_controller, action='new_parcel')
+
+        #surveys
+        map.connect('survey_details', '/project/{id}/survey/{survey_id}', controller=controller, action='read_survey_details')
+        map.connect('edit_survey_details', '/project/{id}/edit_survey/{survey_id}', controller=controller, action='edit_survey_details')
+
+        #relationship
+        map.connect('relationship_details', '/project/{id}/parcel/{parcel_id}/relationship/{relationship_id}', controller=relationship, action='read_relationship_details')
+        map.connect('edit_relationship_details', '/project/{id}/parcel/{parcel_id}/edit_relationship/{relationship_id}', controller=relationship, action='edit_relationship_details')
+        map.connect('new_relationship', '/project/{id}/parcel/{parcel_id}/new/relationship', controller=relationship, action='new_relationship')
+        map.connect('relationship_history', '/project/{id}/parcel/{parcel_id}/relationship_history', controller=relationship, action='get_relationship_history')
+
+        #people/parties
+        map.connect('party', '/project/{id}/party/{party_id}', controller=controller, action='read_party_details')
+        map.connect('edit_party_details', '/project/{id}/edit_party/{party_id}', controller=controller, action='edit_party_details')
+        map.connect('new_party', '/project/{id}/new/party', controller=controller, action='new_party')
+
+
+
         return map
 
     # IActions

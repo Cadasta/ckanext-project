@@ -1,0 +1,16 @@
+<ul id="activity-list">
+    {% if features %}
+        {% for activity in features %}
+
+            {% if activity.properties.activity_type == 'parcel' %}
+               <li class="activity-block block"><span class="bold">Parcel {{ activity.properties.id }}</span> was created at <span class="link">{{ activity.properties.time_created }}</span> </li>
+
+            {% elif activity.properties.activity_type == 'party' %}
+               <li class="activity-block block"><span class="bold">Party {{ activity.properties.name }}</span> was created at <span class="link">{{ activity.properties.time_created }}</span> </li>
+
+            {% elif activity.properties.activity_type == 'relationship' %}
+               <li class="activity-block block">Relationship between <span class="bold"> {{ activity.properties.name }}</span> and <span class="bold"> parcel {{ activity.properties.id }} </span> was created at <span class="link">{{ activity.properties.time_created }}</span> </li>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+</ul>

@@ -1,0 +1,165 @@
+{% extends "project/read_base.html" %}
+
+{% set pkg = c.pkg_dict %}
+
+{% block breadcrumb_content %}
+  {{ super() }}
+  <li><div class="icon-lnr-chevron-right"></div></li>
+  <a class='active' href="/dataset/{{c.id}}/upload_form_data"> Form Data Upload</a>
+{% endblock %}
+
+{% block primary_nav_tabs %}
+      <li><a  href="/project/{{ pkg.name }}">OVERVIEW</a></li>
+      <li><a  href='parcels'>PARCELS</a></li>
+      <li><a  href='map'>MAP</a></li>
+      <li><a  href='surveys'>SURVEYS</a></li>
+      <li><a  href='resources'>RESOURCES</a></li>
+      <li><a  href='activity_stream'>ACTIVITY STREAM</a></li>
+{% endblock %}
+
+  {% block primary_content_inner %}
+<div id="form_upload_content">
+
+    <div class="small-heading">
+        Test Upload Form
+    </div>
+    <div>
+        Use the forms below to upload test CSV, GeoJSON and ONA files to the API Ingestion endpoints.<br>
+        * Note: Only files with specific column names will work.<br>
+    </div>
+
+
+    <div>
+        <span>CSV Test</span>
+        <form id="CSV_Form" action="." method="POST" enctype="multipart/form-data">
+            <input type="file" name="file_upload">
+            <button type="submit" class="btn">Submit</button>
+        </form>
+
+    </div>
+
+    <div>
+        <span>GeoJSON Test</span>
+        <form id="GEOJSON_Form" action="." method="POST" enctype="multipart/form-data">
+            <input type="file" name="file_upload">
+            <button type="submit" class="btn">Submit</button>
+        </form>
+    </div>
+
+    <div>
+        <span>ONA Test</span>
+        <form id="ONA_Form" action="." method="POST" enctype="multipart/form-data">
+            <input type="file" name="file_upload">
+            <button type="submit" class="btn">Submit</button>
+        </form>
+    </div>
+
+    <div>
+        <span>S3 Test</span>
+        <form id="S3_Form" action="." method="POST" enctype="multipart/form-data">
+            <input type="file" name="filedata">
+            <button type="submit" class="btn">Submit</button>
+        </form>
+    </div>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+
+            $('#CSV_Form').submit(function (e) {
+                var data = new FormData(this);
+
+                $.ajax({
+                    url: 'http://54.69.121.180:3000/providers/csv/load',
+                    type: 'POST',
+                    data: new FormData(this),
+                    processData: false,
+                    contentType: false,
+                    success: handlePOSTResult
+                });
+                e.preventDefault();
+            });
+
+
+            $('#GEOJSON_Form').submit(function (e) {
+                $.ajax({
+                    url: 'http://54.69.121.180:3000/providers/geojson/load',
+                    type: 'POST',
+                    data: new FormData(this),
+                    processData: false,
+                    contentType: false,
+                    success: handlePOSTResult
+                });
+                e.preventDefault();
+            });
+
+
+            $('#ONA_Form').submit(function (e) {
+                $.ajax({
+                    url: 'http://54.69.121.180:3000/providers/ona/load',
+                    type: 'POST',
+                    data: new FormData(this),
+                    processData: false,
+                    contentType: false,
+                    success: handlePOSTResult
+                });
+                e.preventDefault();
+            });
+
+            $('#S3_Form').submit(function (e) {
+                var data = new FormData(this);
+
+                $.ajax({
+                    url: 'http://54.69.121.180:3000/resources/1/parcel/3',
+                    type: 'POST',
+                    data: new FormData(this),
+                    processData: false,
+                    contentType: false,
+                    success: handlePOSTResult,
+                    error:function(err){
+                        console.log(err)
+                    }
+                });
+                e.preventDefault();
+            });
+        });
+        
+        function handlePOSTResult(data) {
+
+            if (data && (data.status || data.message)) {
+                if (data.status == 'Data Loaded.' || data.message == "Thanks for the upload.") {
+                    //Show message
+                    showStatusMessage("Data upload successful.", "success");
+
+                    setTimeout(function(){
+                        //...and redirect to parcels list after 3 seconds
+                        window.location = "parcels";
+                    }, 3000)
+
+                }
+            }
+            else {
+                //Show err message
+                showStatusMessage("Houston, we've had a problem here.", "err");
+            }
+        }
+
+        /***
+         *
+         * @param message
+         * @param status - string.  success, warning, err
+         */
+        function showStatusMessage (message, status) {
+            //Show message on screen
+            $(".flash-messages").html(message).addClass(status).show();
+        }
+
+
+    </script>
+
+</div>
+  {% endblock %}
+
+{% block secondary_content %}
+{% endblock %}

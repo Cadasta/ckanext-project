@@ -1,102 +1,54 @@
-{% extends "page.html" %}
+{% extends "project/read_base.html" %}
 
 {% set pkg = c.pkg_dict %}
-{% set name = pkg.title or pkg.name %}
-
-{% block subtitle %}{{ pkg.title or pkg.name }} - {{ _('projects') }}{% endblock %}
-
-{% block styles %}
-  {{ super() }}
-  <link rel="stylesheet" href="/ckanext_project.css" />
-{% endblock %}
-
-{% block links -%}
-  {{ super() }}
-  <link rel="alternate" type="application/rdf+xml" href="{{ h.url_for(controller='ckanext.project.controller:projectController', action='read', id=pkg.id, format='rdf', qualified=True) }}"/>
-{% endblock -%}
-
-{% block head_extras -%}
-  {{ super() }}
-  {% set description = h.markdown_extract(pkg.notes, extract_length=200)|forceescape %}
-  <meta property="og:title" content="{{ h.dataset_display_name(pkg) }} - {{ g.site_title }}">
-  <meta property="og:description" content="{{ description }}">
-  <meta property="og:url" content="{{ h.full_current_url() }}">
-  {% if pkg.image_display_url %}
-     <meta property="og:image" content="{{ pkg.image_display_url }}">
-  {% endif %}
-{% endblock -%}
-
-{% block breadcrumb_content_selected %} class="active"{% endblock %}
 
 {% block breadcrumb_content %}
-    {% set project = pkg.title or pkg.name %}
-    <li>{{ h.nav_link(_('projects'), controller='ckanext.project.controller:projectController', action='search', highlight_actions = 'new index') }}</li>
-    <li{{ self.breadcrumb_content_selected() }}>{% link_for project|truncate(30), controller='ckanext.project.controller:projectController', action='read', id=pkg.name %}</li>
+{{ super() }}
+<li><div class="icon-lnr-chevron-right"></div></li>
+<a class='active' href="/dataset/{{c.id}}">Project Overview</a>
 {% endblock %}
 
-{% block page_header %}
-{% endblock %}
-
-{% block pre_primary %}
-{% endblock %}
 
 {% block primary_content_inner %}
-  {% if h.check_access('ckanext_project_update', {'id':pkg.id }) %}
-    <div class="actions">
-    {% link_for _('Manage'), controller='ckanext.project.controller:projectController', action='edit', id=pkg.name, class_='btn', icon='wrench' %}
-    </div>
-  {% endif %}
-  {% block package_description %}
-    {% if pkg.private %}
-      <span class="dataset-private label label-inverse pull-right">
-        <i class="icon-lock"></i>
-        {{ _('Private') }}
-      </span>
-    {% endif %}
-    <h1>
-      {% block page_heading %}
-        {{ name }}
-        {% if pkg.state.startswith('draft') %}
-          [{{ _('Draft') }}]
-        {% endif %}
-      {% endblock %}
-    </h1>
+<div id="project-header">
 
-    {% if pkg.image_display_url %}
-      <p class="ckanext-project-image-container"><img src="{{ pkg.image_display_url }}" alt="{{ name }}" class="media-image ckanext-project-image"></p>
-    {% endif %}
+  <div id='project-desc' class="project-block">
+    <span class="small-heading">DESCRIPTION</span>
+    <div class="description">{{pkg.notes}}</div>
+  </div>
 
-    {% block package_notes %}
-      {% if pkg.project_notes_formatted %}
-        <div class="notes embedded-content ckanext-project-notes">
-          {{ pkg.project_notes_formatted }}
-        </div>
-      {% endif %}
+  <div id="project-extent">
+
+    <div id='small_map'></div>
+    <!--<meta id="small_map_data" data-obj="{{all_parcels}}">-->
+    <meta id="small_popup_url" data-obj="http://50.112.108.132:5000/dataset/{{ pkg.name }}/parcel/">
+
+
+
     {% endblock %}
 
-    {% if pkg.url %}
-      <p><a class="btn btn-primary ckanext-project-launch" href="{{ pkg.url }}" target="_blank"><i class="icon-external-link"></i> {{ _('Launch website') }}</a></p>
-    {% endif %}
 
-  {% endblock %}
+    {% block secondary_content %}
+    <div id="project-content">
+      <div class='project-block' id="project-activity-summary">
+        <span class="small-heading">LATEST ACTIVITY</span>
 
-  {% block package_tags %}
-    {% snippet "project/snippets/tags.html", tags=pkg.tags %}
-  {% endblock %}
+        <!-- Use Nunjucks templates here in .js -->
+        <div id="nunjuck-activity-list"></div>
+      </div>
 
-  {% block package_search_results_list %}
-  {% endblock %}
+      <div class='project-block' id="project-resource-summary">
+        <span class="small-heading">{{ _('PROJECT RESOURCES') }}</span>
+        <div id="nunjuck-resource-list"></div>
+      </div>
+    </div>
 
-{% endblock %}
+    {% resource 'project/nunjucksmin.js' %}
+    {% resource 'project/nunjucks_js/activity_list.js' %}
+    {% resource 'project/nunjucks_js/resource_list.js' %}
+    {% resource 'project/map.js' %}
 
-{% block secondary_content %}
-  {% block secondary_help_content %}{% endblock %}
+    {% endblock %}
 
-  {% block package_info %}
-    {% snippet 'project/snippets/project_info.html', pkg=pkg %}
-  {% endblock %}
 
-  {% block package_social %}
-    {% snippet "snippets/social.html" %}
-  {% endblock %}
-{% endblock %}
+

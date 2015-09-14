@@ -1,0 +1,39 @@
+{% ckan_extends %}
+
+
+  {% block meta %}
+    {{ super() }}
+    <meta charset=utf-8 />
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.css' rel='stylesheet' />
+    <link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.2/leaflet.draw.css' rel='stylesheet' />
+    <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.2/leaflet.draw.js'></script>
+  {% endblock %}
+
+
+
+{% block subtitle %}{{ _('Projects') }}{% endblock %}
+
+{% block breadcrumb_content %}
+  {% if pkg %}
+    {% set dataset = pkg.title or pkg.name %}
+    {% if pkg.organization %}
+      {% set organization = pkg.organization.title or pkg.organization.name %}
+      <li><div class="icon-lnr-chevron-right"></div></li>
+      <li>{% link_for _('Organizations'), controller='organization', action='index' %}</li>
+      <li><div class="icon-lnr-chevron-right"></div></li>
+      <li>{% link_for organization|truncate(30), controller='organization', action='read', id=pkg.organization.name %}</li>
+    {% else %}
+      <li><div class="icon-lnr-chevron-right"></div></li>
+      <li>{% link_for _('Projects'), controller='package', action='search' %}</li>
+    {% endif %}
+    <li><div class="icon-lnr-chevron-right"></div></li>
+    <li{{ self.breadcrumb_content_selected() }}>{% link_for dataset|truncate(30), controller='package', action='read', id=pkg.name %}</li>
+  {% else %}
+    <li><div class="icon-lnr-chevron-right"></div></li>
+    <li>{% link_for _('Datasets'), controller='package', action='search' %}</li>
+    <li><div class="icon-lnr-chevron-right"></div></li>
+    <li class="active"><a href="">{{ _('Create Projects') }}</a></li>
+  {% endif %}
+{% endblock %}

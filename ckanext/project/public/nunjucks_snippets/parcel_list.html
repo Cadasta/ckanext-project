@@ -1,0 +1,32 @@
+
+
+<table id="parcelsTable" class="table">
+<thead>
+    <tr>
+        <th>Parcel ID</th>
+        <th>Area</th>
+        <th>Number of Active Relationships</th>
+        <th>Date Created</th>
+
+    </tr>
+</thead>
+<tbody>
+
+
+{% if features %}
+  {% for parcel in features %}
+    <tr>
+      <td><a href='parcel/{{ parcel.properties.id }}'>{{ parcel.properties.id }}</a></td>
+      <td> {{ parcel.properties.area if parcel.properties.area else "N/A"  }} </td>
+      <td> {{ parcel.properties.num_relationships }} </td>
+      <td> {{ parcel.properties.time_created }} </td>
+    </tr>
+  {% endfor %}
+
+{% else %}
+    <tr>
+      <td colspan="4">No parcels found.</td>
+    </tr>
+{% endif %}
+</tbody>
+</table>
