@@ -1,0 +1,4 @@
+**.pyc
+ckanext_project.egg*
+
+.idea/
