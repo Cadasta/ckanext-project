@@ -69,7 +69,7 @@ Development Installation
 To install ckanext-project for development, activate your CKAN virtualenv and
 do::
 
-    git clone https://github.com/ckan/ckanext-project.git
+    git clone https://github.com/Cadasta/ckanext-project
     cd ckanext-project
     python setup.py develop
     pip install -r dev-requirements.txt
