@@ -54,26 +54,26 @@
                     </div>
                     <div id="sub-nav">
                         {% if c.userobj %}
-                        <div>
+                        <div class="dropdown-item">
                             <a href="{{ h.url_for(controller='user', action='read', id=c.userobj.name) }}" class="image"
                                title="{{ _('View profile') }}">View Profile</a>
                         </div>
-                        <div>
+                        <div class="dropdown-item">
                             <a href="{{ h.url_for(controller='user', action='edit', id=c.userobj.name) }}"
                                title="{{ _('Edit settings') }}">Cadasta Settings</a>
                         </div>
-                        <div>
+                        <div class="dropdown-item">
                             Change Language
                         </div>
-                        <div>
+                        <div class="dropdown-item">
                             <a href="{{ h.url_for('/user/_logout') }}" title="{{ _('Log out') }}">Log out</a>
                         </div>
                         {% else %}
-                        <div>
+                        <div class="dropdown-item">
                             <li>{% link_for _('Log in'), controller='user', action='login' %}</li>
                         </div>
                         {% if h.check_access('user_create') %}
-                        <div>
+                        <div class="dropdown-item">
                             <li>{% link_for _('Register'), controller='user', action='register', class_='sub' %}</li>
                         </div>
                         {% endif %}
