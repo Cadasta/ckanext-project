@@ -7,19 +7,22 @@
         <thead>
         <tr>
             <th>TYPE</th>
-            <th>NAME</th>
+            <th>DESCRITPION</th>
             <th>DATE CREATED</th>
             <th>AUTHOR</th>
         </tr>
         </thead>
         <tbody>
+        {{parcel_resources}}
+        {% for resource in parcel_resources %}
         <tr>
-            <td> Photo </td>
-            <td> Map of parcel boundary </td>
-            <td> 9/10/2015 </td>
-            <td> John Smith </td>
+            <td> {{ resource.properties.type }} </td>
+            <td> {{ resource.properties.description }} </td>
+            <td> {{ resource.properties.time_created }} </td>
+            <td><a href="{{ resource.properties.url }}">Download</a></td>
+            <td> View Map </td>
         </tr>
-
+        {% endfor %}
         </tbody>
     </table>
 </div>

@@ -3,6 +3,9 @@ L.mapbox.accessToken = 'pk.eyJ1Ijoic2JpbmRtYW4iLCJhIjoiaENWQnlrVSJ9.0DQyCLWgA0j8
 
 $(document).ready(function() {
 
+    if (map){
+        map.remove();
+    }
     var map = L.mapbox.map('parcel_map', 'mapbox.streets');
 
     var featureGroup = L.featureGroup().addTo(map);
@@ -45,7 +48,26 @@ $(document).ready(function() {
     var parcel_id_url = parseInt(document.URL.split('/')[document.URL.split('/').length-1]);
     //Hit API and get back response
     var url = "http://54.69.121.180:3000/parcels/" + parcel_id_url + "/details";
+    var resource_url = "http://54.69.121.180:3000/show_parcel_resources?parcel_id=" + parcel_id_url;
     //TODO do we need to get the dynamic parcel number from the url?
+
+    $.ajax(resource_url).done(function (response) {
+
+
+        var parcel_resources = response.features;
+
+        console.log(parcel_resources);
+
+        response.features.forEach(function(resource) {
+            resource.properties.time_created = format_date(resource.properties.time_created);
+        })
+
+        var res = nunjucks.render('parcel_details_resources.html', {parcel_resources:parcel_resources});
+        $("#nunjuck-parcel-details-resources").html(res);
+
+    }).fail(function () {
+            //err
+        });
 
     $.ajax(url).done(function (response) {
         //success
@@ -64,19 +86,17 @@ $(document).ready(function() {
                 }
             });
 
-        var parcel_layer = L.geoJson(response, {
-            style: function (feature) {
-                return {color: 'black'};
-            },
-            onEachFeature: function (feature, layer) {
-                layer.bindPopup("<a href="+ layer.feature.properties.id + ">See Parcel Details</a>");
-            }
-        });
+            var parcel_layer = L.geoJson(response, {
+                style: function (feature) {
+                    return {color: 'black'};
+                },
+                onEachFeature: function (feature, layer) {
+                    layer.bindPopup("<a href="+ layer.feature.properties.id + ">See Parcel Details</a>");
+                }
+            });
 
-        parcel_layer.addTo(parcelsFeatureGroup);
-        map.fitBounds(parcelsFeatureGroup.getBounds());
-
-
+            parcel_layer.addTo(parcelsFeatureGroup);
+            map.fitBounds(parcelsFeatureGroup.getBounds());
 
 
             var res = nunjucks.render('parcel_details.html', {parcel_details:parcel_details});

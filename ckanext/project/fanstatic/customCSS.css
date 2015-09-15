@@ -61,11 +61,11 @@ body {
 }
 
 
-table {
-    text-align:center;
-    border: 1px solid #dcdfe1;
-    width:90%
-}
+/*table {*/
+    /*text-align:center;*/
+    /*border: 1px solid #dcdfe1;*/
+    /*width:90%*/
+/*}*/
 
 
 .inline-block {
@@ -377,7 +377,7 @@ footer {
 
 #project-header {
     height:315px;
-    margin: 40px 0 0 0;
+    margin: 40px 12px 12px 12px;
 }
 
 #project-nav-bar li {
@@ -558,7 +558,8 @@ input[type="text"] {
 
 
 .table tr {
-    border: 1px solid #dcdfe1;
+    border-bottom: 1px solid #dcdfe1;
+    border-top: 1px solid #dcdfe1;
 }
 
 .table tr td {
@@ -879,7 +880,6 @@ input[type="text"].register-input :focus {
 .parcel-details-table th {
     color: #444444;
     background-color: white;
-    border-bottom: 1px solid #dcdfe1;
     text-align: left;
 }
 
@@ -887,7 +887,6 @@ input[type="text"].register-input :focus {
 .parcel-details-table td {
     color: #444444;
     background-color: white;
-    border-bottom: 1px solid #dcdfe1;
     text-align: left;
     line-height: 35px;
 
@@ -936,6 +935,10 @@ display: inline-block;
     margin: 20px 0 0 20px;
 }
 
+.parcel-details-content .parcel-details-table {
+    width:90%;
+}
+
 #parcel-details-overview{
     height: 150px;
     margin: 15px;
@@ -975,7 +978,7 @@ display: inline-block;
 }
 
 #overview-background {
-    margin: 12px 12px 12px 12px;
+    margin: 0 auto;
     height:auto;
 }
 
@@ -986,4 +989,22 @@ display: inline-block;
 
 #form_upload_content {
     margin: 20px 0 0 20px;
+}
+
+
+#activity-list li div {
+    display:inline-block;
+    margin-top:9px;
+}
+
+#project-activity-summary .small-heading {
+    padding-bottom:0;
+}
+
+#summary-list {
+    margin: 10px 0 0 25px;
+}
+
+#summary-list li {
+    width:60%;
 }
