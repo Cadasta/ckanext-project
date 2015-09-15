@@ -1,2 +1,2 @@
-*pyc
+*.pyc
 ckanext_project.egg*

@@ -1013,3 +1013,21 @@ display: inline-block;
 #field-remember {
     float:none;
 }
+
+.user-headers {
+    font-size: 24px;
+    font-weight: 500;
+    color: #256C97;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.no-nav .module:last-child {
+    margin-top: 0;
+    background-color: white;
+    border: 1px solid #dcdfe1;
+}
+
+.controls > .radio:first-child, .controls > .checkbox:first-child {
+    padding-top: 5px;
+    font-weight: 400;
+}

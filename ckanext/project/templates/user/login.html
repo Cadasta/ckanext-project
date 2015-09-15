@@ -12,7 +12,7 @@
 {% block primary_content %}
     <div class="login-block">
 
-        <h3>LOGIN</h3>
+        <h3 class="user-headers">LOGIN</h3>
 
       {% block form %}
         {% snippet "user/snippets/login_form.html", action=c.login_handler, error_summary=error_summary %}

@@ -30,9 +30,9 @@ Example:
 {#    <div id="loginRememberUser">#}
 {#        <input  type="checkbox" class="remember-user" autofocus/> Remember Me#}
 {#    </div>#}
-    {{ form.input('login', label=_('label'), id='field-login', value="", error=username_error, classes=[]) }}
+    {{ form.input('login', label=_('label'), id='field-login', placeholder="Username", value="", error=username_error, classes=[]) }}
 
-    {{ form.input('password', label=_("Password"), id='field-password', type="password", value="", error=password_error, classes=[]) }}
+    {{ form.input('password', label=_("Password"), id='field-password', type="password", placeholder="Password", value="", error=password_error, classes=[]) }}
 
     {{ form.checkbox('remember', label=_("Remember me"), id='field-remember', checked=true, value="63072000") }}
 

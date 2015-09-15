@@ -29,8 +29,8 @@
     {% endblock %}
 
     {% block package_basic_fields_tags %}
-    {% set tag_attrs = {'data-module': 'autocomplete', 'data-module-tags': '', 'data-module-source': '/api/2/util/tag/autocomplete?incomplete=?'} %}
-    {{ form.input('tag_string', id='field-tags', label=_('Tags'), placeholder=_('eg. economy, mental health, government'), value=data.tag_string, error=errors.tags, classes=['control-full'], attrs=tag_attrs) }}
+    <!--{% set tag_attrs = {'data-module': 'autocomplete', 'data-module-tags': '', 'data-module-source': '/api/2/util/tag/autocomplete?incomplete=?'} %}-->
+    <!--{{ form.input('tag_string', id='field-tags', label=_('Tags'), placeholder=_('eg. economy, mental health, government'), value=data.tag_string, error=errors.tags, classes=['control-full'], attrs=tag_attrs) }}-->
     {% endblock %}
 
     {% set is_upload = data.image_url and not data.image_url.startswith('http') %}
@@ -60,7 +60,7 @@
         {% endif %}
         {% endblock %}
         {% block save_button %}
-        <button class="btn btn-primary" type="submit" name="save">{% block save_button_text %}{% if form_style != 'edit' %}{{ _('Create project') }}{% else %}{{ _('Update project') }}{% endif %}{% endblock %}</button>
+        <button class="cadasta-button" type="submit" name="save">{% block save_button_text %}{% if form_style != 'edit' %}{{ _('Create project') }}{% else %}{{ _('Update project') }}{% endif %}{% endblock %}</button>
         {% endblock %}
         {{ form.required_message() }}
     </div>

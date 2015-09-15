@@ -12,7 +12,7 @@
             <p class="form-actions">
             <form action="{% url_for controller='ckanext.project.controller:projectController', action='delete', id=c.pkg_dict.name %}" method="post">
                 <button class="btn" type="submit" name="cancel" >{{ _('Cancel') }}</button>
-                <button class="btn btn-primary" type="submit" name="delete" >{{ _('Confirm Delete') }}</button>
+                <button class="cadasta-button" type="submit" name="delete" >{{ _('Confirm Delete') }}</button>
             </form>
             </p>
             {% endblock %}

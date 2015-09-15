@@ -3,7 +3,7 @@
 {% block subtitle %}{{ _('Edit projects') }} - {{ super() }}{% endblock %}
 
 {% block page_primary_action %}
-  {% link_for _('Add projects'), controller='package', action='new', group=c.group_dict.id, class_='btn btn-primary', icon='plus-sign-alt' %}
+  {% link_for _('Add projects'), controller='package', action='new', group=c.group_dict.id, class_='cadasta-button', icon='plus-sign-alt' %}
 {% endblock %}
 
 {% block primary_content_inner %}
