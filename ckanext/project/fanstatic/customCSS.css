@@ -744,10 +744,7 @@ a {
     height: 40px;
     border-radius: 0;
     border: none;
-   /* position: relative;
-    z-index: 2;
-    padding: 0;
-    width: 350px; */
+    border: 1px solid #cccccc;
 }
 
 
@@ -1007,4 +1004,12 @@ display: inline-block;
 
 #summary-list li {
     width:60%;
+}
+
+.span9 .login-block {
+    background-color: white;
+}
+
+#field-remember {
+    float:none;
 }

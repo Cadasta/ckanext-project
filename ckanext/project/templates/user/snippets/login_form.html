@@ -1,0 +1,44 @@
+{#
+Renders the login form.
+
+action        - The url that the form should be submitted to.
+error_summary - A tuple/list of form errors.
+
+Example:
+
+  {% snippet "user/snippets/login_form.html", action=c.login_handler, error_summary=error_summary %}
+
+#}
+{% import 'macros/form.html' as form %}
+
+{% set username_error = true if error_summary %}
+{% set password_error = true if error_summary %}
+
+<form action="{{ action }}" method="post" class="form-horizontal">
+  {{ form.errors(errors=error_summary) }}
+
+{#    <div class="loginMaskRow">#}
+{#        <div class="icon-icon_profile_login"></div>#}
+{#        <input type="text" class="loginMaskInput" id="field-login" placeholder="username"/>#}
+{#    </div>#}
+{##}
+{#    <div class="loginMaskRow">#}
+{#        <div class="icon-icon_profile_login"></div>#}
+{#        <input   type="password" id="field-password" type="text" class="loginMaskInput" placeholder="password"/>#}
+{#    </div>#}
+{##}
+{#    <div id="loginRememberUser">#}
+{#        <input  type="checkbox" class="remember-user" autofocus/> Remember Me#}
+{#    </div>#}
+    {{ form.input('login', label=_('label'), id='field-login', value="", error=username_error, classes=[]) }}
+
+    {{ form.input('password', label=_("Password"), id='field-password', type="password", value="", error=password_error, classes=[]) }}
+
+    {{ form.checkbox('remember', label=_("Remember me"), id='field-remember', checked=true, value="63072000") }}
+
+  <div>
+    {% block login_button %}
+    <button class="cadasta-button" type="submit">{{ _('Login') }}</button>
+    {% endblock %}
+  </div>
+</form>

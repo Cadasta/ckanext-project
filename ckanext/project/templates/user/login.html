@@ -1,0 +1,32 @@
+{% extends "page.html" %}
+
+{% block subtitle %}{{ _('Login') }}{% endblock %}
+
+{% block breadcrumb_content %}
+  <li><div class="icon-lnr-chevron-right"></div></li>
+  <li class="active">{{ h.nav_link(_('Login'), controller='user', action='login') }}</li>
+{% endblock %}
+
+<h1 class="page-heading">{% block page_heading %}{{ _('LOGIN') }}{% endblock %}</h1>
+
+{% block primary_content %}
+    <div class="login-block">
+
+        <h3>LOGIN</h3>
+
+      {% block form %}
+        {% snippet "user/snippets/login_form.html", action=c.login_handler, error_summary=error_summary %}
+        <a class="" href="{{ h.url_for(controller='user', action='request_reset') }}">Forgot your password?</a>
+      {% endblock %}
+    </div>
+{% endblock %}
+
+{% block secondary_content %}
+  {% if h.check_access('user_create') %}
+     <div class="secondary-login-block">
+         <div class="add-account-button">
+            Need an account? <a href="{{ h.url_for(controller='user', action='register') }}">Sign Up</a>
+         </div>
+     </div>
+  {% endif %}
+{% endblock %}

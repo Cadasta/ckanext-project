@@ -1,0 +1,40 @@
+{% import "macros/form.html" as form %}
+
+<form class="form-horizontal" action="" method="post">
+  {{ form.errors(error_summary) }}
+  {{ form.input("name", id="field-username", label=_("Username"), placeholder=_("Username"), value=data.name, error=errors.name, classes=["control-medium"]) }}
+  {{ form.input("fullname", id="field-fullname", label=_("Full Name"), placeholder=_("Full Name"), value=data.fullname, error=errors.fullname, classes=["control-medium"]) }}
+  {{ form.input("email", id="field-email", label=_("Email"), type="email", placeholder=_("Email"), value=data.email, error=errors.email, classes=["control-medium"]) }}
+  {{ form.input("phone", id="field-phone", label=_("Phone Number"), placeholder=_("Phone"), value=data.phone, error=errors.phone, classes=["control-medium"]) }}
+  {{ form.input("password1", id="field-password", label=_("Password"), type="password", placeholder="Password", value=data.password1, error=errors.password1, classes=["control-medium"]) }}
+  {{ form.input("password2", id="field-confirm-password", label=_("Confirm"), type="password", placeholder="Confirm Password", value=data.password2, error=errors.password1, classes=["control-medium"]) }}
+
+<!--{#    <div class="loginMaskRow">#}-->
+<!--{#        <input type="text" class="register-input" id="field-username" placeholder="username"/>#}-->
+<!--{#    </div>#}-->
+<!--{#    <div class="loginMaskRow">#}-->
+<!--{#        <input type="text" class="register-input" id="field-fullname" placeholder="Full Name"/>#}-->
+<!--{#    </div>#}-->
+<!--{#    <div class="loginMaskRow">#}-->
+<!--{#        <input type="text" class="register-input" id="field-email" placeholder="email"/>#}-->
+<!--{#    </div>#}-->
+<!--{#    <div class="loginMaskRow">#}-->
+<!--{#        <input type="text" class="register-input" id="field-phone" placeholder="Phone Number"/>#}-->
+<!--{#    </div>#}-->
+<!--{#    <div class="loginMaskRow">#}-->
+<!--{#        <input type="password" class="register-input" id="field-password" placeholder="password"/>#}-->
+<!--{#    </div>#}-->
+<!--{#    <div class="loginMaskRow">#}-->
+<!--{#        <input type="password" class="register-input" id="field-confirm-password" placeholder="Confirm Password"/>#}-->
+<!--{#    </div>#}-->
+
+
+  {% if g.recaptcha_publickey %}
+    {% snippet "user/snippets/recaptcha.html", public_key=g.recaptcha_publickey %}
+  {% endif %}
+
+  <div>
+    <button class="cadasta-button" type="submit" name="save">{{ _("Create Account") }}</button>
+  </div>
+
+</form>
