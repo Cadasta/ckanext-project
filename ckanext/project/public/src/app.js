@@ -36,7 +36,7 @@
       name: 'tabs',
       url: '/',
       views: {
-        'breadcrumbs@': { template: 'breadcrumbs here...' },
+        'breadcrumbs@': { templateUrl: '../src/partials/breadcrumbs.html' },
         'projectHeader@': { template: 'Project Header here...' },
         'tabs@': {  templateUrl: '../src/partials/tabs.html' }
       }});
