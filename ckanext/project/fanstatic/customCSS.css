@@ -74,8 +74,8 @@ body {
 
 
 #sub-nav {
+    display: none;
     position: relative;
-    /* height: 140px; */
     font-size: 12px;
     background-color: white;
     text-align: left;
@@ -86,7 +86,6 @@ body {
     right: 14px;
     z-index: 1;
     float: right;
-    /* padding: 10px; */
 }
 
 #sub-nav .dropdown-item {
@@ -310,10 +309,36 @@ li {
     height:25px;
 }
 
+#breadcrumb .icon-home {
+    font-size: 16px;
+    position: relative;
+    bottom: 6px;
+    color: #256c97;
+}
+
+#breadcrumb .icon-home a {
+    color: #256c97;
+}
+
+#breadcrumb .arrow-right {
+    font-size: 28px;
+    position: relative;
+    color: #dcdfe1;
+    bottom: 2px;
+}
+
+#breadcrumb .title {
+    position: relative;
+    bottom: 10px;
+    font-family: "Open Sans";
+    font-size: 10px;
+}
+
 .toolbar .breadcrumb a {
     font-size: 10px;
     font-family: 'Open Sans';
     color: #256c97;
+    font-weight: bold;
 
 }
 

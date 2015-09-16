@@ -8,8 +8,8 @@
 {% block breadcrumb_content_selected %} {% endblock %}
 {% block breadcrumb_content %}
   {{ super() }}
-  <li><div class="icon-lnr-chevron-right"></div></li>
-  <a class="active" href="/dataset/{{c.id}}/party/{{ c.party_id }}"> {{ c.party_id }}</a>
+  <div class="icon-lnr-chevron-right arrow-right"></div>
+  <a class="active title" href="/dataset/{{c.id}}/party/{{ c.party_id }}"> {{ c.party_id }}</a>
 {% endblock %}
 
 {% block content_action %}

@@ -37,7 +37,8 @@
               {% block breadcrumb %}
                 {% if self.breadcrumb_content() | trim %}
                   <ol class="breadcrumb">
-                    {% snippet 'snippets/home_breadcrumb_item.html' %}
+                    <div class="icon-icon_home icon-home"></div>
+                    <a class="title" href="/dataset/{{c.id}}">Dashboard</a>
                     {% block breadcrumb_content %}{% endblock %}
                   </ol>
                 {% endif %}
