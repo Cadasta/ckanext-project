@@ -1,38 +1,6 @@
 
   var app = angular.module("app",
-    [ 'ct.ui.router.extras' ]);
-
-
-  app.service("paramService", [ function () {
-
-    var service =  {};
-
-    var states = {};
-
-    service.setState = function(state){
-
-
-      states[state.name] = {};
-
-      state.paramsMap.forEach(function(par){
-        states[state.name][par.key] = par.defaultValue;
-      })
-
-    };
-
-    service.getState = function(id){
-
-      return states[id];
-    };
-
-    service.setStateParam = function(name, key, value){
-
-      states[name][key] = value;
-
-    };
-
-    return service;
-  }]);
+    [ 'ct.ui.router.extras', 'params.manager']);
 
   var dsrCb = function ($dsr$, paramService) {
 
@@ -98,16 +66,7 @@
       deepStateRedirect: dsrCb,
       sticky: true
     });
-/*
-    // Grandchild State
-    states.push({
-      name: 'tabs.overview.mapview',
-      deepStateRedirect: dsrCb,
-      url: '/map@:lat,:lng,:zoom?usermod',
-      controller: 'overviewCtrl',
-      templateUrl: './partials/overview-map.html'
-    });
-*/
+
     // Child State
     states.push({
       name: 'tabs.parcels',
@@ -151,10 +110,9 @@
     angular.forEach(states, function(state) {
       $stateProvider.state(state);
 
-      //paramService.setState(state);
     });
 
-    //$urlRouterProvider.otherwise('/overview?map=(0,0,1)');
+    $urlRouterProvider.otherwise('/overview?map=(0,0,1)');
 
   });
 

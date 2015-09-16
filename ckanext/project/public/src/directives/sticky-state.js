@@ -39,6 +39,4 @@ app.directive("stickyState", function($state, uirextras_core) {
             }
         }
     }
-});/**
- * Created by rgwozdz on 9/14/15.
- */
+});

@@ -3,18 +3,12 @@
 
 
 {% block main_content %}
-
-
-
-    <div class="container" ng-app="app" >
-        <div class="row outlines">
-            <div class="row outlines"><div ui-view="breadcrumbs"></div></div>
-            <div class="row outlines"><div ui-view="projectHeader"></div></div>
+    <div ng-app="app" >
+            <div ui-view="breadcrumbs"></div>
+            <div ui-view="projectHeader"></div>
             <div ui-view="tabs"></div>
         </div>
     </div>
-
-
 {% endblock %}
 
 {% block scripts %}
@@ -23,16 +17,17 @@
 <script type="text/javascript" src="../vendor/angular-ui-router/release/angular-ui-router.js"></script>
 <script type="text/javascript" src="../vendor/ui-router-extras/release/ct-ui-router-extras.js"></script>
 
+<script type="text/javascript" src="../src/modules/params-manager.js"></script>
 <script type="text/javascript" src="../src/app.js"></script>
 <script type="text/javascript" src="../src/services/dataService.js"></script>
-<script type="text/javascript" src="../src/controllers/controllers.js"></script>
-<script type="text/javascript" src="../src/directives/directives.js"></script>
+<script type="text/javascript" src="../src/controllers/project-overview.js"></script>
+<script type="text/javascript" src="../src/controllers/project-parcels.js"></script>
+<script type="text/javascript" src="../src/directives/sticky-state.js"></script>
 
 {% endblock %}
 
 
 {% block links %}
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-MfvZlkHCEqatNoGiOXveE8FIwMzZg4W85qfrfIFBfYc= sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
 <link href='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.css' rel='stylesheet' />
 <link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.2/leaflet.draw.css' rel='stylesheet' />
 <link href='../styles/style.css' rel='stylesheet' />
