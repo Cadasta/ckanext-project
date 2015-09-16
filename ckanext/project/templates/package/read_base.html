@@ -6,3 +6,30 @@
   {{ h.build_nav_icon('dataset_activity', _('Activity Stream'), id=pkg.name) }}
   {{ h.build_nav_icon('dataset_project_list', _('projects'), id=pkg.name) }}
 {% endblock %}
+
+
+{% block main_content %}
+
+<meta id="ckan-project-description" data-obj="{{ c.pkg_notes_formatted }} here is a nice long desc">
+<meta id="ckan-project-name" data-obj="{{ pkg.name }}" >
+<meta id="ckan-project-title" data-obj="{{ pkg.title }}" >
+
+<!--<meta id="small_map_data" data-obj="{{all_parcels}}">-->
+<!--<meta id="small_popup_url" data-obj="http://50.112.108.132:5000/dataset/{{ pkg.name }}/parcel/">-->
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
+{% resource 'cadasta/app.js' %}
+{% resource 'cadasta/angular_controllers.js' %}
+
+<div ng-app="myApp">
+
+
+  Test Space
+
+  <div ui-view></div>
+
+</div>
+
+
+{% endblock %}

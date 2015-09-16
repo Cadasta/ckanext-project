@@ -1,0 +1,28 @@
+body {
+    margin-bottom: 30em;
+}
+.ng-cloak {
+    display:none;
+}
+div.hovercode {
+    display:none;
+}
+
+.hovertrigger .hovercode {
+    display: block;
+    position: absolute;
+    top: 10px;
+    left: 0;
+}
+
+div.tabcontent {
+    height: 400px;
+    overflow-y:  scroll;
+    border: 1px solid lightgrey;
+}
+
+.outlines {
+    margin: 5px;
+    padding: 10px 5px;
+    border: 2px solid black;
+}

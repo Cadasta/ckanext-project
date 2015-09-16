@@ -1,0 +1,19 @@
+{
+  "name": "ckanext-project",
+  "version": "1.0.0",
+  "description": ".. You should enable this project on travis-ci.org and coveralls.io to make    these badges work. The necessary Travis and Coverage config files have been    generated for you.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cadasta/ckanext-project.git"
+  },
+  "author": "spatialdev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Cadasta/ckanext-project/issues"
+  },
+  "homepage": "https://github.com/Cadasta/ckanext-project#readme"
+}

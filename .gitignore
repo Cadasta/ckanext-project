@@ -2,3 +2,6 @@
 ckanext_project.egg*
 
 .idea/
+
+bower_components/
+node_modules/

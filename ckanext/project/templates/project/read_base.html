@@ -1,52 +1,39 @@
 {% extends 'page.html' %}
 
 
-{% block content_action %}
-{% endblock %}
+
+{% block main_content %}
 
 
-{% block content_primary_nav %}
 
-<div id='project-title'>
-    <span class="project-title">{{ pkg.title }} </span>
-    {% block header_buttons %}
-     <span class="project-control-buttons-right">
-      <div class="icon-icon_edit"></div>
-      <div class="icon-icon_export"></div>
-      <!--{% if h.check_access('package_update', {'id':pkg.id }) %}-->
-            <!--{% link_for _(''), controller='package', action='edit', id=pkg.name, class_='button', icon='wrench' %}-->
-      <!--{% endif %}-->
-      <a href="/project/{{ pkg.name }}/form_data_upload"><div class="icon-icon_add"></div></a>
-    {% endblock %}
-     </span>
-
-
-    <div id="project-nav-bar">
-
-        {% block primary_nav_tabs %}
-        <li class="active-nav">OVERVIEW</li>
-        <li><a  href='{{ pkg.name }}/parcels'>PARCELS</a></li>
-        <li><a  href='{{ pkg.name }}/map'>MAP</a></li>
-        <li><a  href='{{ pkg.name }}/surveys'>SURVEYS</a></li>
-        <li><a  href='{{ pkg.name }}/resources'>RESOURCES</a></li>
-        <li><a  href='{{ pkg.name }}/activity_stream'>ACTIVITY STREAM</a></li>
-        {% endblock %}
+    <div class="container" ng-app="app" >
+        <div class="row outlines">
+            <div class="row outlines"><div ui-view="breadcrumbs"></div></div>
+            <div class="row outlines"><div ui-view="projectHeader"></div></div>
+            <div ui-view="tabs"></div>
+        </div>
     </div>
 
-</div>
+
 {% endblock %}
 
-{% block primary_content_inner %}
-{% endblock %}
+{% block scripts %}
+<script src='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.js'></script>
+<script type="text/javascript" src="../vendor/angular/angular.js"></script>
+<script type="text/javascript" src="../vendor/angular-ui-router/release/angular-ui-router.js"></script>
+<script type="text/javascript" src="../vendor/ui-router-extras/release/ct-ui-router-extras.js"></script>
 
-{% block secondary_content %}
+<script type="text/javascript" src="../src/app.js"></script>
+<script type="text/javascript" src="../src/services/dataService.js"></script>
+<script type="text/javascript" src="../src/controllers/controllers.js"></script>
+<script type="text/javascript" src="../src/directives/directives.js"></script>
+
 {% endblock %}
 
 
 {% block links %}
-<!--todo move script tags to a better place-->
-<script src='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.js'></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-MfvZlkHCEqatNoGiOXveE8FIwMzZg4W85qfrfIFBfYc= sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
 <link href='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.css' rel='stylesheet' />
 <link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.2/leaflet.draw.css' rel='stylesheet' />
-<script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.2/leaflet.draw.js'></script>
+<link href='../styles/style.css' rel='stylesheet' />
 {% endblock %}

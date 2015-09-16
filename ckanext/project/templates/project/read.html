@@ -10,42 +10,7 @@
 
 
 {% block primary_content_inner %}
-<div id="project-header">
-
-  <div id='project-desc' class="project-block">
-    <span class="small-heading">DESCRIPTION</span>
-    <div class="description">{{pkg.notes}}</div>
-  </div>
-
-  <div id="project-extent">
-
-    <div id='small_map'></div>
-    <meta id="small_popup_url" data-obj="http://50.112.108.132:5000/dataset/{{ pkg.name }}/parcel/">
-
-    {% endblock %}
 
 
-    {% block secondary_content %}
-    <div id="project-content">
-      <div class='project-block' id="project-activity-summary">
-        <span class="small-heading">LATEST ACTIVITY</span>
-
-        <!-- Use Nunjucks templates here in .js -->
-        <div id="nunjuck-activity-list"></div>
-      </div>
-
-      <div class='project-block' id="project-resource-summary">
-        <span class="small-heading">{{ _('PROJECT RESOURCES') }}</span>
-        <div id="nunjuck-resource-list"></div>
-      </div>
-    </div>
-
-    {% resource 'project/nunjucksmin.js' %}
-    {% resource 'project/nunjucks_js/activity_list.js' %}
-    {% resource 'project/nunjucks_js/resource_list.js' %}
-    {% resource 'project/map.js' %}
-
-    {% endblock %}
-
-
+{% endblock %}
 
