@@ -36,9 +36,9 @@
       name: 'tabs',
       url: '/',
       views: {
-        'breadcrumbs@': { templateUrl: '../src/partials/breadcrumbs.html' },
+        'breadcrumbs@': { controller:'breadcrumbsCtrl', templateUrl: '../src/partials/breadcrumbs.html' },
         'projectHeader@': { template: 'Project Header here...' },
-        'tabs@': {  templateUrl: '../src/partials/tabs.html' }
+        'tabs@': {  controller:'tabsCtrl', templateUrl: '../src/partials/tabs.html' }
       }});
 
     // Child State
