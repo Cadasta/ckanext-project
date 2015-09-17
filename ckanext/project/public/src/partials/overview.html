@@ -18,15 +18,19 @@
 
         <div class='project-block' id="project-activity-summary">
             <span class="small-heading">LATEST ACTIVITY</span>
-            <div style="display:inline-block; width: 66%; margin:0">activity feeding: here is the activity</div>
+            <div ng-repeat="activity in overviewData.features[0].properties.project_activity">
+                <li ng-if="activity.properties.activity_type == 'parcel'" class="activity-block block"><div class="bold">Parcel {{ activity.properties.id }}</div> was created at <div class="link">{{ activity.properties.time_created }}</div> </li>
+
+                <li ng-elif="activity.properties.activity_type == 'party'" class="activity-block block"><div class="bold">Party {{ activity.properties.name }}</div> was created at <div class="link">{{ activity.properties.time_created }}</div> </li>
+
+                <li ng-else="activity.properties.activity_type == 'relationship'" class="activity-block block">Relationship between <div class="bold"> {{ activity.properties.name }}</div> and <div class="bold"> parcel {{ activity.properties.id }} </div> was created on <div class="link">{{ activity.properties.time_created }}</div> </li>
+            </div>
         </div>
 
         <div class='project-block' id="project-resource-summary">
             <span class="small-heading">RESOURCES</span>
-            <h3>{{overviewData.title}}</h3>
-            <div>Title {{overviewData.title}}</div>
-            <div ng-repeat="resource in overviewData.resources">
-                {{resource}}
+            <div ng-repeat="resource in overviewData.features[0].properties.project_resources">
+               A {{resource.properties.type}} resource was uploaded on {{resource.properties.time_created}} <a href="{{resource.properties.url}}">Download</a>
             </div>
         </div>
     </div>

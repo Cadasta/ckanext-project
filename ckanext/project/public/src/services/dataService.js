@@ -5,6 +5,11 @@ var app = angular.module("app")
 
         var service =  {};
 
+        /**
+         * This function gets all of the data required for the parce overview page
+         * Todo update the endpoint to hit the actual server rather than local
+         * @returns {*}
+         */
         service.overviewGet = function(){
 
             var deferred = $q.defer();
