@@ -1,12 +1,33 @@
+<!--primary content-->
+<div class="clearfix" id="overview-background">
+    <div id="project-header">
 
-<div class="clearfix">
-    <div style="display:inline-block; width: 66%; margin:0; word-wrap: break-word">
-        <h3>{{overviewData.title}}</h3>
-        <p>{{overviewData.description}}</p>
+        <div id='project-desc' class="project-block">
+            <span class="small-heading">DESCRIPTION</span>
+            <p>{{overviewData.description}}</p>
+        </div>
+        <div id="project-extent">
+            <div id="overviewMap"></div>
+        </div>
     </div>
-    <div id="overviewMap" style="display:inline-block; width:33%; margin:0; height: 300px"></div>
 </div>
-<div>
-    <div style="display:inline-block; width: 66%; margin:0">activity feed</div>
-    <div style="display:inline-block; width: 33%; margin:0">resources</div>
+
+<!--secondary content-->
+<div class="span3">
+    <div id="project-content">
+
+        <div class='project-block' id="project-activity-summary">
+            <span class="small-heading">LATEST ACTIVITY</span>
+            <div style="display:inline-block; width: 66%; margin:0">activity feeding: here is the activity</div>
+        </div>
+
+        <div class='project-block' id="project-resource-summary">
+            <span class="small-heading">RESOURCES</span>
+            <h3>{{overviewData.title}}</h3>
+            <div>Title {{overviewData.title}}</div>
+            <div ng-repeat="resource in overviewData.resources">
+                {{resource}}
+            </div>
+        </div>
+    </div>
 </div>
