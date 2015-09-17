@@ -752,29 +752,20 @@ a {
     letter-spacing: 1px;
 }
 
-/* RW - Commenting this out for now.  Let's make the CSS selector more specific, so that we're only making the inputs on the Login Page (for example) this size.   */
-/*input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {*/
-    /*background-color: #ffffff;*/
-    /*border: 1px solid #cccccc;*/
-    /*-webkit-box-shadow: none;*/
-    /*border-radius: none;*/
-    /*-moz-box-shadow: none;*/
-    /*box-shadow: none;*/
-    /*-webkit-transition: none;*/
-    /*-moz-transition: none;*/
-    /*-o-transition: none;*/
-    /*transition: none;*/
-/*}*/
+.span9 .login-block {
+    background-color: white;
+}
+
+#field-remember {
+    float:none;
+}
 
 
 #field-login {
     height: 40px;
     border-radius: 0;
     border: none;
-   /* position: relative;
-    z-index: 2;
-    padding: 0;
-    width: 350px; */
+    border: 1px solid #cccccc;
 }
 
 
@@ -1106,13 +1097,7 @@ display: inline-block;
     margin: 30px 0 0 64px;
 }
 
-.page-heading {
-    margin: 20px 0 20px 245px;
-    color: #256C97;
-    text-transform: uppercase;
-    font-size: 20pt;
-    font-weight: 400;
-}
+
 
 .page-heading.project {
     margin: 20px 0 20px 305px;
@@ -1122,4 +1107,28 @@ display: inline-block;
     margin-top: 0;
     background-color: white;
     border: 1px solid #dcdfe1;
+}
+
+.controls > .radio:first-child, .controls > .checkbox:first-child {
+    padding-top: 5px;
+    font-weight: 400;
+}
+
+.user-headers {
+    font-size: 24px;
+    font-weight: 500;
+    color: #256C97;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.page-heading {
+    margin: 20px 0 20px 245px;
+    color: #256C97;
+    text-transform: uppercase;
+    font-size: 20pt;
+    font-weight: 400;
+}
+
+.page-heading.register {
+    margin: 20px 0 20px 0;
 }
