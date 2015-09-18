@@ -1,16 +1,16 @@
-<ul id="activity-list">
-    {% if features %}
-        {% for activity in features %}
+<!--<ul id="activity-list">-->
+    <!--{% if features %}-->
+        <!--{% for activity in features %}-->
 
-            {% if activity.properties.activity_type == 'parcel' %}
-               <li class="activity-block block"><div class="bold">Parcel {{ activity.properties.id }}</div> was created at <div class="link">{{ activity.properties.time_created }}</div> </li>
+            <!--{% if activity.properties.activity_type == 'parcel' %}-->
+               <!--<li class="activity-block block"><div class="bold">Parcel {{ activity.properties.id }}</div> was created at <div class="link">{{ activity.properties.time_created }}</div> </li>-->
 
-            {% elif activity.properties.activity_type == 'party' %}
-               <li class="activity-block block"><div class="bold">Party {{ activity.properties.name }}</div> was created at <div class="link">{{ activity.properties.time_created }}</div> </li>
+            <!--{% elif activity.properties.activity_type == 'party' %}-->
+               <!--<li class="activity-block block"><div class="bold">Party {{ activity.properties.name }}</div> was created at <div class="link">{{ activity.properties.time_created }}</div> </li>-->
 
-            {% elif activity.properties.activity_type == 'relationship' %}
-               <li class="activity-block block">Relationship between <div class="bold"> {{ activity.properties.name }}</div> and <div class="bold"> parcel {{ activity.properties.id }} </div> was created on <div class="link">{{ activity.properties.time_created }}</div> </li>
-            {% endif %}
-        {% endfor %}
-    {% endif %}
-</ul>
+            <!--{% elif activity.properties.activity_type == 'relationship' %}-->
+               <!--<li class="activity-block block">Relationship between <div class="bold"> {{ activity.properties.name }}</div> and <div class="bold"> parcel {{ activity.properties.id }} </div> was created on <div class="link">{{ activity.properties.time_created }}</div> </li>-->
+            <!--{% endif %}-->
+        <!--{% endfor %}-->
+    <!--{% endif %}-->
+<!--</ul>-->
