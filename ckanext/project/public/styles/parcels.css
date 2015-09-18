@@ -40,6 +40,10 @@
     float: left;
     width: 50%;
     height:250px;
+}
+
+#parcelDetails .section .relationship-container {
+    height: 185px;
     overflow-y: auto;
 }
 

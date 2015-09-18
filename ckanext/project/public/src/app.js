@@ -93,7 +93,21 @@
       url: '/:id',
       controller: 'parcelCtrl',
       templateUrl: '../src/partials/parcel.html',
-      deepStateRedirect: dsrCb
+      deepStateRedirect: dsrCb,
+      paramsMap:[{key:'id'}],
+
+      onEnter: function($state, $stateParams, paramService){
+
+        var stateState = paramService.getState(this.name);
+
+        angular.forEach($stateParams, function(value, key){
+
+          $stateParams[key] = stateState[key];
+
+        });
+
+
+      }
     });
 
     // Child State

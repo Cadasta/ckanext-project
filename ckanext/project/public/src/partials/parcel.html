@@ -5,6 +5,7 @@
         <div class="container">
             <div class="title">{{parcel.id}} (alternative ID here)</div>
 
+            <div class="relationship-container">
             <!-- Remove bottom border if first element in array-->
             <div class="parcel-dropdown" ng-repeat="r in relationships" ng-class="{'remove-bottom-border': $index < relationships.length-1 && relationships.length > 0}">
                 <div ng-click="toggleDropdownDetails(r)" class="name">{{r.first_name}} {{r.last_name}}</div>
@@ -16,7 +17,7 @@
                 </div>
             </div>
 
-
+            </div>
         </div>
     </div>
 

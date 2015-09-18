@@ -1,4 +1,4 @@
-app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService', function($scope, $state, $stateParams, parcelService){
+app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService','$rootScope', function($scope, $state, $stateParams, parcelService,$rootScope){
 
     if($state.current.name !== "tabs.parcels.parcel") {
         return;
@@ -13,6 +13,8 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService'
     var promise = parcelService.parcelGet($stateParams.id);
 
     promise.then(function(response){
+
+        $rootScope.$broadcast('parcel-details', {id:$stateParams.id});
 
         $scope.parcel = response.properties;
 
