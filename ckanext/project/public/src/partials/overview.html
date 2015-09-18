@@ -18,12 +18,19 @@
 
         <div class='project-block' id="project-activity-summary">
             <span class="small-heading">LATEST ACTIVITY</span>
-            <div ng-repeat="activity in overviewData.features[0].properties.project_activity">
-                <li ng-if="activity.properties.activity_type == 'parcel'" class="activity-block block"><span class="bold">Parcel {{ activity.properties.id }}</span> was created at <span class="link">{{ activity.properties.time_created }}</span> </li>
+            <div ng-repeat="activity in overviewData.activityList">
+                <!-- repeat each activity in the list and depending on the type of activity, print a different string-->
 
-                <li ng-elif="activity.properties.activity_type == 'party'" class="activity-block block"><span class="bold">Party {{ activity.properties.name }}</span> was created at <span class="link">{{ activity.properties.time_created }}</span> </li>
+                <li ng-if="activity.properties.activity_type === 'parcel'" class="activity-block block"><span
+                        class="bold">Parcel {{ activity.properties.id }}</span> was created at <span class="link">{{ activity.properties.time_created }}</span>
+                </li>
 
-                <li ng-else="activity.properties.activity_type == 'relationship'" class="activity-block block">Relationship between <span class="bold"> {{ activity.properties.name }}</span> and <span class="bold"> parcel {{ activity.properties.id }} </span> was created on <span class="link">{{ activity.properties.time_created }}</span> </li>
+                <li ng-if="activity.properties.activity_type === 'party'" class="activity-block block"><span
+                        class="bold">Party {{ activity.properties.name }}</span> was created at <span class="link">{{ activity.properties.time_created }}</span>
+                </li>
+
+                <li ng-if="activity.properties.activity_type === 'relationship'" class="activity-block block">
+                    Relationship between <span class="bold"> {{ activity.properties.name }}</span> and <span class="bold"> parcel {{ activity.properties.id }} </span> was created on <span class="link">{{ activity.properties.time_created }}</span> </li>
             </div>
         </div>
 

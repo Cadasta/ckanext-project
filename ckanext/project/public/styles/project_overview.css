@@ -58,8 +58,9 @@
     margin: 20px 0 0 20px;
 }
 
-#project-activity-summary .small-heading {
-    padding-bottom:0;
+#project-activity-summary {
+    min-height: 200px;
+    height: auto;
 }
 
 #overviewMap {
@@ -97,3 +98,10 @@ li.activity-block {
     padding-top: 8px;
 
 }
+
+li.activity-block:last-child {
+    border:none;
+
+}
+
+

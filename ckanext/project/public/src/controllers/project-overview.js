@@ -47,6 +47,7 @@
       promise.then(function(response){
 
           $scope.overviewData = response;
+          $scope.overviewData.activityList = response.features[0].properties.project_activity;
 
           //reformat date created of resources
           $scope.overviewData.features[0].properties.project_resources.forEach(function(resource) {
