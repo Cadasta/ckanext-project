@@ -162,7 +162,7 @@ subtab {
 
 #project-resource-summary {
     float:right;
-    width:295px;
+    width:354px;
     font-size:10px;
     height:200px;
     padding-top:12px;
@@ -364,7 +364,7 @@ li {
 
 /* RW - removed fixed height so activity feed will push down without an internal scrollbar */
 #project-activity-summary {
-    width:510px;
+    width:450px;
     padding-top:12px;
     padding-left:25px;
     float:left;
@@ -531,7 +531,7 @@ form .lang-select {
     display: block;
     width: 90%;
     border-bottom: 1px solid #dcdfe1;
-    height: 35px;
+    height: 27px;
 }
 
 .resource-block {
@@ -1033,9 +1033,6 @@ display: inline-block;
     margin-top:9px;
 }
 
-#project-activity-summary .small-heading {
-    padding-bottom:0;
-}
 
 #summary-list {
     margin: 10px 0 0 25px;

@@ -1,0 +1,99 @@
+.span3 {
+    width: 100%;
+    margin:0;
+    margin-top: 13px;
+    /* min-height:220px; */
+    margin-bottom:50px;
+}
+
+
+#overview-background {
+    margin: 0 auto;
+    height:auto;
+    background-color:white;
+}
+
+#overview-background .parcel-details-return {
+    margin: 20px 12px 20px 10px;
+    font-weight: bold;
+}
+
+#project-content {
+    margin:0;
+    padding:0;
+    /*background-color: #eef2f5;*/
+}
+
+#project-content ul {
+    padding: 0;
+    margin:0;
+}
+
+.project-block {
+    display: inline-block;
+    text-align:left;
+    background-color:white;
+    font-size:10px;
+    border: none;
+    text-align:top;
+    vertical-align:top;
+    overflow:auto;
+}
+
+.small-heading {
+    color: #256c97;
+    font-size:12px;
+    font-weight:bold;
+    display: inline-block;
+    padding-bottom:10px;
+
+}
+
+
+#project-desc .small-heading {
+    margin: 20px 0 20px 20px;
+}
+
+.parcel-details-content .small-heading {
+    margin: 20px 0 0 20px;
+}
+
+#project-activity-summary .small-heading {
+    padding-bottom:0;
+}
+
+#overviewMap {
+    position:relative;
+    width:100%;
+    height:100%;
+}
+
+#project-extent {
+    border: 1px solid #dcdfe1;
+    width:291px;
+    height:291px;
+    display:inline-block;
+    float:right;
+}
+#project-resource-summary div {
+    width: 93%;
+    border-bottom: 1px solid #dcdfe1;
+    line-height: 27px;
+}
+
+#overview-background {
+    margin: 0 auto;
+    height:auto;
+    border: 1px solid #dcdfe1;
+}
+
+
+#project-activity-summary .small-heading {
+    padding-bottom:15px;
+}
+
+li.activity-block {
+    position: relative;
+    padding-top: 8px;
+
+}

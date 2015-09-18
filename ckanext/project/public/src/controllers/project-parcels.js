@@ -1,7 +1,8 @@
 
   var app = angular.module("app");
 
-  app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams','parcelService', function($scope, $state, $stateParams, parcelService){
+
+  app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams','dataService', function($scope, $state, $stateParams, dataService){
 
       if($state.current.name !== "tabs.parcels.parcellist") {
           return;
