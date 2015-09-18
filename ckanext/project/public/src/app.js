@@ -90,8 +90,8 @@
     // Grandchild State
     states.push({
       name: 'tabs.parcels.parcel',
-      url: '/:id', controller: '' +
-      'parcelCtrl',
+      url: '/:id',
+      controller: 'parcelCtrl',
       templateUrl: '../src/partials/parcel.html',
       deepStateRedirect: dsrCb
     });

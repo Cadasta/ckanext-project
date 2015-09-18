@@ -394,8 +394,9 @@ footer {
 }
 
 #project-header {
-    height:315px;
+    height:auto;
     margin: 40px 12px 12px 12px;
+    font-family: "Open Sans";
 }
 
 #project-nav-bar li {
@@ -479,28 +480,44 @@ form .lang-select {
     padding-top:16px;
 }
 
-
-
-#footer-container {
+#master-footer {
     height:50px;
-    vertical-align:center;
     color:black;
     background-color: #eef2f5;
+    margin: auto;
+}
+
+#master-footer .globe {
+    position: relative;
+    bottom:18px;
+}
+
+#master-footer .footer-container {
+    width: 100%;
+    height: 45px;
+}
+
+#master-footer .container-inner {
+    height: 45px;
     width: 1024px;
     margin: auto;
 }
 
-#footer-container div {
-    display:inline-block;
-    float:left;
+#master-footer .localization {
+    padding:0px 0px 0px 20px;
 }
 
-#footer-container #footer-logo {
-    font-size: 26px;
-    color: black;
-    float: right;
-    display: block;
-    padding-top: 14px;
+#master-footer .localization .title{
+    padding-left:25px;
+}
+
+#master-footer .logo {
+    width: 110px;
+}
+
+#master-footer .container-inner .container-header {
+    height: 25px;
+    margin: 15px 20px 10px 20px;
 }
 
 .search-field {
@@ -1006,7 +1023,8 @@ display: inline-block;
 
 #overview-background {
     margin: 0 auto;
-    height:auto;
+    min-height:315px;
+    background-color: white
 }
 
 #overview-background .parcel-details-return {

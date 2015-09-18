@@ -1,9 +1,23 @@
+<div id="parcelDetails" class="overview-padding">
+    <div><a ui-sref="^.parcellist"><- Back to list</a></div>
 
-<div><a ui-sref="^.parcellist"><- Back to list</a></div>
+    <div class="section">
+        <div class="container">
+            <div class="title">{{parcel.id}} (alternative ID here)</div>
 
-<h5>Parcel ID:</h5>
-<div>{{parcel.id}}</div>
-<h5>Date Created:</h5>
-<div>{{parcel.date_created}}</div>
+            <!-- Remove bottom border if first element in array-->
+            <div class="parcel-dropdown" ng-repeat="r in relationships" ng-class="{'remove-bottom-border': $index < relationships.length-1 && relationships.length > 0}">
+                <div ng-click="toggleDropdownDetails(r)" class="name">{{r.first_name}} {{r.last_name}}</div>
+
+                <div ng_show="r.showDropDownDetails" class="dropdown-details">
+                    <div class="caption">Tenure Type</div> <div>{{r.relationship_type}}</div>
+                    <div class="caption">Date Added</div> <div>{{r.time_created}}</div>
+                    <div class="caption">Status</div> <div>{{r.active}}</div>
+                </div>
+            </div>
 
 
+        </div>
+    </div>
+
+</div>
