@@ -75,3 +75,25 @@
     display:inline-block;
     float:right;
 }
+#project-resource-summary div {
+    width: 93%;
+    border-bottom: 1px solid #dcdfe1;
+    line-height: 27px;
+}
+
+#overview-background {
+    margin: 0 auto;
+    height:auto;
+    border: 1px solid #dcdfe1;
+}
+
+
+#project-activity-summary .small-heading {
+    padding-bottom:15px;
+}
+
+li.activity-block {
+    position: relative;
+    padding-top: 8px;
+
+}

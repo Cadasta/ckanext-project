@@ -49,28 +49,34 @@
           $scope.overviewData = response;
 
           //reformat date created of resources
-          $scope.overviewData.features[0].properties.resources.forEach(function(resource) {
+          $scope.overviewData.features[0].properties.project_resources.forEach(function(resource) {
               resource.properties.time_created = utilityService.formatDate(resource.properties.time_created);
           });
 
-          //var layer;
-          //
-          //// If there are any parcels, load the map and zoom to parcel
-          //if($scope.overviewData.features[0].geometry) {
-          //    layer = L.geoJson($scope.overviewData.features[0]);
-          //    layer.addTo(map);
-          //
-          //} else if ( $scope.overviewData.features[0].properties.parcels && $scope.overviewData.features[0].properties.parcels[0].geometry) {
-          //    layer = L.geoJson($scope.overviewData.features[0].properties.parcels);
-          //    layer.addTo(map);
-          //
-          //}
+          //reformat date created of activity list
+          $scope.overviewData.features[0].properties.project_activity.forEach(function(activity) {
+              activity.properties.time_created = utilityService.formatDate(activity.properties.time_created);
+          });
 
-          //if($stateParams.usermod){
-          //    map.setView([lat,lng],zoom);
-          //} else {
-          //    map.fitBounds(layer.getBounds());
-          //}
+
+          var layer;
+
+          // If there are any parcels, load the map and zoom to parcel
+          if($scope.overviewData.features[0].geometry) {
+              layer = L.geoJson($scope.overviewData.features[0]);
+              layer.addTo(map);
+
+          } else if ( $scope.overviewData.features[0].properties.parcels && $scope.overviewData.features[0].properties.parcels[0].geometry) {
+              layer = L.geoJson($scope.overviewData.features[0].properties.parcels);
+              layer.addTo(map);
+
+          }
+
+          if($stateParams.usermod){
+              map.setView([lat,lng],zoom);
+          } else {
+              map.fitBounds(layer.getBounds());
+          }
 
 
 
