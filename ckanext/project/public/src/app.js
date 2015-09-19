@@ -52,15 +52,40 @@
 
       onEnter: function($state, $stateParams, paramService){
 
-        var stateState = paramService.getState(this.name);
+        if($stateParams.map === undefined) {
+          $stateParams.map = '(0,0,0)';
+        } else  if($stateParams.map.length < 7 || $stateParams.map[0] !== '(' || $stateParams.map[$stateParams.map.length-1] !== ')') {
+          console.error('Invalid map param:', $stateParams.map, ', resetting to (0,0,0)');
+          $stateParams.map = '(0,0,0)';
+        } else {
+          // parse map query param
+          var mapStr = $stateParams.map;
+          var mapArr = $stateParams.map.substring(1,mapStr.length-1).split(',');
+          var lat = Number(mapArr[0]);
+          var lng = Number(mapArr[1]);
+          var zoom = Number(mapArr[2]);
 
-        angular.forEach($stateParams, function(value, key){
+          if(isNaN(lat) || isNaN(lng) || isNaN(zoom)) {
+            console.warn('Invalid map param:', $stateParams.map, ', resetting to (0,0,0)');
+            $stateParams.map = '(0,0,0)';
+          } else {
 
-          $stateParams[key] = stateState[key];
+            if(lat > 90 || lat < 0) {
+              console.warn('Invalid latitude param:', $stateParams.map + ', resetting latitude to 0.');
+              lat = 0;
+            }
+            if (lng >180 || lng < -180) {
+              console.warn('Invalid longitude param:', $stateParams.map + ', resetting longitude to 0.');
+              lng = 0
+            }
+            if(zoom < 0 ) {
+              console.warn('Invalid zoom param:', $stateParams.map + ', resetting zoom to 0.');
+              zoom = 0;
+            }
 
-        });
-
-
+            $stateParams.map = [lat,lng,zoom].join(',');
+          }
+        }
       },
       reloadOnSearch: false,
       deepStateRedirect: dsrCb,
@@ -81,33 +106,29 @@
     // Grandchild State
     states.push({
       name: 'tabs.parcels.parcellist',
-      deepStateRedirect: dsrCb,
       url: '/list',
-      controller: 'parcelsCtrl',
-      templateUrl: '../src/partials/parcelList.html'
+      views: {
+        'parcelslist': {
+          controller: 'parcelsCtrl',
+          templateUrl: '../src/partials/parcelList.html', }
+      },
+      sticky:true,
+      deepStateRedirect: true//dsrCb
     });
 
     // Grandchild State
     states.push({
       name: 'tabs.parcels.parcel',
       url: '/:id',
-      controller: 'parcelCtrl',
-      templateUrl: '../src/partials/parcel.html',
+      views: {
+        'parcel': {
+          controller: 'parcelCtrl',
+          templateUrl: '../src/partials/parcel.html', }
+      },
       deepStateRedirect: dsrCb,
       paramsMap:[{key:'id'}],
+      sticky:true
 
-      onEnter: function($state, $stateParams, paramService){
-
-        var stateState = paramService.getState(this.name);
-
-        angular.forEach($stateParams, function(value, key){
-
-          $stateParams[key] = stateState[key];
-
-        });
-
-
-      }
     });
 
     // Child State

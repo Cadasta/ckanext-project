@@ -3,10 +3,6 @@
 
   app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams','parcelService','$rootScope', function($scope, $state, $stateParams, parcelService,$rootScope){
 
-      if($state.current.name !== "tabs.parcels.parcellist") {
-          return;
-      }
-
       $rootScope.$broadcast('tab-change', {tab:'Parcels'});
 
       $scope.parcels = [];

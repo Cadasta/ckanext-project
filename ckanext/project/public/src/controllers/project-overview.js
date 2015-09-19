@@ -3,10 +3,6 @@
 
   app.controller("overviewCtrl", ['$scope', '$state', '$stateParams','$location', 'dataService','paramService', function($scope, $state, $stateParams, $location, dataService, paramService) {
 
-      if($state.current.name !== "tabs.overview") {
-          return;
-      }
-
       var mapStr = $stateParams.map;
 
       // parse map query param
@@ -24,14 +20,10 @@
 
           var center = map.getCenter();
           var zoom = map.getZoom();
-
           var param  = '('+[center.lat, center.lng, zoom].join(',')+ ')';
           $stateParams.map = param;
           paramService.setStateParam($state.current.name, 'map', param);
           $state.go($state.current.name, $stateParams, {notify:false});
-          //$location.search('map', param);
-          //$scope.$emit('$locationChangeSuccess');
-
       });
 
       L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {

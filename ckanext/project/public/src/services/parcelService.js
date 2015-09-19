@@ -15,7 +15,7 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get('http://localhost:9000/show_parcels_list', { cache: true }).
+            $http.get('http://54.69.121.180:3000/show_parcels_list', { cache: true }).
                 then(function(response) {
                     deferred.resolve(response.data.features);
                 }, function(response) {
@@ -34,7 +34,7 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get('http://localhost:9000/parcels/'+id+'/details', { cache: true }).
+            $http.get('http://54.69.121.180:3000/parcels/'+id+'/details', { cache: true }).
                 then(function(response) {
                     deferred.resolve(response.data.features[0]);
                 }, function(response) {

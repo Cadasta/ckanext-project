@@ -1,9 +1,5 @@
 app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService','$rootScope', function($scope, $state, $stateParams, parcelService,$rootScope){
 
-    if($state.current.name !== "tabs.parcels.parcel") {
-        return;
-    }
-
     $scope.parcel = null;
 
     $scope.toggleDropdownDetails = function(obj){
