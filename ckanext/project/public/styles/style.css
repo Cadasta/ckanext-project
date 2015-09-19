@@ -16,9 +16,8 @@ div.hovercode {
 }
 
 div.tabcontent {
-    height: 400px;
+    height: auto;
     overflow-y:  scroll;
-    border: 1px solid lightgrey;
 }
 
 .outlines {

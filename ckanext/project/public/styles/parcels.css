@@ -1,0 +1,101 @@
+#parcelDetails.overview-padding   {
+    padding:25px;
+}
+
+#parcelDetails .parcel-dropdown {
+    border-bottom: 1px solid #dcdfe1;
+    border-top: 1px solid #dcdfe1;
+    width: 380px;
+}
+
+#parcelDetails .parcel-dropdown.remove-bottom-border {
+    border-bottom-style: none;
+}
+
+#parcelDetails .parcel-dropdown .caption{
+    text-transform: uppercase;
+    color: #858c92;
+    font-weight: bold;
+    width: 100px;
+    float: left;
+}
+
+#parcelDetails .dropdown-details {
+    margin: 0px 0px 10px 0px;
+}
+#parcelDetails .parcel-dropdown .value{
+    color:#dcdfe1
+}
+
+#parcelDetails .parcel-dropdown .name{
+    padding: 10px 0px;
+    color:#858c92;
+    font-weight: bold;
+    font-size: 12px;
+    cursor:pointer;
+}
+
+#parcelDetails .section {
+    border: 1px solid #dcdfe1;
+    float: left;
+    width: 50%;
+    height:250px;
+    overflow-y: auto;
+}
+
+#parcelDetails .section .title {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #dcdfe1;
+    font-size: 18px;
+    margin:0px 0px 20px 0px;
+}
+
+#parcelDetails .section .container {
+    padding: 20px 10px;
+    width: 384px;
+}
+
+#parcelList{
+    font-size: 12px;
+    width: 100%;
+    max-height: 400px;
+    overflow: scroll;
+}
+
+#parcel-table-header {
+    text-align: center;
+    width: 100%;
+    margin: auto;
+    background-color: white;
+}
+
+#parcelList table{
+    text-align: center;
+    width: 100%;
+    margin: auto;
+    background-color: white;
+}
+
+#parcelList th {
+    height: 30px;
+}
+
+#parcel-table-header th {
+    font-size: 12px;
+    color: white;
+    background-color: #51617A;
+    font-weight: 400;
+    text-align: center;
+    padding: 8px;
+    line-height: 20px;
+}
+
+#parcelList tbody tr {
+    border-bottom: 1px solid #dcdfe1;
+}
+
+#parcelList tbody {
+    height:200px;
+    overflow-y: auto;
+}
