@@ -1,24 +1,22 @@
-
-
 var app = angular.module("app")
-    .service("parcelService", ['$http', '$q', function ($http, $q) {
+    .service("parcelService", ['$http', '$q', 'ENV', function ($http, $q, ENV) {
 
-        var service =  {};
+        var service = {};
 
         /**
          * Get all parcels from parcel endpoint
          * @returns {*}
          */
 
-        //TODO get project id and pass as parameter in API call
-        service.parcelsGet = function(){
+            //TODO get project id and pass as parameter in API call
+        service.parcelsGet = function () {
 
             var deferred = $q.defer();
 
-            $http.get('http://54.69.121.180:3000/show_parcels_list', { cache: true }).
-                then(function(response) {
+            $http.get(ENV.apiRoot + '/show_parcels_list', {cache: true}).
+                then(function (response) {
                     deferred.resolve(response.data.features);
-                }, function(response) {
+                }, function (response) {
                     deferred.reject(response);
                 });
 
@@ -30,14 +28,14 @@ var app = angular.module("app")
          * @param id parcel id from state params
          * @returns {*}
          */
-        service.parcelGet = function(id){
+        service.parcelGet = function (id) {
 
             var deferred = $q.defer();
 
-            $http.get('http://54.69.121.180:3000/parcels/'+id+'/details', { cache: true }).
-                then(function(response) {
+            $http.get(ENV.apiRoot +  '/parcels/' + id + '/details', {cache: true}).
+                then(function (response) {
                     deferred.resolve(response.data.features[0]);
-                }, function(response) {
+                }, function (response) {
                     deferred.reject(response);
                 });
 

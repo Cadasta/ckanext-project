@@ -1,6 +1,8 @@
 **.pyc
 ckanext_project.egg*
 
+ckanext/project/public/src/config.js
+
 .idea/
 
 bower_components/
