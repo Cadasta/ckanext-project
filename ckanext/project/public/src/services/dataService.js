@@ -14,7 +14,7 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiRoot + '/project_overview/1?returnGeometry=true', { cache: false }).
+            $http.get(ENV.apiRoot + 'project/project_overview/', { cache: false }).
                 then(function(response) {
                   deferred.resolve(response.data);
                 }, function(response) {
