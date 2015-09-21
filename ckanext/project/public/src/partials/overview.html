@@ -21,7 +21,7 @@
             <div ng-repeat="activity in overviewData.activityList">
                 <!-- repeat each activity in the list and depending on the type of activity, print a different string-->
 
-                <li ng-if="activity.properties.activity_type === 'parcel'" class="activity-block block"><span
+                <li ng-if="activity.properties.activity_type === 'parcel'" class="activity-block block" ><span
                         class="bold">Parcel {{ activity.properties.id }}</span> was created at <span class="link">{{ activity.properties.time_created }}</span>
                 </li>
 

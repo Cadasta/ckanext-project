@@ -1,0 +1,30 @@
+<div id="project-header"></div>
+
+PROJECT ACTIVITY
+
+<table id="parcel-table-header">
+    <thead>
+    <tr>
+        <th>Parcel ID</th>
+        <th>Area (meters)</th>
+        <th>Length (meters)</th>
+        <th>Active Relationships</th>
+        <th>Date Created</th>
+    </tr>
+    </thead>
+</table>
+
+<div id="parcelList">
+    <table>
+        <tbody>
+        <tr ng-repeat="parcel in parcels">
+            <td><a ui-sref="^.parcel({id: parcel.properties.id})">{{parcel.properties.id}}</a></td>
+            <td>{{parcel.properties.area | number:0}}</td>
+            <td>{{parcel.properties.length | number:0}}</td>
+            <td>{{parcel.properties.tenure_type.length}}</td>
+            <td>{{parcel.properties.time_created}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+

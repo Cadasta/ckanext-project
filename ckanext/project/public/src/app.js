@@ -106,11 +106,26 @@
       deepStateRedirect: dsrCb,
       sticky: true });
 
+
+    // Child State for activity list
+    states.push({
+      name: 'tabs.activity',
+      url: 'activity',
+      views: {
+        'activitytab': {  templateUrl: '../src/partials/project_activity.html' }
+      },
+      deepStateRedirect: dsrCb,
+      sticky: true
+    });
+
+
+
     // Add the states
     angular.forEach(states, function(state) {
       $stateProvider.state(state);
 
     });
+
 
     $urlRouterProvider.otherwise('/overview?map=(0,0,1)');
 
