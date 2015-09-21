@@ -1,9 +1,9 @@
 var app = angular.module("app");
 
 
-app.controller("activityCtrl", ['$scope', '$state', '$stateParams','parcelService', function($scope, $state, $stateParams, parcelService){
+app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','parcelService', function($scope, $state, $stateParams, parcelService){
 
-    if($state.current.name !== "tabs.activity") {
+    if($state.current.name !== "tabs.resources") {
         return;
     }
 
