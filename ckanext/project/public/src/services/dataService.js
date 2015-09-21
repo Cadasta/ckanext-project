@@ -1,7 +1,7 @@
 
 
 var app = angular.module("app")
-    .service("dataService", ['$http', '$q', function ($http, $q) {
+    .service("dataService", ['$http', '$q', 'ENV', function ($http, $q, ENV) {
 
         var service =  {};
 
@@ -14,7 +14,7 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get('http://54.69.121.180:3000/projects/project_overview/1', { cache: false }).
+            $http.get(ENV.apiRoot + '/project_overview/1?returnGeometry=true', { cache: false }).
                 then(function(response) {
                   deferred.resolve(response.data);
                 }, function(response) {
