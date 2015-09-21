@@ -175,6 +175,12 @@
       views: {
           'maptab': {  templateUrl: '../src/partials/map.html' }
       },
+      paramsMap:[{key:'map', defaultValue: '(0,0,0)'}],
+      onEnter: function($state, $stateParams, mapUtilityService){
+
+        $stateParams.map = mapUtilityService.validateMapParam($stateParams.map);
+
+      },
       deepStateRedirect: dsrCb,
       sticky: true });
 
