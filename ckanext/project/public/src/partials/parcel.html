@@ -1,31 +1,60 @@
 <div id="parcelDetails" class="overview-background">
-    <div class="overview-padding">
-        <div class="back-link"><a ui-sref="^.parcellist"><- Back to list</a></div>
-        <div class="section">
-            <div class="container">
-                <div class="title">{{parcel.id}} (alternative ID here)</div>
+    <div class="details-container">
+        <!-- Overview Start-->
+        <div class="overview">
 
-                <div class="relationship-container">
-                    <!-- Remove bottom border if first element in array-->
-                    <div class="parcel-dropdown" ng-repeat="r in relationships"
-                         ng-class="{'remove-bottom-border': $index < relationships.length-1 && relationships.length > 0}">
-                        <div ng-click="toggleDropdownDetails(r)" class="name">{{r.first_name}} {{r.last_name}}</div>
+            <div class="back-link"><a ui-sref="^.parcellist"><- Back to list</a></div>
+            <div class="section">
+                <div class="container">
+                    <div class="title">{{parcel.id}} (alternative ID here)</div>
 
-                        <div ng_show="r.showDropDownDetails" class="dropdown-details">
-                            <div class="caption">Tenure Type</div>
-                            <div>{{r.relationship_type}}</div>
-                            <div class="caption">Date Added</div>
-                            <div>{{r.time_created}}</div>
-                            <div class="caption">Status</div>
-                            <div>{{r.active}}</div>
+                    <div class="relationship-container">
+                        <!-- Remove bottom border if first element in array-->
+                        <div class="parcel-dropdown" ng-repeat="r in relationships"
+                             ng-class="{'remove-bottom-border': $index < relationships.length-1 && relationships.length > 0}">
+                            <div ng-click="toggleDropdownDetails(r)" class="name">{{r.first_name}} {{r.last_name}}</div>
+
+                            <div ng_show="r.showDropDownDetails" class="dropdown-details">
+                                <div class="caption">Tenure Type</div>
+                                <div>{{r.relationship_type}}</div>
+                                <div class="caption">Date Added</div>
+                                <div>{{r.time_created}}</div>
+                                <div class="caption">Status</div>
+                                <div>{{r.active}}</div>
+                            </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
             </div>
+            <div class="section-map">
+                <div id="parcelDetailsMap"></div>
+            </div>
+
         </div>
-        <div class="section-map">
-            <div id="parcelDetailsMap"></div>
+        <!-- Overview End-->
+    </div>
+
+    <div class="history-container">
+        <div class="parcel-history">
+            <div class="small-table-container">
+                <div class="small-heading">
+                    Parcel History
+                </div>
+                <table id="parcel-history">
+                    <thead>
+                    <tr>
+                        <th>Delete</th>
+                        <th>Parcel Id</th>
+                        <th>Date</th>
+                        <th>Event</th>
+                        <th>Image</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
         </div>
     </div>
+
+
 </div>

@@ -1,8 +1,17 @@
 #parcelDetails.overview-background  {
     margin: 0 auto;
     height: auto;
-    border: 1px solid #dcdfe1;
-    background-color: white;
+    /* border: 1px solid #dcdfe1; */
+    /* background-color: #eef2f5; */
+}
+
+#parcel-history {
+    font-size: 12px;
+    color: rgb(133, 140, 146);
+    font-weight: 400;
+    text-align: center;
+    padding: 8px;
+    line-height: 20px;
 }
 
 #parcelDetailsMap {
@@ -11,9 +20,33 @@
     position: relative;
 }
 
-#parcelDetails .overview-padding {
-    padding: 12px 12px;
+#parcelDetails .overview {
     height: 338px;
+    padding: 12px 12px;
+    background-color: white;
+}
+
+#parcelDetails .parcel-history {
+    height: 150px;
+    background-color: white;
+}
+
+#parcelDetails .details-container {
+    border: 1px solid #dcdfe1;
+}
+
+#parcelDetails .history-container {
+    border: 1px solid #dcdfe1;
+    margin: 15px 0px 0px 0px;
+}
+
+#parcelDetails .parcel-history .small-heading {
+    color: #256c97;
+    font-size:12px;
+    font-weight:bold;
+    display: inline-block;
+    text-transform: uppercase;
+    cursor: pointer;
 }
 
 #parcelDetails .back-link {

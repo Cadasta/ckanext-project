@@ -6,6 +6,7 @@ body {
 }
 div.hovercode {
     display:none;
+    outline: none;
 }
 
 .hovertrigger .hovercode {
@@ -24,4 +25,9 @@ div.tabcontent {
     margin: 5px;
     padding: 10px 5px;
     border: 2px solid black;
+}
+
+
+.small-table-container {
+    padding:10px 12px;
 }
