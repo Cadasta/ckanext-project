@@ -1,7 +1,7 @@
 
   var app = angular.module("app");
 
-  app.controller("overviewCtrl", ['$scope', '$state', '$stateParams','$location', 'dataService','paramService', function($scope, $state, $stateParams, $location, dataService, paramService) {
+  app.controller("overviewCtrl", ['$scope', '$state', '$stateParams','$location', 'dataService','paramService', 'utilityService', function($scope, $state, $stateParams, $location, dataService, paramService, utilityService) {
 
       var mapStr = $stateParams.map;
 
@@ -39,12 +39,28 @@
       promise.then(function(response){
 
           $scope.overviewData = response;
+          $scope.overviewData.activityList = response.features[0].properties.project_activity;
+
+          //reformat date created of resources
+          $scope.overviewData.features[0].properties.project_resources.forEach(function(resource) {
+              resource.properties.time_created = utilityService.formatDate(resource.properties.time_created);
+          });
+
+          //reformat date created of activity list
+          $scope.overviewData.features[0].properties.project_activity.forEach(function(activity) {
+              activity.properties.time_created = utilityService.formatDate(activity.properties.time_created);
+          });
+
 
           var layer;
 
           // If there are any parcels, load the map and zoom to parcel
-          if($scope.overviewData.parcels && $scope.overviewData.parcels.features[0].geometry) {
-              layer = L.geoJson($scope.overviewData.parcels);
+          if($scope.overviewData.features[0].geometry) {
+              layer = L.geoJson($scope.overviewData.features[0]);
+              layer.addTo(map);
+
+          } else if ( $scope.overviewData.features[0].properties.parcels && $scope.overviewData.features[0].properties.parcels[0].geometry) {
+              layer = L.geoJson($scope.overviewData.features[0].properties.parcels);
               layer.addTo(map);
 
           }
@@ -54,6 +70,8 @@
           } else {
               map.fitBounds(layer.getBounds());
           }
+
+
 
       },function(err){
           $scope.overviewData = "Server Error";

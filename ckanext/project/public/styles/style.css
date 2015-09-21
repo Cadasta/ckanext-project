@@ -1,13 +1,11 @@
 body {
-    margin-bottom: 50px;
+    margin-bottom: 30em;
 }
-
 .ng-cloak {
-    display: none;
+    display:none;
 }
-
 div.hovercode {
-    display: none;
+    display:none;
 }
 
 .hovertrigger .hovercode {
@@ -19,9 +17,7 @@ div.hovercode {
 
 div.tabcontent {
     height: auto;
-    overflow-y: scroll;
-    border: 1px solid lightgrey;
-    border-bottom-style: none;
+    overflow-y:  scroll;
 }
 
 .outlines {
