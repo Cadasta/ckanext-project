@@ -5,6 +5,12 @@
     background-color: white;
 }
 
+#parcelDetailsMap {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
 #parcelDetails .overview-padding {
     padding: 12px 12px;
     height: 338px;
