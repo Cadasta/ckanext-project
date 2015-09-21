@@ -1,7 +1,7 @@
 
   var app = angular.module("app");
 
-  app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams','parcelService', function($scope, $state, $stateParams, parcelService){
+  app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams','parcelService', '$rootScope',function($scope, $state, $stateParams, parcelService,$rootScope){
 
       $rootScope.$broadcast('tab-change', {tab:'Parcels'});
 
