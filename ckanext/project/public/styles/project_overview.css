@@ -99,4 +99,7 @@ li.activity-block {
 
 }
 
+.remove-bottom-border {
+    border-bottom: none;
+}
 
