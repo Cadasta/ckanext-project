@@ -52,6 +52,19 @@
                     </tr>
                     </thead>
                 </table>
+                <div id="parcel-history-data">
+                <table>
+                    <tbody>
+                    <tr ng-repeat="ph in parcel_history">
+                        <td><md-checkbox aria-label="Delete"></td>
+                        <td>{{ph.id}}</td>
+                        <td>{{ph.time_created}}</td>
+                        <td>{{ph.description}}</td>
+                        <td>View Map</td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
             </div>
         </div>
     </div>

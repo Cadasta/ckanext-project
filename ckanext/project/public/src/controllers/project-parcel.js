@@ -1,4 +1,4 @@
-app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService','$rootScope','paramService', function($scope, $state, $stateParams, parcelService,$rootScope,paramService){
+app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService','$rootScope','paramService', 'utilityService',function($scope, $state, $stateParams, parcelService,$rootScope,paramService,utilityService){
 
     var mapStr = $stateParams.map;
 
@@ -44,16 +44,25 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService'
 
         $scope.parcel = response.properties;
 
+        // format dates
+        $scope.parcel.time_created = utilityService.formatDate($scope.parcel.time_created);
+        $scope.parcel.time_updated = utilityService.formatDate($scope.parcel.time_created);
+
+        response.properties.parcel_history.forEach(function(val){
+            val.time_created = utilityService.formatDate(val.time_created);
+            val.time_updated = utilityService.formatDate(val.time_updated);
+        });
+
         $scope.parcel_history = response.properties.parcel_history;
 
         $scope.relationships = response.properties.relationships;
 
+        //update values for UI
         $scope.relationships.forEach(function(v){
             v.active = v.active ? 'Active' : 'Inactive';
             v.relationship_type = 'own' ? 'Owner' : v.relationship_type;
             v.showDropDownDetails = false;
         });
-        
 
         // If there are any parcels, load the map and zoom to parcel
         if(response.geometry) {
@@ -62,7 +71,6 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService'
         } else {
             map.setView([lat,lng],zoom);
         }
-
 
     },function(err){
         $scope.overviewData = "Server Error";
