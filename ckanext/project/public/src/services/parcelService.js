@@ -61,6 +61,26 @@ var app = angular.module("app")
 
             return deferred.promise;
         };
+
+
+        /**
+         * Get all resources associated with a parcel
+         * @returns {*}
+         * todo pass in a project and parcel id
+         */
+        service.getParcelResources = function(){
+
+            var deferred = $q.defer();
+
+            $http.get(ENV.apiRoot + '/resources', { cache: false })
+                .then(function(response) {
+                    deferred.resolve(response.data);
+                }, function(response) {
+                    deferred.reject(response);
+                });
+
+            return deferred.promise;
+        };
         return service;
     }]);
 

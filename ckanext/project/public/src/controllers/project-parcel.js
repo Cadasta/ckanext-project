@@ -88,4 +88,21 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService'
         $scope.overviewData = "Server Error";
     });
 
+
+    var resource_promise = parcelService.getParcelResources();
+
+    resource_promise.then(function(response){
+
+        $scope.parcelResources = response;
+
+        //reformat date created of resources
+        $scope.parcelResources.features.forEach(function(resource) {
+            resource.properties.time_created = utilityService.formatDate(resource.properties.time_created);
+        });
+
+    },function(err){
+        $scope.overviewData = "Server Error";
+    });
+
+
 }]);

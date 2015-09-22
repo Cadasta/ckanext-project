@@ -1,6 +1,11 @@
 body {
     margin-bottom: 30em;
 }
+
+div{
+    outline:none;
+}
+
 .ng-cloak {
     display:none;
 }
@@ -30,4 +35,14 @@ div.tabcontent {
 
 .small-table-container {
     padding:10px 12px;
+}
+
+.blue {
+    color: #256c97;
+}
+
+.masthead-header span {
+    padding-right: 105px;
+    display: inline-block;
+    float: left;
 }

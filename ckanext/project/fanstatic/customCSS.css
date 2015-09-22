@@ -168,25 +168,9 @@ subtab {
     padding-top:12px;
     padding-left:12px;
     border: 1px solid #dcdfe1;
+
 }
 
-/* RW - commenting this out for now.  Make the CSS selector more specific so that only #project-content in a certain parent div gets 100% width.
-
-.module-content {
-    margin:0;
-    width:100%;
-    padding:0;
-}
-
-
-
-/*#project-content {*/
-    /*margin:0;*/
-    /*padding:0;*/
-    /*height:100%;*/
-    /*background-color: #eef2f5;*/
-/*}
-*/
 
 #project-content {
     margin:0;
