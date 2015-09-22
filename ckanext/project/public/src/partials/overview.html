@@ -34,11 +34,13 @@
             </div>
         </div>
 
+        <!-- project resources-->
         <div class='project-block' id="project-resource-summary">
             <span class="small-heading">RESOURCES</span>
             <div ng-repeat="resource in overviewData.features[0].properties.project_resources">
                A <span class="bold">{{resource.properties.type}}</span> resource was uploaded on <span class="link">{{resource.properties.time_created}}</span> <a class="right bold" href="{{resource.properties.url}}">View Resource</a>
             </div>
         </div>
+
     </div>
 </div>

@@ -6,8 +6,9 @@ var app = angular.module("app")
         var service =  {};
 
         /**
-         * This function gets all of the data required for the parce overview page
+         * This function gets all of the data required for the parcel overview page
          * @returns {*}
+         * todo pass in project id
          */
         service.overviewGet = function(){
 
@@ -23,7 +24,10 @@ var app = angular.module("app")
             return deferred.promise;
         };
 
-        //activities for project tab
+        /**
+         * Get all activities associated with a project
+         * @returns {*}
+         */
         service.getAllActivities = function(){
 
             var deferred = $q.defer();
@@ -38,7 +42,11 @@ var app = angular.module("app")
             return deferred.promise;
         };
 
-        //resources for project tab
+
+        /**
+         * Get all resources associated with a project
+         * @returns {*}
+         */
         service.getAllResources = function(){
 
             var deferred = $q.defer();
@@ -53,7 +61,7 @@ var app = angular.module("app")
             return deferred.promise;
         };
 
-
+        //todo Is this being used?
         service.parcelGet = function(id){
 
             var deferred = $q.defer();

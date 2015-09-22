@@ -3,7 +3,13 @@
         <!-- Overview Start-->
         <div class="overview">
 
-            <div class="back-link"><a ui-sref="^.parcellist"><- Back to list</a></div>
+            <div class="back-link">
+                <a ui-sref="^.parcellist"><- Back to list</a>
+                <div class="button-controller right">
+                    <!-- todo add edit buttons to parcel list-->
+                    <!--<i class="material-icons blue">add_circle_outline</i>-->
+                </div>
+            </div>
             <div class="section">
                 <div class="container">
                     <div class="title">{{parcel.id}} (alternative ID here)</div>
@@ -42,6 +48,7 @@
                 <div class="small-heading">
                     Parcel History
                 </div>
+                <i class="material-icons right">expand_more</i>
                 <table class="parcel-history">
                     <thead>
                     <tr>
@@ -77,6 +84,7 @@
                 <div class="small-heading">
                     Relationship History
                 </div>
+                <i class="material-icons right">expand_more</i>
                 <table class="parcel-history">
                     <thead>
                     <tr>
@@ -97,7 +105,44 @@
                             <td>{{ph.properties.id}}</td>
                             <td>{{ph.propertiestime_created}}</td>
                             <td>{{ph.properties.description}}</td>
+                            <td>{{ph.properties.relationship_type}}</td>
                             <td>View Map</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Parcel resources-->
+    <div class="history-container">
+        <div class="parcel-history">
+            <div class="small-table-container">
+                <div class="small-heading">
+                    Parcel Resources
+                </div>
+                <i class="material-icons right">expand_more</i>
+                <table class="parcel-history">
+                    <thead>
+                    <tr>
+                        <th>Delete</th>
+                        <th>Resource ID</th>
+                        <th>Description</th>
+                        <th>Date</th>
+                        <th>Image</th>
+                    </tr>
+                    </thead>
+                </table>
+                <div class="parcel-history-data relationship">
+                    <table>
+                        <tbody>
+                        <tr ng-repeat="r in parcelResources.features">
+                            <td><md-checkbox aria-label="Delete"></td>
+                            <td>{{r.properties.properties.id}}</td>
+                            <td>{{r.properties.description}}</td>
+                            <td>{{r.properties.time_created}}</td>
+                            <td><a href="{{r.properties.url}}">View Resource</a></td>
                         </tr>
                         </tbody>
                     </table>
