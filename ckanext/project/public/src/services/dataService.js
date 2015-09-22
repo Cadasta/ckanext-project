@@ -13,8 +13,8 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiRoot + '/projects/1/overview', { cache: false }).
-                then(function(response) {
+            $http.get(ENV.apiRoot + '/projects/1/overview', { cache: false })
+                .then(function(response) {
                   deferred.resolve(response.data);
                 }, function(response) {
                   deferred.reject(response);
@@ -24,12 +24,12 @@ var app = angular.module("app")
         };
 
 
-        service.parcelsGet = function(){
+        service.getAllActivities = function(){
 
             var deferred = $q.defer();
 
-            $http.get('../src/temp-data/parcels.json', { cache: true }).
-                then(function(response) {
+            $http.get(ENV.apiRoot + '/show_activity', { cache: false })
+                .then(function(response) {
                     deferred.resolve(response.data);
                 }, function(response) {
                     deferred.reject(response);

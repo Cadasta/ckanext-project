@@ -1,7 +1,7 @@
 var app = angular.module("app");
 
 
-app.controller("activityCtrl", ['$scope', '$state', '$stateParams','parcelService', function($scope, $state, $stateParams, parcelService){
+app.controller("activityCtrl", ['$scope', '$state', '$stateParams','dataService', function($scope, $state, $stateParams, dataService){
 
     if($state.current.name !== "tabs.activity") {
         return;
@@ -9,11 +9,11 @@ app.controller("activityCtrl", ['$scope', '$state', '$stateParams','parcelServic
 
     $scope.parcels = [];
 
-    var promise = parcelService.parcelsGet();
+    var promise = dataService.getAllActivities();
 
     promise.then(function(response){
 
-        $scope.parcels = response;
+        $scope.overviewData.allActivities = response;
 
     },function(err){
         $scope.overviewData = "Server Error";
