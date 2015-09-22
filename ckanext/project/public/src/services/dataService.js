@@ -10,12 +10,12 @@ var app = angular.module("app")
          * @returns {*}
          * todo pass in project id
          */
-        service.overviewGet = function(){
+        service.overviewGet = function(id){
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiRoot + '/projects/1/overview', { cache: false })
-                .then(function(response) {
+            $http.get(ENV.apiRoot + '/projects/overview/1?returnGeometry=true', { cache: false }).
+                then(function(response) {
                   deferred.resolve(response.data);
                 }, function(response) {
                   deferred.reject(response);
