@@ -1,19 +1,22 @@
 var app = angular.module("app");
 
 
-app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','parcelService', function($scope, $state, $stateParams, parcelService){
+app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService', 'utilityService', function($scope, $state, $stateParams, dataService, utilityService){
 
     if($state.current.name !== "tabs.resources") {
         return;
     }
 
-    $scope.parcels = [];
-
-    var promise = parcelService.parcelsGet();
+    var promise = dataService.getAllResources();
 
     promise.then(function(response){
+        $scope.allResources = response;
 
-        $scope.parcels = response;
+        //reformat date created of activity list
+        $scope.allResources.features.forEach(function(resource) {
+            resource.properties.time_created = utilityService.formatDate(resource.properties.time_created);
+        });
+
 
     },function(err){
         $scope.overviewData = "Server Error";
