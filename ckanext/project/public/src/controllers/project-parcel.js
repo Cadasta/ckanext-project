@@ -52,7 +52,17 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService'
             v.active = v.active ? 'Active' : 'Inactive';
             v.relationship_type = 'own' ? 'Owner' : v.relationship_type;
             v.showDropDownDetails = false;
-        })
+        });
+        
+
+        // If there are any parcels, load the map and zoom to parcel
+        if(response.geometry) {
+            var layer = L.geoJson(response).addTo(map);
+            map.fitBounds(layer.getBounds());
+        } else {
+            map.setView([lat,lng],zoom);
+        }
+
 
     },function(err){
         $scope.overviewData = "Server Error";

@@ -1,9 +1,7 @@
 var app = angular.module("app")
-    .service("parcelService", ['$http', '$q', function ($http, $q) {
+    .service("parcelService", ['$http', '$q', 'ENV', function ($http, $q, ENV) {
 
         var service = {};
-
-        var environment = {local: 'http://localhost:9000/', dev: 'http://54.69.121.180:3000/'};
 
         /**
          * Get all parcels from parcel endpoint
@@ -15,7 +13,7 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(environment.local + 'show_parcels_list', {cache: true}).
+            $http.get(ENV.apiRoot + '/show_parcels_list', {cache: true}).
                 then(function (response) {
                     deferred.resolve(response.data.features);
                 }, function (response) {
@@ -34,7 +32,7 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(environment.local + 'parcels/' + id + '/details', {cache: true}).
+            $http.get(ENV.apiRoot +  '/parcels/' + id + '/details', {cache: true}).
                 then(function (response) {
                     deferred.resolve(response.data.features[0]);
                 }, function (response) {
