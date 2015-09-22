@@ -1,0 +1,5 @@
+.project-tab-data {
+    max-height: 500px;
+    overflow: scroll;
+    margin: 0 0 20px 65px;
+}

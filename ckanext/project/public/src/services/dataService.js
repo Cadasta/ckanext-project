@@ -23,7 +23,7 @@ var app = angular.module("app")
             return deferred.promise;
         };
 
-
+        //activities for project tab
         service.getAllActivities = function(){
 
             var deferred = $q.defer();
@@ -37,6 +37,22 @@ var app = angular.module("app")
 
             return deferred.promise;
         };
+
+        //resources for project tab
+        service.getAllResources = function(){
+
+            var deferred = $q.defer();
+
+            $http.get(ENV.apiRoot + '/resources', { cache: false })
+                .then(function(response) {
+                    deferred.resolve(response.data);
+                }, function(response) {
+                    deferred.reject(response);
+                });
+
+            return deferred.promise;
+        };
+
 
         service.parcelGet = function(id){
 
