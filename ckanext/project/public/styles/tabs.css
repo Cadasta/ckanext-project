@@ -17,6 +17,7 @@
     text-decoration:none;
     color:#256c97;
     font-weight: bold;
+    border-style: none;
 }
 
 #project-tabs li a {
@@ -38,4 +39,21 @@
     color:#256c97;
     text-decoration:none;
     font-weight: bold;
+}
+
+
+
+/*HEADER CSS*/
+#header{
+    height: 120px;
+    border-left:1px solid #dcdfe1;
+    border-right: 1px solid #dcdfe1;
+    border-top:1px solid #dcdfe1;
+    background-color: white;
+}
+
+#project-header .project-title {
+    font-size: 18px;
+    color: #2d3644;
+    margin:18px 0 0 25px;
 }
