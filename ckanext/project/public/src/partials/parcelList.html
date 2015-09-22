@@ -15,7 +15,7 @@
 <div id="parcelList">
     <table>
         <tbody>
-        <tr ng-repeat="parcel in parcels">
+        <tr ng-repeat="parcel in parcels" ng-class="{'last-table-element':$index == parcels.length-1}">
             <td><a ui-sref="^.parcel({id: parcel.properties.id})">{{parcel.properties.id}}</a></td>
             <td>{{parcel.properties.area | number:0}}</td>
             <td>{{parcel.properties.length | number:0}}</td>

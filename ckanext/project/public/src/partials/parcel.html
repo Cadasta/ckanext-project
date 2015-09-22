@@ -35,13 +35,14 @@
         <!-- Overview End-->
     </div>
 
+    <!-- Parcel history-->
     <div class="history-container">
         <div class="parcel-history">
             <div class="small-table-container">
                 <div class="small-heading">
                     Parcel History
                 </div>
-                <table id="parcel-history">
+                <table class="parcel-history">
                     <thead>
                     <tr>
                         <th>Delete</th>
@@ -52,7 +53,7 @@
                     </tr>
                     </thead>
                 </table>
-                <div id="parcel-history-data">
+                <div class="parcel-history-data relationship">
                 <table>
                     <tbody>
                     <tr ng-repeat="ph in parcel_history">
@@ -64,6 +65,42 @@
                     </tr>
                     </tbody>
                 </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Relationship history-->
+    <div class="history-container">
+        <div class="parcel-history">
+            <div class="small-table-container">
+                <div class="small-heading">
+                    Relationship History
+                </div>
+                <table class="parcel-history">
+                    <thead>
+                    <tr>
+                        <th>Delete</th>
+                        <th>Parcel Id</th>
+                        <th>Date</th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Image</th>
+                    </tr>
+                    </thead>
+                </table>
+                <div class="parcel-history-data">
+                    <table>
+                        <tbody>
+                        <tr ng-repeat="ph in relationship_history">
+                            <td><md-checkbox aria-label="Delete"></td>
+                            <td>{{ph.properties.id}}</td>
+                            <td>{{ph.propertiestime_created}}</td>
+                            <td>{{ph.properties.description}}</td>
+                            <td>View Map</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

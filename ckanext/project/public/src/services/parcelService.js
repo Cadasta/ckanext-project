@@ -42,6 +42,25 @@ var app = angular.module("app")
             return deferred.promise;
         };
 
+
+        /**
+         * Get parcels' relationship history
+         * @param id parcel id from state params
+         * @returns {*}
+         */
+        service.parcelRelationshipHistory = function (id) {
+
+            var deferred = $q.defer();
+
+            $http.get(ENV.apiRoot +  '/parcels/' + id + '/show_relationship_history', {cache: true}).
+                then(function (response) {
+                    deferred.resolve(response.data.features);
+                }, function (response) {
+                    deferred.reject(response);
+                });
+
+            return deferred.promise;
+        };
         return service;
     }]);
 

@@ -7,14 +7,13 @@ var app = angular.module("app")
 
         /**
          * This function gets all of the data required for the parce overview page
-         * Todo update the endpoint to hit the actual server rather than local
          * @returns {*}
          */
         service.overviewGet = function(){
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiRoot + '/projects/overview/1', { cache: false }).
+            $http.get(ENV.apiRoot + '/projects/1/overview', { cache: false }).
                 then(function(response) {
                   deferred.resolve(response.data);
                 }, function(response) {

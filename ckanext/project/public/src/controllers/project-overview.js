@@ -54,7 +54,7 @@
 
           var layer;
 
-          // If there are any parcels, load the map and zoom to parcel
+          // If there is a project geom load map and zoom to it; else zoome to parcels
           if($scope.overviewData.features[0].geometry) {
               layer = L.geoJson($scope.overviewData.features[0]);
               layer.addTo(map);
@@ -65,7 +65,7 @@
 
           }
 
-          if($stateParams.usermod){
+          if(layer === undefined){
               map.setView([lat,lng],zoom);
           } else {
               map.fitBounds(layer.getBounds());

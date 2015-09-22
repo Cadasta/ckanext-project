@@ -53,6 +53,11 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService'
             val.time_updated = utilityService.formatDate(val.time_updated);
         });
 
+        response.properties.relationships.forEach(function(val){
+            val.time_created = utilityService.formatDate(val.time_created);
+            val.time_updated = utilityService.formatDate(val.time_updated);
+        });
+
         $scope.parcel_history = response.properties.parcel_history;
 
         $scope.relationships = response.properties.relationships;
@@ -72,7 +77,14 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService'
             map.setView([lat,lng],zoom);
         }
 
+        return parcelService.parcelRelationshipHistory($stateParams.id);
+
     },function(err){
+        $scope.overviewData = "Server Error";
+    }).then(function(response){
+        $scope.relationship_history = response;
+
+    }, function(err){
         $scope.overviewData = "Server Error";
     });
 

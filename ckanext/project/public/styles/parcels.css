@@ -5,33 +5,40 @@
     /* background-color: #eef2f5; */
 }
 
-#parcel-history {
+.parcel-history {
     margin: auto;
     font-size: 12px;
     color: rgb(133, 140, 146);
     font-weight: 400;
     text-align: left;
-    padding: 8px;
+    padding: 8px 0px;
     width: 100%;
     line-height: 20px;
-    border-bottom: 1px solid #dcdfe1;
 }
 
-#parcel-history-data {
+.parcel-history th {
+     border-bottom: 1px solid #dcdfe1;
+}
+
+.parcel-history-data {
     font-size: 12px;
     width: 100%;
-    max-height: 400px;
+    max-height: 250px;
     overflow: scroll;
 }
 
-#parcel-history-data table {
+.parcel-history-data table {
     text-align: left;
     width: 100%;
     margin: auto;
     background-color: white
 }
 
-#parcel-history th {
+.parcel-history-data tr {
+    border-bottom: 1px solid #dcdfe1;
+}
+
+.parcel-history th {
     text-transform: uppercase;
 }
 
@@ -48,7 +55,7 @@
 }
 
 #parcelDetails .parcel-history {
-    height: 150px;
+    height: auto;
     background-color: white;
 }
 
@@ -182,9 +189,15 @@
     line-height: 20px;
 }
 
+
+
 #parcelList tbody tr {
     border-bottom: 1px solid #dcdfe1;
     height: 50px;
+}
+
+#parcelList .last-table-element {
+    border-bottom: none;
 }
 
 #parcelList tbody {
