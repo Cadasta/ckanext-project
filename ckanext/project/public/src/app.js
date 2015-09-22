@@ -37,7 +37,7 @@
       url: '/',
       views: {
         'breadcrumbs@': { controller:'breadcrumbsCtrl', templateUrl: '../src/partials/breadcrumbs.html' },
-        'projectHeader@': { template: 'Project Header here...' },
+        'projectHeader@': { controller:'headerCtrl', templateUrl: '../src/partials/projectHeader.html' },
         'tabs@': {  controller:'tabsCtrl', templateUrl: '../src/partials/tabs.html' }
       }});
 

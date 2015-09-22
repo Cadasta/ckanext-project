@@ -1,0 +1,59 @@
+#project-tabs {
+    background-color: white;
+    padding-left: 25px;
+    border-left:1px solid #dcdfe1;;
+    border-right: 1px solid #dcdfe1;
+}
+
+#project-tabs li {
+    margin-right:40px;
+}
+
+#project-tabs li:hover {
+    border-bottom: 2px solid #256c97;
+}
+
+#project-tabs li:hover * {
+    text-decoration:none;
+    color:#256c97;
+    font-weight: bold;
+    border-style: none;
+}
+
+#project-tabs li a {
+    color:#2d3644;
+    font-weight: 400;
+    font-size: 10px;
+}
+
+#project-tabs li.active {
+    border-bottom: 2px solid #256c97;
+}
+
+
+#project-tabs li.active {
+    border-bottom: 2px solid #256c97;
+}
+
+#project-tabs li.active * {
+    color:#256c97;
+    text-decoration:none;
+    font-weight: bold;
+}
+
+
+
+/*HEADER CSS*/
+#header{
+    height: 120px;
+    border-left:1px solid #dcdfe1;
+    border-right: 1px solid #dcdfe1;
+    border-top:1px solid #dcdfe1;
+    background-color: white;
+}
+
+#project-header .project-title {
+    font-size: 18px;
+    color: #2d3644;
+    margin:18px 0 0 25px;
+}
