@@ -204,3 +204,11 @@
     height:200px;
     overflow-y: auto;
 }
+
+#parcelFilter {
+    padding:10px 25px;
+}
+
+#parcelFilter .md-title {
+    margin: 32px 20px 0px 0px;
+}
