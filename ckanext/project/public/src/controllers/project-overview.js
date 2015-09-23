@@ -18,6 +18,10 @@
       // After each pan or zoom
       map.on('moveend', function(){
 
+          if($state.current.name !== 'tabs.overview') {
+              return;
+          }
+
           var center = map.getCenter();
           var zoom = map.getZoom();
           var param  = '('+[center.lat, center.lng, zoom].join(',')+ ')';
