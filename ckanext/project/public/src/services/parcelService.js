@@ -72,7 +72,7 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiRoot + '/resources', { cache: false })
+            $http.get(ENV.apiRoot + '/parcels/3/resources', { cache: false })
                 .then(function(response) {
                     deferred.resolve(response.data);
                 }, function(response) {
