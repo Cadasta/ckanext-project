@@ -40,6 +40,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService'
         obj.showDropDownDetails = !obj.showDropDownDetails;
     };
 
+
     var promise = parcelService.parcelGet($stateParams.id);
 
     promise.then(function(response){
@@ -84,11 +85,6 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService'
         return parcelService.parcelRelationshipHistory($stateParams.id);
 
     },function(err){
-        $scope.overviewData = "Server Error";
-    }).then(function(response){
-        $scope.relationship_history = response;
-
-    }, function(err){
         $scope.overviewData = "Server Error";
     });
 

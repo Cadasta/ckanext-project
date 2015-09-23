@@ -1087,7 +1087,7 @@ display: inline-block;
 }
 
 .controls #field-title{
-    width:90%;
+    width:85%;
     margin-left:64px;
 }
 
@@ -1133,4 +1133,12 @@ display: inline-block;
 
 .page-heading.register {
     margin: 20px 0 20px 0;
+}
+
+.editor .editor-info-block {
+    display: none;
+}
+
+.editor textarea {
+    border-bottom: 1px solid #CCCCCB;
 }

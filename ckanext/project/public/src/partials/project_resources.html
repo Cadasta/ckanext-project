@@ -6,16 +6,15 @@
 
                     <md-input-container>
                         <label>Filter Resource Type</label>
-                        <!-- todo update to be about resources rather than parcels-->
-                        <md-select ng-model="TenureTypeModel">
-                            <md-option ng-value="t.type" ng-repeat="t in resource_types" ng-click="filterTenureType(t.type)">{{t.label}}</md-option>
+                        <md-select ng-model="ResourceTypeModel">
+                            <md-option ng-value="t.type" ng-repeat="t in resource_types" ng-click="filterResourceType(t.type)">{{t.label}}</md-option>
                         </md-select>
                     </md-input-container>
 
                     <md-input-container>
                         <label>Sort</label>
-                        <md-select ng-model="TenureTypeModel">
-                            <md-option ng-value="s.type" ng-repeat="s in sort_by" ng-click="filterTenureType(s.type)">{{s.label}}</md-option>
+                        <md-select ng-model="ResourceTypeModel">
+                            <md-option ng-value="s.type" ng-repeat="s in sort_by" ng-click="filterResourceType(s.type)">{{s.label}}</md-option>
                         </md-select>
                     </md-input-container>
 
@@ -27,6 +26,7 @@
                         <th>Name</th>
                         <th>Description</th>
                         <th>Date</th>
+                        <th>Type</th>
                         <th>View</th>
                         <th class="right">Delete</th>
                     </tr>
@@ -35,10 +35,11 @@
                 <div class="parcel-history-data relationship">
                     <table>
                         <tbody>
-                        <tr ng-repeat="r in allResources.features">
+                        <tr ng-repeat="r in allResources.features | resourceType: ResourceTypeModel">
                             <td>Map 1{{r.properties.properties.name}}</td>
                             <td>Ground Survey 2015{{r.properties.description}}</td>
                             <td>{{r.properties.time_created}}</td>
+                            <td>{{r.properties.type}}</td>
                             <td><a href="{{r.properties.url}}">Download</a></td>
                             <td><md-checkbox class="right" aria-label="Delete"></td>
                         </tr>

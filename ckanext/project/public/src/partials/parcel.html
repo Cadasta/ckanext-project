@@ -1,4 +1,4 @@
-<div id="parcelDetails" class="overview-background">
+<div id="parcelDetails">
     <div class="details-container">
         <!-- Overview Start-->
         <div class="overview">
@@ -52,11 +52,10 @@
                 <table class="parcel-history">
                     <thead>
                     <tr>
-                        <th>Delete</th>
-                        <th>Parcel Id</th>
-                        <th>Date</th>
                         <th>Event</th>
+                        <th>Date</th>
                         <th>Image</th>
+                        <th class="right">Delete</th>
                     </tr>
                     </thead>
                 </table>
@@ -64,11 +63,10 @@
                 <table>
                     <tbody>
                     <tr ng-repeat="ph in parcel_history">
-                        <td><md-checkbox aria-label="Delete"></td>
-                        <td>{{ph.id}}</td>
-                        <td>{{ph.time_created}}</td>
                         <td>{{ph.description}}</td>
+                        <td>{{ph.time_created}}</td>
                         <td>View Map</td>
+                        <td><md-checkbox class="right" aria-label="Delete"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -88,25 +86,23 @@
                 <table class="parcel-history">
                     <thead>
                     <tr>
-                        <th>Delete</th>
-                        <th>Parcel Id</th>
-                        <th>Date</th>
                         <th>Name</th>
                         <th>Type</th>
+                        <th>Date</th>
                         <th>Image</th>
+                        <th class="right">Delete</th>
                     </tr>
                     </thead>
                 </table>
                 <div class="parcel-history-data">
                     <table>
                         <tbody>
-                        <tr ng-repeat="ph in relationship_history">
-                            <td><md-checkbox aria-label="Delete"></td>
-                            <td>{{ph.properties.id}}</td>
-                            <td>{{ph.propertiestime_created}}</td>
-                            <td>{{ph.properties.description}}</td>
-                            <td>{{ph.properties.relationship_type}}</td>
+                        <tr ng-repeat="ph in relationships">
+                            <td>{{ph.description}}</td>
+                            <td>{{ph.relationship_type}}</td>
+                            <td>{{ph.time_created}}</td>
                             <td>View Map</td>
+                            <td><md-checkbox class="right" aria-label="Delete"></td>
                         </tr>
                         </tbody>
                     </table>
@@ -126,11 +122,11 @@
                 <table class="parcel-history">
                     <thead>
                     <tr>
-                        <th>Delete</th>
-                        <th>Resource ID</th>
+                        <th>Name</th>
                         <th>Description</th>
                         <th>Date</th>
-                        <th>Image</th>
+                        <th>View</th>
+                        <th class="right">Delete</th>
                     </tr>
                     </thead>
                 </table>
@@ -138,11 +134,11 @@
                     <table>
                         <tbody>
                         <tr ng-repeat="r in parcelResources.features">
-                            <td><md-checkbox aria-label="Delete"></td>
-                            <td>{{r.properties.properties.id}}</td>
+                            <td>{{r.properties.name}}</td>
                             <td>{{r.properties.description}}</td>
                             <td>{{r.properties.time_created}}</td>
-                            <td><a href="{{r.properties.url}}">View Resource</a></td>
+                            <td><a href="{{r.properties.url}}">Download</a></td>
+                            <td><md-checkbox class="right" aria-label="Delete"></td>
                         </tr>
                         </tbody>
                     </table>
