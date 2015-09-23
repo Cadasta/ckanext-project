@@ -22,4 +22,25 @@ app.controller("activityCtrl", ['$scope', '$state', '$stateParams','dataService'
         $scope.overviewData = "Server Error";
     });
 
+
+    $scope.activity_types = [
+        {
+            type: 'all',
+            label: 'All Activities'
+        },
+        {
+            type: 'parcel',
+            label: 'Parcel Activity'
+        },
+        {
+            type: 'party',
+            label: 'Party Activity'
+        },
+        {
+            type: 'relationship',
+            label: 'Relationship Activity'
+        }
+    ];
+
+
 }]);

@@ -1,7 +1,7 @@
 .project-tab-data {
     max-height: 500px;
     overflow: scroll;
-    margin: 0 0 20px 65px;
+    margin: 0 0 20px 13px;
 }
 
 .parcel-history .button-controller {
@@ -43,4 +43,13 @@
 
 md-select .md-select-value.md-select-placeholder {
     color: #2d3644;;
+}
+
+.button-controller.activity {
+    margin: -35px 0 7px 9px;
+    width: 200px;
+}
+
+.project-tab-data li.activity-block {
+    width:98%;
 }
