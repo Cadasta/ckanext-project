@@ -3,3 +3,17 @@
     overflow: scroll;
     margin: 0 0 20px 65px;
 }
+
+.parcel-history .button-controller {
+    height:60px;
+}
+
+.resources .parcel-history table * {
+    text-align: center;
+}
+
+.menudemoBasicUsage .md-menu-demo {
+    padding: 24px; }
+
+.menudemoBasicUsage .menu-demo-container {
+    min-height: 200px; }

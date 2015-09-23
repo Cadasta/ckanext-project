@@ -22,4 +22,21 @@ app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService'
         $scope.overviewData = "Server Error";
     });
 
+
 }]);
+
+app.controller('BasicDemoCtrl', function DemoCtrl($mdDialog) {
+    var originatorEv;
+    this.openMenu = function ($mdOpenMenu, ev) {
+        originatorEv = ev;
+        $mdOpenMenu(ev);
+    };
+    this.notificationsEnabled = true;
+
+    this.redial = function () {
+        //filtering
+    };
+    this.checkVoicemail = function () {
+        // This never happens.
+    };
+});
