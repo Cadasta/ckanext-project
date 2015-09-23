@@ -1,7 +1,7 @@
 **.pyc
 ckanext_project.egg*
 
-ckanext/project/public/src/config.js
+ckanext/project/public/build/**
 
 .idea/
 

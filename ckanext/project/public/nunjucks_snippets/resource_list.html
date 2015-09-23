@@ -1,9 +1,0 @@
-<ul id="resource-list">
-    {% if features %}
-    {% for resource in features %}
-
-    <li class="resource-block block">New resource uploaded on <span class="bold">{{resource.properties.time_created}}. </span><a href="{{resource.properties.url}}"><span class="link"> View Resource</span></a></li>
-
-    {% endfor %}
-    {% endif %}
-</ul>

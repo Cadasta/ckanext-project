@@ -1,5 +1,5 @@
 
-  var app = angular.module("app",
+var app = angular.module("app",
     [ 'ct.ui.router.extras', 'params.manager', 'app.config', 'ngMaterial']);
 
   var dsrCb = function ($dsr$, paramService) {
