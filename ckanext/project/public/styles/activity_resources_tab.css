@@ -17,3 +17,30 @@
 
 .menudemoBasicUsage .menu-demo-container {
     min-height: 200px; }
+
+.overview-background.resources {
+    background-color: white;
+    border: 1px solid #dcdfe1;
+}
+
+
+.parcel-history thead {
+    border-bottom: 1px solid #dcdfe1;
+}
+
+.resources .parcel-history th {
+    border-bottom: none;
+}
+
+.resources .button-controller md-input-container{
+    width: 200px;
+    display: inline-block;
+}
+
+.resources .button-controller{
+   margin: -30px 0 25px 12px;
+}
+
+md-select .md-select-value.md-select-placeholder {
+    color: #2d3644;;
+}

@@ -40,7 +40,7 @@ var app = angular.module("app")
                         zoom = 0;
                     }
 
-                    mapParamValue = [lat,lng,zoom].join(',');
+                    mapParamValue = '(' +[lat,lng,zoom].join(',') + ')';
                 }
             }
             return mapParamValue;

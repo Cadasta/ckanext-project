@@ -1,21 +1,40 @@
-<div id="project-header"></div>
+<!--<div id="project-header"></div>-->
 
-    <table id="parcel-table-header">
-        <thead>
-        <tr>
-            <th>Parcel ID</th>
-            <th>Area (meters)</th>
-            <th>Length (meters)</th>
-            <th>Active Relationships</th>
-            <th>Date Created</th>
-        </tr>
-        </thead>
-    </table>
+<div id="parcelFilter">
+    <div layout="row">
+        <h3 class="md-title">Filter:</h3>
+
+    <md-input-container>
+        <label>Filter Tenure Type</label>
+        <md-select ng-model="TenureTypeModel">
+            <md-option ng-value="t.type" ng-repeat="t in tenure_types" ng-click="filterTenureType(t.type)">{{t.label}}</md-option>
+        </md-select>
+    </md-input-container>
+
+    <md-input-container>
+        <label>Sort</label>
+        <md-select ng-model="TenureTypeModel">
+            <md-option ng-value="s.type" ng-repeat="s in sort_by" ng-click="filterTenureType(s.type)">{{s.label}}</md-option>
+        </md-select>
+    </md-input-container>
+</div>
+</div>
+<table id="parcel-table-header">
+    <thead>
+    <tr>
+        <th>Parcel ID</th>
+        <th>Area (meters)</th>
+        <th>Length (meters)</th>
+        <th>Active Relationships</th>
+        <th>Date Created</th>
+    </tr>
+    </thead>
+</table>
 
 <div id="parcelList">
     <table>
         <tbody>
-        <tr ng-repeat="parcel in parcels" ng-class="{'last-table-element':$index == parcels.length-1}">
+        <tr ng-show="parcelsList.length ==0 " ng-repeat="parcel in parcels | tenureType: TenureTypeModel" ng-class="{'last-table-element':$index == parcels.length-1}">
             <td><a ui-sref="^.parcel({id: parcel.properties.id})">{{parcel.properties.id}}</a></td>
             <td>{{parcel.properties.area | number:0}}</td>
             <td>{{parcel.properties.length | number:0}}</td>

@@ -1,7 +1,7 @@
 
   var app = angular.module("app");
 
-  app.controller("overviewCtrl", ['$scope', '$state', '$stateParams','$location', 'dataService','paramService', 'utilityService', function($scope, $state, $stateParams, $location, dataService, paramService, utilityService) {
+  app.controller("projectMapCtrl", ['$scope', '$state', '$stateParams','$location', 'dataService','paramService', 'utilityService', function($scope, $state, $stateParams, $location, dataService, paramService, utilityService) {
 
       var mapStr = $stateParams.map;
 
@@ -13,12 +13,12 @@
       var zoom = mapArr[2];
 
       // setup map
-      var map = L.map('overviewMap', {scrollWheelZoom:false});
+      var map = L.map('projectBigMap', {scrollWheelZoom:false});
 
       // After each pan or zoom
       map.on('moveend', function(){
 
-          if($state.current.name !== 'tabs.overview') {
+          if($state.current.name !== 'tabs.map') {
               return;
           }
 

@@ -23,20 +23,40 @@ app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService'
     });
 
 
+    $scope.resource_types = [
+        {
+            type: 'all',
+            label: 'All Resources'
+        },
+        {
+            type: 'project',
+            label: 'Project Resources'
+        },
+        {
+            type: 'parcel',
+            label: 'Parcel Resources'
+        },
+        {
+            type: 'party',
+            label: 'Party Resources'
+        },
+        {
+            type: 'relationship',
+            label: 'Relationship Resources'
+        }
+    ];
+
+    $scope.sort_by = [
+        {
+            type: 'name',
+            label: 'Name'
+        },
+        {
+            type: 'time_created',
+            label: 'Date'
+        }
+    ];
+
+
 }]);
 
-app.controller('BasicDemoCtrl', function DemoCtrl($mdDialog) {
-    var originatorEv;
-    this.openMenu = function ($mdOpenMenu, ev) {
-        originatorEv = ev;
-        $mdOpenMenu(ev);
-    };
-    this.notificationsEnabled = true;
-
-    this.redial = function () {
-        //filtering
-    };
-    this.checkVoicemail = function () {
-        // This never happens.
-    };
-});

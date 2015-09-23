@@ -1,57 +1,35 @@
-<div class="clearfix" id="overview-background">
+<div class="clearfix overview-background resources">
     <div id="project-header">
-        <div class="history-container resources">
-            <div class="parcel-history">
+        <div class="resources-container">
+            <div class="resources">
                 <div class="button-controller">
 
-                    <div class="md-menu-demo" ng-controller="BasicDemoCtrl as ctrl">
-                        <md-menu>
-                            <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-mouseenter="ctrl.openMenu($mdOpenMenu, $event)">
-                                Filter By
-                            </md-button>
-                            <md-menu-content width="4">
-                                <md-menu-item>
-                                    <md-button ng-click="ctrl.redial($event)">
-                                        Project Resources
-                                    </md-button>
-                                </md-menu-item>
-                                <md-menu-item>
-                                    <md-button ng-click="ctrl.redial($event)">
-                                        Parcel Resources
-                                    </md-button>
-                                </md-menu-item>
-                            </md-menu-content>
-                        </md-menu>
-                        <md-menu>
-                            <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-mouseenter="ctrl.openMenu($mdOpenMenu, $event)">
-                                Sort By
-                            </md-button>
-                            <md-menu-content width="4">
-                                <md-menu-item>
-                                    <md-button ng-click="ctrl.redial($event)">
-                                        Date
-                                    </md-button>
-                                </md-menu-item>
-                                <md-menu-item>
-                                    <md-button ng-click="ctrl.redial($event)">
-                                        Resource ID
-                                    </md-button>
-                                </md-menu-item>
-                            </md-menu-content>
-                        </md-menu>
-                    </div>
+                    <md-input-container>
+                        <label>Filter Resource Type</label>
+                        <!-- todo update to be about resources rather than parcels-->
+                        <md-select ng-model="TenureTypeModel">
+                            <md-option ng-value="t.type" ng-repeat="t in resource_types" ng-click="filterTenureType(t.type)">{{t.label}}</md-option>
+                        </md-select>
+                    </md-input-container>
 
-                    <i class="material-icons right blue">add_circle_outline</i>
-                    <i class="material-icons right blue">add_circle_outline</i>
+                    <md-input-container>
+                        <label>Sort</label>
+                        <md-select ng-model="TenureTypeModel">
+                            <md-option ng-value="s.type" ng-repeat="s in sort_by" ng-click="filterTenureType(s.type)">{{s.label}}</md-option>
+                        </md-select>
+                    </md-input-container>
+
+                        </div>
                 </div>
+
                 <table class="parcel-history">
                     <thead>
                     <tr>
-                        <th>Delete</th>
-                        <th>Resource ID</th>
+                        <th>Name</th>
                         <th>Description</th>
                         <th>Date</th>
-                        <th>View Resource</th>
+                        <th>View</th>
+                        <th class="right">Delete</th>
                     </tr>
                     </thead>
                 </table>
@@ -59,11 +37,11 @@
                     <table>
                         <tbody>
                         <tr ng-repeat="r in allResources.features">
-                            <td><md-checkbox aria-label="Delete"></td>
-                            <td>{{r.properties.properties.id}}</td>
-                            <td>{{r.properties.description}}</td>
+                            <td>Map 1{{r.properties.properties.name}}</td>
+                            <td>Ground Survey 2015{{r.properties.description}}</td>
                             <td>{{r.properties.time_created}}</td>
-                            <td><a href="{{r.properties.url}}"><i class="material-icons">file_download</i></a></td>
+                            <td><a href="{{r.properties.url}}">Download</a></td>
+                            <td><md-checkbox class="right" aria-label="Delete"></td>
                         </tr>
                         </tbody>
                     </table>

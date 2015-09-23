@@ -96,6 +96,7 @@
 
         $stateParams.map = mapUtilityService.validateMapParam($stateParams.map);
       },
+      reloadOnSearch: false,
       deepStateRedirect: dsrCb,
       paramsMap:[{key:'id'}, {key:'map', defaultValue: '(0,0,0)'}],
       sticky:true
@@ -105,9 +106,9 @@
     // Child State
     states.push({
       name: 'tabs.map',
-      url: 'map',
+      url: 'map?map',
       views: {
-          'maptab': {  templateUrl: '../src/partials/map.html' }
+          'maptab': { controller: 'projectMapCtrl', templateUrl: '../src/partials/map.html' }
       },
       paramsMap:[{key:'map', defaultValue: '(0,0,0)'}],
       onEnter: function($state, $stateParams, mapUtilityService){
@@ -115,6 +116,7 @@
         $stateParams.map = mapUtilityService.validateMapParam($stateParams.map);
 
       },
+      reloadOnSearch: false,
       deepStateRedirect: dsrCb,
       sticky: true });
 
@@ -150,7 +152,6 @@
       $stateProvider.state(state);
 
     });
-
 
     $urlRouterProvider.otherwise('/overview?map=(0,0,1)');
 

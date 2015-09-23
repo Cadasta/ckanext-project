@@ -1,24 +1,123 @@
+var app = angular.module("app");
 
-  var app = angular.module("app");
+app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelService', '$rootScope', 'utilityService', function ($scope, $state, $stateParams, parcelService, $rootScope, utilityService) {
 
-  app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams','parcelService', '$rootScope', 'utilityService', function($scope, $state, $stateParams, parcelService,$rootScope,utilityService){
+    $rootScope.$broadcast('tab-change', {tab: 'Parcels'});
 
-      $rootScope.$broadcast('tab-change', {tab:'Parcels'});
+    $scope.parcels = [];
+    $scope.parcelsList = [];
 
-      $scope.parcels = [];
+    // update tenure type on selection
+    $scope.filterTenureType = function (type){
+        $scope.TenureTypeModel = type;
+    };
 
-      var promise = parcelService.parcelsGet();
+    $scope.sort_by = [
+        {
+            label: 'None',
+            type: 'all'
+        },
+        {
+            label: 'Parcel ID',
+            type: 'id'
+        },
+        {
+            label: 'Number of Active Relationships',
+            type: 'num_relationships'
+        },
+        {
+            label: 'Date Created',
+            type: 'time_created'
+        }
+    ];
 
-      promise.then(function(response){
+    $scope.tenure_types = [
+        {
+            type: 'all',
+            label: 'All Types'
+        },
+        {
+            type: 'own',
+            label: 'Owned Parcels'
+        },
+        {
+            type: 'lease',
+            label: 'Leased Parcels'
+        },
+        {
+            type: 'occupy',
+            label: 'Occupied Parcels'
+        },
+        {
+            type: 'informal occupy',
+            label: 'Informally Occupied Parcels'
+        }
+    ];
 
-          //format dates
-          response.forEach(function(val){val.properties.time_created= utilityService.formatDate(val.properties.time_created);})
+    var promise = parcelService.parcelsGet();
 
-          $scope.parcels = response;
+    promise.then(function (response) {
+
+        //format dates
+        response.forEach(function (val) {
+            val.properties.time_created = utilityService.formatDate(val.properties.time_created);
+        })
+
+        $scope.parcels = response;
 
 
-      },function(err){
-          $scope.overviewData = "Server Error";
-      });
+    }, function (err) {
+        $scope.overviewData = "Server Error";
+    });
 
-  }]);
+}]);
+
+
+// custom tenure type filter
+app.filter('tenureType', function () {
+    return function(inputs,filter_type) {
+        var output = [];
+        switch(filter_type){
+            case 'own':
+            case 'lease':
+            case 'occupy':
+            case 'informal occupy':
+                //check if array contains filter selection
+                inputs.forEach(function (input) {
+                    if (filter_type.indexOf(input.properties.tenure_type) !== -1)
+                        output.push(input);
+                });
+                return output;
+                break;
+            case 'time_created':
+                // create unique copy of array
+                var arr = inputs.slice();
+                // sort by date DESC
+                arr.sort(function(a,b){
+                    var a_date = new Date(a.properties.time_created);
+                    var b_date = new Date(b.properties.time_created);
+                    return   b_date - a_date;
+                });
+                return arr;
+                break;
+            case 'num_relationships':
+                var arr = inputs.slice();
+                // sort by DESC
+                arr.sort(function(a,b){
+                    return b.properties[filter_type] - a.properties[filter_type];
+                });
+                return arr;
+                break;
+            case 'id':
+                // sort by ASC
+                var arr = inputs.slice();
+                arr.sort(function(a,b){
+                    return a.properties[filter_type] - b.properties[filter_type];
+                });
+                return arr;
+                break;
+            default:
+                return inputs;
+        }
+    };
+});

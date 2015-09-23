@@ -416,6 +416,7 @@ footer {
 
 #content {
     background-color:#eef2f5;
+    margin-bottom: 50px;
 }
 
 
@@ -996,13 +997,14 @@ display: inline-block;
     padding: 0px 0px 10px 0px;
 }
 
-#overview-background {
+.overview-background {
     margin: 0 auto;
     min-height:315px;
-    background-color: white
+    background-color:white;
+    border: 1px solid #dcdfe1;
 }
 
-#overview-background .parcel-details-return {
+.overview-background .parcel-details-return {
     margin: 20px 12px 20px 10px;
     font-weight: bold;
 }

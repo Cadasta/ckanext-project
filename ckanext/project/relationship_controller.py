@@ -96,184 +96,184 @@ class Cadasta_Relationship_Controller(PackageController):
 
 
 
-    def read_relationship_details(self, id, parcel_id, relationship_id):
+def read_relationship_details(self, id, parcel_id, relationship_id):
 
 
-        ctype, format = self._content_type_from_accept()
+    ctype, format = self._content_type_from_accept()
 
-        response.headers['Content-Type'] = ctype
+    response.headers['Content-Type'] = ctype
 
-        context = {'model': model, 'session': model.Session,
-                   'user': c.user or c.author, 'for_view': True,
-                   'auth_user_obj': c.userobj}
-        data_dict = {'id': id, 'include_tracking': True}
-
-
-        # check if package exists
-        try:
-            c.pkg_dict = get_action('package_show')(context, data_dict)
-            c.pkg = context['package']
-        except NotFound:
-            abort(404, _('Dataset not found'))
-        except NotAuthorized:
-            abort(401, _('Unauthorized to read package %s') % id)
-
-        package_type = c.pkg_dict['type'] or 'dataset'
-        self._setup_template_variables(context, {'id': id, 'parcel_id': parcel_id, 'relationship_id': relationship_id},
-                                       package_type=package_type)
-
-        return render('project/relationship_details.html',
-                          extra_vars={'dataset_type': package_type})
+    context = {'model': model, 'session': model.Session,
+               'user': c.user or c.author, 'for_view': True,
+               'auth_user_obj': c.userobj}
+    data_dict = {'id': id, 'include_tracking': True}
 
 
+    # check if package exists
+    try:
+        c.pkg_dict = get_action('package_show')(context, data_dict)
+        c.pkg = context['package']
+    except NotFound:
+        abort(404, _('Dataset not found'))
+    except NotAuthorized:
+        abort(401, _('Unauthorized to read package %s') % id)
 
-    def edit_relationship_details(self, id, parcel_id, relationship_id):
+    package_type = c.pkg_dict['type'] or 'dataset'
+    self._setup_template_variables(context, {'id': id, 'parcel_id': parcel_id, 'relationship_id': relationship_id},
+                                   package_type=package_type)
 
-
-        ctype, format = self._content_type_from_accept()
-
-        response.headers['Content-Type'] = ctype
-
-        context = {'model': model, 'session': model.Session,
-                   'user': c.user or c.author, 'for_view': True,
-                   'auth_user_obj': c.userobj}
-        data_dict = {'id': id, 'include_tracking': True}
-
-
-        # check if package exists
-        try:
-            c.pkg_dict = get_action('package_show')(context, data_dict)
-            c.pkg = context['package']
-        except NotFound:
-            abort(404, _('Dataset not found'))
-        except NotAuthorized:
-            abort(401, _('Unauthorized to read package %s') % id)
-
-        package_type = c.pkg_dict['type'] or 'dataset'
-        self._setup_template_variables(context, {'id': id, 'parcel_id' : parcel_id, 'relationship_id': relationship_id},
-                                       package_type=package_type)
-
-        return render('project/edit_relationship_details.html',
-                          extra_vars={'dataset_type': package_type})
+    return render('project/relationship_details.html',
+                      extra_vars={'dataset_type': package_type})
 
 
 
-    def new_relationship(self, id, parcel_id):
-
-        ctype, format = self._content_type_from_accept()
-
-        response.headers['Content-Type'] = ctype
-
-        context = {'model': model, 'session': model.Session,
-                   'user': c.user or c.author, 'for_view': True,
-                   'auth_user_obj': c.userobj}
-        data_dict = {'id': id, 'include_tracking': True}
+def edit_relationship_details(self, id, parcel_id, relationship_id):
 
 
-        # check if package exists
-        try:
-            c.pkg_dict = get_action('package_show')(context, data_dict)
-            c.pkg = context['package']
-        except NotFound:
-            abort(404, _('Dataset not found'))
-        except NotAuthorized:
-            abort(401, _('Unauthorized to read package %s') % id)
+    ctype, format = self._content_type_from_accept()
 
-        package_type = c.pkg_dict['type'] or 'dataset'
-        self._setup_template_variables(context, {'id': id, 'parcel_id': parcel_id},
-                                       package_type=package_type)
+    response.headers['Content-Type'] = ctype
 
-        return render('project/edit_relationship_details.html',
-                          extra_vars={'dataset_type': package_type})
+    context = {'model': model, 'session': model.Session,
+               'user': c.user or c.author, 'for_view': True,
+               'auth_user_obj': c.userobj}
+    data_dict = {'id': id, 'include_tracking': True}
 
 
+    # check if package exists
+    try:
+        c.pkg_dict = get_action('package_show')(context, data_dict)
+        c.pkg = context['package']
+    except NotFound:
+        abort(404, _('Dataset not found'))
+    except NotAuthorized:
+        abort(401, _('Unauthorized to read package %s') % id)
 
+    package_type = c.pkg_dict['type'] or 'dataset'
+    self._setup_template_variables(context, {'id': id, 'parcel_id' : parcel_id, 'relationship_id': relationship_id},
+                                   package_type=package_type)
 
-    def show_relationship_map(self, id, parcel_id, relationship_id):
-
-        ctype, format = self._content_type_from_accept()
-
-        response.headers['Content-Type'] = ctype
-
-        context = {'model': model, 'session': model.Session,
-                   'user': c.user or c.author, 'for_view': True,
-                   'auth_user_obj': c.userobj}
-        data_dict = {'id': id, 'include_tracking': True}
-
-
-        # check if package exists
-        try:
-            c.pkg_dict = get_action('package_show')(context, data_dict)
-            c.pkg = context['package']
-        except NotFound:
-            abort(404, _('Dataset not found'))
-        except NotAuthorized:
-            abort(401, _('Unauthorized to read package %s') % id)
-
-        package_type = c.pkg_dict['type'] or 'dataset'
-        self._setup_template_variables(context, {'id': id, 'parcel_id': parcel_id, 'relationship_id': relationship_id},
-                                       package_type=package_type)
-
-        return render('project/map.html',
-                          extra_vars={'dataset_type': package_type, 'id':id})
+    return render('project/edit_relationship_details.html',
+                      extra_vars={'dataset_type': package_type})
 
 
 
-    def edit_relationship_map(self, id, parcel_id, relationship_id):
+def new_relationship(self, id, parcel_id):
 
-        ctype, format = self._content_type_from_accept()
+    ctype, format = self._content_type_from_accept()
 
-        response.headers['Content-Type'] = ctype
+    response.headers['Content-Type'] = ctype
 
-        context = {'model': model, 'session': model.Session,
-                   'user': c.user or c.author, 'for_view': True,
-                   'auth_user_obj': c.userobj}
-        data_dict = {'id': id, 'include_tracking': True}
+    context = {'model': model, 'session': model.Session,
+               'user': c.user or c.author, 'for_view': True,
+               'auth_user_obj': c.userobj}
+    data_dict = {'id': id, 'include_tracking': True}
 
 
-        # check if package exists
-        try:
-            c.pkg_dict = get_action('package_show')(context, data_dict)
-            c.pkg = context['package']
-        except NotFound:
-            abort(404, _('Dataset not found'))
-        except NotAuthorized:
-            abort(401, _('Unauthorized to read package %s') % id)
+    # check if package exists
+    try:
+        c.pkg_dict = get_action('package_show')(context, data_dict)
+        c.pkg = context['package']
+    except NotFound:
+        abort(404, _('Dataset not found'))
+    except NotAuthorized:
+        abort(401, _('Unauthorized to read package %s') % id)
 
-        package_type = c.pkg_dict['type'] or 'dataset'
-        self._setup_template_variables(context, {'id': id, 'parcel_id': parcel_id, 'relationship_id': relationship_id},
-                                       package_type=package_type)
+    package_type = c.pkg_dict['type'] or 'dataset'
+    self._setup_template_variables(context, {'id': id, 'parcel_id': parcel_id},
+                                   package_type=package_type)
 
-        return render('project/map.html',
-                          extra_vars={'dataset_type': package_type, 'id':id})
+    return render('project/edit_relationship_details.html',
+                      extra_vars={'dataset_type': package_type})
 
 
 
 
-    def new_relationship_map(self, id, parcel_id):
+def show_relationship_map(self, id, parcel_id, relationship_id):
 
-        ctype, format = self._content_type_from_accept()
+    ctype, format = self._content_type_from_accept()
 
-        response.headers['Content-Type'] = ctype
+    response.headers['Content-Type'] = ctype
 
-        context = {'model': model, 'session': model.Session,
-                   'user': c.user or c.author, 'for_view': True,
-                   'auth_user_obj': c.userobj}
-        data_dict = {'id': id, 'include_tracking': True}
+    context = {'model': model, 'session': model.Session,
+               'user': c.user or c.author, 'for_view': True,
+               'auth_user_obj': c.userobj}
+    data_dict = {'id': id, 'include_tracking': True}
 
 
-        # check if package exists
-        try:
-            c.pkg_dict = get_action('package_show')(context, data_dict)
-            c.pkg = context['package']
-        except NotFound:
-            abort(404, _('Dataset not found'))
-        except NotAuthorized:
-            abort(401, _('Unauthorized to read package %s') % id)
+    # check if package exists
+    try:
+        c.pkg_dict = get_action('package_show')(context, data_dict)
+        c.pkg = context['package']
+    except NotFound:
+        abort(404, _('Dataset not found'))
+    except NotAuthorized:
+        abort(401, _('Unauthorized to read package %s') % id)
 
-        package_type = c.pkg_dict['type'] or 'dataset'
-        self._setup_template_variables(context, {'id': id, 'parcel_id': parcel_id},
-                                       package_type=package_type)
+    package_type = c.pkg_dict['type'] or 'dataset'
+    self._setup_template_variables(context, {'id': id, 'parcel_id': parcel_id, 'relationship_id': relationship_id},
+                                   package_type=package_type)
 
-        return render('project/map.html',
-                          extra_vars={'dataset_type': package_type, 'id':id})
+    return render('project/map.html',
+                      extra_vars={'dataset_type': package_type, 'id':id})
+
+
+
+def edit_relationship_map(self, id, parcel_id, relationship_id):
+
+    ctype, format = self._content_type_from_accept()
+
+    response.headers['Content-Type'] = ctype
+
+    context = {'model': model, 'session': model.Session,
+               'user': c.user or c.author, 'for_view': True,
+               'auth_user_obj': c.userobj}
+    data_dict = {'id': id, 'include_tracking': True}
+
+
+    # check if package exists
+    try:
+        c.pkg_dict = get_action('package_show')(context, data_dict)
+        c.pkg = context['package']
+    except NotFound:
+        abort(404, _('Dataset not found'))
+    except NotAuthorized:
+        abort(401, _('Unauthorized to read package %s') % id)
+
+    package_type = c.pkg_dict['type'] or 'dataset'
+    self._setup_template_variables(context, {'id': id, 'parcel_id': parcel_id, 'relationship_id': relationship_id},
+                                   package_type=package_type)
+
+    return render('project/map.html',
+                      extra_vars={'dataset_type': package_type, 'id':id})
+
+
+
+
+def new_relationship_map(self, id, parcel_id):
+
+    ctype, format = self._content_type_from_accept()
+
+    response.headers['Content-Type'] = ctype
+
+    context = {'model': model, 'session': model.Session,
+               'user': c.user or c.author, 'for_view': True,
+               'auth_user_obj': c.userobj}
+    data_dict = {'id': id, 'include_tracking': True}
+
+
+    # check if package exists
+    try:
+        c.pkg_dict = get_action('package_show')(context, data_dict)
+        c.pkg = context['package']
+    except NotFound:
+        abort(404, _('Dataset not found'))
+    except NotAuthorized:
+        abort(401, _('Unauthorized to read package %s') % id)
+
+    package_type = c.pkg_dict['type'] or 'dataset'
+    self._setup_template_variables(context, {'id': id, 'parcel_id': parcel_id},
+                                   package_type=package_type)
+
+    return render('project/map.html',
+                      extra_vars={'dataset_type': package_type, 'id':id})

@@ -16,9 +16,9 @@ var app = angular.module("app")
 
             $http.get(ENV.apiRoot + '/projects/1/overview', { cache: false })
                 .then(function(response) {
-                  deferred.resolve(response.data);
+                    deferred.resolve(response.data);
                 }, function(response) {
-                  deferred.reject(response);
+                    deferred.reject(response);
                 });
 
             return deferred.promise;
@@ -77,5 +77,5 @@ var app = angular.module("app")
         };
 
         return service;
-  }])
+    }])
 
