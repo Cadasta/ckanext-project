@@ -4,7 +4,7 @@
     margin-top: 13px;
 }
 
-#overview-background .parcel-details-return {
+.overview-background .parcel-details-return {
     margin: 20px 12px 20px 10px;
     font-weight: bold;
 }
@@ -74,7 +74,7 @@
     margin-top:4px;
 }
 
-#overview-background {
+.overview-background {
     margin: 0 auto;
     height:auto;
     border: 1px solid #dcdfe1;
