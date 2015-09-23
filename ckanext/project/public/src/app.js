@@ -107,7 +107,7 @@
       name: 'tabs.map',
       url: 'map',
       views: {
-          'maptab': {  templateUrl: '../src/partials/map.html' }
+          'maptab': { controller: 'projectMapCtrl', templateUrl: '../src/partials/map.html' }
       },
       paramsMap:[{key:'map', defaultValue: '(0,0,0)'}],
       onEnter: function($state, $stateParams, mapUtilityService){
@@ -150,7 +150,6 @@
       $stateProvider.state(state);
 
     });
-
 
     $urlRouterProvider.otherwise('/overview?map=(0,0,1)');
 
