@@ -1,6 +1,11 @@
-{% extends "package/new.html" %}
+{% extends "package/base_form_page.html" %}
 
 {% block subtitle %}{{ _('Create Project') }}{% endblock %}
+
+{% block styles %}
+{{ super() }}
+  {% resource 'project/autocomplete-action-api.js' %}
+{% endblock %}
 
 {% block breadcrumb_content %}
   {% if pkg %}
