@@ -1,22 +1,19 @@
 import logging
 
-import ckan.plugins as plugins
-import ckan.lib.plugins as lib_plugins
-from ckan.plugins import toolkit as tk
+from ckan import plugins
+from ckan.plugins import toolkit
 
-import ckanext.project.logic.schema as project_schema
-import ckanext.project.logic.helpers as project_helpers
+from ckanext.project.logic import schema as project_schema
 from ckanext.project.model import setup as model_setup
+from ckanext.project.logic import action
 
-c = tk.c
-_ = tk._
 
 log = logging.getLogger(__name__)
 
 DATASET_TYPE_NAME = 'project'
 
 
-class projectPlugin(plugins.SingletonPlugin, lib_plugins.DefaultDatasetForm):
+class projectPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
     plugins.implements(plugins.IConfigurable)
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IDatasetForm)
@@ -27,12 +24,9 @@ class projectPlugin(plugins.SingletonPlugin, lib_plugins.DefaultDatasetForm):
     # IConfigurer
 
     def update_config(self, config):
-        tk.add_template_directory(config, 'templates')
-        tk.add_public_directory(config, 'public')
-        tk.add_resource('fanstatic', 'project')
-        # If ckan is more than 2.3, use the 2.4+ toolkit method
-        if not tk.check_ckan_version(max_version='2.3'):
-            tk.add_ckan_admin_tab(config, 'ckanext_project_admins', 'project Config')
+        toolkit.add_template_directory(config, 'templates')
+        toolkit.add_public_directory(config, 'public')
+        toolkit.add_resource('fanstatic', 'project')
 
     # IConfigurable
 
@@ -53,11 +47,14 @@ class projectPlugin(plugins.SingletonPlugin, lib_plugins.DefaultDatasetForm):
     def new_template(self):
         return 'project/new.html'
 
-#    def read_template(self):
-#        return 'project/read.html'
+    def read_template(self):
+        return 'project/read.html'
 
 #    def edit_template(self):
 #        return 'project/edit.html'
+
+    def resource_form(self):
+        return 'project/snippets/resource_form.html'
 
     def package_form(self):
         return 'project/new_package_form.html'
@@ -76,9 +73,8 @@ class projectPlugin(plugins.SingletonPlugin, lib_plugins.DefaultDatasetForm):
     def before_map(self, map):
 
         # rerouting existing CKAN routes
-        # map.redirect('/projects', '/project')
-        # map.redirect('/projects/{url:.*}', '/project/{url}')
-
+        map.redirect('/projects', '/project')
+        map.redirect('/projects/{url:.*}', '/project/{url}')
 
         map.redirect('/group/{url:.*}', '/organization/{url}',
                      _redirect_code='301 Moved Permanently')
@@ -89,19 +85,21 @@ class projectPlugin(plugins.SingletonPlugin, lib_plugins.DefaultDatasetForm):
         map.redirect('/groups', '/organization',
                      _redirect_code='301 Moved Permanently')
 
-        #map.redirect('/dataset/{url:.*}', '/project/{url}',
-          #           _redirect_code='301 Moved Permanently')
-        #map.redirect('/dataset', '/project',
-        #             _redirect_code='301 Moved Permanently')
-        #map.redirect('/datasets/{url:.*}', '/project/{url}',
-        #             _redirect_code='301 Moved Permanently')
-        #map.redirect('/datasets', '/project',
-        #             _redirect_code='301 Moved Permanently')
-        #map.redirect('/projects', '/project',
-        #              _redirect_code='301 Moved Permanently')
+        map.connect('project_new_resource', '/project/new_resource/{id}',
+                    controller='package', action='new_resource')
+        map.redirect('/dataset/{url:.*}', '/project/{url}',
+                     _redirect_code='301 Moved Permanently')
+        map.redirect('/dataset', '/project',
+                     _redirect_code='301 Moved Permanently')
+        map.redirect('/datasets/{url:.*}', '/project/{url}',
+                     _redirect_code='301 Moved Permanently')
+        map.redirect('/datasets', '/project',
+                     _redirect_code='301 Moved Permanently')
+        map.redirect('/projects', '/project',
+                      _redirect_code='301 Moved Permanently')
 
 
-      #new_routes
+        #new_routes
 
         controller = 'ckanext.project.upload_controller:Upload_Controller'
         parcel_controller = 'ckanext.project.parcel_controller:Parcel_Controller'
@@ -161,4 +159,6 @@ class projectPlugin(plugins.SingletonPlugin, lib_plugins.DefaultDatasetForm):
     # IActions
 
     def get_actions(self):
-        return {}
+        return dict((name, function) for name, function
+                    in action.__dict__.items()
+                    if callable(function))
