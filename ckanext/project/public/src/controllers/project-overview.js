@@ -45,6 +45,10 @@
           $scope.overviewData = response;
           $scope.overviewData.activityList = response.features[0].properties.project_activity;
 
+          //todo upate with data from ckan
+          $scope.overviewData.description = "This project is working with locals in Bolivia.  The community includes 10,000 people of which 149 have official land ownership documents."
+
+
           //reformat date created of resources
           $scope.overviewData.features[0].properties.project_resources.forEach(function(resource) {
               resource.properties.time_created = utilityService.formatDate(resource.properties.time_created);

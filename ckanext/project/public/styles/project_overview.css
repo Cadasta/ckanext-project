@@ -90,3 +90,6 @@ li.activity-block {
     border-bottom: none;
 }
 
+#project-desc .project-description {
+    padding: 0 20px 0 20px;
+}

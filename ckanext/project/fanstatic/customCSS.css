@@ -164,7 +164,8 @@ subtab {
     float:right;
     width:354px;
     font-size:10px;
-    height:200px;
+    min-height:200px;
+    height:auto;
     padding-top:12px;
     padding-left:12px;
     border: 1px solid #dcdfe1;
