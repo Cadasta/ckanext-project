@@ -1,23 +1,30 @@
-{% extends "project/edit_base.html" %}
+{% extends "package/new.html" %}
 
-{% block subtitle %}{{ _('Create project') }}{% endblock %}
+{% block subtitle %}{{ _('Create Project') }}{% endblock %}
 
-{% block primary_content %}
-<section class="module">
-    <div class="module-content">
-        <h1 class="{% block page_heading_class %}page-heading{% endblock %}">{% block page_heading %}{{ _('Create a project') }}{% endblock %}</h1>
-        {% block primary_content_inner %}
-        {% block form %}
-        {#- passing c to a snippet is bad but is required here
-        for backwards compatibility with old templates and
-        plugins using setup_template_variables() -#}
-        {{- h.snippet(form_snippet, c=c, **form_vars) -}}
-        {% endblock %}
-        {% endblock %}
-    </div>
-</section>
+{% block breadcrumb_content %}
+  {% if pkg %}
+    {% set dataset = pkg.title or pkg.name %}
+    {% if pkg.organization %}
+      {% set organization = pkg.organization.title or pkg.organization.name %}
+      <li>{% link_for _('Organizations'), controller='organization', action='index' %}</li>
+      <li>{% link_for organization|truncate(30), controller='organization', action='read', id=pkg.organization.name %}</li>
+    {% else %}
+      <li>{% link_for _('Projects'), named_route='project_search' %}</li>
+    {% endif %}
+    <li{{ self.breadcrumb_content_selected() }}>{% link_for dataset|truncate(30), named_route='project_read', id=pkg.name %}</li>
+  {% else %}
+    <li>{% link_for _('Projects'), named_route='project_search' %}</li>
+    <li class="active"><a href="">{{ _('Create Project') }}</a></li>
+  {% endif %}
 {% endblock %}
 
-{% block secondary_content %}
-{{ h.snippet('project/snippets/helper.html') }}
+{% block info_module %}
+  <section class="module module-narrow module-shallow">
+    <h2 class="module-heading"><i class="icon-info-sign"></i> {{ _('What are projects?') }}</h2>
+    <div class="module-content">
+      <p>
+      </p>
+    </div>
+  </section>
 {% endblock %}

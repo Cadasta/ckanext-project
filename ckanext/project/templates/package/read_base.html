@@ -4,11 +4,11 @@
   {{ h.build_nav_icon('dataset_read', _('Dataset'), id=pkg.name) }}
   {{ h.build_nav_icon('dataset_groups', _('Groups'), id=pkg.name) }}
   {{ h.build_nav_icon('dataset_activity', _('Activity Stream'), id=pkg.name) }}
-  {{ h.build_nav_icon('dataset_project_list', _('projects'), id=pkg.name) }}
+  {#  {{ h.build_nav_icon('dataset_project_list', _('projects'), id=pkg.name) }} #}
 {% endblock %}
 
 
-{% block main_content %}
+{% block amain_content %}
 
 <meta id="ckan-project-description" data-obj="{{ c.pkg_notes_formatted }} here is a nice long desc">
 <meta id="ckan-project-name" data-obj="{{ pkg.name }}" >
