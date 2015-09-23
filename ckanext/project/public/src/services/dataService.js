@@ -10,15 +10,15 @@ var app = angular.module("app")
          * @returns {*}
          * todo pass in project id
          */
-        service.overviewGet = function(id){
+        service.overviewGet = function(){
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiRoot + '/projects/overview/1?returnGeometry=true', { cache: false }).
-                then(function(response) {
-                  deferred.resolve(response.data);
+            $http.get(ENV.apiRoot + '/projects/1/overview', { cache: false })
+                .then(function(response) {
+                    deferred.resolve(response.data);
                 }, function(response) {
-                  deferred.reject(response);
+                    deferred.reject(response);
                 });
 
             return deferred.promise;
@@ -77,5 +77,5 @@ var app = angular.module("app")
         };
 
         return service;
-  }])
+    }])
 
