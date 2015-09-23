@@ -1,11 +1,11 @@
 <div class="clearfix overview-background">
     <div id="project-header">
-        <div class="button-controller activity">
+        <div class="button-controller activity-tab">
 
             <md-input-container>
                 <label>Filter Activity</label>
                 <!-- todo update to be about resources rather than parcels-->
-                <md-select ng-model="TenureTypeModel">
+                <md-select ng-model="ActivityTypeModel">
                     <md-option ng-value="t.type" ng-repeat="t in activity_types" ng-click="filterTenureType(t.type)">{{t.label}}</md-option>
                 </md-select>
             </md-input-container>
@@ -14,19 +14,20 @@
 
         <div class="project-tab-data">
 
-            <div ng-repeat="activity in allActivities.features">
+            <div ng-repeat="activity in allActivities.features | activityType: ActivityTypeModel">
                 <!-- repeat each activity in the list and depending on the type of activity, print a different string-->
 
                 <li ng-if="activity.properties.activity_type === 'parcel'" class="activity-block block" ><span
-                        class="bold">Parcel {{ activity.properties.id }}</span> was created at <span class="link">{{ activity.properties.time_created }}</span>
+                        class="bold">Parcel  <a href="/project/cadasta-test#/parcels/{{ activity.properties.id }}">{{ activity.properties.id }}</a></span> was created. <span class="link right">{{ activity.properties.time_created }}</span>
                 </li>
 
-                <li ng-if="activity.properties.activity_type === 'party'" class="activity-block block"><span
-                        class="bold">Party {{ activity.properties.name }}</span> was created at <span class="link">{{ activity.properties.time_created }}</span>
+                <li ng-if="activity.properties.activity_type === 'party'" class="activity-block block">Party<span
+                        class="bold"> {{ activity.properties.name }}</span> was created. <span class="link right">{{ activity.properties.time_created }}</span>
                 </li>
 
                 <li ng-if="activity.properties.activity_type === 'relationship'" class="activity-block block">
-                    Relationship between <span class="bold"> {{ activity.properties.name }}</span> and <span class="bold"> parcel {{ activity.properties.id }} </span> was created on <span class="link">{{ activity.properties.time_created }}</span> </li>
+                    <!-- todo remove hardcoding of project id-->
+                    Relationship between <span class="bold"> {{ activity.properties.name }}</span> and <span class="bold"> parcel <a href="/project/cadasta-test#/parcels/{{ activity.properties.id }}">{{ activity.properties.id }}</a></span> was created. <span class="link right">{{ activity.properties.time_created }}</span> </li>
             </div>
         </div>
 

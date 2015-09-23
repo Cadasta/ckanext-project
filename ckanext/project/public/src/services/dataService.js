@@ -32,7 +32,7 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiRoot + '/show_activity', { cache: false })
+            $http.get(ENV.apiRoot + '/show_activity?project_id=1', { cache: false })
                 .then(function(response) {
                     deferred.resolve(response.data);
                 }, function(response) {
