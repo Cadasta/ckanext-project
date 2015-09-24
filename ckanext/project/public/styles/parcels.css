@@ -36,6 +36,11 @@
     border-bottom: 1px solid #dcdfe1;
 }
 
+.parcel-history-data tr td {
+    line-height: 55px;
+}
+
+
 .parcel-history th {
     text-transform: uppercase;
 }
@@ -76,14 +81,16 @@
 }
 
 #parcelDetails .back-link {
-    font-weight: bold;
-    margin: 5px 0px 1px 0px;
+    font-weight: 700;
+    margin: -5px 0 0 7px;
+    line-height: 45px;
+    font-size: 12px;
 }
 
 #parcelDetails .parcel-dropdown {
     border-bottom: 1px solid #dcdfe1;
     border-top: 1px solid #dcdfe1;
-    width: 489px;
+    width: 350px;
 }
 
 #parcelDetails .parcel-dropdown.remove-bottom-border {
@@ -115,9 +122,9 @@
 }
 
 #parcelDetails .section {
-    border: 1px solid #dcdfe1;
+    /*border: 1px solid #dcdfe1;*/
     float: left;
-    width: 510px;
+    width: 370px;
     height: 292px;
     display: inline-block;
     margin: 2px 10px 0px 0px;
@@ -125,12 +132,13 @@
 
 #parcelDetails .section-map {
     border: 1px solid #dcdfe1;
-    float: left;
-    width: 308px;
-    height:291px;
+    width: 450px;
+    height: 291px;
     display: inline-block;
-    margin: 2px 0px 0px 0px;
+    margin: 2px 0 0;
+    float: right;
 }
+
 
 #parcelDetails .section .relationship-container {
     height: 221px;
@@ -139,17 +147,17 @@
 }
 
 #parcelDetails .section .title {
-    text-transform: uppercase;
-    font-weight: bold;
-    color: #dcdfe1;
     font-size: 18px;
-    margin:0px 0px 20px 0px;
+    color: #2d3644;
+    display: inline-block;
+    padding: 0 0 18px 0;
 }
 
 #parcelDetails .section .container {
     padding: 20px 10px;
-    width: 490px;
-    height: 248px;
+    width: 340px;
+    height: 240px;
+    float:left;
 }
 
 #parcelList{
