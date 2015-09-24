@@ -1,7 +1,3 @@
-body {
-    margin-bottom: 30em;
-}
-
 div{
     outline:none;
 }
@@ -26,6 +22,14 @@ div.tabcontent {
     overflow-y:  scroll;
 }
 
+.small-heading {
+    color: #256c97;
+    font-size:12px;
+    font-weight:bold;
+    display: inline-block;
+    padding: 0px 0px 10px 25px;
+}
+
 .outlines {
     margin: 5px;
     padding: 10px 5px;
@@ -45,4 +49,54 @@ div.tabcontent {
     padding-right: 105px;
     display: inline-block;
     float: left;
+}
+
+/* Footer */
+#master-footer {
+    height:50px;
+    color:black;
+    background-color: #eef2f5;
+    margin: auto;
+}
+
+#master-footer .globe {
+    position: relative;
+    bottom:18px;
+}
+
+#master-footer .footer-container {
+    width: 100%;
+    height: 45px;
+}
+
+#master-footer .container-inner {
+    height: 45px;
+    width: 1024px;
+    margin: auto;
+}
+
+#master-footer .localization {
+    padding:0px 0px 0px 20px;
+}
+
+#master-footer .localization .title{
+    padding-left:25px;
+}
+
+#master-footer .logo {
+    width: 110px;
+}
+
+#master-footer .container-inner .container-header {
+    height: 25px;
+    margin: 15px 20px 10px 20px;
+}
+
+footer {
+    background-color: #eef2f5;
+    height: 50px;
+    width:100%;
+    bottom:0;
+    position: relative;
+    border-top: 1px solid #dcdfe1;
 }

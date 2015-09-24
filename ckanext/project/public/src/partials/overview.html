@@ -4,6 +4,7 @@
 
         <div id='project-desc' class="project-block">
             <span class="small-heading">DESCRIPTION</span>
+
             <p class="project-description">{{overviewData.description}}</p>
         </div>
         <div id="project-extent">
@@ -16,29 +17,47 @@
 <div class="span3">
     <div id="project-content">
 
-        <div class='project-block' id="project-activity-summary">
+        <div class='mini-overview project-block'>
             <span class="small-heading">LATEST ACTIVITY</span>
+
             <div ng-repeat="activity in overviewData.activityList">
                 <!-- repeat each activity in the list and depending on the type of activity, print a different string-->
 
-                <li ng-if="activity.properties.activity_type === 'parcel'" class="activity-block block" ><span
-                        class="bold">Parcel {{ activity.properties.id }}</span> was created at <span class="link">{{ activity.properties.time_created }}</span>
+                <li ng-if="activity.properties.activity_type === 'parcel'" ng-class="{'remove-bottom-border': $index == overviewData.activityList.length-1}"
+                    class="activity-block block">
+                    <span class="bold">Parcel {{ activity.properties.id }}</span>
+                    was created at
+                    <span class="link">{{ activity.properties.time_created }}</span>
                 </li>
 
-                <li ng-if="activity.properties.activity_type === 'party'" class="activity-block block"><span
-                        class="bold">Party {{ activity.properties.name }}</span> was created at <span class="link">{{ activity.properties.time_created }}</span>
+                <li ng-if="activity.properties.activity_type === 'party'"ng-class="{'remove-bottom-border': $index == overviewData.activityList.length-1}" class="activity-block block">
+                    <span class="bold">Party {{ activity.properties.name }}</span>
+                    was created at
+                    <span class="link">{{ activity.properties.time_created }}</span>
                 </li>
 
-                <li ng-if="activity.properties.activity_type === 'relationship'" class="activity-block block">
-                    Relationship between <span class="bold"> {{ activity.properties.name }}</span> and <span class="bold"> parcel {{ activity.properties.id }} </span> was created on <span class="link">{{ activity.properties.time_created }}</span> </li>
+                <li ng-if="activity.properties.activity_type === 'relationship'" ng-class="{'remove-bottom-border': $index == overviewData.activityList.length-1}"class="activity-block block">
+                    Relationship between
+                    <span class="bold"> {{ activity.properties.name }}</span>
+                    and
+                    <span class="bold"> parcel {{ activity.properties.id }} </span>
+                    was created on
+                    <span class="link">{{ activity.properties.time_created }}</span>
+                </li>
             </div>
         </div>
 
         <!-- project resources-->
-        <div class='project-block' id="project-resource-summary">
+        <div class='mini-overview project-block' id="project-resource-summary">
             <span class="small-heading">RESOURCES</span>
+
             <div ng-repeat="resource in overviewData.features[0].properties.project_resources">
-               A <span class="bold">{{resource.properties.type}}</span> resource was uploaded on <span class="link">{{resource.properties.time_created}}</span> <a class="right bold" href="{{resource.properties.url}}">View Resource</a>
+                <li ng-class="{'remove-bottom-border': $index == overviewData.features[0].properties.project_resources.length-1}"
+                    class="activity-block block">A
+                    <span class="bold">{{resource.properties.type}}</span> resource was uploaded on
+                    {{resource.properties.time_created}} <a class="bold resource-download right"
+                                                            href="{{resource.properties.url}}">Download</a>
+                </li>
             </div>
         </div>
 
