@@ -8,6 +8,7 @@
 
 #breadcrumb .icon-home {
     font-size: 16px;
+    bottom: 8px;
     color: #256c97;
     position: relative;
 }
