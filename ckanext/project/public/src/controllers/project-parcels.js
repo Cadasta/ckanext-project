@@ -72,6 +72,13 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
 
 }]);
 
+// replace null with '-' for table
+app.filter('emptyString', function (){
+    return function(input){
+        return input == null ? '-': input;
+    }
+});
+
 
 // custom tenure type filter
 app.filter('tenureType', function () {
