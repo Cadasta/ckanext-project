@@ -97,7 +97,8 @@ module.exports = function(grunt) {
 						"ckanext/project/public/src/controllers/tabs.js",
 						"ckanext/project/public/src/controllers/project-header.js",
 						"ckanext/project/public/src/controllers/breadcrumbs.js",
-						"ckanext/project/public/src/directives/sticky-state.js"
+						"ckanext/project/public/src/directives/sticky-state.js",
+						"ckanext/project/public/src/other_scripts/custom_jquery.js",
 					]
 				}
 			}

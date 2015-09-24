@@ -239,21 +239,29 @@ header .header-container {
 }
 
 .masthead-header ul li a {
-    color: #858c92;
-    font-weight: semi-bold;
+    color: #c7c7c7;
+    font-weight: 700;
     font-size: 12px;
+    display: inline-block;
+    height: 30px;
     text-decoration: none;
 }
 
 
-/* Sarah's row modification.  Putting it back to default to we don't throw of the default CKAN look and feel. */
-/*.row {*/
-    /*height:0;*/
-    /*border:none;*/
-    /*background-color: #eef2f5;*/
-    /*width:860px;*/
-    /*border: none;*/
-/*}*/
+.masthead-header ul li:hover {
+    border-bottom:1px solid #fff;
+    font-weight: 700;
+    font-size: 12px;
+    text-decoration: none;
+
+}
+
+.masthead-header ul li a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+
 
 .row {
 margin-left: -20px;
@@ -531,7 +539,7 @@ dataset-list {
 }
 
 #about-button {
-    margin-right: 15px;
+    margin-right: 25px;
 }
 
 .sub_nav_active {
