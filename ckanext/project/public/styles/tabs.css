@@ -16,7 +16,6 @@
 #project-tabs li:hover * {
     text-decoration:none;
     color:#256c97;
-    font-weight: bold;
     border-style: none;
 }
 
