@@ -3,14 +3,14 @@
 <div id="parcelFilter" class="filter">
     <div layout="row">
     <md-input-container>
-        <label>Filter by:</label>
+        <label>Filter by</label>
         <md-select ng-model="TenureTypeModel">
             <md-option ng-value="t.type" ng-repeat="t in tenure_types" ng-click="filterTenureType(t.type)">{{t.label}}</md-option>
         </md-select>
     </md-input-container>
 
     <md-input-container>
-        <label>Sort by:</label>
+        <label>Sort by</label>
         <md-select ng-model="TenureTypeModel">
             <md-option ng-value="s.type" ng-repeat="s in sort_by" ng-click="filterTenureType(s.type)">{{s.label}}</md-option>
         </md-select>
@@ -32,10 +32,11 @@
 <div id="parcelList">
     <table>
         <tbody>
-        <tr ng-show="parcelsList.length ==0 " ng-repeat="parcel in parcels | tenureType: TenureTypeModel" ng-class="{'last-table-element':$index == parcels.length-1}">
-            <td><a ui-sref="^.parcel({id: parcel.properties.id})">{{parcel.properties.id}}</a></td>
-            <td>{{parcel.properties.area | number:0}}</td>
-            <td>{{parcel.properties.length | number:0}}</td>
+        <tr class="row-link" ng-show="parcelsList.length ==0 " ng-repeat="parcel in parcels | tenureType: TenureTypeModel"
+            ng-class="{'last-table-element':$index == parcels.length-1}" ui-sref="^.parcel({id: parcel.properties.id})">
+            <td>{{parcel.properties.id}}</td>
+            <td>{{parcel.properties.area | number:0 | emptyString}}</td>
+            <td>{{parcel.properties.length | number:0 | emptyString}}</td>
             <td>{{parcel.properties.tenure_type.length}}</td>
             <td>{{parcel.properties.time_created}}</td>
         </tr>
