@@ -5,14 +5,14 @@
                 <div class="button-controller">
 
                     <md-input-container>
-                        <label>Filter by:</label>
+                        <label>Filter by</label>
                         <md-select ng-model="ResourceTypeModel">
                             <md-option ng-value="t.type" ng-repeat="t in resource_types" ng-click="filterResourceType(t.type)">{{t.label}}</md-option>
                         </md-select>
                     </md-input-container>
 
                     <md-input-container>
-                        <label>Sort by:</label>
+                        <label>Sort by</label>
                         <md-select ng-model="ResourceTypeModel">
                             <md-option ng-value="s.type" ng-repeat="s in sort_by" ng-click="filterResourceType(s.type)">{{s.label}}</md-option>
                         </md-select>
