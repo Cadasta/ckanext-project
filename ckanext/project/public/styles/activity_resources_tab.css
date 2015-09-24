@@ -33,12 +33,12 @@
 }
 
 .resources .button-controller md-input-container{
-    width: 200px;
+    width: 100px;
     display: inline-block;
 }
 
 .resources .button-controller{
-   margin: -30px 0 25px 12px;
+   margin: 0 0 25px 12px;
 }
 
 md-select .md-select-value.md-select-placeholder {
@@ -52,4 +52,28 @@ md-select .md-select-value.md-select-placeholder {
 
 .project-tab-data li.activity-block {
     width:98%;
+}
+
+
+md-input-container > md-select {
+    margin: auto 0 0 0;
+    -webkit-order: 2;
+    -ms-flex-order: 2;
+    border: 1px solid #dcdfe1;
+    order: 2;
+    padding: 0 0 0 6px;
+    font-size: 12px;
+}
+
+md-select .md-select-value.md-select-placeholder {
+    border:none;
+}
+
+
+div.md-text {
+    font-size: 12px;
+}
+
+md-content.md-default-theme {
+    width:auto;
 }
