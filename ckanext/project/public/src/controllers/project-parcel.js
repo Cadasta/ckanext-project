@@ -68,10 +68,15 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService'
         $scope.relationships = response.properties.relationships;
 
         //update values for UI
-        $scope.relationships.forEach(function(v){
+        $scope.relationships.forEach(function(v,i){
+            if (i === 0){
+                v.showDropDownDetails = true;
+            } else {
+                v.showDropDownDetails = false;
+            }
+
             v.active = v.active ? 'Active' : 'Inactive';
             v.relationship_type = 'own' ? 'Owner' : v.relationship_type;
-            v.showDropDownDetails = false;
         });
 
         // If there are any parcels, load the map and zoom to parcel

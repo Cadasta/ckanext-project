@@ -1,5 +1,5 @@
 #project-tabs {
-    background-color: white;
+    background-color: #f8f9f9;
     padding-left: 25px;
     border-left:1px solid #dcdfe1;;
     border-right: 1px solid #dcdfe1;
@@ -45,12 +45,13 @@
 
 /*HEADER CSS*/
 #header{
-    height: 120px;
+    height: 86px;
     border-left:1px solid #dcdfe1;
     border-right: 1px solid #dcdfe1;
     border-top:1px solid #dcdfe1;
-    background-color: white;
+    background-color: #f8f9f9;
 }
+
 
 #project-header .project-title {
     font-size: 18px;
