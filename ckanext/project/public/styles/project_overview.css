@@ -4,6 +4,46 @@
     margin-top: 13px;
 }
 
+#project-header {
+    height:auto;
+    margin: 20px 12px 12px 12px;
+    font-family: "Open Sans";
+}
+
+
+
+#project-desc {
+    width: 510px;
+    display: inline-block;
+    height: 292px;
+    border: 1px solid #dcdfe1;
+}
+
+#project-desc .small-heading {
+    margin: 8px 0px 0px 0px;
+}
+
+#project-desc table {
+    text-align: center;
+    text-align: left;
+    margin-left: 20px;
+    width:40%;
+    border:none;
+
+}
+
+#project-desc table td {
+    text-align: center;
+    text-align: left;
+    margin-left: 20px;
+    width: 100px;
+
+}
+
+#project-desc .description {
+    margin-left: 20px;
+}
+
 .overview-background .parcel-details-return {
     margin: 20px 12px 20px 10px;
     font-weight: bold;
@@ -40,16 +80,15 @@
 
 }
 
-
-#project-desc .small-heading {
-    margin: 20px 0 20px 20px;
-}
-
 .parcel-details-content .small-heading {
     margin: 20px 0 0 20px;
 }
 
-#project-activity-summary {
+.mini-overview {
+    width:489px;
+    padding-top:16px;
+    float:left;
+    border: 1px solid #dcdfe1;
     min-height: 200px;
     height: auto;
 }
@@ -67,29 +106,31 @@
     display:inline-block;
     float:right;
 }
-#project-resource-summary div {
-    width: 93%;
-    border-bottom: 1px solid #dcdfe1;
-    line-height: 27px;
-    margin-top:4px;
-}
 
 .overview-background {
     margin: 0 auto;
     height:auto;
 }
 
+#project-resource-summary .resource-download{
+    margin-right: 50px;
+}
 
 li.activity-block {
     position: relative;
-    padding-top: 8px;
-
+    padding: 14px 0px 15px 25px;
 }
 
 .remove-bottom-border {
-    border-bottom: none;
+    border-bottom: none !important;
 }
 
 #project-desc .project-description {
-    padding: 0 20px 0 20px;
+    padding: 0 20px 0 25px;
+}
+
+.activity-block {
+    display: block;
+    width: 100%;
+    border-bottom: 1px solid #e3e3e3;
 }
