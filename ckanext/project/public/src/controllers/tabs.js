@@ -6,7 +6,10 @@ app.controller("tabsCtrl", ['$scope', '$rootScope','$state', '$stateParams','$lo
 
 
     $scope.setTab = function(tab){
-        $rootScope.$broadcast('tab-change', {tab:tab});
+        var isParcel = (tab == 'Parcel');
+
+        $rootScope.$broadcast('tab-change', {tab: tab, parcel:isParcel});
+
     }
 
 }]);

@@ -1,16 +1,26 @@
 <div id="project-tabs">
     <ul>
-        <li ui-sref-active="active" ng-click="setTab('Overview')"><a ui-sref="tabs.overview">OVERVIEW</a></li>
-        <li ui-sref-active="active" ng-click="setTab('Parcels')"><a ui-sref="tabs.parcels">PARCELS</a></li>
-        <li ui-sref-active="active" ng-click="setTab('Map')"><a ui-sref="tabs.map">MAP</a></li>
-        <li ui-sref-active="active" ng-click="setTab('Resources')"><a ui-sref="tabs.resources">RESOURCES</a></li>
-        <li ui-sref-active="active" ng-click="setTab('Activity')"><a ui-sref="tabs.activity">ACTIVITY</a></li>
+        <li ui-sref-active="active" ui-sref="tabs.overview" ng-click="setTab('Overview')">
+            <a>OVERVIEW</a>
+        </li>
+        <li ui-sref-active="active" ui-sref="tabs.parcels" ng-click="setTab('Parcels')">
+            <a>PARCELS</a>
+        </li>
+        <li ui-sref-active="active" ui-sref="tabs.map" ng-click="setTab('Map')">
+            <a>MAP</a>
+        </li>
+        <li ui-sref-active="active" ui-sref="tabs.resources" ng-click="setTab('Resources')">
+            <a>RESOURCES</a>
+        </li>
+        <li ui-sref-active="active" ui-sref="tabs.activity" ng-click="setTab('Activity')">
+            <a>ACTIVITY</a>
+        </li>
     </ul>
 </div>
 
 <div class="tabcontent well-lg" sticky-state="tabs.overview" class="col-sm-6"></div>
-<div class="tabcontent well-lg" sticky-state="tabs.parcels"    class="col-sm-6"></div>
-<div class="tabcontent well-lg" sticky-state="tabs.map"   class="col-sm-6"></div>
-<div class="tabcontent well-lg" sticky-state="tabs.resources"   class="col-sm-6"></div>
-<div class="tabcontent well-lg" sticky-state="tabs.activity"   class="col-sm-6"></div>
+<div class="tabcontent well-lg" sticky-state="tabs.parcels" class="col-sm-6"></div>
+<div class="tabcontent well-lg" sticky-state="tabs.map" class="col-sm-6"></div>
+<div class="tabcontent well-lg" sticky-state="tabs.resources" class="col-sm-6"></div>
+<div class="tabcontent well-lg" sticky-state="tabs.activity" class="col-sm-6"></div>
 
