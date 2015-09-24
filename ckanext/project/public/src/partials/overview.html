@@ -25,24 +25,23 @@
 
                 <li ng-if="activity.properties.activity_type === 'parcel'" ng-class="{'remove-bottom-border': $index == overviewData.activityList.length-1}"
                     class="activity-block block">
-                    <span class="bold">Parcel {{ activity.properties.id }}</span>
-                    was created at
-                    <span class="link">{{ activity.properties.time_created }}</span>
+                    <span class="bold"><a href="/project/demo-project#/parcels/{{ activity.properties.id }}">
+                        Parcel {{ activity.properties.id }}</a></span>
+                    was created on {{ activity.properties.time_created }}
                 </li>
 
                 <li ng-if="activity.properties.activity_type === 'party'"ng-class="{'remove-bottom-border': $index == overviewData.activityList.length-1}" class="activity-block block">
                     <span class="bold">Party {{ activity.properties.name }}</span>
-                    was created at
-                    <span class="link">{{ activity.properties.time_created }}</span>
+                    was created on {{ activity.properties.time_created }}
                 </li>
 
                 <li ng-if="activity.properties.activity_type === 'relationship'" ng-class="{'remove-bottom-border': $index == overviewData.activityList.length-1}"class="activity-block block">
                     Relationship between
                     <span class="bold"> {{ activity.properties.name }}</span>
                     and
-                    <span class="bold"> parcel {{ activity.properties.id }} </span>
-                    was created on
-                    <span class="link">{{ activity.properties.time_created }}</span>
+                    <span class="bold"><a href="/project/demo-project#/parcels/{{ activity.properties.id }}">
+                        parcel {{ activity.properties.id }}</a></span>
+                    was created on {{ activity.properties.time_created }}
                 </li>
             </div>
         </div>
@@ -55,7 +54,7 @@
                 <li ng-class="{'remove-bottom-border': $index == overviewData.features[0].properties.project_resources.length-1}"
                     class="activity-block block">A
                     <span class="bold">{{resource.properties.type}}</span> resource was uploaded on
-                    {{resource.properties.time_created}} <a class="bold resource-download right"
+                    {{resource.properties.time_created}} <a class="resource-download right"
                                                             href="{{resource.properties.url}}">Download</a>
                 </li>
             </div>

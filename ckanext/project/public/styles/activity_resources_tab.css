@@ -1,7 +1,8 @@
 .project-tab-data {
     max-height: 500px;
     overflow: scroll;
-    margin: 0 0 20px 13px;
+    margin: 0 0 20px -11px;
+    width: 857px;
 }
 
 .parcel-history .button-controller {
@@ -32,7 +33,7 @@
     border-bottom: none;
 }
 
-.resources .button-controller md-input-container{
+md-input-container{
     width: 100px;
     display: inline-block;
 }
@@ -46,12 +47,13 @@ md-select .md-select-value.md-select-placeholder {
 }
 
 .button-controller.activity-tab {
-    margin: -35px 0 7px 9px;
+    margin:0 0 0 9px;
     width: 200px;
 }
 
 .project-tab-data li.activity-block {
     width:98%;
+    line-height: 26px;
 }
 
 
