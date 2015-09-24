@@ -1,9 +1,11 @@
 
   var app = angular.module("app");
 
-  app.controller("projectMapCtrl", ['$scope', '$state', '$stateParams','$location', 'dataService','paramService', 'utilityService', function($scope, $state, $stateParams, $location, dataService, paramService, utilityService) {
+  app.controller("projectMapCtrl", ['$scope', '$state', '$stateParams','$location', 'dataService','paramService', 'utilityService','$rootScope' ,function($scope, $state, $stateParams, $location, dataService, paramService, utilityService,$rootScope) {
 
       var mapStr = $stateParams.map;
+
+      $rootScope.$broadcast('tab-change', {tab: 'Map'}); // notify breadcrumbs of tab on page load
 
       // parse map query param
       var mapArr = mapStr.substring(1,mapStr.length-1).split(',');

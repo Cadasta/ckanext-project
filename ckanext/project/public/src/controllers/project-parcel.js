@@ -2,6 +2,8 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService'
 
     var mapStr = $stateParams.map;
 
+    $rootScope.$broadcast('tab-change', {tab: 'Parcels'}); // notify breadcrumbs of tab on page load
+
     // parse map query param
     var mapArr = mapStr.substring(1,mapStr.length-1).split(',');
 
@@ -40,6 +42,9 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService'
         obj.showDropDownDetails = !obj.showDropDownDetails;
     };
 
+    $scope.clearParcelBreadCrumb = function () {
+        $rootScope.$broadcast('clear-inner-tabs');
+    };
 
     var promise = parcelService.parcelGet($stateParams.id);
 
