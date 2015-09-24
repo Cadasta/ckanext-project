@@ -2,6 +2,10 @@ div{
     outline:none;
 }
 
+*:focus {
+    outline: none;
+}
+
 .ng-cloak {
     display:none;
 }
@@ -21,6 +25,7 @@ div.tabcontent {
     height: auto;
     overflow-y:  scroll;
 }
+
 
 .small-heading {
     color: #256c97;
