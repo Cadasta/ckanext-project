@@ -1033,3 +1033,32 @@ display: inline-block;
 .editor textarea {
     border-bottom: 1px solid #CCCCCB;
 }
+
+
+/* Footer */
+#master-footer {
+    border-top: 1px solid #dcdfe1;
+    height:50px;
+    color:black;
+    background-color: #eef2f5;
+    margin: auto;
+}
+
+#master-footer .container-footer {
+    margin: 0 auto;
+    width: 1024px;
+    height: 30px;
+}
+
+
+
+.pull-right {
+    float: right;
+    margin-right: 70px;
+    padding-top:12px;
+}
+
+.container-footer .pull-left {
+    margin-top: 14px;
+    height: 30px;
+}
