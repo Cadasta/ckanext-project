@@ -10,7 +10,16 @@
     font-family: "Open Sans";
 }
 
-
+#project-resource-summary {
+    float:right;
+    width:327px;
+    font-size:12px;
+    min-height:200px;
+    height:auto;
+    /*padding-top:12px;*/
+    /*padding-left:12px;*/
+    border: 1px solid #dcdfe1;
+}
 
 #project-desc {
     width: 510px;
@@ -85,7 +94,7 @@
 }
 
 .mini-overview {
-    width:489px;
+    width:517px;
     padding-top:16px;
     float:left;
     border: 1px solid #dcdfe1;
@@ -131,6 +140,16 @@ li.activity-block {
 
 .activity-block {
     display: block;
-    width: 100%;
+    width: 95%;
     border-bottom: 1px solid #e3e3e3;
+}
+
+.project-block {
+    display: inline-block;
+    text-align:left;
+    background-color:white;
+    font-size:12px;
+    /*border: none;*/
+    vertical-align:top;
+    overflow:auto;
 }

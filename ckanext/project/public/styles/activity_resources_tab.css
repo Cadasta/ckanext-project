@@ -3,6 +3,7 @@
     overflow: scroll;
     margin: 0 0 20px -11px;
     width: 857px;
+    font-size: 12px;
 }
 
 .parcel-history .button-controller {
@@ -52,7 +53,7 @@ md-select .md-select-value.md-select-placeholder {
 }
 
 .project-tab-data li.activity-block {
-    width:98%;
+    width:96%;
     line-height: 26px;
 }
 

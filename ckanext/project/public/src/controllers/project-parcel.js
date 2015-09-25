@@ -99,7 +99,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService'
     });
 
 
-    var resource_promise = parcelService.getParcelResources();
+    var resource_promise = parcelService.getParcelResources($stateParams.id);
 
     resource_promise.then(function(response){
 

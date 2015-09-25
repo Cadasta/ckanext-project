@@ -30,8 +30,8 @@
                 <li ng-if="activity.properties.activity_type === 'relationship'" class="activity-block block">
                     <!-- todo remove hardcoding of project id-->
                     Relationship between <span class="bold"> {{ activity.properties.name }}</span> and <span
-                        class="bold"><a href="/project/demo-project#/parcels/{{ activity.properties.id }}">
-                    parcel {{ activity.properties.id }}</a></span> was created on {{ activity.properties.time_created }}
+                        class="bold"><a href="/project/demo-project#/parcels/{{ activity.properties.parcel_id }}">
+                    parcel {{ activity.properties.parcel_id }}</a></span> was created on {{ activity.properties.time_created }}
                 </li>
             </div>
         </div>

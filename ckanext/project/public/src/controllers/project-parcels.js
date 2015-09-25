@@ -90,10 +90,12 @@ app.filter('tenureType', function () {
             case 'occupy':
             case 'informal occupy':
                 //check if array contains filter selection
-                inputs.forEach(function (input) {
-                    if (filter_type.indexOf(input.properties.tenure_type) !== -1)
+                inputs.forEach(function (input,i) {
+                    if (input.properties.tenure_type.indexOf(filter_type) !== -1) {
                         output.push(input);
+                    }
                 });
+
                 return output;
                 break;
             case 'time_created':
