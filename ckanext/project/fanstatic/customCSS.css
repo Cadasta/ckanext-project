@@ -1062,3 +1062,11 @@ display: inline-block;
     margin-top: 14px;
     height: 30px;
 }
+
+.red {
+    background-color: red;
+}
+
+.left{
+    float:left;
+}
