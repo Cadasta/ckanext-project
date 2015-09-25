@@ -334,6 +334,7 @@ li {
 
 
 .module-content:last-child {
+    background-color: #f8f9f9;
     margin-bottom: 0;
      padding-bottom: 0;
 }
@@ -866,7 +867,7 @@ display: inline-block;
 
 .overview-background {
     margin: 0 auto;
-    min-height:411px;
+    /*min-height:411px;*/
     background-color:white;
     border: 1px solid #dcdfe1;
 }
