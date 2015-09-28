@@ -1,34 +1,31 @@
-<md-dialog aria-label="Mango (Fruit)">
+<md-dialog aria-label="Upload Resource" class="cadasta-modal resources">
     <form>
-        <!--<md-toolbar>-->
-            <!--<div class="md-toolbar-tools">-->
-                <!--<h2>Mango (Fruit)</h2>-->
-                <!--<span flex></span>-->
-                <!-- -->
-            <!--</div>-->
-        <!--</md-toolbar>-->
-        <md-dialog-content style="max-width:800px;max-height:810px; ">
+        <md-dialog-content>
 
-            <div id="form_upload_content">
-
-                <div class="small-heading">
-                    Add Resource
-                    <md-button class="md-icon-button" ng-click="cancel()">
-                        <i class="material-icons right">clear</i>
-                    </md-button>
+            <div class="form_upload_content">
+                <div class="cadasta-modal-header">
+                    <div class="small-heading">
+                        Add Resource
+                    </div>
+                    <div class="right">
+                        <md-button class="md-icon-button" ng-click="cancel()">
+                            <i class="material-icons right">clear</i>
+                        </md-button>
+                    </div>
                 </div>
-                <div>
-                    Select a file to be uploaded.<br><br>
-                </div>
+                <div class="modal-content">
+                    <div>
+                        Select a file to be uploaded.<br><br>
+                    </div>
 
 
-
-                <div>
-
-                    <form id="S3_Form" action="." method="POST" enctype="multipart/form-data">
-                        <input type="file" name="filedata">
-                        <button type="submit" class="btn">Upload file and import</button>
-                    </form>
+                    <div>
+                        <form id="S3_Form" action="." method="POST" enctype="multipart/form-data">
+                            <input type="file" name="filedata">
+                            <br>
+                            <button type="submit" class="grey-btn">Upload file and import</button>
+                        </form>
+                    </div>
                 </div>
 
                 <script type="text/javascript">
@@ -131,17 +128,5 @@
 
 
         </md-dialog-content>
-        <!--<div class="md-actions" layout="row">-->
-            <!--<md-button href="http://en.wikipedia.org/wiki/Mango" target="_blank" md-autofocus>-->
-                <!--More on Wikipedia-->
-            <!--</md-button>-->
-            <!--<span flex></span>-->
-            <!--<md-button ng-click="answer('not useful')" >-->
-                <!--Not Useful-->
-            <!--</md-button>-->
-            <!--<md-button ng-click="answer('useful')" style="margin-right:20px;" >-->
-                <!--Useful-->
-            <!--</md-button>-->
-        <!--</div>-->
     </form>
 </md-dialog>

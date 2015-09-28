@@ -84,3 +84,13 @@ div.tabcontent {
     margin-top: 14px;
     height: 30px;
 }
+
+.grey-btn {
+    background-color: #F2F2F2;
+    border: 1px solid #6E6F70;
+    border-radius: 1px;
+    font-size: 12px;
+    padding: 5px 12px 5px 12px;
+    color:#6E6F70;
+    font-weight: '500';
+}

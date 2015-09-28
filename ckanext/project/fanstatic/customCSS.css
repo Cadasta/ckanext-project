@@ -877,7 +877,7 @@ display: inline-block;
     font-weight: bold;
 }
 
-#form_upload_content {
+.form_upload_content {
     width:800px;
 }
 
