@@ -807,7 +807,7 @@ display: inline-block;
     background-color: white;
     padding: 20px;
     /* todo this should be updated so that the div expands as needed */
-    overflow: scroll;
+    overflow: auto;
     height: 300px;
 }
 

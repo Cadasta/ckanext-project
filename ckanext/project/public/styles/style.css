@@ -23,7 +23,7 @@ div.hovercode {
 
 div.tabcontent {
     height: auto;
-    overflow-y:  scroll;
+    overflow:  hidden;
 }
 
 

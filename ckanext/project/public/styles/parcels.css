@@ -22,7 +22,7 @@
     font-size: 12px;
     width: 100%;
     max-height: 250px;
-    overflow: scroll;
+    overflow: auto;
 }
 
 .parcel-history-data table {
@@ -164,7 +164,7 @@
     font-size: 12px;
     width: 100%;
     max-height: 400px;
-    overflow: scroll;
+    overflow: auto;
 }
 
 #parcel-table-header {
@@ -238,3 +238,4 @@
     font-size: 50px;
     color: #256c97;
 }
+
