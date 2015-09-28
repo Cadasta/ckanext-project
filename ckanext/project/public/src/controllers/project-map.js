@@ -45,32 +45,44 @@
       promise.then(function(response){
 
           $scope.overviewData = response;
-          $scope.overviewData.activityList = response.features[0].properties.project_activity;
 
-          //reformat date created of resources
-          $scope.overviewData.features[0].properties.project_resources.forEach(function(resource) {
-              resource.properties.time_created = utilityService.formatDate(resource.properties.time_created);
-          });
-
-          //reformat date created of activity list
-          $scope.overviewData.features[0].properties.project_activity.forEach(function(activity) {
-              activity.properties.time_created = utilityService.formatDate(activity.properties.time_created);
-          });
 
 
           var layer;
 
-          // If there is a project geom load map and zoom to it; else zoome to parcels
-          if($scope.overviewData.features[0].geometry) {
-              layer = L.geoJson($scope.overviewData.features[0]);
-              layer.addTo(map);
 
-          } else if ( $scope.overviewData.features[0].properties.parcels && $scope.overviewData.features[0].properties.parcels[0].geometry) {
-              layer = L.geoJson($scope.overviewData.features[0].properties.parcels);
+          var parcelStyle = {
+              "color": "#256c97",
+              "weight": 2,
+              fillOpacity:.7
+          };
+
+          var ExtentStyle = {
+              "color": "#256c97",
+              "weight":1,
+              "opacity": 0.2
+          };
+
+
+          // If there is a project extent add it to the map
+          if($scope.overviewData.features[0].geometry) {
+              layer = L.geoJson($scope.overviewData.features[0], {style:ExtentStyle});
               layer.addTo(map);
 
           }
 
+          // If there are parcels add them to the map
+          if ( $scope.overviewData.features[0].properties.parcels ) {
+
+
+              $scope.overviewData.features[0].properties.parcels.forEach(function(parcel) {
+                  var parcelToAdd = L.geoJson(parcel.geometry, {style:parcelStyle});
+                  parcelToAdd.addTo(map);
+              });
+
+          }
+
+          //zoom to project extent
           if(layer === undefined){
               map.setView([lat,lng],zoom);
           } else {

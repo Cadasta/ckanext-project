@@ -771,7 +771,7 @@ input[type="text"].register-input :focus {
     background-color: white;
     padding: 20px;
     /* todo this should be updated so that the div expands as needed */
-    overflow: scroll;
+    overflow: auto;
     height: 300px;
 }
 
@@ -840,8 +840,8 @@ input[type="text"].register-input :focus {
     font-weight: bold;
 }
 
-#form_upload_content {
-    margin: 20px 0 0 20px;
+.form_upload_content {
+    width:800px;
 }
 
 #activity-list li div {

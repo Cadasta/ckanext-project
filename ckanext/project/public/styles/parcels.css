@@ -22,7 +22,7 @@
     font-size: 12px;
     width: 100%;
     max-height: 250px;
-    overflow: scroll;
+    overflow: auto;
 }
 
 .parcel-history-data table {
@@ -164,7 +164,7 @@
     font-size: 12px;
     width: 100%;
     max-height: 400px;
-    overflow: scroll;
+    overflow: auto;
 }
 
 #parcel-table-header {
@@ -231,3 +231,11 @@
 #parcelFilter .md-title {
     margin: 32px 20px 0px 0px;
 }
+
+.material-icons.add {
+    padding: 8px 0 0 514px;
+    position: relative;
+    font-size: 50px;
+    color: #256c97;
+}
+

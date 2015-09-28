@@ -61,12 +61,12 @@ var app = angular.module("app")
             return deferred.promise;
         };
 
-        //todo Is this being used?
-        service.parcelGet = function(id){
+        //todo pass in project_id as a parameter
+        service.getProjectParcels = function(id){
 
             var deferred = $q.defer();
 
-            $http.get('../src/temp-data/parcel.json', { cache: true }).
+            $http.get(ENV.apiRoot + '/parcels?project_id=1', { cache: false }).
                 then(function(response) {
                     deferred.resolve(response.data);
                 }, function(response) {
