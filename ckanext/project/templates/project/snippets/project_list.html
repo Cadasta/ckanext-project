@@ -2,15 +2,6 @@
 
 {% block package_list_inner %}
 <table class="tablesorter table">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Owner</th>
-      <th>Last modified</th>
-      <th></th>
-    </tr>
-  </thead>
   <tbody>
   {% for package in packages %}
   {% snippet 'project/snippets/project_item.html', package=package, item_class=item_class, hide_resources=hide_resources, banner=banner, truncate=truncate, truncate_title=truncate_title %}

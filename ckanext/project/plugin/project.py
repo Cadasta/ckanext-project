@@ -39,7 +39,7 @@ class projectPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         return [DATASET_TYPE_NAME]
 
     def is_fallback(self):
-        return False
+        return True
 
     def search_template(self):
         return 'project/search.html'
