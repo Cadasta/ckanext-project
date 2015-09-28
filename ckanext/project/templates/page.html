@@ -95,8 +95,12 @@ file.
     {% endblock %}
   </div>
   {% endblock %}
+  {%- block footer %}
+  {% include "footer.html" %}
+  {% endblock -%}
 </div>
 </div>
+
 {% endblock -%}
 
 {#
@@ -104,9 +108,7 @@ Override the footer on a page by page basis by extending this block. If
 making sitewide header changes it is preferable to override the footer.html-u
 file.
 #}
-{%- block footer %}
-{% include "footer.html" %}
-{% endblock -%}
+
 {%- endblock -%}
 
 {%- block scripts %}

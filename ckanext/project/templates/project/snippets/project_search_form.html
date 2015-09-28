@@ -2,6 +2,14 @@
 
 {% block search_title %}
 {% if not no_title %}
-  <h2>{% snippet 'project/snippets/project_search_result_text.html', query=query, count=count, type=type %}</h2>
+<table id="project-table-header">
+  <thead>
+  <tr>
+    <th>Name of organization goes here</th>
+    <th>Project Owner</th>
+    <th>Last Modified</th>
+  </tr>
+  </thead>
+</table>
 {% endif %}
 {% endblock %}

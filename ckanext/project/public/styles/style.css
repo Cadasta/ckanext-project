@@ -58,19 +58,21 @@ div.tabcontent {
 
 
 /* Footer */
-#master-footer {
-    border-top: 1px solid #dcdfe1;
-    height:50px;
-    color:black;
-    background-color: #eef2f5;
-    margin: auto;
-}
+/*#master-footer {*/
+    /*position: relative;*/
+    /*border-top: 1px solid #dcdfe1;*/
+    /*height:50px;*/
+    /*color:black;*/
+    /*background-color: #eef2f5;*/
+    /*margin: auto;*/
+    /**/
+/*}*/
 
-#master-footer .container-footer {
-    margin: 0 auto;
-    width: 1024px;
-    height: 30px;
-}
+/*#master-footer .container-footer {*/
+    /*margin: 0 auto;*/
+    /*width: 1024px;*/
+    /*height: 30px;*/
+/*}*/
 
 
 
