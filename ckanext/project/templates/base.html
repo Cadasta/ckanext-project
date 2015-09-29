@@ -90,7 +90,7 @@ Example:
 
 {# Allows custom attributes to be added to the <body> tag #}
 <body{% block bodytag %} data-site-root="{{ h.url('/', locale='default', qualified=true) }}" data-locale-root="{{ h.url('/', qualified=true) }}" {% endblock %}>
-<div id="wrapper">
+<!--<div id="wrapper">-->
 {#
 The page block allows you to add content to the page. Most of the time it is
 recommended that you extend one of the page.html templates in order to get
@@ -112,11 +112,11 @@ circumstances
 #}
 {%- block scripts %}
 {% endblock -%}
+<!--</div>-->
 
 {% block body_extras -%}
 {# defined in the config.ini under "ckan.template_footer_end" #}
 {{ g.template_footer_end | safe }}
 {%- endblock %}
-</div>
 </body>
 </html>

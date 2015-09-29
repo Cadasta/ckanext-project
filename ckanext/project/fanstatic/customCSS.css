@@ -977,6 +977,7 @@ input[type="text"].register-input :focus {
     margin: auto;
     position: absolute;
     bottom: 0;
+    width:100%;
 }
 
 #wrapper {
