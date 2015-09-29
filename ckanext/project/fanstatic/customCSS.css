@@ -1098,3 +1098,31 @@ input[type="text"].register-input :focus {
     border-bottom: 1px solid #dcdfe1;
     height: 50px;
 }
+
+.search-form .search-input.projects {
+    position: relative;
+    margin-bottom: 20px;
+    width: 200px;
+    display: inline-block;
+    float: right;
+
+}
+
+.media-heading {
+    font-size:14px;
+}
+
+.add-project-header .add-project {
+    height: 50px;
+    float: left;
+    margin: 6px 0 0 0;
+}
+
+.add-project-header .add-project .cadasta-button{
+    margin-top:0;
+}
+
+.add-project-header {
+    height: 75px;
+    padding: 40px 20px 0 20px;
+}

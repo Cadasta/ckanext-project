@@ -5,15 +5,9 @@
 
 {% block breadcrumb_content %}
 
-  <!--<li class="active">{{ h.nav_link(_('projects'), controller='ckanext.project.controller:projectController', action='search', highlight_actions = 'new index') }}</li>-->
 {% endblock %}
 
 {% block page_primary_action %}
-  {% if h.check_access('ckanext_project_create') %}
-    <div class="page_primary_action">
-      {% link_for _('Add project'), controller='ckanext.project.controller:projectController', action='new', class_='btn btn-primary', icon='plus-sign-alt' %}
-    </div>
-  {% endif %}
 {% endblock %}
 
 {% block form %}
@@ -31,12 +25,32 @@
     (_('Last Modified'), 'metadata_modified desc'),
     (_('Popular'), 'views_recent desc') if g.tracking_enabled else (false, false) ]
   %}
+
+
+
   {% snippet 'project/snippets/project_search_form.html', type='project', placeholder=_('Search projects...'), query=c.q, sorting=sorting, sorting_selected=c.sort_by_selected, count=c.page.item_count, facets=facets, show_empty=request.params, error=c.query_error, fields=c.fields, no_bottom_border=true %}
 {% endblock %}
 
+
 {% block package_search_results_list %}
+
+{% if not no_title %}
+<table id="project-table-header">
+  <thead>
+  <tr>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Last Modified</th>
+  </tr>
+  </thead>
+</table>
+{% endif %}
+
+
   {{ h.snippet('project/snippets/project_list.html', packages=c.page.items) }}
 {% endblock %}
+
+
 
 {% block package_search_results_api %}
 {% endblock %}

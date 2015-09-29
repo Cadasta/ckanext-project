@@ -19,9 +19,9 @@ show_remove    - If True, show the remove button to remove project/dataset assoc
         <tbody>
         <tr>
             <td>
-        <h3 class="media-heading">{{ h.link_to(h.truncate(title, truncate_title),
+        <span class="media-heading">{{ h.link_to(h.truncate(title, truncate_title),
             h.url_for(controller='ckanext.project.controller:projectController', action='read', id=package.name))}}
-        </h3>
+        </span>
             </td>
 
             <td>
@@ -33,7 +33,7 @@ show_remove    - If True, show the remove button to remove project/dataset assoc
             </td>
 
             <td>
-                10/10/2015
+                {{ package.metadata_modified }}
             </td>
         </tr>
         </tbody>
