@@ -9,16 +9,34 @@
 {% block page_header %}{% endblock %}
 
 {% block page_primary_action %}
-{% if h.check_access('organization_create') %}
-{% link_for _('Add Organization'), controller='organization', action='new', class_='cadasta-button' %}
-{% endif %}
+
+
+
+<div class="add-project-header">
+    {% if h.check_access('ckanext_project_create') %}
+    <div class="add-project">
+        {% link_for _('Add Organization'), controller='organization', action='new', class_='cadasta-button' %}    </div>
+    {% endif %}
+
+    <form {% if form_id %}id="{{ form_id }}" {% endif %}class="search-form{% if no_bottom_border %} no-bottom-border{% endif %}" method="get" data-module="select-switch">
+
+
+        {% block organizations_search_form %}
+        {% snippet 'snippets/search_form.html', form_id='organization-search-form', type='organization', query=c.q, sorting_selected=c.sort_by_selected, count=c.page.item_count, placeholder=_('Search organizations...'), show_empty=request.params, no_bottom_border=true if c.page.items %}
+        {% endblock %}
+
+
+    </form>
+</div>
+
+
+
+
 {% endblock %}
 
 {% block primary_content_inner %}
 <h1 class="hide-heading">{% block page_heading %}{{ _('Organizations') }}{% endblock %}</h1>
-{% block organizations_search_form %}
-{% snippet 'snippets/search_form.html', form_id='organization-search-form', type='organization', query=c.q, sorting_selected=c.sort_by_selected, count=c.page.item_count, placeholder=_('Search organizations...'), show_empty=request.params, no_bottom_border=true if c.page.items %}
-{% endblock %}
+
 {% block organizations_list %}
 {% if c.page.items or request.params %}
 {% if c.page.items %}
@@ -40,3 +58,4 @@
 
 {% block secondary_content %}
 {% endblock %}
+
