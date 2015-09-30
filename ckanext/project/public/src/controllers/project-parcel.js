@@ -115,24 +115,49 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService'
     });
 
 
-    $scope.showAdvanced = function(ev) {
+    $scope.showAdvanced = function() {
         $mdDialog.show({
             controller: DialogController,
             templateUrl: '../src/partials/data_upload.html',
             parent: angular.element(document.body),
-            targetEvent: ev,
             clickOutsideToClose:true
         })
     };
 
     $scope.uploadParcelResource = uploadResourceService.uploadParcelResource();
 
-    $scope.click = function() {
-        console.log("CLICKED");
-    }
+    $scope.addRelationshipModal = function() {
+        $mdDialog.show({
+            controller: DialogController,
+            templateUrl: '../src/partials/add_relationship.html',
+            parent: angular.element(document.body),
+            clickOutsideToClose:true
+        })
+    };
+
+    $scope.user = {
+        title: 'Developer',
+        email: 'ipsum@lorem.com',
+        firstName: '',
+        lastName: '' ,
+        company: 'Google' ,
+        address: '1600 Amphitheatre Pkwy' ,
+        city: 'Mountain View' ,
+        state: 'CA' ,
+        biography: 'Loves kittens, snowboarding, and can type at 130 WPM.\n\nAnd rumor has it she bouldered up Castle Craig!',
+        postalCode : '94043'
+    };
 
 
 }]);
+
+
+app.config( function($mdThemingProvider){
+        // Configure a dark theme with primary foreground yellow
+        $mdThemingProvider.theme('docs-dark', 'default')
+            .primaryPalette('yellow')
+            .dark();
+    });
 
 
 function DialogController($scope, $mdDialog) {
