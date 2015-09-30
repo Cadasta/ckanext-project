@@ -12,13 +12,20 @@
 {% block breadcrumb_content_selected %}{% endblock %}
 
 {% block breadcrumb_content %}
+
 {% if pkg %}
 {% set project = pkg.title or pkg.name %}
+<li><div class="icon-lnr-chevron-right arrow-right"></div></li>
 <li>{% link_for _('projects'), controller='ckanext.project.controller:projectController', action='search' %}</li>
+<li><div class="icon-lnr-chevron-right arrow-right"></div></li>
 <li{{ self.breadcrumb_content_selected() }}>{% link_for project|truncate(30), controller='ckanext.project.controller:projectController', action='read', id=pkg.name %}</li>
+<li><div class="icon-lnr-chevron-right arrow-right"></div></li>
 <li class="active">{% link_for _('Edit'), controller='ckanext.project.controller:projectController', action='edit', id=pkg.name %}</li>
+
 {% else %}
+<li><div class="icon-lnr-chevron-right arrow-right"></div></li>
 <li>{% link_for _('projects'), controller='ckanext.project.controller:projectController', action='search' %}</li>
+<li><div class="icon-lnr-chevron-right arrow-right"></div></li>
 <li class="active"><a href="">{{ _('Create project') }}</a></li>
 {% endif %}
 {% endblock %}
