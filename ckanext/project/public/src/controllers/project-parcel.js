@@ -1,4 +1,4 @@
-app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService','$rootScope','paramService', 'utilityService',function($scope, $state, $stateParams, parcelService,$rootScope,paramService,utilityService){
+app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService','$rootScope','paramService', 'utilityService', 'uploadResourceService', '$mdDialog', function($scope, $state, $stateParams, parcelService,$rootScope,paramService, utilityService, uploadResourceService, $mdDialog){
 
     var mapStr = $stateParams.map;
 
@@ -115,4 +115,29 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService'
     });
 
 
+    $scope.showAdvanced = function(ev) {
+        $mdDialog.show({
+            controller: DialogController,
+            templateUrl: '../src/partials/data_upload.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose:true
+        })
+    };
+
+    $scope.uploadParcelResource = uploadResourceService.uploadParcelResource();
+
 }]);
+
+
+function DialogController($scope, $mdDialog) {
+    $scope.hide = function() {
+        $mdDialog.hide();
+    };
+    $scope.cancel = function() {
+        $mdDialog.cancel();
+    };
+    $scope.answer = function(answer) {
+        $mdDialog.hide(answer);
+    };
+}

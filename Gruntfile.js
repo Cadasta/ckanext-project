@@ -88,6 +88,8 @@ module.exports = function(grunt) {
 						"ckanext/project/public/src/services/mapUtilityService.js",
 						"ckanext/project/public/src/services/utilityService.js",
 						"ckanext/project/public/src/services/parcelService.js",
+						"ckanext/project/public/src/services/onaService.js",
+						"ckanext/project/public/src/services/uploadResourceService.js",
 						"ckanext/project/public/src/controllers/project-overview.js",
 						"ckanext/project/public/src/controllers/project-parcels.js",
 						"ckanext/project/public/src/controllers/project-parcel.js",

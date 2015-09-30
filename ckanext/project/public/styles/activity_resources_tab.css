@@ -1,5 +1,5 @@
 .project-tab-data {
-    max-height: 500px;
+    max-height: 490px;
     overflow: auto;
     margin: 0 0 20px -11px;
     width: 857px;
@@ -23,6 +23,17 @@
 .overview-background.resources {
     background-color: white;
     border: 1px solid #dcdfe1;
+    min-height: 500px;
+    height: auto;
+}
+
+.overview-background.resources #project-header {
+    min-height: 500px;
+    height: auto;
+}
+
+.resources .parcel-history-data.relationship {
+    min-height: 450px;
 }
 
 
@@ -111,8 +122,18 @@ md-content.md-default-theme {
     margin: 4px 112px 10px 25px;
 }
 
+
+.modal-content .grey-btn {
+    margin-top: 15px;
+}
+
 .cadasta-modal-header {
     width: 840px;
+    margin-top: -23px;
+}
+
+.cadasta-modal-header .right {
+    margin-right:7px;
 }
 
 .cadasta-clear {
@@ -120,4 +141,8 @@ md-content.md-default-theme {
     border: none;
     float: right;
     padding: 0;
+}
+
+.cadasta-modal .small-heading {
+    margin-top:16px;
 }

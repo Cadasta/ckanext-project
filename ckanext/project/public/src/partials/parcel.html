@@ -53,7 +53,24 @@
                     Parcel History
                 </div>
                 <md-button class="md-icon-button right" aria-label="More">
-                    <i class="material-icons">more_vert</i>
+                    <div class="md-menu-demo">
+                        <div class="menu-demo-container" layout-align="center center" layout="column">
+                            <div class="menus" layout-wrap layout="row" layout-align="space-between center">
+                                <div layout="column" flex="33" flex-sm="100" layout-align="center center">
+                                    <md-menu md-offset="0 -7">
+                                        <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                                            <i class="material-icons">more_vert</i>
+                                        </md-button>
+                                        <md-menu-content width="2">
+                                            <md-menu-item>
+                                                <md-button ng-click="ctrl.announceClick($index)"> View More </md-button>
+                                            </md-menu-item>
+                                        </md-menu-content>
+                                    </md-menu>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </md-button>
                 <table class="parcel-history">
                     <thead>
@@ -89,7 +106,24 @@
                     Relationship History
                 </div>
                 <md-button class="md-icon-button right" aria-label="More">
-                    <i class="material-icons">more_vert</i>
+                    <div class="md-menu-demo">
+                        <div class="menu-demo-container" layout-align="center center" layout="column">
+                            <div class="menus" layout-wrap layout="row" layout-align="space-between center">
+                                <div layout="column" flex="33" flex-sm="100" layout-align="center center">
+                                    <md-menu md-offset="0 -7">
+                                        <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                                            <i class="material-icons">more_vert</i>
+                                        </md-button>
+                                        <md-menu-content width="2">
+                                            <md-menu-item>
+                                                <md-button ng-click="ctrl.announceClick($index)"> View More </md-button>
+                                            </md-menu-item>
+                                        </md-menu-content>
+                                    </md-menu>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </md-button>
 
 
@@ -129,7 +163,27 @@
                     Parcel Resources
                 </div>
                 <md-button class="md-icon-button right" aria-label="More">
-                    <i class="material-icons">more_vert</i>
+                    <div class="md-menu-demo">
+                        <div class="menu-demo-container" layout-align="center center" layout="column">
+                            <div class="menus" layout-wrap layout="row" layout-align="space-between center">
+                                <div layout="column" flex="33" flex-sm="100" layout-align="center center">
+                                    <md-menu md-offset="0 -7">
+                                        <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                                            <i class="material-icons">more_vert</i>
+                                        </md-button>
+                                        <md-menu-content width="2">
+                                            <md-menu-item>
+                                                <md-button ng-click="showAdvanced($event)"> Add Resource </md-button>
+                                            </md-menu-item>
+                                            <md-menu-item>
+                                                <md-button ng-click="ctrl.announceClick($index)"> Download Resources </md-button>
+                                            </md-menu-item>
+                                        </md-menu-content>
+                                    </md-menu>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </md-button>
 
                 <table class="parcel-history">
@@ -160,5 +214,6 @@
         </div>
     </div>
 
-
 </div>
+
+

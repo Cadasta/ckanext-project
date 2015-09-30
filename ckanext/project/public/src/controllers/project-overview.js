@@ -1,7 +1,8 @@
 
   var app = angular.module("app");
 
-  app.controller("overviewCtrl", ['$scope', '$state', '$stateParams','$location', 'dataService','paramService', 'utilityService', '$rootScope', function($scope, $state, $stateParams, $location, dataService, paramService, utilityService, $rootScope) {
+  app.controller("overviewCtrl", ['$scope', '$state', '$stateParams','$location', 'dataService','paramService', 'utilityService', '$rootScope','Upload', 'onaService',
+      function($scope, $state, $stateParams, $location, dataService, paramService, utilityService, $rootScope,Upload, onaService) {
 
       var mapStr = $stateParams.map;
 
@@ -13,6 +14,31 @@
       var lat = mapArr[0];
       var lng = mapArr[1];
       var zoom = mapArr[2];
+
+
+      $scope.submit = function() {
+          if (form.file.$valid && $scope.file && !$scope.file.$error) {
+              //$scope.upload($scope.file);
+
+              $scope.upload($scope.file);
+
+          }
+      };
+
+      // upload on file select or drop
+      $scope.upload = function (file) {
+          Upload.json({
+              url: 'upload/url',
+              data: {file: file, 'username': $scope.username}
+          }).progress(function (evt) {
+              var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+              console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
+          }).success(function (data, status, headers, config) {
+              console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
+          }).error(function (data, status, headers, config) {
+              console.log('error status: ' + status);
+          })
+      };
 
       // setup map
       var map = L.map('overviewMap', {scrollWheelZoom:false});

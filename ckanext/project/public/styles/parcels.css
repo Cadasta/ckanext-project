@@ -239,3 +239,14 @@
     color: #256c97;
 }
 
+
+.menudemoMenuWidth .md-menu-demo {
+    padding: 24px; }
+.menudemoMenuWidth .menu-demo-container {
+    min-height: 200px; }
+.menudemoMenuWidth .menus {
+    width: 100%; }
+
+.parcel-details-menu {
+    left:1000px;
+}

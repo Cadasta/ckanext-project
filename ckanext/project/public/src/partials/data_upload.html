@@ -15,7 +15,14 @@
                 </div>
                 <div class="modal-content">
                     <div>
-                        Select a file to be uploaded.<br><br>
+                        <p>Freegan lo-fi meggings, tofu Intelligentsia sriracha letterpress organic street art VHS put a
+                            bird on it wolf chillwave. Twee XOXO church-key, typewriter listicle YOLO dreamcatcher
+                            normcore Banksy Kickstarter freegan fanny pack Shoreditch. Squid deep v raw denim High Life
+                            cray, letterpress chambray typewriter Helvetica butcher biodiesel pour-over XOXO trust fund.
+                            Mixtape readymade typewriter drinking vinegar letterpress American Apparel, kale chips
+                            Carles 90's mumblecore direct trade aesthetic gastropub 8-bit pug.
+                        </p>
+                        <br><br>
                     </div>
 
 
@@ -23,106 +30,11 @@
                         <form id="S3_Form" action="." method="POST" enctype="multipart/form-data">
                             <input type="file" name="filedata">
                             <br>
-                            <button type="submit" class="grey-btn">Upload file and import</button>
+                            <button type="submit" ng-click="uploadParcelResource" class="grey-btn">Upload file and import</button>
                         </form>
                     </div>
                 </div>
 
-                <script type="text/javascript">
-
-                    $(document).ready(function () {
-
-
-                        $('#CSV_Form').submit(function (e) {
-                            var data = new FormData(this);
-
-                            $.ajax({
-                                url: 'http://54.69.121.180:3000/providers/csv/load',
-                                type: 'POST',
-                                data: new FormData(this),
-                                processData: false,
-                                contentType: false,
-                                success: handlePOSTResult
-                            });
-                            e.preventDefault();
-                        });
-
-
-                        $('#GEOJSON_Form').submit(function (e) {
-                            $.ajax({
-                                url: 'http://54.69.121.180:3000/providers/geojson/load',
-                                type: 'POST',
-                                data: new FormData(this),
-                                processData: false,
-                                contentType: false,
-                                success: handlePOSTResult
-                            });
-                            e.preventDefault();
-                        });
-
-
-                        $('#ONA_Form').submit(function (e) {
-                            $.ajax({
-                                url: 'http://54.69.121.180:3000/providers/ona/load',
-                                type: 'POST',
-                                data: new FormData(this),
-                                processData: false,
-                                contentType: false,
-                                success: handlePOSTResult
-                            });
-                            e.preventDefault();
-                        });
-
-                        $('#S3_Form').submit(function (e) {
-                            var data = new FormData(this);
-
-                            $.ajax({
-                                url: 'http://54.69.121.180:3000/resources/1/parcel/3',
-                                type: 'POST',
-                                data: new FormData(this),
-                                processData: false,
-                                contentType: false,
-                                success: handlePOSTResult,
-                                error:function(err){
-                                    console.log(err)
-                                }
-                            });
-                            e.preventDefault();
-                        });
-                    });
-
-                    function handlePOSTResult(data) {
-
-                        if (data && (data.status || data.message)) {
-                            if (data.status == 'Data Loaded.' || data.message == "Thanks for the upload.") {
-                                //Show message
-                                showStatusMessage("Data upload successful.", "success");
-
-                                setTimeout(function(){
-                                    //...and redirect to parcels list after 3 seconds
-                                    window.location = "parcels";
-                                }, 3000)
-
-                            }
-                        }
-                        else {
-                            //Show err message
-                            showStatusMessage("Houston, we've had a problem here.", "err");
-                        }
-                    }
-
-                    /***
-                     *
-                     * @param message
-                     * @param status - string.  success, warning, err
-                     */
-                    function showStatusMessage (message, status) {
-                        //Show message on screen
-                        $(".flash-messages").html(message).addClass(status).show();
-                    }
-
-
-                </script>
 
             </div>
 
