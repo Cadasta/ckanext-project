@@ -465,10 +465,14 @@ input[type="text"] {
     text-decoration: none;
 }
 
-.header-container span ul li:active {
-    border-bottom: 2px solid white;
+.header-container span ul li.active a {
     font-weight: semi-bold;
     text-decoration: none;
+    color:white;
+}
+
+.header-container span ul li.active {
+    border-bottom: 2px solid white;
 }
 
 .search-form .control-order-by {
@@ -1172,3 +1176,4 @@ input[type="text"].register-input :focus {
 .page_primary_action {
     margin-bottom: 0;
 }
+
