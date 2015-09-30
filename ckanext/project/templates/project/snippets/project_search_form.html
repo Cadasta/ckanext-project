@@ -7,14 +7,9 @@
 {% set no_bottom_border = no_bottom_border if no_bottom_border else false %}
 {% set form_id = form_id if form_id else false %}
 
-<div class="add-project-header">
-  {% if h.check_access('ckanext_project_create') %}
-  <div class="add-project">
-    {% link_for _('Add project'), controller='ckanext.project.controller:projectController', action='new', class_='cadasta-button' %}
-  </div>
-  {% endif %}
+<div class="add-project-header projects">
 
-  <form {% if form_id %}id="{{ form_id }}" {% endif %}class="search-form{% if no_bottom_border %} no-bottom-border{% endif %}" method="get" data-module="select-switch">
+  <form {% if form_id %}id="{{ form_id }}" {% endif %}class="left search-form{% if no_bottom_border %} no-bottom-border{% endif %}" method="get" data-module="select-switch">
 
 
     {% block search_input %}
@@ -52,7 +47,12 @@
     </div>
     {% endif %}
     {% endblock %}
-
-
   </form>
+
+  {% if h.check_access('ckanext_project_create') %}
+  <div class="add-project">
+    {% link_for _('Add project'), controller='ckanext.project.controller:projectController', action='new', class_='cadasta-button right' %}
+  </div>
+  {% endif %}
+
 </div>

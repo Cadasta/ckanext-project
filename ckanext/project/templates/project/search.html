@@ -4,13 +4,16 @@
 {% block subtitle %}{{ _("projects") }}{% endblock %}
 
 {% block breadcrumb_content %}
-
+<li><div class="icon-lnr-chevron-right arrow-right"></div></li>
+<li>{% link_for _('Projects'), controller='package', action='search' %}</li>
 {% endblock %}
+
 
 {% block page_primary_action %}
 {% endblock %}
 
 {% block form %}
+
   {% set facets = {
     'fields': c.fields_grouped,
     'search': c.search_facets,
@@ -56,13 +59,4 @@
 {% endblock %}
 
 {% block secondary_content %}
-{{ h.snippet('project/snippets/helper.html') }}
-<div class="filters">
-  <div>
-    {% for facet in c.facet_titles %}
-      {{ h.snippet('snippets/facet_list.html', title=c.facet_titles[facet], name=facet) }}
-    {% endfor %}
-  </div>
-  <a class="close no-text hide-filters"><i class="icon-remove-sign"></i><span class="text">close</span></a>
-</div>
 {% endblock %}

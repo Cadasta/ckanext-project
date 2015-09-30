@@ -328,6 +328,7 @@ li {
 #main-div {
     background-image: none;
     background-color: #eef2f5;
+    height: auto;
 }
 
 .nav-tabs {
@@ -779,7 +780,6 @@ input[type="text"].register-input :focus {
     background-color: white;
     height: auto;
     min-height: 500px;
-    border: 1px solid #dcdfe1;
 }
 
 .parcel-details-content .small-heading {
@@ -922,6 +922,10 @@ input[type="text"].register-input :focus {
     margin: 20px 0 30px 554px;
 }
 
+.save-new .cadasta-button {
+    margin: 20px 0;
+}
+
 .control-required-message {
     margin: 30px 0 0 64px;
 }
@@ -978,6 +982,7 @@ input[type="text"].register-input :focus {
     position: relative;
     bottom: 0;
     width:100%;
+    margin-top:20px;
 }
 
 #wrapper {
@@ -1024,11 +1029,8 @@ input[type="text"].register-input :focus {
     right: 0;
     bottom: 0;
      border:none;
-    /* overflow: hidden; */
-    /* -webkit-transition: all 0.2s ease-in; */
     -moz-transition: all 0.2s ease-in;
     -o-transition: all 0.2s ease-in;
-    /* transition: all 0.2s ease-in; */
      -webkit-border-radius: 0;
     -moz-border-radius: 0;
      border-radius: 0;
@@ -1046,9 +1048,10 @@ input[type="text"].register-input :focus {
     color: white;
     background-color: #51617A;
     font-weight: 400;
-    text-align: center;
+    text-align: left;
     padding: 8px;
     line-height: 20px;
+    padding-left:20px;
 }
 
 .span9 div.module-content {
@@ -1074,10 +1077,10 @@ input[type="text"].register-input :focus {
 
 #project-list {
     font-size: 12px;
-    width: 100%;
     position: relative;
     background-color: white;
-    border: 1px solid #dcdfe1;
+    border-left: 1px solid #dcdfe1;
+    border-right: 1px solid #dcdfe1;
 
 }
 
@@ -1089,10 +1092,14 @@ input[type="text"].register-input :focus {
 }
 
 #project-list table {
-    text-align: center;
+    text-align: left;
     width: 100%;
     margin: auto;
     background-color: #fff;
+}
+
+#project-list table td {
+    padding-left:20px;
 }
 
 #project-list tr {
@@ -1115,8 +1122,8 @@ input[type="text"].register-input :focus {
 
 .add-project-header .add-project {
     height: 50px;
-    float: left;
-    margin: 6px 0 0 0;
+    float: right;
+    margin: -5px 0 0 0;
 }
 
 .add-project-header .add-project .cadasta-button{
@@ -1126,4 +1133,42 @@ input[type="text"].register-input :focus {
 .add-project-header {
     height: 75px;
     padding: 40px 20px 0 20px;
+}
+
+.add-org {
+    height: 50px;
+    float: right;
+    margin: 6px 20px 0 0;
+}
+
+.icon-lnr-chevron-right.arrow-right {
+    font-size: 27px;
+    color: #dcdfe1;
+    position: relative;
+    bottom: 1px;
+}
+
+.breadcrumb li a {
+    position: relative;
+    bottom: 7.5px;
+
+}
+
+#breadcrumb .icon-home {
+    font-size: 16px;
+    bottom: 5.5px;
+    color: #256c97;
+    position: relative;
+}
+
+.module {
+    margin:0;
+}
+
+.add-project-header {
+    border: 1px solid #dcdfe1;
+}
+
+.page_primary_action {
+    margin-bottom: 0;
 }
