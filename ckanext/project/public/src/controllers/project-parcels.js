@@ -70,6 +70,8 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
         $scope.overviewData = "Server Error";
     });
 
+
+
 }]);
 
 // replace null with '-' for table

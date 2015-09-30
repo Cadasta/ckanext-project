@@ -127,6 +127,11 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService'
 
     $scope.uploadParcelResource = uploadResourceService.uploadParcelResource();
 
+    $scope.click = function() {
+        console.log("CLICKED");
+    }
+
+
 }]);
 
 

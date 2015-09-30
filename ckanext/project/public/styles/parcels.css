@@ -250,3 +250,16 @@
 .parcel-details-menu {
     left:1000px;
 }
+
+.md-open-menu-container.md-active {
+    opacity: 1;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-duration: 200ms;
+    top: 454px;
+    left: 1225px;
+    transform-origin: left top 0px;
+}
+
+.md-icon-button.right.parcel-page-layout {
+    margin: -16px -33px 0 0;
+}

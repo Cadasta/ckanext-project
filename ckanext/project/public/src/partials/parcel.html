@@ -14,6 +14,27 @@
                 <div class="container">
                     <div class="title">{{parcel.id}} (alternative ID here)</div>
 
+                    <md-button class="md-icon-button right parcel-page-layout" aria-label="More">
+                        <div class="md-menu-demo">
+                            <div class="menu-demo-container" layout-align="center center" layout="column">
+                                <div class="menus" layout-wrap layout="row" layout-align="space-between center">
+                                    <div layout="column" flex="33" flex-sm="100" layout-align="center center">
+                                        <md-menu md-offset="0 -7">
+                                            <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                                                <i class="material-icons">more_vert</i>
+                                            </md-button>
+                                            <md-menu-content width="2">
+                                                <md-menu-item>
+                                                    <md-button ng-click="click"> Add Relationship </md-button>
+                                                </md-menu-item>
+                                            </md-menu-content>
+                                        </md-menu>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </md-button>
+
                     <div class="relationship-container">
                         <!-- Remove bottom border if first element in array-->
                         <div class="parcel-dropdown" ng-repeat="r in relationships"
@@ -52,7 +73,7 @@
                 <div class="small-heading">
                     Parcel History
                 </div>
-                <md-button class="md-icon-button right" aria-label="More">
+                <md-button class="md-icon-button right parcel-page-layout" aria-label="More">
                     <div class="md-menu-demo">
                         <div class="menu-demo-container" layout-align="center center" layout="column">
                             <div class="menus" layout-wrap layout="row" layout-align="space-between center">
@@ -78,7 +99,6 @@
                         <th>Event</th>
                         <th>Date</th>
                         <th>Image</th>
-                        <th class="right">Delete</th>
                     </tr>
                     </thead>
                 </table>
@@ -89,7 +109,6 @@
                         <td>{{ph.description}}</td>
                         <td>{{ph.time_created}}</td>
                         <td>View Map</td>
-                        <td><md-checkbox class="right" aria-label="Delete"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -105,7 +124,7 @@
                 <div class="small-heading">
                     Relationship History
                 </div>
-                <md-button class="md-icon-button right" aria-label="More">
+                <md-button class="md-icon-button right parcel-page-layout" aria-label="More">
                     <div class="md-menu-demo">
                         <div class="menu-demo-container" layout-align="center center" layout="column">
                             <div class="menus" layout-wrap layout="row" layout-align="space-between center">
@@ -134,7 +153,6 @@
                         <th>Type</th>
                         <th>Date</th>
                         <th>Image</th>
-                        <th class="right">Delete</th>
                     </tr>
                     </thead>
                 </table>
@@ -146,7 +164,6 @@
                             <td>{{ph.relationship_type}}</td>
                             <td>{{ph.time_created}}</td>
                             <td>View Map</td>
-                            <td><md-checkbox class="right" aria-label="Delete"></td>
                         </tr>
                         </tbody>
                     </table>
@@ -162,7 +179,7 @@
                 <div class="small-heading">
                     Parcel Resources
                 </div>
-                <md-button class="md-icon-button right" aria-label="More">
+                <md-button class="md-icon-button right parcel-page-layout" aria-label="More">
                     <div class="md-menu-demo">
                         <div class="menu-demo-container" layout-align="center center" layout="column">
                             <div class="menus" layout-wrap layout="row" layout-align="space-between center">
@@ -193,7 +210,6 @@
                         <th>Description</th>
                         <th>Date</th>
                         <th>View</th>
-                        <th class="right">Delete</th>
                     </tr>
                     </thead>
                 </table>
@@ -205,7 +221,6 @@
                             <td>{{r.properties.description}}</td>
                             <td>{{r.properties.time_created}}</td>
                             <td><a href="{{r.properties.url}}">Download</a></td>
-                            <td><md-checkbox class="right" aria-label="Delete"></td>
                         </tr>
                         </tbody>
                     </table>
