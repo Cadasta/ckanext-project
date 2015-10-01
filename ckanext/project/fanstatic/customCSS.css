@@ -5,7 +5,7 @@
 
 body {
     font-family: 'Open Sans', sans-serif;
-    font-size: 10px;
+    font-size: 12px;
     background: none;
     background-color: #eef2f5;
 }
@@ -696,13 +696,6 @@ input[type="text"].register-input :focus {
     display: none;
 }
 
-.page-heading {
-    margin-top: 10px;
-    color: #256C97;
-    text-transform: uppercase;
-    font-size: 24pt;
-    font-weight: 400;
-}
 
 .login-block form {
     margin: 20px 0 20px;
@@ -956,12 +949,23 @@ input[type="text"].register-input :focus {
     font-family: 'Open Sans', sans-serif;
 }
 
+
 .page-heading {
-    margin: 20px 0 20px 245px;
+    padding-top: 20px;
     color: #256C97;
     text-transform: uppercase;
-    font-size: 20pt;
+    font-size: 22px;
     font-weight: 400;
+}
+
+.module h1.page-heading {
+    position: relative;
+    width: 100%;
+    text-align: center;
+}
+
+.module h1 {
+    margin-bottom: 0;
 }
 
 .page-heading.register {
