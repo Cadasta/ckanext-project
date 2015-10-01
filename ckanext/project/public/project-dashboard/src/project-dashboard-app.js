@@ -36,9 +36,9 @@ var app = angular.module("app",
       name: 'tabs',
       url: '/',
       views: {
-        'breadcrumbs@': { controller:'breadcrumbsCtrl', templateUrl: '../src/partials/breadcrumbs.html' },
-        'projectHeader@': { controller:'headerCtrl', templateUrl: '../src/partials/projectHeader.html' },
-        'tabs@': {  controller:'tabsCtrl', templateUrl: '../src/partials/tabs.html' }
+        'breadcrumbs@': { controller:'breadcrumbsCtrl', templateUrl: '/project-dashboard/src/partials/breadcrumbs.html' },
+        'projectHeader@': { controller:'orgHeaderCtrl', templateUrl: '/project-dashboard/src/partials/projectHeader.html' },
+        'tabs@': {  controller:'orgTabsCtrl', templateUrl: '/project-dashboard/src/partials/tabs.html' }
       }});
 
     // Child State
@@ -46,7 +46,7 @@ var app = angular.module("app",
       name: 'tabs.overview',
       url: 'overview?map',
       views: {
-        'overviewtab': {controller: 'overviewCtrl', templateUrl: '../src/partials/overview.html'}
+        'overviewtab': {controller: 'overviewCtrl', templateUrl: '/project-dashboard/src/partials/overview.html'}
       },
       paramsMap:[{key:'map', defaultValue: '(0,0,0)'}],
 
@@ -64,7 +64,7 @@ var app = angular.module("app",
       name: 'tabs.parcels',
       url: 'parcels',
       views: {
-        'parcelstab': {  templateUrl: '../src/partials/parcels.html' }
+        'parcelstab': {  templateUrl: '/project-dashboard/src/partials/parcels.html' }
       },
       deepStateRedirect: { default: "tabs.parcels.parcellist" },
       sticky: true
@@ -77,7 +77,7 @@ var app = angular.module("app",
       views: {
         'parcelslist': {
           controller: 'parcelsCtrl',
-          templateUrl: '../src/partials/parcelList.html', }
+          templateUrl: '/project-dashboard/src/partials/parcelList.html', }
       },
       sticky:true,
       deepStateRedirect: true//dsrCb
@@ -90,7 +90,7 @@ var app = angular.module("app",
       views: {
         'parcel': {
           controller: 'parcelCtrl',
-          templateUrl: '../src/partials/parcel.html' }
+          templateUrl: '/project-dashboard/src/partials/parcel.html' }
       },
       onEnter: function($state, $stateParams, mapUtilityService){
 
@@ -108,7 +108,7 @@ var app = angular.module("app",
       name: 'tabs.map',
       url: 'map?map',
       views: {
-          'maptab': { controller: 'projectMapCtrl', templateUrl: '../src/partials/map.html' }
+          'maptab': { controller: 'projectMapCtrl', templateUrl: '/project-dashboard/src/partials/map.html' }
       },
       paramsMap:[{key:'map', defaultValue: '(0,0,0)'}],
       onEnter: function($state, $stateParams, mapUtilityService){
@@ -126,7 +126,7 @@ var app = angular.module("app",
       name: 'tabs.activity',
       url: 'activity',
       views: {
-        'activitytab': {  controller:'activityCtrl', templateUrl: '../src/partials/project_activity.html' }
+        'activitytab': {  controller:'activityCtrl', templateUrl: '/project-dashboard/src/partials/project_activity.html' }
       },
       deepStateRedirect: dsrCb,
       sticky: true
@@ -138,7 +138,7 @@ var app = angular.module("app",
       name: 'tabs.resources',
       url: 'resources',
       views: {
-        'resourcetab': { controller:'resourceCtrl', templateUrl: '../src/partials/project_resources.html' }
+        'resourcetab': { controller:'resourceCtrl', templateUrl: '/project-dashboard/src/partials/project_resources.html' }
       },
       deepStateRedirect: dsrCb,
       sticky: true
@@ -149,7 +149,7 @@ var app = angular.module("app",
       name: 'tabs.fieldData',
       url: 'fieldData',
       views: {
-        'fieldDatatab': { controller:'fieldDataCtrl', templateUrl: '../src/partials/fieldData.html' }
+        'fieldDatatab': { controller:'fieldDataCtrl', templateUrl: '/project-dashboard/src/partials/fieldData.html' }
       },
       deepStateRedirect: dsrCb,
       sticky: true
