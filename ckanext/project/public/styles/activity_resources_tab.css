@@ -110,7 +110,7 @@ md-content.md-default-theme {
 
 
 .cadasta-modal.resources {
-    height: 300px;
+    min-height: 300px;
     background-color: #fff;
     position: relative;
     margin: 0 auto;
