@@ -58,25 +58,26 @@ module.exports = function(grunt) {
 		},
 
 		cachebreaker: {
-			dev: {
+			projectDashboard: {
 				options: {
-					match: ["app.min.js", "app.min.css"],
+					match: ["project-dashboard-app.min.js", "project-dashboard-app.min.css"],
 				},
 				files: {
 					src: ['ckanext/project/templates/project/read_base.html']
 				}
-			}
+			},
+
 		},
 
 		uglify: {
 			options: {
 				mangle: false
 			},
-			dev: {
+			projectDashboard: {
 				options: {
 					sourceMap: true,
 					sourceMapName: function(){
-						return 'ckanext/project/public/build/app.min.map';
+						return 'ckanext/project/public/build/project-dashboard-app.min.map';
 					}
 				},
 				files: {
