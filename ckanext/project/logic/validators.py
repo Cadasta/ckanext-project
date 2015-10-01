@@ -1,4 +1,5 @@
 from ckan.plugins import toolkit as tk
+from ckan.model import PACKAGE_NAME_MAX_LENGTH, PACKAGE_NAME_MIN_LENGTH
 
 _ = tk._
 Invalid = tk.Invalid
@@ -35,3 +36,31 @@ def convert_package_name_or_id_to_id_for_type_dataset(package_name_or_id, contex
 
 def convert_package_name_or_id_to_id_for_type_project(package_name_or_id, context):
     return convert_package_name_or_id_to_id_for_type(package_name_or_id, context, package_type='project')
+
+
+def project_name_validator(key, data, errors, context):
+    model = context['model']
+    session = context['session']
+    package = context.get('package')
+
+    query = session.query(model.Package.name).filter_by(name=data[key])
+    if package:
+        package_id = package.id
+    else:
+        package_id = data.get(key[:-1] + ('id',))
+    if package_id and package_id is not tk.missing:
+        query = query.filter(model.Package.id <> package_id)
+    result = query.first()
+
+    if result:
+        errors['title',].append(_('That dataset name is already in use.'))
+
+    value = data[key]
+    if len(value) < PACKAGE_NAME_MIN_LENGTH:
+        raise Invalid(
+            _('Name "%s" length is less than minimum %s') % (value, PACKAGE_NAME_MIN_LENGTH)
+        )
+    if len(value) > PACKAGE_NAME_MAX_LENGTH:
+        raise Invalid(
+            _('Name "%s" length is more than maximum %s') % (value, PACKAGE_NAME_MAX_LENGTH)
+        )

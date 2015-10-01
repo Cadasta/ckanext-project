@@ -4,11 +4,14 @@ from ckan.logic.schema import (
     default_show_package_schema,
     default_update_package_schema,
 )
+from ckanext.project.logic.validators import project_name_validator
 
 
 convert_to_extras = toolkit.get_validator('convert_to_extras')
 convert_from_extras = toolkit.get_validator('convert_from_extras')
 ignore_missing = toolkit.get_validator('ignore_missing')
+not_empty = toolkit.get_validator('not_empty')
+name_validator = toolkit.get_validator('name_validator')
 
 
 def project_schema():
@@ -21,6 +24,8 @@ def project_schema():
 
 def project_create_schema():
     schema = default_create_package_schema()
+    schema['name'] = [not_empty, unicode, name_validator,
+                      project_name_validator]
     schema.update(project_schema())
     return schema
 
