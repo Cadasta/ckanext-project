@@ -1,8 +1,8 @@
 
   var app = angular.module("app");
 
-  app.controller("overviewCtrl", ['$scope', '$state', '$stateParams','$location', 'dataService','paramService', 'utilityService', '$rootScope','FileUploader', 'onaService',
-      function($scope, $state, $stateParams, $location, dataService, paramService, utilityService, $rootScope,FileUploader, onaService) {
+  app.controller("overviewCtrl", ['$scope', '$state', '$stateParams','$location', 'dataService','paramService', 'utilityService', '$rootScope',
+      function($scope, $state, $stateParams, $location, dataService, paramService, utilityService, $rootScope) {
 
       var mapStr = $stateParams.map;
 

@@ -133,12 +133,23 @@ var app = angular.module("app",
     });
 
 
-    // Child State for activity list
+    // Child State for resource list
     states.push({
       name: 'tabs.resources',
       url: 'resources',
       views: {
         'resourcetab': { controller:'resourceCtrl', templateUrl: '../src/partials/project_resources.html' }
+      },
+      deepStateRedirect: dsrCb,
+      sticky: true
+    });
+
+    // Child State for activity list
+    states.push({
+      name: 'tabs.fieldData',
+      url: 'fieldData',
+      views: {
+        'fieldDatatab': { controller:'fieldDataCtrl', templateUrl: '../src/partials/fieldData.html' }
       },
       deepStateRedirect: dsrCb,
       sticky: true
