@@ -71,7 +71,7 @@ app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService'
     $scope.showAdvanced = function(ev) {
         $mdDialog.show({
             controller: DialogController,
-            templateUrl: '../src/partials/data_upload.html',
+            templateUrl: '/project-dashboard/src/partials/data_upload.html',
             parent: angular.element(document.body),
             targetEvent: ev,
             clickOutsideToClose:true

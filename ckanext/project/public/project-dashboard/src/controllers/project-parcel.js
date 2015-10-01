@@ -118,7 +118,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService'
     $scope.showAdvanced = function() {
         $mdDialog.show({
             controller: DialogController,
-            templateUrl: '../src/partials/data_upload.html',
+            templateUrl: 'project-dashboard/src/partials/data_upload.html',
             parent: angular.element(document.body),
             clickOutsideToClose:true
         })
@@ -129,7 +129,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService'
     $scope.addRelationshipModal = function() {
         $mdDialog.show({
             controller: addResourceCtrl,
-            templateUrl: '../src/partials/add_relationship.html',
+            templateUrl: '/project-dashboard/src/partials/add_relationship.html',
             parent: angular.element(document.body),
             clickOutsideToClose:true
         })

@@ -37,8 +37,8 @@ var app = angular.module("app",
       url: '/',
       views: {
         'breadcrumbs@': { controller:'breadcrumbsCtrl', templateUrl: '/project-dashboard/src/partials/breadcrumbs.html' },
-        'projectHeader@': { controller:'orgHeaderCtrl', templateUrl: '/project-dashboard/src/partials/projectHeader.html' },
-        'tabs@': {  controller:'orgTabsCtrl', templateUrl: '/project-dashboard/src/partials/tabs.html' }
+        'projectHeader@': { controller:'headerCtrl', templateUrl: '/project-dashboard/src/partials/projectHeader.html' },
+        'tabs@': {  controller:'tabsCtrl', templateUrl: '/project-dashboard/src/partials/tabs.html' }
       }});
 
     // Child State
