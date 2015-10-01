@@ -128,7 +128,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService'
 
     $scope.addRelationshipModal = function() {
         $mdDialog.show({
-            controller: DialogController,
+            controller: addResourceCtrl,
             templateUrl: '../src/partials/add_relationship.html',
             parent: angular.element(document.body),
             clickOutsideToClose:true
@@ -149,6 +149,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService'
     };
 
 
+
 }]);
 
 
@@ -167,7 +168,18 @@ function DialogController($scope, $mdDialog) {
     $scope.cancel = function() {
         $mdDialog.cancel();
     };
-    $scope.answer = function(answer) {
-        $mdDialog.hide(answer);
+}
+
+
+function addResourceCtrl($scope, $mdDialog) {
+    $scope.hide = function() {
+        $mdDialog.hide();
+    };
+    $scope.cancel = function() {
+        $mdDialog.cancel();
+
+    $scope.tenure_types = ['own', 'lease', 'informal relationship'];
+
+
     };
 }
