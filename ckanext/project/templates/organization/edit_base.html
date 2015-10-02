@@ -22,22 +22,18 @@
 {% endblock %}
 
 {% block content_primary_nav %}
-<div class="org-header">HELLO</div>
+<div class="org-header">
+    {{ c.group_dict.title }}
+</div>
 <div class="org-tab-header">
-    {{ h.build_nav_icon('organization_read', _('Overview'), id=c.group_dict.name) }}
-    {{ h.build_nav_icon('organization_members', _('Members'), id=c.group_dict.name) }}
+    {{ h.build_nav_icon('organization_read', _('OVERVIEW'), id=c.group_dict.name) }}
+    {{ h.build_nav_icon('organization_members', _('MEMBERS'), id=c.group_dict.name) }}
 </div>
 {% endblock %}
 
 {% block secondary_content %}
-{% if organization %}
-{% snippet 'snippets/organization.html', organization=organization %}
-{% else %}
-{{ super() }}
-{% endif %}
 {% endblock %}
 
 {% block links %}
 {{ super() }}
-{% include "organization/snippets/feeds.html" %}
 {% endblock %}
