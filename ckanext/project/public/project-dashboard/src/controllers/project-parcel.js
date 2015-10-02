@@ -118,7 +118,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService'
     $scope.showAdvanced = function() {
         $mdDialog.show({
             controller: DialogController,
-            templateUrl: 'project-dashboard/src/partials/data_upload.html',
+            templateUrl: '/project-dashboard/src/partials/data_upload.html',
             parent: angular.element(document.body),
             clickOutsideToClose:true
         })
