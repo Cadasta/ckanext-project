@@ -1,0 +1,47 @@
+/* Custom style rules for ckanext-project */
+
+.context-info .module-content .smallest {
+    font-size: 13px;
+}
+
+.context-info .module-content .info .btn {
+    margin-top: 18px;
+}
+
+.actions {
+    top: 36px;
+    right: 25px;
+}
+
+.ckanext-project-edit-wrapper {
+    background-image: none;
+}
+
+.ckanext-project-image-container {
+    text-align: center;
+}
+
+.ckanext-project-image {
+    margin-bottom: 25px;
+}
+
+.ckanext-project-notes {
+    margin-bottom: 25px;
+}
+
+.ckanext-project-launch {
+    margin-bottom: 25px;
+}
+
+
+td.ckanext_project_pagination_footer {
+    padding: 0;
+}
+.ckanext_project_pagination_footer .pagination {
+    margin: 0;
+    border-top: none 0;
+}
+
+.module-narrow .nav-item > a {
+    word-break: break-word;
+}
