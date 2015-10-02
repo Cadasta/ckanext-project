@@ -2,16 +2,19 @@
 
 
 {% block main_content %}
-    <div ng-app="app" >
+        <div ng-app="app" >
             <div ui-view="breadcrumbs"></div>
             <div ui-view="projectHeader"></div>
             <div ui-view="tabs"></div>
         </div>
     </div>
+<!--extra tags are needed to keep footer seperate from main body (mismatch in page.html todo)-->
+</div>
 {% endblock %}
 
 {% block scripts %}
 <script src='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.js'></script>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript" src="../vendor/angular/angular.js"></script>
 <script type="text/javascript" src="../vendor/angular-ui-router/release/angular-ui-router.js"></script>
 <script type="text/javascript" src="../vendor/ui-router-extras/release/ct-ui-router-extras.js"></script>
@@ -21,7 +24,7 @@
 <script type="text/javascript" src="../vendor/angular-file-upload/dist/angular-file-upload.min.js"></script>
 
 
-<script type="text/javascript" src="../build/app.min.js?rel=1443714424618"></script>
+<script type="text/javascript" src="../../build/project-dashboard-app.min.js?rel=1443806583680"></script>
 
 {% endblock %}
 
@@ -30,7 +33,7 @@
 <link href='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.css' rel='stylesheet' />
 <link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.2/leaflet.draw.css' rel='stylesheet' />
 <link href='../vendor/angular-material/angular-material.css' rel='stylesheet' />
-<link href='../build/app.min.css?rel=1443714424618' rel='stylesheet' />
+<link href='../build/project-dashboard-app.min.css?rel=1443806583681' rel='stylesheet' />
 
 
 {% endblock %}
