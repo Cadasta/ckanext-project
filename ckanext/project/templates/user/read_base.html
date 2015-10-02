@@ -5,9 +5,9 @@
 {% block subtitle %}{{ user.display_name }} - {{ _('Users') }}{% endblock %}
 
 {% block breadcrumb_content %}
-<li><div class="icon-lnr-chevron-right arrow-right"></div></li>
+<li><div class="icon-lnr-chevron-right arrow-right ckan"></div></li>
 {{ h.build_nav('user_index', _('Users')) }}
-<li><div class="icon-lnr-chevron-right arrow-right"></div></li>
+<li><div class="icon-lnr-chevron-right arrow-right ckan"></div></li>
 {{ h.build_nav('user_datasets', user.display_name|truncate(35), id=user.name) }}
 {% endblock %}
 

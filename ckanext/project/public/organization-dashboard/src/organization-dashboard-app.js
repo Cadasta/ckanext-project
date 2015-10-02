@@ -38,8 +38,8 @@ OrganizationDashboardApp.config(function ($stateProvider, $urlRouterProvider) {
         name: 'tabs',
         url: '/',
         views: {
-            'breadcrumbs@': { controller:'breadcrumbCtrl', templateUrl: '/organization-dashboard/src/partials/breadcrumbs.html' },
-            'projectHeader@': { controller:'orgHeaderCtrl', templateUrl: '/organization-dashboard/src/partials/orgHeader.html' },
+            //'breadcrumbs@': { controller:'breadcrumbCtrl', templateUrl: '/organization-dashboard/src/partials/breadcrumbs.html' },
+            //'projectHeader@': { controller:'orgHeaderCtrl', templateUrl: '/organization-dashboard/src/partials/orgHeader.html' },
             'tabs@': {  controller:'orgTabsCtrl', templateUrl: '/organization-dashboard/src/partials/tabs.html' }
         }});
 
@@ -55,15 +55,15 @@ OrganizationDashboardApp.config(function ($stateProvider, $urlRouterProvider) {
         sticky: true
     });
 
-    states.push({
-        name: 'tabs.members',
-        url: 'members',
-        views: {
-            'memberstab': {  controller:'orgMembersCtrl', templateUrl: '/organization-dashboard/src/partials/orgMembers.html' }
-        },
-        deepStateRedirect: dsrCb,
-        sticky: true
-    });
+    //states.push({
+    //    name: 'tabs.members',
+    //    url: 'members',
+    //    views: {
+    //        'memberstab': {  controller:'orgMembersCtrl', templateUrl: '/organization-dashboard/src/partials/orgMembers.html' }
+    //    },
+    //    deepStateRedirect: dsrCb,
+    //    sticky: true
+    //});
 
 
 

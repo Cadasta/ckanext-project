@@ -158,3 +158,8 @@ li.activity-block {
     vertical-align:top;
     overflow:auto;
 }
+
+.tabcontent {
+    background-color: #eef2f5;
+}
+
