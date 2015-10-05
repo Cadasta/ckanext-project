@@ -9,4 +9,6 @@ OrganizationDashboardApp.controller("orgOverviewCtrl", ['$scope', '$rootScope', 
         "Wayfarers synth YOLO scenester distillery, Vice roof party XOXO shabby chic. Four loko lumbersexual Carles meditation. Church-key 8-bit typewriter flannel Bushwick disrupt mumblecore plaid. " +
         "Gastropub lo-fi migas actually. Wolf PBR&B master cleanse vinyl, hoodie vegan aesthetic Austin flexitarian retro Echo Park Shoreditch meditation Bushwick. XOXO +1 try-hard readymade Pitchfork."
 
+    $scope.projects = [1,2,3];
+
 }]);

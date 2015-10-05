@@ -17,6 +17,33 @@
 <div class="span3">
     <div id="project-content">
 
+        <div class='overview-background'>
+            <span class="small-heading">PROJECTS</span>
+
+            <table id="project-table-header">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Number of Parcels</th>
+                    <th>Date Created</th>
+                </tr>
+                </thead>
+            </table>
+
+            <div id="projectList">
+                <table>
+                    <tbody>
+                    <tr class="row-link" ng-repeat="project in projects"
+                        ng-class="{'last-table-element':$index == parcels.length-1}">
+                        <td>La Paz</td>
+                        <td>33</td>
+                        <td>Yesterday</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
         <div class='mini-overview project-block'>
 
             <span class="small-heading">LATEST ACTIVITY</span>
@@ -54,7 +81,7 @@
 
         <!-- project resources-->
         <div class='mini-overview project-block' id="project-resource-summary">
-            <span class="small-heading">RESOURCES</span>
+            <span class="small-heading">ORGANIZATION USERS</span>
 
             <div ng-repeat="resource in overviewData.features[0].properties.project_resources">
                 <li ng-class="{'remove-bottom-border': $index == overviewData.features[0].properties.project_resources.length-1}"

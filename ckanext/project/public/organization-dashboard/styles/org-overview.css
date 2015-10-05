@@ -163,3 +163,59 @@ li.activity-block {
     background-color: #eef2f5;
 }
 
+#projectList{
+    font-size: 12px;
+    width: 100%;
+    max-height: 400px;
+    overflow: auto;
+}
+
+#projectList table{
+    text-align: left;
+    width: 100%;
+    margin: auto;
+    background-color: white;
+}
+
+#projectList table *{
+padding-left:20px;
+}
+
+#projectList th {
+    height: 30px;
+}
+
+#projectList tbody tr {
+    border-bottom: 1px solid #dcdfe1;
+    height: 50px;
+}
+
+#projectList .last-table-element {
+    border-bottom: none;
+}
+
+#projectList tbody {
+    height:200px;
+    overflow-y: auto;
+}
+
+#project-table-header {
+    text-align: left;
+    width: 100%;
+    margin: auto;
+    background-color: white;
+}
+
+
+#project-table-header th {
+    font-size: 12px;
+    color: white;
+    background-color: #51617A;
+    font-weight: 400;
+    text-align: left;
+    padding: 8px;
+    line-height: 20px;
+    padding-left: 20px;
+}
+
+
