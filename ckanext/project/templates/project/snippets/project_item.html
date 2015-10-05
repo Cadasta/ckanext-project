@@ -1,5 +1,7 @@
 <tr>
-  <td>{{ package.title }}</td>
+  <td>
+    {{ h.link_to(h.truncate(package.title), h.url_for('project_read', id=package.name)) }}
+  </td>
   <td>{{ package.author }}</td>
   <td>{{ h.render_datetime(package.metadata_modified) }}</td>
 </tr>
