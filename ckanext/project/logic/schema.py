@@ -27,8 +27,7 @@ def project_schema():
 def project_create_schema():
     schema = default_create_package_schema()
     schema['title'] = [not_missing, unicode]
-    schema['name'] = [ignore_missing, if_empty_same_as('title'),
-                      unicode, project_name_validator]
+    schema['name'] = [ignore_missing, unicode, project_name_validator]
     schema.update(project_schema())
     return schema
 
