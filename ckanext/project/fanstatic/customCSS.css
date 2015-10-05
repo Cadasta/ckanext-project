@@ -860,6 +860,11 @@ input[type="text"].register-input :focus {
     float: right;
 }
 
+.control-full.error-block {
+    width: 85%;
+    margin-left:64px;
+}
+
 .control-label {
     font-weight: 500;
     float: left;
@@ -902,6 +907,10 @@ input[type="text"].register-input :focus {
     margin-left: 65px;
 }
 
+.control-group .control-label {
+    margin-left:64px;
+}
+
 #organization-edit-form {
     margin-left: 64px;
 }
@@ -915,6 +924,15 @@ input[type="text"].register-input :focus {
     margin-left: 64px;
 }
 
+.controls #s2id_field-organizations{
+    width:85%;
+    margin-left:64px;
+}
+
+.control-group .controls #field-private {
+    margin-left:64px;
+}
+
 .save-new {
     margin: 20px 0 30px 554px;
 }
@@ -926,6 +944,8 @@ input[type="text"].register-input :focus {
 .control-required-message {
     margin: 30px 0 0 64px;
 }
+
+
 
 .page-heading.project {
     margin: 20px 0 20px 305px;
