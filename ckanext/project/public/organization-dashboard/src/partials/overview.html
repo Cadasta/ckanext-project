@@ -1,0 +1,70 @@
+<!--primary content-->
+<div class="clearfix overview-background">
+    <div id="project-header">
+
+        <div id='project-desc' class="project-block">
+            <span class="small-heading">DESCRIPTION</span>
+
+            <p class="project-description">{{organizationDescription}}</p>
+        </div>
+        <div id="project-extent">
+            <img src="https://placeimg.com/308/291/animals">
+        </div>
+    </div>
+</div>
+
+<!--secondary content-->
+<div class="span3">
+    <div id="project-content">
+
+        <div class='mini-overview project-block'>
+
+            <span class="small-heading">LATEST ACTIVITY</span>
+
+            <div ng-repeat="activity in overviewData.activityList">
+                <!-- repeat each activity in the list and depending on the type of activity, print a different string-->
+
+                <li ng-if="activity.properties.activity_type === 'parcel'"
+                    ng-class="{'remove-bottom-border': $index == overviewData.activityList.length-1}"
+                    class="activity-block block">
+                    <span class="bold"><a href="/project/demo-project#/parcels/{{ activity.properties.id }}">
+                        Parcel {{ activity.properties.id }}</a></span>
+                    was created on {{ activity.properties.time_created }}
+                </li>
+
+                <li ng-if="activity.properties.activity_type === 'party'"
+                    ng-class="{'remove-bottom-border': $index == overviewData.activityList.length-1}"
+                    class="activity-block block">
+                    <span class="bold">Party {{ activity.properties.name }}</span>
+                    was created on {{ activity.properties.time_created }}
+                </li>
+
+                <li ng-if="activity.properties.activity_type === 'relationship'"
+                    ng-class="{'remove-bottom-border': $index == overviewData.activityList.length-1}"
+                    class="activity-block block">
+                    Relationship between
+                    <span class="bold"> {{ activity.properties.name }}</span>
+                    and
+                    <span class="bold"><a href="/project/demo-project#/parcels/{{ activity.properties.parcel_id }}">
+                        parcel {{ activity.properties.parcel_id }}</a></span>
+                    was created on {{ activity.properties.time_created }}
+                </li>
+            </div>
+        </div>
+
+        <!-- project resources-->
+        <div class='mini-overview project-block' id="project-resource-summary">
+            <span class="small-heading">RESOURCES</span>
+
+            <div ng-repeat="resource in overviewData.features[0].properties.project_resources">
+                <li ng-class="{'remove-bottom-border': $index == overviewData.features[0].properties.project_resources.length-1}"
+                    class="activity-block block">A
+                    <span class="bold">{{resource.properties.type}}</span> resource was uploaded on
+                    {{resource.properties.time_created}}
+                    <div><a href="{{resource.properties.url}}">Download</a></div>
+                </li>
+            </div>
+        </div>
+
+    </div>
+</div>

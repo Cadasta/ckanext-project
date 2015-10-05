@@ -5,7 +5,7 @@
 
 body {
     font-family: 'Open Sans', sans-serif;
-    font-size: 10px;
+    font-size: 12px;
     background: none;
     background-color: #eef2f5;
 }
@@ -696,13 +696,6 @@ input[type="text"].register-input :focus {
     display: none;
 }
 
-.page-heading {
-    margin-top: 10px;
-    color: #256C97;
-    text-transform: uppercase;
-    font-size: 24pt;
-    font-weight: 400;
-}
 
 .login-block form {
     margin: 20px 0 20px;
@@ -956,12 +949,23 @@ input[type="text"].register-input :focus {
     font-family: 'Open Sans', sans-serif;
 }
 
+
 .page-heading {
-    margin: 20px 0 20px 245px;
+    padding-top: 20px;
     color: #256C97;
     text-transform: uppercase;
-    font-size: 20pt;
+    font-size: 22px;
     font-weight: 400;
+}
+
+.module h1.page-heading {
+    position: relative;
+    width: 100%;
+    text-align: center;
+}
+
+.module h1 {
+    margin-bottom: 0;
 }
 
 .page-heading.register {
@@ -1145,12 +1149,6 @@ input[type="text"].register-input :focus {
     margin: 6px 20px 0 0;
 }
 
-.icon-lnr-chevron-right.arrow-right {
-    font-size: 27px;
-    color: #dcdfe1;
-    position: relative;
-    bottom: 1px;
-}
 
 .breadcrumb li a {
     position: relative;
@@ -1177,3 +1175,58 @@ input[type="text"].register-input :focus {
     margin-bottom: 0;
 }
 
+.org-header {
+    font-size: 18px;
+    color: #2d3644;
+    display: block;
+    padding-top: 18px;
+    padding-bottom: 20px;
+    padding-left: 25px;
+    height: 86px;
+    border-left: 1px solid #dcdfe1;
+    border-right: 1px solid #dcdfe1;
+    border-top: 1px solid #dcdfe1;
+    background-color: #f8f9f9;
+}
+
+.org-tab-header {
+    padding-left: 25px;
+    border-left: 1px solid #dcdfe1;
+    border-right: 1px solid #dcdfe1;
+    background-color: #f8f9f9;
+
+}
+
+.org-tab-header li {
+    margin-right: 40px;
+    cursor: pointer;
+}
+
+.org-tab-header li a {
+    color: #2d3644;
+    font-weight: 400;
+    font-size: 12px;
+}
+
+.org-tab-header  li.active {
+    border-bottom: 2px solid #256c97;
+}
+
+.org-tab-header li.active * {
+    color: #256c97;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.org-tab-header li:hover * {
+    text-decoration: none;
+    color: #256c97;
+    border-style: none;
+}
+
+.icon-lnr-chevron-right.arrow-right.ckan {
+    font-size: 27px;
+    color: #dcdfe1;
+    position: relative;
+    bottom: 1px;
+}

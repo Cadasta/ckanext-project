@@ -118,7 +118,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService'
     $scope.showAdvanced = function() {
         $mdDialog.show({
             controller: DialogController,
-            templateUrl: '../src/partials/data_upload.html',
+            templateUrl: '/project-dashboard/src/partials/data_upload.html',
             parent: angular.element(document.body),
             clickOutsideToClose:true
         })
@@ -128,8 +128,8 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService'
 
     $scope.addRelationshipModal = function() {
         $mdDialog.show({
-            controller: DialogController,
-            templateUrl: '../src/partials/add_relationship.html',
+            controller: addResourceCtrl,
+            templateUrl: '/project-dashboard/src/partials/add_relationship.html',
             parent: angular.element(document.body),
             clickOutsideToClose:true
         })
@@ -147,6 +147,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService'
         biography: 'Loves kittens, snowboarding, and can type at 130 WPM.\n\nAnd rumor has it she bouldered up Castle Craig!',
         postalCode : '94043'
     };
+
 
 
 }]);
@@ -167,7 +168,18 @@ function DialogController($scope, $mdDialog) {
     $scope.cancel = function() {
         $mdDialog.cancel();
     };
-    $scope.answer = function(answer) {
-        $mdDialog.hide(answer);
+}
+
+
+function addResourceCtrl($scope, $mdDialog) {
+    $scope.hide = function() {
+        $mdDialog.hide();
+    };
+    $scope.cancel = function() {
+        $mdDialog.cancel();
+
+    $scope.tenure_types = ['own', 'lease', 'informal relationship'];
+
+
     };
 }

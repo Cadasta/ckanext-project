@@ -1,0 +1,63 @@
+<md-dialog aria-label="Add Relationship" class="cadasta-modal resources">
+
+    <form>
+        <md-dialog-content>
+            <div class="form_upload_content">
+                <div class="cadasta-modal-header">
+                    <div class="small-heading">
+                        Add Relationship
+                    </div>
+                    <div class="right">
+                        <md-button class="md-icon-button" ng-click="cancel()">
+                            <i class="material-icons right">clear</i>
+                        </md-button>
+                    </div>
+                </div>
+                <div class="modal-content">
+                    <div>
+                        <p>Freegan lo-fi meggings, tofu Intelligentsia sriracha letterpress organic street art VHS put a
+                            bird on it wolf chillwave. Twee XOXO church-key, typewriter listicle YOLO dreamcatcher
+                            normcore Banksy Kickstarter freegan fanny pack Shoreditch. Squid deep v raw denim High Life
+                            cray, letterpress chambray typewriter Helvetica butcher biodiesel pour-over XOXO trust fund.
+                            Mixtape readymade typewriter drinking vinegar letterpress American Apparel, kale chips
+                            Carles 90's mumblecore direct trade aesthetic gastropub 8-bit pug.
+                        </p>
+                        <br><br>
+
+                        <div>
+                            <md-content layout-padding>
+                                <form name="userForm">
+                                    <div layout layout-sm="column">
+                                        <md-input-container flex>
+                                            <label>First name</label>
+                                            <input ng-model="user.firstName">
+                                        </md-input-container>
+                                        <md-input-container flex>
+                                            <label>Last Name</label>
+                                            <input ng-model="theMax">
+                                        </md-input-container>
+                                    </div>
+                                    <md-input-container>
+                                        <label>Tenure Type</label>
+                                        <md-select ng-model="ctrl.userState">
+                                            <md-option ng-repeat="t in tenure_types" value="{{t}}">
+                                                {{t}}
+                                            </md-option>
+                                            <md-option  value="own">
+                                                own {{tenure_types}}
+                                            </md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                </form>
+                            </md-content>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </md-dialog-content>
+    </form>
+</md-dialog>
