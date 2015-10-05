@@ -14,10 +14,8 @@
 
 
 <div class="add-project-header">
-    {% if h.check_access('ckanext_project_create') %}
     <div class="add-org">
         {% link_for _('Add Organization'), controller='organization', action='new', class_='cadasta-button' %}    </div>
-    {% endif %}
 
     <form {% if form_id %}id="{{ form_id }}" {% endif %}class="left search-form{% if no_bottom_border %} no-bottom-border{% endif %}" method="get" data-module="select-switch">
 

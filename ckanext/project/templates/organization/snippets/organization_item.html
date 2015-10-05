@@ -8,10 +8,10 @@
     <table>
         <tbody>
         <tr>
-            <td>
-                <img src="{{ organization.image_display_url or h.url_for_static('/base/images/placeholder-organization.png') }}" alt="{{ organization.name }}" class="media-image">
+            <td class="org-logo">
+                <img src="{{ organization.image_display_url or h.url_for_static('/base/images/placeholder-organization.png') }}" alt="{{ organization.name }}">
             </td>
-            <td>
+            <td class="org-title">
                 <h3 class="media-heading"><a href="{{ url }}">{{ organization.display_name }}</a></h3>
             </td>
 

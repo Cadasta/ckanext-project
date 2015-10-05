@@ -49,10 +49,8 @@
     {% endblock %}
   </form>
 
-  {% if h.check_access('ckanext_project_create') %}
   <div class="add-project">
     {% link_for _('Add project'), controller='ckanext.project.controller:projectController', action='new', class_='cadasta-button right' %}
   </div>
-  {% endif %}
 
 </div>
