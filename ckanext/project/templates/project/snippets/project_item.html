@@ -1,12 +1,5 @@
-{% extends 'snippets/package_item.html' %}
-
-{% block heading_title %}
-  {{ h.link_to(h.truncate(title, truncate_title), h.url_for('project_read', id=package.name)) }}
-{% endblock %}
-
-
-{% block notes %}
-{% endblock %}
-
-{% block resources %}
-{% endblock %}
+<tr>
+  <td>{{ package.title }}</td>
+  <td>{{ package.author }}</td>
+  <td>{{ h.render_datetime(package.metadata_modified) }}</td>
+</tr>

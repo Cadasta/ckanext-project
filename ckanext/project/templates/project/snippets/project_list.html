@@ -1,7 +1,7 @@
 {% extends 'snippets/package_list.html' %}
 
 {% block package_list_inner %}
-<table class="tablesorter table">
+<table class="tablesorter table table-hover">
   <tbody>
   {% for package in packages %}
   {% snippet 'project/snippets/project_item.html', package=package, item_class=item_class, hide_resources=hide_resources, banner=banner, truncate=truncate, truncate_title=truncate_title %}
