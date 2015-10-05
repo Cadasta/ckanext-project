@@ -5,8 +5,11 @@ import ckan.plugins.toolkit as toolkit
 import ckan.tests.factories as factories
 import ckan.tests.helpers as helpers
 
-from ckanext.project.logic.converters import convert_package_name_or_id_to_title_or_name
+from ckanext.project.logic.converters import (
+    convert_package_name_or_id_to_title_or_name,
+)
 
+from ckanext.project.logic.validators import project_name_validator
 
 class TestNameOrIdToTitleConverter(helpers.FunctionalTestBase):
 
@@ -59,3 +62,26 @@ class TestNameOrIdToTitleConverter(helpers.FunctionalTestBase):
         nosetools.assert_raises(toolkit.Invalid, convert_package_name_or_id_to_title_or_name,
                                 'my-non-existent-id',
                                 context=context)
+
+
+class TestProjectNameValidator(helpers.FunctionalTestBase):
+    def test_existing_name(self):
+        factories.Dataset(id='my-id', title='project', name='project')
+        context = {'package_id': 'my-id',
+                   'model': model,
+                   'session': model.Session}
+        errors = {}
+        errors['name', ] = []
+        errors['title', ] = []
+        project_name_validator(
+            key=('name',),
+            data={
+                ('name',): 'project',
+                ('title',): 'project',
+            },
+            errors=errors,
+            context=context
+        )
+        nosetools.assert_equals(errors['title', ],
+                                [u'That dataset name is already in use.'])
+

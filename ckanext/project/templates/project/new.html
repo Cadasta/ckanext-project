@@ -2,6 +2,9 @@
 
 {% block subtitle %}{{ _('Create Project') }}{% endblock %}
 
+{% block stages %}
+{% endblock %}
+
 {% block styles %}
 {{ super() }}
   {% resource 'project/autocomplete-action-api.js' %}
@@ -25,11 +28,4 @@
 {% endblock %}
 
 {% block info_module %}
-  <section class="module module-narrow module-shallow">
-    <h2 class="module-heading"><i class="icon-info-sign"></i> {{ _('What are projects?') }}</h2>
-    <div class="module-content">
-      <p>
-      </p>
-    </div>
-  </section>
 {% endblock %}

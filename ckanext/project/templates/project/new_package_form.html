@@ -11,9 +11,6 @@
 {% set form_style = c.form_style or c.action %}
 
 {% block stages %}
-  {% if form_style != 'edit' %}
-    {{ super() }}
-  {% endif %}
 {% endblock %}
 
 {% block save_button_text %}
