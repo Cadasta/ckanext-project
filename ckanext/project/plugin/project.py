@@ -1,11 +1,14 @@
 import logging
 
+from routes.mapper import SubMapper
+
 from ckan import plugins
 from ckan.plugins import toolkit
 
 from ckanext.project.logic import schema as project_schema
 from ckanext.project.model import setup as model_setup
 from ckanext.project.logic import action
+
 
 
 log = logging.getLogger(__name__)
@@ -98,7 +101,9 @@ class projectPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         map.redirect('/projects', '/project',
                       _redirect_code='301 Moved Permanently')
 
-
+        with SubMapper(map, controller='ckanext.project.controller:projectController') as m:
+            m.connect('project_new', '/project/new', action='new')
+            m.connect('project_edit', '/project/edit', action='edit')
         #new_routes
 
         controller = 'ckanext.project.upload_controller:Upload_Controller'
