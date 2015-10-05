@@ -1230,3 +1230,34 @@ input[type="text"].register-input :focus {
     position: relative;
     bottom: 1px;
 }
+
+/*org list page*/
+.project-row {
+    border-bottom: 1px solid #dcdfe1;
+    border-left: 1px solid #dcdfe1;
+    border-right: 1px solid #dcdfe1;
+}
+
+.project-row tr {
+    height: 110px;
+}
+
+.project-row .org-logo img {
+    height: 80px;
+    width: 100px;
+    margin: 0 20px 0 18px;
+}
+
+.project-row .org-logo {
+    width:138px;
+
+}
+
+.project-row .org-title {
+    width:500px;
+}
+
+#org-list {
+    max-height: 500px;
+    overflow: auto;
+}
