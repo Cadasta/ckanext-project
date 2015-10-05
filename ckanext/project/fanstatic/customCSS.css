@@ -982,6 +982,10 @@ display: inline-block;
     margin-left:64px;
 }
 
+.image-upload .control-group {
+    margin-left:64px;
+}
+
 #organization-edit-form {
     margin-left:64px;
 }
