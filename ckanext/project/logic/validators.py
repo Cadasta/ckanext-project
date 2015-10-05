@@ -57,10 +57,10 @@ def project_name_validator(key, data, errors, context):
 
     value = data[key]
     if len(value) < PACKAGE_NAME_MIN_LENGTH:
-        raise Invalid(
+        errors['title',].append(
             _('Name "%s" length is less than minimum %s') % (value, PACKAGE_NAME_MIN_LENGTH)
         )
     if len(value) > PACKAGE_NAME_MAX_LENGTH:
-        raise Invalid(
+        errors['title',].append(
             _('Name "%s" length is more than maximum %s') % (value, PACKAGE_NAME_MAX_LENGTH)
         )
