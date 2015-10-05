@@ -939,6 +939,10 @@ display: inline-block;
     margin: 30px 20px 0 0;
 }
 
+.control-label[for="field-image-upload"] {
+    float: none;
+}
+
 .controls.editor {
     width: 85%;
     margin: 0 auto;

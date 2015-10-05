@@ -1,19 +1,19 @@
 {% import 'macros/form.html' as form %}
 
 <form id='organization-edit-form' class="dataset-form form-horizontal" method="post" data-module="basic-form" enctype="multipart/form-data"
-      {% block error_summary %}
-      {{ form.errors(error_summary) }}
-      {% endblock %}
+  {% block error_summary %}
+    {{ form.errors(error_summary) }}
+  {% endblock %}
 
-      {% block basic_fields %}
-      {% set attrs = {'data-module': 'slug-preview-target'} %}
-{{ form.input('title', label=_('Name'), id='field-name', placeholder=_('My Organization'), value=data.title, error=errors.title, classes=['control-medium'], attrs=attrs) }}
+  {% block basic_fields %}
+    {% set attrs = {'data-module': 'slug-preview-target'} %}
+    {{ form.input('title', label=_('Name'), id='field-name', placeholder=_('My Organization'), value=data.title, error=errors.title, classes=['control-medium'], attrs=attrs) }}
 
-{# Perhaps these should be moved into the controller? #}
-{% set prefix = h.url_for(controller='organization', action='read', id='') %}
-{% set domain = h.url_for(controller='organization', action='read', id='', qualified=true) %}
-{% set domain = domain|replace("http://", "")|replace("https://", "") %}
-{% set attrs = {'data-module': 'slug-preview-slug', 'data-module-prefix': domain, 'data-module-placeholder': '<organization>'} %}
+    {# Perhaps these should be moved into the controller? #}
+    {% set prefix = h.url_for(controller='organization', action='read', id='') %}
+    {% set domain = h.url_for(controller='organization', action='read', id='', qualified=true) %}
+    {% set domain = domain|replace("http://", "")|replace("https://", "") %}
+    {% set attrs = {'data-module': 'slug-preview-slug', 'data-module-prefix': domain, 'data-module-placeholder': '<organization>'} %}
 
     {{ form.prepend('name', label=_('URL'), prepend=prefix, id='field-url', placeholder=_('my-organization'), value=data.name, error=errors.name, attrs=attrs, is_required=true) }}
 
@@ -21,18 +21,20 @@
 
     {{ form.input("contact", id="field-contact", label=_("Contact Information"), placeholder=_("xxx-xxx-xxxx"), value=data.contact, error=errors.contact, classes=["control-medium"]) }}
 
-    {{ form.input("orgURL", id="field-orgURL", label=_("URL"), placeholder=_("www.myorganization.com"), value=data.orgURL, error=errors.orgURL, classes=["control-medium"]) }}
+    [GET]   {{ form.input("orgURL", id="field-orgURL", label=_("URL"), placeholder=_("www.myorganization.com"), value=data.orgURL, error=errors.orgURL, classes=["control-medium"]) }}
 
     {{ form.input("ona_api_token", id="field-ona_api_token", label=_("ONA API Token"), placeholder=_("..."), value=data.ona_api_token, error=errors.ona_api_token, classes=["control-medium"]) }}
 
+    {% set is_upload = data.image_url and not data.image_url.startswith('http') %}
+    {% set is_url = data.image_url and data.image_url.startswith('http') %}
 
-    {% endblock %}
+    {{ form.image_upload(data, errors, is_upload_enabled=h.uploads_enabled(), is_url=is_url, is_upload=is_upload) }}
+  {% endblock %}
 
-    {% block custom_fields %}
-    {% endblock %}
+  {% block custom_fields %}
+  {% endblock %}
 
-    {{ form.required_message() }}
-
+  {{ form.required_message() }}
     <div class="save-new">
         {% block delete_button %}
         {% if h.check_access('organization_delete', {'id': data.id})  %}
