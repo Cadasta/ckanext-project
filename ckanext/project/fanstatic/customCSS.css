@@ -602,6 +602,11 @@ a {
     letter-spacing: 1px;
 }
 
+.cadasta-button:hover {
+    color: white;
+    background-color: #0d4252;
+}
+
 .span9 .login-block {
     background-color: white;
 }
@@ -932,7 +937,7 @@ input[type="text"].register-input :focus {
 }
 
 .save-new {
-    margin: 20px 0 30px 554px;
+    margin: 20px 0 30px 504px;
 }
 
 .save-new .cadasta-button {
@@ -1112,8 +1117,8 @@ input[type="text"].register-input :focus {
 
 
 #project-list .project-row {
-    /*background-color: red;*/
     width: 100%;
+    border:none;
 
 }
 
@@ -1128,9 +1133,9 @@ input[type="text"].register-input :focus {
     padding-left:20px;
 }
 
-#project-list tr {
+#project-list .project-row tr {
     border-bottom: 1px solid #dcdfe1;
-    height: 50px;
+    height: 110px;
 }
 
 .search-form .search-input.projects {
@@ -1159,6 +1164,7 @@ input[type="text"].register-input :focus {
 .add-project-header {
     height: 75px;
     padding: 40px 20px 0 20px;
+    background-color:#f8f9f9;
 }
 
 .add-org {
@@ -1242,6 +1248,10 @@ input[type="text"].register-input :focus {
     border-style: none;
 }
 
+.org-tab-header li:hover {
+    border-bottom: 2px solid #256c97;;
+}
+
 .icon-lnr-chevron-right.arrow-right.ckan {
     font-size: 27px;
     color: #dcdfe1;
@@ -1280,6 +1290,10 @@ input[type="text"].register-input :focus {
     overflow: auto;
 }
 
+#org-list .project-row {
+    background-color:white;
+}
+
 
 .image-upload .control-group {
     margin-left:64px;
@@ -1294,13 +1308,11 @@ input[type="text"].register-input :focus {
     border-left: 1px solid #dcdfe1;
     border-right: 1px solid #dcdfe1;
     border-bottom: 1px solid #dcdfe1;
-    height: 850px;
+    min-height: 800px;
+    height: auto;
     background-color: white;
 }
 
-.cadasta-new-project * {
-    font-size:16px;
-}
 
 .create-new-buttons {
     height: 100px;
@@ -1338,13 +1350,102 @@ input[type="text"].register-input :focus {
 }
 
 .new-addition-title {
-    background-color: white;
     margin: 0;
     padding: 20px 0;
     text-align: center;
     border: 1px solid #dcdfe1;
-    border-bottom:none;
     font-size: 24px;
-    font-weight: 700;
-    color:#256C97;
+    font-weight: 500;
+    color: #256C97;
+    background-color: #f8f9f9;
+}
+
+.org-title .black-title-link {
+    font-size: 16px;
+    color: #373837;
+    font-weight: bold;
+}
+
+.cadasta-new-project * {
+    font-size: 14px;
+
+}
+
+.control-large .control-label {
+    font-size: 14px;
+}
+
+.control-large input, .control-large .control-label {
+    font-size: 14px;
+}
+
+.control-full .error-block {
+    width: 83%;
+    margin: 0 auto;
+}
+
+.image-upload a {
+    background-color: #256C97 !important;
+    border: none;
+    color: white !important;
+    padding: 10px 25px 10px 0;
+    margin: 10px 0 0 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: none;
+    font-weight: 600;
+
+}
+
+.image-upload a:hover {
+    background-color: #0d4252 !important;
+    border: none;
+    color: white !important;
+    padding: 10px 25px 10px 0;
+    margin: 10px 0 0 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: none;
+    font-weight: 600;
+}
+
+.btn {
+    display: inline-block;
+    font-size: 12px;
+    line-height: 5px;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    background: none;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.select2-choice {
+    box-shadow: none;
+    background:none;
+    background-image:none;
+}
+
+.cadasta-button-simple {
+    background-color: transparent;
+    color:  #256C97;
+    border-bottom: 1px solid;
+    font-size:16px;
+}
+
+.cadasta-button-simple:hover {
+    color: #0d4252
+}
+
+.create-new-buttons a.cadasta-button-simple {
+    position: relative;
+    top: 48px;
+    left: 500px;
+}
+
+.save-new .cadasta-button-simple {
+    position: relative;
+    left: -66px;
 }

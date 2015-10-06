@@ -242,3 +242,30 @@ padding-left:20px;
     bottom: 9px;
     margin-left: 10px;
 }
+
+#org-header {
+    min-height: 125px;
+    height: auto;
+}
+
+#org-desc {
+    margin:25px;
+}
+
+.org-header img {
+    height: 87px;
+    width: 130px;
+    float: left;
+}
+
+.org-header span {
+    position: relative;
+    top: 30px;
+    left: 25px;
+    font-weight: bold;
+}
+
+.overview-background.org-projects .cadasta-round-button {
+    position: relative;
+    top: 12px;
+}

@@ -45,8 +45,8 @@
             {% endif %}
             <ul class="nav nav-tabs">
                 {% block content_primary_nav %}
-                {{ h.build_nav_icon('ckanext_project_edit', _('Edit project'), id=pkg.name) }}
-                {{ h.build_nav_icon('ckanext_project_manage_datasets', _('Manage datasets'), id=pkg.name) }}
+                {{ h.build_nav('ckanext_project_edit', _('Edit project'), id=pkg.name) }}
+                {{ h.build_nav('ckanext_project_manage_datasets', _('Manage projects'), id=pkg.name) }}
                 {% endblock %}
             </ul>
         </header>

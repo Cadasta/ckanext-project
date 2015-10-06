@@ -1,14 +1,8 @@
 <!--primary content-->
 <div class="clearfix overview-background">
-    <div id="project-header">
-
-        <div id='project-desc' class="project-block">
-            <span class="small-heading">DESCRIPTION</span>
-
-            <p class="project-description">{{organizationDescription}}</p>
-        </div>
-        <div id="project-extent">
-            <img src="https://placeimg.com/308/291/animals">
+    <div id="org-header">
+        <div id='org-desc'>
+            <p class="project-description">{{orgDescription}}</p>
         </div>
     </div>
 </div>
@@ -19,6 +13,7 @@
 
         <div class='overview-background org-projects'>
             <span class="small-heading">PROJECTS</span>
+            <a href="#"><span class="cadasta-round-button right">ADD PROJECT</span></a>
 
             <table id="project-table-header">
                 <thead>
@@ -48,33 +43,26 @@
 
             <span class="small-heading">LATEST ACTIVITY</span>
 
-            <div ng-repeat="activity in overviewData.activityList">
+            <div ng-repeat="activity in CKANorgActivities">
                 <!-- repeat each activity in the list and depending on the type of activity, print a different string-->
 
-                <li ng-if="activity.properties.activity_type === 'parcel'"
+
+                <li ng-if="activity.activity_type === 'changed organization'"
                     ng-class="{'remove-bottom-border': $index == overviewData.activityList.length-1}"
                     class="activity-block block">
-                    <span class="bold"><a href="/project/demo-project#/parcels/{{ activity.properties.id }}">
-                        Parcel {{ activity.properties.id }}</a></span>
-                    was created on {{ activity.properties.time_created }}
+                    Organization details were updated on {{ activity.timestamp }}
                 </li>
 
-                <li ng-if="activity.properties.activity_type === 'party'"
+                <li ng-if="activity.activity_type === 'new package'"
                     ng-class="{'remove-bottom-border': $index == overviewData.activityList.length-1}"
                     class="activity-block block">
-                    <span class="bold">Party {{ activity.properties.name }}</span>
-                    was created on {{ activity.properties.time_created }}
+                    Project <a href="#"> {{activity.data.package.name}} </a> was created on {{ activity.timestamp }}
                 </li>
 
-                <li ng-if="activity.properties.activity_type === 'relationship'"
+                <li ng-if="activity.activity_type === 'changed package'"
                     ng-class="{'remove-bottom-border': $index == overviewData.activityList.length-1}"
                     class="activity-block block">
-                    Relationship between
-                    <span class="bold"> {{ activity.properties.name }}</span>
-                    and
-                    <span class="bold"><a href="/project/demo-project#/parcels/{{ activity.properties.parcel_id }}">
-                        parcel {{ activity.properties.parcel_id }}</a></span>
-                    was created on {{ activity.properties.time_created }}
+                    Project <a href="#"> {{activity.data.package.name}} </a> was updated on {{ activity.timestamp }}
                 </li>
             </div>
         </div>

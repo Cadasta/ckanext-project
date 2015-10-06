@@ -21,25 +21,43 @@ OrganizationDashboardApp.controller("orgOverviewCtrl", ['$scope', '$rootScope', 
     promise.then(function(response){
 
         $scope.orgOverviewData = response;
-        //$scope.activityList = response.features[0].properties.project_activity;
-        //
-        ////todo upate with data from ckan
-        //$scope.overviewData.description = "This project is working with locals in Bolivia.  The community includes 10,000 people of which 149 have official land ownership documents."
-        //
-        //
-        ////reformat date created of resources
-        //$scope.overviewData.features[0].properties.project_resources.forEach(function(resource) {
-        //    resource.properties.time_created = utilityService.formatDate(resource.properties.time_created);
-        //});
-        //
-        ////reformat date created of activity list
-        //$scope.overviewData.features[0].properties.project_activity.forEach(function(activity) {
-        //    activity.properties.time_created = utilityService.formatDate(activity.properties.time_created);
-        //});
+        $scope.orgOverviewData.activityList = response.features;
+
+
+        //reformat date created of resources
+        $scope.orgOverviewData.features.forEach(function(activity) {
+            activity.properties.time_created = dataService.formatDate(activity.properties.time_created);
+        });
 
 
     },function(err){
         $scope.overviewData = "Server Error";
     });
+
+
+    //Get CKAN data
+    var CKAN_promise = dataService.getCKANOrgDetails();
+
+    CKAN_promise.then(function(response) {
+        $scope.orgDescription = response.result.description;
+    })
+
+
+    //Get CKAN activity data
+    var CKAN_activity_promise = dataService.getCKANOrgActivities();
+
+    CKAN_activity_promise.then(function(response) {
+        $scope.CKANorgActivities = response.result;
+
+    //reformat date created of activities
+        $scope.CKANorgActivities.forEach(function(activity) {
+        activity.timestamp = dataService.formatDate(activity.timestamp);
+    });
+
+    })
+
+
+
+
 
 }]);

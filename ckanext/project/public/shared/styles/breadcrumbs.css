@@ -17,10 +17,9 @@
     color: #256c97;
 }
 
-#breadcrumb .arrow-right {
+.arrow-right {
     font-size: 28px;
     color: #dcdfe1;
-    /* bottom: 2px; */
     position: relative;
     bottom: 4px;
 }

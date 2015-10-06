@@ -52,16 +52,21 @@
 
 
           var parcelStyle = {
-              "color": "#256c97",
-              "weight": 2,
-              fillOpacity:.7
+              "color": "#e54573",
+              "stroke": "#e54573",
+              "stroke-width": 1,
+              "fill-opacity":.6,
+              "stroke-opacity":.8
           };
 
           var ExtentStyle = {
               "color": "#256c97",
-              "weight":1,
-              "opacity": 0.2
+              "stroke": "#256c97",
+              "stroke-width": 1,
+              "fill-opacity":.1,
+              "stroke-opacity":.7
           };
+
 
 
           // If there is a project extent add it to the map
@@ -76,7 +81,9 @@
 
 
               $scope.overviewData.features[0].properties.parcels.forEach(function(parcel) {
+                  var popup_content = "Parcel " + parcel.properties.id + " -- See Full Details";
                   var parcelToAdd = L.geoJson(parcel.geometry, {style:parcelStyle});
+                  parcelToAdd.bindPopup(popup_content);
                   parcelToAdd.addTo(map);
               });
 

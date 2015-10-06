@@ -57,24 +57,6 @@ div.tabcontent {
 }
 
 
-/* Footer */
-/*#master-footer {*/
-    /*position: relative;*/
-    /*border-top: 1px solid #dcdfe1;*/
-    /*height:50px;*/
-    /*color:black;*/
-    /*background-color: #eef2f5;*/
-    /*margin: auto;*/
-    /**/
-/*}*/
-
-/*#master-footer .container-footer {*/
-    /*margin: 0 auto;*/
-    /*width: 1024px;*/
-    /*height: 30px;*/
-/*}*/
-
-
 
 .pull-right {
     float: right;
@@ -95,4 +77,16 @@ div.tabcontent {
     padding: 5px 12px 5px 12px;
     color:#6E6F70;
     font-weight: 500;
+}
+
+.cadasta-round-button {
+    background-color: #187794;
+    color: white;
+    padding: 3px 15px;
+    border-radius: 15px;
+    font-weight: 600;
+}
+
+.cadasta-round-button:hover {
+    background-color: #0d4252;
 }

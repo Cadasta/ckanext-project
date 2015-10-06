@@ -17,23 +17,22 @@
 
 {% block content_action %}
 {% if organization and h.check_access('organization_update', {'id': organization.id}) %}
-<!--{% link_for _('View'), controller='organization', action='read', id=organization.name, class_='btn', icon='eye-open' %}-->
+<div class="new-addition-title">EDIT ORGANIZATION DETAILS</div>
 {% endif %}
+
+
 {% endblock %}
 
 {% block content_primary_nav %}
-<div class="org-header">
-    {{ c.group_dict.title }}
-</div>
-<div class="org-tab-header">
-    {{ h.build_nav_icon('organization_read', _('OVERVIEW'), id=c.group_dict.name) }}
-    {{ h.build_nav_icon('organization_members', _('MEMBERS'), id=c.group_dict.name) }}
-</div>
+{% endblock %}
+
+
+{% block primary_content_inner %}
 {% endblock %}
 
 {% block secondary_content %}
 {% endblock %}
 
 {% block links %}
-{{ super() }}
+<!--{{ super() }}-->
 {% endblock %}
