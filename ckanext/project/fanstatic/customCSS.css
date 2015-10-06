@@ -911,12 +911,10 @@ input[type="text"].register-input :focus {
     margin-left:64px;
 }
 
-#organization-edit-form {
-    margin-left: 64px;
-}
+
 
 .controls #field-name {
-    width: 90%
+    width: 98%
 }
 
 .controls #field-title {
@@ -941,9 +939,9 @@ input[type="text"].register-input :focus {
     margin: 20px 0;
 }
 
-.control-required-message {
-    margin: 30px 0 0 64px;
-}
+/*.control-required-message {*/
+    /*margin: 30px 0 0 64px;*/
+/*}*/
 
 
 
@@ -1280,4 +1278,73 @@ input[type="text"].register-input :focus {
 #org-list {
     max-height: 500px;
     overflow: auto;
+}
+
+
+.image-upload .control-group {
+    margin-left:64px;
+ }
+
+.custom .control-label {
+    padding-left:0;
+    margin:0;
+}
+
+.cadasta-new-project {
+    border-left: 1px solid #dcdfe1;
+    border-right: 1px solid #dcdfe1;
+    border-bottom: 1px solid #dcdfe1;
+    height: 850px;
+    background-color: white;
+}
+
+.cadasta-new-project * {
+    font-size:16px;
+}
+
+.create-new-buttons {
+    height: 100px;
+    margin-top:50px;
+}
+
+.create-new-buttons .cadasta-button {
+    float: right;
+    top: 20px;
+    position: relative;
+    right: 65px;
+}
+
+#organization-edit-form {
+    border: 1px solid #dcdfe1;
+    border-top:none;
+}
+
+
+#organization-edit-form .control-group .control-label {
+    margin-left:0;
+    margin-top:10px;
+}
+
+#organization-edit-form .control-group.control-full {
+    margin-left:64px;
+}
+
+#organization-edit-form .controls.editor {
+    width: 100%;
+}
+
+#organization-edit-form #field-description{
+    width: 92%;
+}
+
+.new-addition-title {
+    background-color: white;
+    margin: 0;
+    padding: 20px 0;
+    text-align: center;
+    border: 1px solid #dcdfe1;
+    border-bottom:none;
+    font-size: 24px;
+    font-weight: 700;
+    color:#256C97;
 }

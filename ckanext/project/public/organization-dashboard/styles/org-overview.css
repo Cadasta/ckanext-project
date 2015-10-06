@@ -168,11 +168,12 @@ li.activity-block {
     width: 100%;
     max-height: 400px;
     overflow: auto;
+    margin-bottom: 10px;
 }
 
 #projectList table{
     text-align: left;
-    width: 100%;
+    width: 98%;
     margin: auto;
     background-color: white;
 }
@@ -187,6 +188,8 @@ padding-left:20px;
 
 #projectList tbody tr {
     border-bottom: 1px solid #dcdfe1;
+    border-left: 1px solid #dcdfe1;
+    border-right: 1px solid #dcdfe1;
     height: 50px;
 }
 
@@ -201,7 +204,7 @@ padding-left:20px;
 
 #project-table-header {
     text-align: left;
-    width: 100%;
+    width: 98%;
     margin: auto;
     background-color: white;
 }
@@ -218,4 +221,24 @@ padding-left:20px;
     padding-left: 20px;
 }
 
+.overview-background.org-projects .small-heading {
+    margin-top:20px;
+}
 
+
+.overview-background.org-projects {
+    height: auto;
+    scroll:auto;
+    margin-bottom: 12px;
+}
+
+#project-resource-summary li.users {
+    margin-left: 24px;
+    line-height: 40px;
+}
+
+#project-resource-summary li.users span{
+    position: relative;
+    bottom: 9px;
+    margin-left: 10px;
+}

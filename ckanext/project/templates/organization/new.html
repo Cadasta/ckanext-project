@@ -1,12 +1,12 @@
 {% extends "organization/base_form_page.html" %}
 
-{% block subtitle %}{{ _('Create an Organization') }}{% endblock %}
+{% block subtitle %}{% endblock %}
 
 {% block breadcrumb_link %}
 {{ h.nav_link(_('Create an Organization'), controller='organization', action='edit', id=c.organization.name) }}
 {% endblock %}
 
-{% block page_heading %}{{ _('Create an Organization') }}{% endblock %}
+{% block page_heading %}<div class="new-addition-title">NEW ORGANIZATION</div>{% endblock %}
 
 {% block page_header %}{% endblock %}
 

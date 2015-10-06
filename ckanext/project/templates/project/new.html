@@ -12,14 +12,20 @@
     {% set dataset = pkg.title or pkg.name %}
     {% if pkg.organization %}
       {% set organization = pkg.organization.title or pkg.organization.name %}
+      <li><div class="icon-lnr-chevron-right arrow-right ckan"></div></li>
       <li>{% link_for _('Organizations'), controller='organization', action='index' %}</li>
+      <li><div class="icon-lnr-chevron-right arrow-right ckan"></div></li>
       <li>{% link_for organization|truncate(30), controller='organization', action='read', id=pkg.organization.name %}</li>
     {% else %}
+      <li><div class="icon-lnr-chevron-right arrow-right ckan"></div></li>
       <li>{% link_for _('Projects'), named_route='project_search' %}</li>
     {% endif %}
-    <li{{ self.breadcrumb_content_selected() }}>{% link_for dataset|truncate(30), named_route='project_read', id=pkg.name %}</li>
+      <li><div class="icon-lnr-chevron-right arrow-right ckan"></div></li>
+      <li>{{ self.breadcrumb_content_selected() }}>{% link_for dataset|truncate(30), named_route='project_read', id=pkg.name %}</li>
   {% else %}
+    <li><div class="icon-lnr-chevron-right arrow-right ckan"></div></li>
     <li>{% link_for _('Projects'), named_route='project_search' %}</li>
+    <li><div class="icon-lnr-chevron-right arrow-right ckan"></div></li>
     <li class="active"><a href="">{{ _('Create Project') }}</a></li>
   {% endif %}
 {% endblock %}
