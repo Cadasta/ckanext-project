@@ -60,7 +60,7 @@ var app = angular.module("app")
 
 
             // CKAN API for project description
-            $http.get('http://localhost:5000/api/3/action/package_show?id=' + ckanProjectId, {cache: true})
+            $http.get(ENV.apiCKANRoot + '/package_show?id=' + ckanProjectId, {cache: true})
                 .then(function(response) {
                     deferred.resolve(response.data.result);
                 }, function(response) {
