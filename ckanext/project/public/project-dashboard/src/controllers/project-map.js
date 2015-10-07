@@ -1,7 +1,8 @@
 
   var app = angular.module("app");
 
-  app.controller("projectMapCtrl", ['$scope', '$state', '$stateParams','$location', 'dataService','paramService', 'utilityService','$rootScope' ,function($scope, $state, $stateParams, $location, dataService, paramService, utilityService,$rootScope) {
+  app.controller("projectMapCtrl", ['$scope', '$state', '$stateParams','$location', 'dataService','paramService', 'utilityService','$rootScope', 'ckanId', 'cadastaProject',
+      function($scope, $state, $stateParams, $location, dataService, paramService, utilityService,$rootScope, ckanId, cadastaProject) {
 
       var mapStr = $stateParams.map;
 
@@ -40,16 +41,13 @@
       }).addTo(map);
 
       // Get overview data
-      var promise = dataService.overviewGet();
+      var promise = dataService.overviewGet(ckanId, cadastaProject.id);
 
       promise.then(function(response){
 
           $scope.overviewData = response;
 
-
-
           var layer;
-
 
           var parcelStyle = {
               "color": "#e54573",
