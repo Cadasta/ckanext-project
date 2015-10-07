@@ -1,8 +1,10 @@
 
   var app = angular.module("app");
 
-  app.controller("overviewCtrl", ['$scope', '$state', '$stateParams','$location', 'dataService','paramService', 'utilityService', '$rootScope',
-      function($scope, $state, $stateParams, $location, dataService, paramService, utilityService, $rootScope) {
+  app.controller("overviewCtrl", ['$scope', '$state', '$stateParams','$location', 'dataService','paramService', 'utilityService', '$rootScope', 'ckanId', 'cadastaProject',
+      function($scope, $state, $stateParams, $location, dataService, paramService, utilityService, $rootScope, ckanId, cadastaProject) {
+
+          console.log(cadastaProject);
 
       var mapStr = $stateParams.map;
 
@@ -66,16 +68,13 @@
       }).addTo(map);
 
       // Get overview data
-      var promise = dataService.overviewGet();
+      var promise = dataService.overviewGet(ckanId, cadastaProject.id);
 
       promise.then(function(response){
 
           $scope.overviewData = response;
           $scope.overviewData.activityList = response.features[0].properties.project_activity;
-
-          //todo upate with data from ckan
-          $scope.overviewData.description = "This project is working with locals in Bolivia.  The community includes 10,000 people of which 149 have official land ownership documents."
-
+          $scope.overviewData.description = response.features[0].properties.description;
 
           //reformat date created of resources
           $scope.overviewData.features[0].properties.project_resources.forEach(function(resource) {

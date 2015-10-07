@@ -1,6 +1,7 @@
 var app = angular.module("app");
 
-app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelService', '$rootScope', 'utilityService', function ($scope, $state, $stateParams, parcelService, $rootScope, utilityService) {
+app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelService', '$rootScope', 'utilityService', 'ckanId', 'cadastaProject',
+    function ($scope, $state, $stateParams, parcelService, $rootScope, utilityService, ckanId, cadastaProject) {
 
     $rootScope.$broadcast('tab-change', {tab: 'Parcels'}); // notify breadcrumbs of tab on page load
 

@@ -56,7 +56,32 @@ var app = angular.module("app",
       },
       reloadOnSearch: false,
       deepStateRedirect: dsrCb,
-      sticky: true
+      sticky: true,
+      resolve: {
+        ckanId: function ($window) {
+
+          return $window.location.pathname.split('/')[2];
+        },
+        cadastaProject: function ($q, $window, dataService) {
+
+          var ckanId = $window.location.pathname.split('/')[2];
+
+          var deferred = $q.defer();
+
+          var promise = dataService.getCadastaProject(ckanId);
+
+          promise.then(function(response){
+            deferred.resolve(response);
+          },function(err){
+            console.error(err);
+            deferred.reject(err);
+
+          });
+
+          return deferred.promise;
+
+        }
+      }
     });
 
     // Child State
@@ -80,7 +105,32 @@ var app = angular.module("app",
           templateUrl: '/project-dashboard/src/partials/parcelList.html', }
       },
       sticky:true,
-      deepStateRedirect: true//dsrCb
+      deepStateRedirect: true,
+      resolve: {
+        ckanId: function ($window) {
+
+          return $window.location.pathname.split('/')[2];
+        },
+        cadastaProject: function ($q, $window, dataService) {
+
+          var ckanId = $window.location.pathname.split('/')[2];
+
+          var deferred = $q.defer();
+
+          var promise = dataService.getCadastaProject(ckanId);
+
+          promise.then(function(response){
+            deferred.resolve(response);
+          },function(err){
+            console.error(err);
+            deferred.reject(err);
+
+          });
+
+          return deferred.promise;
+
+        }
+      }
     });
 
     // Grandchild State
@@ -118,7 +168,33 @@ var app = angular.module("app",
       },
       reloadOnSearch: false,
       deepStateRedirect: dsrCb,
-      sticky: true });
+      sticky: true,
+      resolve: {
+        ckanId: function ($window) {
+
+          return $window.location.pathname.split('/')[2];
+        },
+        cadastaProject: function ($q, $window, dataService) {
+
+          var ckanId = $window.location.pathname.split('/')[2];
+
+          var deferred = $q.defer();
+
+          var promise = dataService.getCadastaProject(ckanId);
+
+          promise.then(function(response){
+            deferred.resolve(response);
+          },function(err){
+            console.error(err);
+            deferred.reject(err);
+
+          });
+
+          return deferred.promise;
+
+        }
+      }
+    });
 
 
     // Child State for activity list
@@ -129,7 +205,32 @@ var app = angular.module("app",
         'activitytab': {  controller:'activityCtrl', templateUrl: '/project-dashboard/src/partials/project_activity.html' }
       },
       deepStateRedirect: dsrCb,
-      sticky: true
+      sticky: true,
+      resolve: {
+        ckanId: function ($window) {
+
+          return $window.location.pathname.split('/')[2];
+        },
+        cadastaProject: function ($q, $window, dataService) {
+
+          var ckanId = $window.location.pathname.split('/')[2];
+
+          var deferred = $q.defer();
+
+          var promise = dataService.getCadastaProject(ckanId);
+
+          promise.then(function(response){
+            deferred.resolve(response);
+          },function(err){
+            console.error(err);
+            deferred.reject(err);
+
+          });
+
+          return deferred.promise;
+
+        }
+      }
     });
 
 
@@ -141,7 +242,32 @@ var app = angular.module("app",
         'resourcetab': { controller:'resourceCtrl', templateUrl: '/project-dashboard/src/partials/project_resources.html' }
       },
       deepStateRedirect: dsrCb,
-      sticky: true
+      sticky: true,
+      resolve: {
+        ckanId: function ($window) {
+
+          return $window.location.pathname.split('/')[2];
+        },
+        cadastaProject: function ($q, $window, dataService) {
+
+          var ckanId = $window.location.pathname.split('/')[2];
+
+          var deferred = $q.defer();
+
+          var promise = dataService.getCadastaProject(ckanId);
+
+          promise.then(function(response){
+            deferred.resolve(response);
+          },function(err){
+            console.error(err);
+            deferred.reject(err);
+
+          });
+
+          return deferred.promise;
+
+        }
+      }
     });
 
     // Child State for activity list
