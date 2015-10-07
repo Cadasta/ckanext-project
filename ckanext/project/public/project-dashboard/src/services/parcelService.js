@@ -13,7 +13,7 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiRoot + '/show_parcels_list', {cache: true}).
+            $http.get(ENV.apiCadastaRoot + '/show_parcels_list', {cache: true}).
                 then(function (response) {
                     deferred.resolve(response.data.features);
                 }, function (response) {
@@ -32,7 +32,7 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiRoot +  '/parcels/' + id + '/details', {cache: true}).
+            $http.get(ENV.apiCadastaRoot +  '/parcels/' + id + '/details', {cache: true}).
                 then(function (response) {
                     deferred.resolve(response.data.features[0]);
                 }, function (response) {
@@ -52,7 +52,7 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiRoot +  '/parcels/' + id + '/show_relationship_history', {cache: true}).
+            $http.get(ENV.apiCadastaRoot +  '/parcels/' + id + '/show_relationship_history', {cache: true}).
                 then(function (response) {
                     deferred.resolve(response.data.features);
                 }, function (response) {
@@ -72,7 +72,7 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiRoot + '/parcels/' + id + '/resources', { cache: true })
+            $http.get(ENV.apiCadastaRoot + '/parcels/' + id + '/resources', { cache: true })
                 .then(function(response) {
                     deferred.resolve(response.data);
                 }, function(response) {

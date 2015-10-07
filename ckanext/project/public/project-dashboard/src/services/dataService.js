@@ -10,7 +10,7 @@ var app = angular.module("app")
             var deferred = $q.defer();
 
             // Cadasta API
-            $http.get(ENV.apiRoot + '/projects?outputFormat=JSON&ckan_id=' + ckanProjectId, { cache: true })
+            $http.get(ENV.apiCadastaRoot + '/projects?outputFormat=JSON&ckan_id=' + ckanProjectId, { cache: true })
                 .then(function(response) {
                     deferred.resolve(response.data[0]);
                 }, function(err) {
@@ -18,7 +18,6 @@ var app = angular.module("app")
                 });
 
             // CKAN API for project description
-            //http.get('http://localhost:5000/api/3/action/package_show?id=')
 
             return deferred.promise;
         };
@@ -44,7 +43,7 @@ var app = angular.module("app")
             var deferred = $q.defer();
 
             // Cadasta API
-            $http.get(ENV.apiRoot + '/projects/' + cadastaProjectId + '/overview', { cache: true })
+            $http.get(ENV.apiCadastaRoot + '/projects/' + cadastaProjectId + '/overview', { cache: true })
                 .then(function(response) {
                     deferred.resolve(response.data);
                 }, function(response) {
@@ -80,7 +79,7 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiRoot + '/show_activity?project_id=' + cadastaProjectId, { cache: true })
+            $http.get(ENV.apiCadastaRoot + '/show_activity?project_id=' + cadastaProjectId, { cache: true })
                 .then(function(response) {
                     deferred.resolve(response.data);
                 }, function(response) {
@@ -99,7 +98,7 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiRoot + '/resources', { cache: true })
+            $http.get(ENV.apiCadastaRoot + '/resources', { cache: true })
                 .then(function(response) {
                     deferred.resolve(response.data);
                 }, function(response) {
@@ -114,7 +113,7 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiRoot + '/parcels?project_id=1', { cache: true })
+            $http.get(ENV.apiCadastaRoot + '/parcels?project_id=1', { cache: true })
                 .then(function(response) {
                     deferred.resolve(response.data);
                 }, function(response) {

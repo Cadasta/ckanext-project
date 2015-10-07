@@ -4,7 +4,6 @@
   app.controller("overviewCtrl", ['$scope', '$state', '$stateParams','$location', 'dataService','paramService', 'utilityService', '$rootScope', 'ckanId', 'cadastaProject',
       function($scope, $state, $stateParams, $location, dataService, paramService, utilityService, $rootScope, ckanId, cadastaProject) {
 
-          console.log(cadastaProject);
 
       var mapStr = $stateParams.map;
 

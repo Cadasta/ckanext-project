@@ -16,7 +16,7 @@ var OrganizationDashboardApp = angular.module("OrganizationDashboardApp")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiRoot + '/show_activity?project_id=1', { cache: false })
+            $http.get(ENV.apiCKANRoot + '/show_activity?project_id=1', { cache: false })
                 .then(function(response) {
                     deferred.resolve(response.data);
                 }, function(response) {
@@ -36,7 +36,7 @@ var OrganizationDashboardApp = angular.module("OrganizationDashboardApp")
             var deferred = $q.defer();
 
             $http({
-                url: '/api/3/action/organization_show?id=new-test-organization',
+                url: '/api/3/action/organization_show?id=new-test-organization&include_datasets=true',
                 type: 'GET',
                 headers: { 'X-CKAN-API-KEY': '1e3617eb-1b63-4e45-b7d4-c748fbcff1fb' },
                 dataType: 'json'

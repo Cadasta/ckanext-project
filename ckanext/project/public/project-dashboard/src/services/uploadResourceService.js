@@ -13,7 +13,7 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
             //todo remove hardcoding of resource numbers
-            $http.post(ENV.apiRoot + '/resources/1/parcel/3',
+            $http.post(ENV.apiCadastaRoot + '/resources/1/parcel/3',
                 {
                     cache: false,
                     data: new FormData(this),
