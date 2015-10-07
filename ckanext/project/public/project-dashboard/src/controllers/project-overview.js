@@ -89,13 +89,21 @@
 
           var layer;
 
-          // If there is a project geom load map and zoom to it; else zoome to parcels
+          var extentStyle = {
+              "color": "#256c97",
+              "stroke": "#256c97",
+              "stroke-width": 1,
+              "fill-opacity":.1,
+              "stroke-opacity":.7
+          };
+
+          // If there is a project geom load map and zoom to it; else zoom to parcels
           if($scope.overviewData.features[0].geometry) {
-              layer = L.geoJson($scope.overviewData.features[0]);
+              layer = L.geoJson($scope.overviewData.features[0], {style:extentStyle});
               layer.addTo(map);
 
           } else if ( $scope.overviewData.features[0].properties.parcels && $scope.overviewData.features[0].properties.parcels[0].geometry) {
-              layer = L.geoJson($scope.overviewData.features[0].properties.parcels);
+              layer = L.geoJson($scope.overviewData.features[0].properties.parcels, {style:extentStyle});
               layer.addTo(map);
 
           }
