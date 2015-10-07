@@ -2,6 +2,37 @@
     height: 613px;
 }
 
-g {
-    stroke: 1px solid black;
+#legend {
+    height: 50px;
+    width:100%;
+    margin:auto;
+    margin-top:10px;
+}
+
+#legend .legend-key {
+     display:block;
+     float:left;
+     height:15px;
+     width:30px;
+     padding-left:20px;
+    opacity:.6;
+
+}
+
+#legend .legend-label {
+    display:block;
+    float:left;
+    height:15px;
+    width:30px;
+    padding: 0 0 0 10px;
+    text-align:left;
+    font-size:10px;
+    color:#2d3644;
+    width:85px;
+}
+
+.legend.clearfix {
+    float: right;
+    position: relative;
+    top: 11px;
 }

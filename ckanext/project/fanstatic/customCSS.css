@@ -1295,14 +1295,14 @@ input[type="text"].register-input :focus {
 }
 
 
-.image-upload .control-group {
-    margin-left:64px;
- }
+/*.image-upload .control-group {*/
+    /*margin-left:64px;*/
+ /*}*/
 
-.custom .control-label {
-    padding-left:0;
-    margin:0;
-}
+/*.custom .control-label {*/
+    /*padding-left:0;*/
+    /*margin:0;*/
+/*}*/
 
 .cadasta-new-project {
     border-left: 1px solid #dcdfe1;
