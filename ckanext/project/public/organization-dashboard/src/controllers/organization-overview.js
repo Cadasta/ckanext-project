@@ -4,14 +4,12 @@ var OrganizationDashboardApp = angular.module("OrganizationDashboardApp");
 OrganizationDashboardApp.controller("orgOverviewCtrl", ['$scope', '$rootScope', '$state', '$stateParams', '$location', 'paramService', 'dataService', 'ckanOrgId', function ($scope, $rootScope, $state, $stateParams, $location, paramService, dataService, ckanOrgId) {
 
 
-    $scope.organizationProjectsNum = 3;
-    $scope.organizationDescription = "Intelligentsia squid occupy, food truck Blue Bottle sartorial narwhal cardigan shabby chic you probably haven't heard of them post-ironic readymade Williamsburg. " +
-        "Wayfarers synth YOLO scenester distillery, Vice roof party XOXO shabby chic. Four loko lumbersexual Carles meditation. Church-key 8-bit typewriter flannel Bushwick disrupt mumblecore plaid. " +
-        "Gastropub lo-fi migas actually. Wolf PBR&B master cleanse vinyl, hoodie vegan aesthetic Austin flexitarian retro Echo Park Shoreditch meditation Bushwick. XOXO +1 try-hard readymade Pitchfork."
+    //button routing todo - couldn't get this to work at the moment
+    $scope.route_add_project = function(){
+        $location.path('project/new');
+    };
 
-
-
-    $scope.users = ['person1', 'person2', 'person3'];
+    $scope.orgName = ckanOrgId;
 
 
 
@@ -46,8 +44,6 @@ OrganizationDashboardApp.controller("orgOverviewCtrl", ['$scope', '$rootScope', 
         });
 
     })
-
-
 
 
 

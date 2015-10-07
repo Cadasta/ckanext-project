@@ -14,7 +14,7 @@
 
         <div class='overview-background org-projects'>
             <span class="small-heading">PROJECTS</span>
-            <a href="#"><span class="cadasta-round-button right">ADD PROJECT</span></a>
+            <a href="/project/new"><span class="cadasta-round-button right" ng-click="route_add_project()">ADD PROJECT</span></a>
 
             <table id="project-table-header">
                 <thead>
@@ -31,7 +31,8 @@
                     <tbody>
                     <tr class="row-link" ng-repeat="project in orgProjects"
                         ng-class="{'last-table-element':$index == parcels.length-1}">
-                        <td>{{project.title}}</td>
+
+                        <td><a href="/project/{{project.name}}">{{project.title}}</a></td>
                         <td>{{project.notes}}</td>
                         <td>{{project.metadata_modified}}</td>
                     </tr>
@@ -51,19 +52,19 @@
                 <li ng-if="activity.activity_type === 'changed organization'"
                     ng-class="{'remove-bottom-border': $index == overviewData.activityList.length-1}"
                     class="activity-block block">
-                    Organization details were updated on {{ activity.timestamp }}
+                    Organization <span class="bold">{{orgName}}</span> details were updated on {{ activity.timestamp }}
                 </li>
 
                 <li ng-if="activity.activity_type === 'new package'"
                     ng-class="{'remove-bottom-border': $index == overviewData.activityList.length-1}"
                     class="activity-block block">
-                    Project <a href="#"> {{activity.data.package.name}} </a> was created on {{ activity.timestamp }}
+                    Project <a href="/project/{{project.name}}">{{activity.data.package.title}}</a> was created on {{ activity.timestamp }}
                 </li>
 
                 <li ng-if="activity.activity_type === 'changed package'"
                     ng-class="{'remove-bottom-border': $index == overviewData.activityList.length-1}"
                     class="activity-block block">
-                    Project <a href="#"> {{activity.data.package.name}} </a> was updated on {{ activity.timestamp }}
+                    Project <a href="/project/{{project.name}}">{{activity.data.package.title}}</a> was updated on {{ activity.timestamp }}
                 </li>
             </div>
         </div>
@@ -75,7 +76,7 @@
             <div ng-repeat="user in orgUsers">
                 <li class="users">
                     <i class="material-icons blue">account_circle</i>
-                    <a href="{{user.name}}"><span class="bold">{{user.display_name}}</span></a>
+                    <a href="/user/{{user.name}}"><span class="bold">{{user.display_name}}</span></a>
                 </li>
             </div>
         </div>
