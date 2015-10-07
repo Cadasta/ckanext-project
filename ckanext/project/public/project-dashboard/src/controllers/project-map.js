@@ -53,7 +53,7 @@
               "color": "#e54573",
               "stroke": "#e54573",
               "stroke-width": 1,
-              "fill-opacity":.6,
+              "fill-opacity":1,
               "stroke-opacity":.8
           };
 

@@ -8,6 +8,7 @@
 </div>
 
 <!--secondary content-->
+<!--organization projects-->
 <div class="span3">
     <div id="project-content">
 
@@ -19,8 +20,8 @@
                 <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Number of Parcels</th>
-                    <th>Date Created</th>
+                    <th>Description</th>
+                    <th>Last Updated</th>
                 </tr>
                 </thead>
             </table>
@@ -28,11 +29,11 @@
             <div id="projectList">
                 <table>
                     <tbody>
-                    <tr class="row-link" ng-repeat="project in projects"
+                    <tr class="row-link" ng-repeat="project in orgProjects"
                         ng-class="{'last-table-element':$index == parcels.length-1}">
-                        <td>La Paz</td>
-                        <td>33</td>
-                        <td>Yesterday</td>
+                        <td>{{project.title}}</td>
+                        <td>{{project.notes}}</td>
+                        <td>{{project.metadata_modified}}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -71,10 +72,10 @@
         <div class='mini-overview project-block' id="project-resource-summary">
             <span class="small-heading">ORGANIZATION USERS</span>
 
-            <div ng-repeat="user in users">
+            <div ng-repeat="user in orgUsers">
                 <li class="users">
                     <i class="material-icons blue">account_circle</i>
-                    <span class="bold">Sarah B</span>
+                    <a href="{{user.name}}"><span class="bold">{{user.display_name}}</span></a>
                 </li>
             </div>
         </div>

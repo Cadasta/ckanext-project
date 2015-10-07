@@ -52,18 +52,13 @@ OrganizationDashboardApp.config(function ($stateProvider, $urlRouterProvider) {
             'overviewtab': {  controller:'orgOverviewCtrl', templateUrl: '/organization-dashboard/src/partials/overview.html' }
         },
         deepStateRedirect: dsrCb,
-        sticky: true
+        sticky: true,
+        resolve: {
+            ckanOrgId: function ($window) {
+                return $window.location.pathname.split('/')[2];
+            }
+        }
     });
-
-    //states.push({
-    //    name: 'tabs.members',
-    //    url: 'members',
-    //    views: {
-    //        'memberstab': {  controller:'orgMembersCtrl', templateUrl: '/organization-dashboard/src/partials/orgMembers.html' }
-    //    },
-    //    deepStateRedirect: dsrCb,
-    //    sticky: true
-    //});
 
 
 
