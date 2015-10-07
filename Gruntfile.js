@@ -19,7 +19,7 @@ module.exports = function(grunt) {
 					ENV: {
 						name: 'development',
 						apiCadastaRoot: 'http://localhost:9000' ,
-						apiCKANRoot: 'http://localhost:5000'
+						apiCKANRoot: 'http://localhost:5000/api/3/action'
 					}
 				}
 			},
@@ -31,7 +31,7 @@ module.exports = function(grunt) {
 					ENV: {
 						name: 'staging',
 						apiCadastaRoot: 'http://54.69.121.180:3000',
-						apiCKANRoot: 'http://cadasta-staging.spatialdevmo.com'
+						apiCKANRoot: 'http://cadasta-staging.spatialdevmo.com/api/3/action'
 					}
 				}
 			},
@@ -43,7 +43,7 @@ module.exports = function(grunt) {
 					ENV: {
 						name: 'demo',
 						apiCadastaRoot: 'http://54.69.121.180:3001',
-						apiCKANRoot: 'http://cadasta-demo.spatialdevmo.com'
+						apiCKANRoot: 'http://cadasta-demo.spatialdevmo.com/api/3/action'
 					}
 				}
 			},
@@ -55,7 +55,7 @@ module.exports = function(grunt) {
 					ENV: {
 						name: 'production',
 						apiCadastaRoot: 'http://54.69.121.180:3000',
-						apiCKANRoot: 'http://cadasta-staging.spatialdevmo.com'
+						apiCKANRoot: 'http://cadasta-staging.spatialdevmo.com/api/3/action'
 					}
 				}
 			}
