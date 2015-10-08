@@ -8,35 +8,15 @@ var OrganizationDashboardApp = angular.module("OrganizationDashboardApp")
 
 
         /**
-         * Get all activities associated with a project
-         * todo this is just a placeholder, should be updated to get org activity
-         * @returns {*}
-         */
-        service.getAllActivities = function(){
-
-            var deferred = $q.defer();
-
-            $http.get(ENV.apiCKANRoot + '/show_activity?project_id=1', { cache: false })
-                .then(function(response) {
-                    deferred.resolve(response.data);
-                }, function(response) {
-                    deferred.reject(response);
-                });
-
-            return deferred.promise;
-        };
-
-
-        /**
          * This function grabs organization details including description
          * @returns {*}
          */
-        service.getCKANOrgDetails = function(){
+        service.getCKANOrgDetails = function(ckanOrgId){
 
             var deferred = $q.defer();
 
             $http({
-                url: '/api/3/action/organization_show?id=new-test-organization&include_datasets=true',
+                url: ENV.apiCKANRoot + '/organization_show?id=' + ckanOrgId + '&include_datasets=true',
                 type: 'GET',
                 headers: { 'X-CKAN-API-KEY': '1e3617eb-1b63-4e45-b7d4-c748fbcff1fb' },
                 dataType: 'json'
@@ -57,12 +37,12 @@ var OrganizationDashboardApp = angular.module("OrganizationDashboardApp")
          * @returns {*}
          *
          */
-        service.getCKANOrgActivities = function(){
+        service.getCKANOrgActivities = function(ckanOrgId){
 
             var deferred = $q.defer();
 
             $http({
-                url: '/api/3/action/organization_activity_list?id=new-test-organization',
+                url: ENV.apiCKANRoot + '/organization_activity_list?id=' + ckanOrgId,
                 type: 'GET',
                 headers: { 'X-CKAN-API-KEY': '1e3617eb-1b63-4e45-b7d4-c748fbcff1fb' },
                 dataType: 'json'

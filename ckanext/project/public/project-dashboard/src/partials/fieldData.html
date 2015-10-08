@@ -1,5 +1,8 @@
 <div class="clearfix overview-background resources">
     <div id="project-header">
+
+        <h3>Upload XLS form</h3>
+
         <input type="file" nv-file-select uploader="uploader"/><br/>
 
         <li ng-repeat="item in uploader.queue">
@@ -7,7 +10,9 @@
             <button ng-click="item.upload()">upload</button>
         </li>
 
-        <div>{{response}}</div>
+        <div ng-show="progress>0">progres: {{progress}}</div>
+        <div>status: {{response}}</div>
     </div>
 </div>
 </div>
+

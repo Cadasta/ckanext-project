@@ -1,7 +1,7 @@
 {% extends 'package/snippets/package_metadata_fields.html' %}
 
 {% block package_metadata_fields_url %}
-  {{ form.input('url', label=_('URL'), id='field-url', placeholder=_('http://example.com/dataset.json'), value=data.url, error=errors.url, classes=['control-medium custom']) }}
+  {{ form.input('url', label=_('URL'), id='field-url', placeholder=_('http://example.com/dataset.json'), value=data.url, error=errors.url, classes=['control-medium custom', 'cadasta-input']) }}
 {% endblock %}
 
 {% block package_metadata_fields_version %}
@@ -14,9 +14,9 @@
 {% endblock %}
 
 {% block custom_fields %}
-{{ form.input('country', label=_('Country'), id='field-country', placeholder=_('US'), value=data.country, error=errors.country, classes=['control-medium custom'], attrs={'data-module': 'autocomplete-action-api', 'data-module-source': '/api/action/extra_autocomplete?extra=country&value=?'}) }}
+{{ form.input('country', label=_('Country'), id='field-country', placeholder=_('US'), value=data.country, error=errors.country, classes=['control-medium custom','cadasta-input'], attrs={'data-module': 'autocomplete-action-api', 'data-module-source': '/api/action/extra_autocomplete?extra=country&value=?'}) }}
 
-  {{ form.input('province_state', label=_('Province/State'), id='field-province_state', placeholder=_('...'), value=data.province_state, error=errors.province_state, classes=['control-medium custom'], attrs={'data-module': 'autocomplete-action-api', 'data-module-source': '/api/action/extra_autocomplete?extra=province_state&value=?'}) }}
+  {{ form.input('province_state', label=_('Province/State'), id='field-province_state', placeholder=_('...'), value=data.province_state, error=errors.province_state, classes=['control-medium custom',  'cadasta-input'], attrs={'data-module': 'autocomplete-action-api', 'data-module-source': '/api/action/extra_autocomplete?extra=province_state&value=?'}) }}
 
-  {{ form.input('district_county', label=_('District/Country'), id='field-district_county', placeholder=_('...'), value=data.district_county, error=errors.district_county, classes=['control-medium custom']) }}
+  {{ form.input('district_county', label=_('District/Country'), id='field-district_county', placeholder=_('...'), value=data.district_county, error=errors.district_county, classes=['control-medium custom','cadasta-input']) }}
 {% endblock %}
