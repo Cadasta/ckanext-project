@@ -4,6 +4,11 @@
 }
 
 body {
+    height: 100vh;
+}
+
+body {
+    min-height: 100vh;
     font-family: 'Open Sans', sans-serif;
     font-size: 12px;
     background: none;
@@ -1010,7 +1015,7 @@ input[type="text"].register-input :focus {
     color: black;
     background-color: #eef2f5;
     margin: auto;
-    position: relative;
+    position: absolute;
     bottom: 0;
     width:100%;
     margin-top:20px;
