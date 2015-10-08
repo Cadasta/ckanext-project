@@ -4,6 +4,11 @@
 }
 
 body {
+    height: 100vh;
+}
+
+body {
+    min-height: 100vh;
     font-family: 'Open Sans', sans-serif;
     font-size: 12px;
     background: none;
@@ -1009,7 +1014,8 @@ input[type="text"].register-input :focus {
     height: 50px;
     color: black;
     background-color: #eef2f5;
-    position: relative;
+    margin: auto;
+    position: absolute;
     bottom: 0;
     width:100%;
     margin-top:20px;
@@ -1455,9 +1461,7 @@ input[type="text"].register-input :focus {
     left: -66px;
 }
 
-[role=main] {
-    border-bottom:0;
-}
+
 
 .projects.project-title {
     font-size: 18px;
