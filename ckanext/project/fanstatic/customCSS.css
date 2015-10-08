@@ -3,17 +3,18 @@
     padding-top: 40px;
 }
 
-body {
-    height: 100vh;
+html, body {
+    height: 100%;
 }
 
 body {
-    min-height: 100vh;
+
     font-family: 'Open Sans', sans-serif;
     font-size: 12px;
     background: none;
     background-color: #eef2f5;
 }
+
 
 .clearfix:before, .clearfix:after {
     content: " ";
@@ -1015,8 +1016,6 @@ input[type="text"].register-input :focus {
     color: black;
     background-color: #eef2f5;
     margin: auto;
-    position: absolute;
-    bottom: 0;
     width:100%;
     margin-top:20px;
 }
@@ -1056,6 +1055,7 @@ input[type="text"].register-input :focus {
     list-style: none;
     padding: 0;
     border: none;
+    height: initial !important;
 }
 
 .media-view {
