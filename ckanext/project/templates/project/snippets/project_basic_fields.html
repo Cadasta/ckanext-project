@@ -2,7 +2,7 @@
 
 {% block package_basic_fields_title %}
 
-{{ form.input('title', id='field-title', label=_('Title '), placeholder=_('eg. A descriptive title'), value=data.title, error=errors.title, classes=['control-full', 'control-large'], attrs={'data-module': 'slug-preview-target'}) }}
+{{ form.input('title', id='field-title', label=_('Title '), placeholder=_('eg. A descriptive title'), value=data.title, error=errors.title, classes=['control-full', 'control-large', 'cadasta-input'], attrs={'data-module': 'slug-preview-target'}) }}
 
 {% endblock %}
 
@@ -46,7 +46,7 @@
 
         {% if show_organizations_selector %}
         {% set existing_org = data.owner_org or data.group_id %}
-        <div class="control-group">
+        <div class="control-group"  class='cadasta-input'>
             <label for="field-organizations" class="control-label">{{ _('Organization') }}</label>
             <div class="controls">
                 <select id="field-organizations" name="owner_org" data-module="autocomplete">
@@ -65,7 +65,7 @@
 
         {% if show_visibility_selector %}
         {% block package_metadata_fields_visibility %}
-        <div class="control-group">
+        <div class="control-group" class='cadasta-input'>
             <label for="field-private" class="control-label">{{ _('Visibility') }}</label>
             <div class="controls">
                 <select id="field-private" name="private">
@@ -84,7 +84,7 @@
 
 
     {% if data.id and h.check_access('package_delete', {'id': data.id}) and data.state != 'active' %}
-    <div class="control-group">
+    <div class="control-group" class='cadasta-input'>
         <label for="field-state" class="control-label">{{ _('State') }}</label>
         <div class="controls">
             <select id="field-state" name="state">

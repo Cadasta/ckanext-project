@@ -29,6 +29,8 @@
     font-size:10px;
     color:#2d3644;
     width:85px;
+    position: relative;
+    bottom: 2px;
 }
 
 .legend.clearfix {

@@ -909,7 +909,7 @@ input[type="text"].register-input :focus {
 }
 
 .control-group.control-full .control-label {
-    margin-left: 65px;
+    margin: 0 0 9px 65px;
 }
 
 .control-group .control-label {
@@ -1009,7 +1009,6 @@ input[type="text"].register-input :focus {
     height: 50px;
     color: black;
     background-color: #eef2f5;
-    margin: auto;
     position: relative;
     bottom: 0;
     width:100%;
@@ -1023,7 +1022,7 @@ input[type="text"].register-input :focus {
 
 #master-footer .container-footer {
     margin: 0 auto;
-    width: 1024px;
+    width: 944px;
     height: 30px;
 }
 
@@ -1031,6 +1030,10 @@ input[type="text"].register-input :focus {
     float: right;
     margin-right: 70px;
     padding-top: 12px;
+}
+
+.right-no-margin {
+    float:right;
 }
 
 .container-footer .pull-left {
@@ -1300,8 +1303,8 @@ input[type="text"].register-input :focus {
  }
 
 .custom .control-label {
-    padding-left:0;
-    margin:0;
+    padding-left: 0;
+    margin: 30px 0 9px 0;
 }
 
 .cadasta-new-project {
@@ -1350,14 +1353,15 @@ input[type="text"].register-input :focus {
 }
 
 .new-addition-title {
-    margin: 0;
-    padding: 20px 0;
-    text-align: center;
     border: 1px solid #dcdfe1;
-    font-size: 24px;
-    font-weight: 500;
-    color: #256C97;
     background-color: #f8f9f9;
+    font-size: 18px;
+    color: #2d3644;
+    display: inline-block;
+    padding-top: 18px;
+    padding-bottom: 20px;
+    padding-left: 25px;
+    width:833px;
 }
 
 .org-title .black-title-link {
@@ -1372,11 +1376,11 @@ input[type="text"].register-input :focus {
 }
 
 .control-large .control-label {
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .control-large input, .control-large .control-label {
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .control-full .error-block {
@@ -1442,10 +1446,23 @@ input[type="text"].register-input :focus {
 .create-new-buttons a.cadasta-button-simple {
     position: relative;
     top: 48px;
-    left: 500px;
+    left: 540px;
+    font-size: 12px;
 }
 
 .save-new .cadasta-button-simple {
     position: relative;
     left: -66px;
+}
+
+[role=main] {
+    border-bottom:0;
+}
+
+.projects.project-title {
+    font-size: 18px;
+    color: #2d3644;
+    display: inline-block;
+    padding: 45px 0 20px 25px;
+    width: 100%;
 }

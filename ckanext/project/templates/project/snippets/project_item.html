@@ -18,7 +18,7 @@ show_remove    - If True, show the remove button to remove project/dataset assoc
     <table>
         <tbody>
         <tr>
-            <td>
+            <td class="project-title projects">
                 {{ h.link_to(h.truncate(package.title), h.url_for('project_read', id=package.name)) }}
             </td>
 
