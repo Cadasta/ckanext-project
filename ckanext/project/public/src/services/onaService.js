@@ -32,7 +32,7 @@ var app = angular.module("app")
 
 
             //TODO get real project id
-            $http.post(ENV.apiRoot + '/providers/ona/load-form/1', form)
+            $http.post(ENV.apiCadastaRoot + '/providers/ona/load-form/1', form)
                 .then(function(response) {
                     cb(response.data);
                 }, function(response) {
