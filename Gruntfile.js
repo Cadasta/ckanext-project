@@ -35,6 +35,18 @@ module.exports = function(grunt) {
 					}
 				}
 			},
+			local_staging: {
+				options: {
+					dest: 'ckanext/project/public/shared/src/config.js'
+				},
+				constants: {
+					ENV: {
+						name: 'staging',
+						apiCadastaRoot: 'http://54.69.121.180:3000',
+						apiCKANRoot: 'http://localhost:5000/api/3/action'
+					}
+				}
+			},
 			demo: {
 				options: {
 					dest: 'ckanext/project/public/shared/src/config.js'
