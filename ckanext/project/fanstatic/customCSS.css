@@ -1038,7 +1038,8 @@ input[type="text"].register-input :focus {
     padding-top: 12px;
 }
 
-.right-no-margin {
+.right-footer {
+    margin-right: 70px;
     float:right;
 }
 
