@@ -49,6 +49,10 @@ class CadastaOrganization(plugins.SingletonPlugin, DefaultOrganizationForm):
 
 def create_cadasta_organization(key, data, errors, context):
     '''call cadasta_create_organization and save the id returned'''
+    # do not make api calls when there are errors
+    for error in errors.values():
+        if error:
+            return
     data_dict = {
         'ckan_id': data['id', ],
         'ckan_title': data['title', ],
