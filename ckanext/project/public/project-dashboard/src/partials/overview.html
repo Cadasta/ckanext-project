@@ -65,6 +65,10 @@
         <div class='mini-overview project-block' id="project-resource-summary">
             <span class="small-heading">RESOURCES</span>
 
+            <!--<md-button class="cadasta-round-button right" ng-click="showAdvanced($event)" flex flex-md="100">-->
+                <!--Add Resource-->
+            <!--</md-button>-->
+
             <div ng-repeat="resource in overviewData.features[0].properties.project_resources">
                 <li ng-class="{'remove-bottom-border': $index == overviewData.features[0].properties.project_resources.length-1}"
                     class="activity-block block">A

@@ -1,8 +1,8 @@
 
   var app = angular.module("app");
 
-  app.controller("overviewCtrl", ['$scope', '$state', '$stateParams','$location', 'dataService','paramService', 'utilityService', '$rootScope', 'ckanId', 'cadastaProject',
-      function($scope, $state, $stateParams, $location, dataService, paramService, utilityService, $rootScope, ckanId, cadastaProject) {
+  app.controller("overviewCtrl", ['$scope', '$state', '$stateParams','$location', 'dataService','paramService', 'utilityService', '$rootScope', 'ckanId', 'cadastaProject', '$mdDialog',
+      function($scope, $state, $stateParams, $location, dataService, paramService, utilityService, $rootScope, ckanId, cadastaProject, $mdDialog) {
 
 
       var mapStr = $stateParams.map;
@@ -38,6 +38,17 @@
               console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
           }).error(function (data, status, headers, config) {
               console.log('error status: ' + status);
+          })
+      };
+
+      //  resource dialog controls
+      $scope.showAdvanced = function(ev) {
+          $mdDialog.show({
+              controller: DialogController,
+              templateUrl: '/project-dashboard/src/partials/data_upload.html',
+              parent: angular.element(document.body),
+              targetEvent: ev,
+              clickOutsideToClose:true
           })
       };
 
@@ -115,6 +126,8 @@
 
 
 
+
+
       },function(err){
           $scope.overviewData = "Server Error";
       });
@@ -124,3 +137,15 @@
 
   }]);
 
+
+  function DialogController($scope, $mdDialog) {
+      $scope.hide = function() {
+          $mdDialog.hide();
+      };
+      $scope.cancel = function() {
+          $mdDialog.cancel();
+      };
+      $scope.answer = function(answer) {
+          $mdDialog.hide(answer);
+      };
+  }

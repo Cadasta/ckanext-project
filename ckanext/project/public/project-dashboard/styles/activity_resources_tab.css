@@ -146,3 +146,36 @@ md-content.md-default-theme {
 .cadasta-modal .small-heading {
     margin-top:16px;
 }
+
+
+
+a.md-button:not([disabled]):hover, .md-button:not([disabled]):hover {
+     background-color: #0d4252;
+}
+
+a.md-button:not([disabled]):hover, .md-button:not([disabled]):focus {
+    background-color: #187794;
+}
+
+.resources .cadasta-round-button {
+    position: relative;
+    top: 23px;
+}
+
+
+
+.md-button {
+    line-height: 20px;
+    min-height: 20px;
+}
+
+.resources .cadasta-round-button {
+    position: relative;
+    top: 23px;
+}
+
+
+/*.md-dialog-container {*/
+    /*position: fixed;*/
+    /*top: 0 !important;*/
+/*}*/

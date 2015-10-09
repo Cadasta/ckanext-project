@@ -603,7 +603,7 @@ a {
     background-color: #256C97;
     border: none;
     color: white;
-    padding: 10px 30px 10px 30px;
+    padding: 10px 20px;
     margin-top: 20px;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -921,7 +921,7 @@ input[type="text"].register-input :focus {
 }
 
 .control-group .control-label {
-    margin-left:64px;
+    margin: 0 0 9px 64px;
 }
 
 
@@ -952,6 +952,9 @@ input[type="text"].register-input :focus {
     margin: 20px 0;
 }
 
+.save-new.org {
+    margin:20px 0 30px 540px;
+}
 .save-new.org .cadasta-button-simple {
     position: relative;
     left: -36px;
@@ -1322,7 +1325,7 @@ input[type="text"].register-input :focus {
 
 .custom .control-label {
     padding-left: 0;
-    margin: 30px 0 9px 0;
+    margin: 0 0 9px 0;
 }
 
 .cadasta-new-project {
@@ -1337,7 +1340,8 @@ input[type="text"].register-input :focus {
 
 .create-new-buttons {
     height: 100px;
-    margin-top:50px;
+    margin-top: 35px;
+    padding-bottom: 25px;
 }
 
 .create-new-buttons .cadasta-button {
@@ -1387,10 +1391,6 @@ input[type="text"].register-input :focus {
     font-weight: bold;
 }
 
-.cadasta-new-project * {
-    font-size: 14px;
-
-}
 
 .control-large .control-label {
     font-size: 12px;
@@ -1463,7 +1463,7 @@ input[type="text"].register-input :focus {
 .create-new-buttons a.cadasta-button-simple {
     position: relative;
     top: 48px;
-    left: 540px;
+    left: 572px;
     font-size: 12px;
 }
 
@@ -1475,11 +1475,62 @@ input[type="text"].register-input :focus {
 
 
 .projects.project-title {
-    font-size: 18px;
-    color: #2d3644;
     display: inline-block;
     padding: 45px 0 20px 25px;
     width: 100%;
+}
+
+
+.projects.project-title a {
+    font-size: 18px;
+    color: #2d3644;
+    font-weight: 700;
+}
+}
+
+
+.cadasta-org-input {
+    padding-top: 30px !important;
+}
+
+.js .image-upload #field-image-url {
+    max-width: 725px;
+}
+
+.js .image-upload .btn {
+    position: relative;
+    top: 0;
+    margin-right: 10px;
+}
+
+input[type="text"] {
+    font-size:12px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+input, button, select, textarea {
+    font-family: 'Open Sans', sans-serif;
+}
+
+label {
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.control-group.control-full.control-large.cadasta-input.title label {
+ margin:34px 0 5px 65px;
+}
+
+
+.org-header .icon-icon_edit:before {
+    font-size: 30px;
+}
+
+.org-header a {
+    position: relative;
+    top: 26px;
+    padding-right:28px;
+    float:right;
 }
 
 #splash-overlay {
@@ -1511,36 +1562,4 @@ input[type="text"].register-input :focus {
 #splash-page {
     width:100%;
     height: 100%;
-}
-
-.cadasta-org-input {
-    padding-top: 30px !important;
-}
-
-.js .image-upload #field-image-url {
-    max-width: 725px;
-}
-
-.js .image-upload .btn {
-    position: relative;
-    top: 0;
-    margin-right: 10px;
-}
-
-input[type="text"] {
-    font-size:12px;
-    font-family: 'Open Sans', sans-serif;
-}
-
-input, button, select, textarea {
-    font-family: 'Open Sans', sans-serif;
-}
-
-label {
-    cursor: pointer;
-    font-size: 12px;
-}
-
-.cadasta-input {
-    padding-top:30px;
 }

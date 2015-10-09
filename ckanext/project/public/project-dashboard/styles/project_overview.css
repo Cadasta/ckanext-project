@@ -152,3 +152,15 @@ li.activity-block {
     vertical-align:top;
     overflow:auto;
 }
+
+
+#header .icon-icon_edit:before {
+    font-size: 30px;
+}
+
+#header a {
+    position: relative;
+    top: 20px;
+    padding-right:28px;
+    float:right;
+}

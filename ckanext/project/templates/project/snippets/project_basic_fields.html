@@ -2,7 +2,7 @@
 
 {% block package_basic_fields_title %}
 
-{{ form.input('title', id='field-title', label=_('Title '), placeholder=_('eg. A descriptive title'), value=data.title, error=errors.title, classes=['control-full', 'control-large', 'cadasta-input'], attrs={'data-module': 'slug-preview-target'}) }}
+{{ form.input('title', id='field-title', label=_('Title '), placeholder=_('eg. A descriptive title'), value=data.title, error=errors.title, classes=['control-full', 'control-large', 'cadasta-input', 'title'], attrs={'data-module': 'slug-preview-target'}) }}
 
 {% endblock %}
 

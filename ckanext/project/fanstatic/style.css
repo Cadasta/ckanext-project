@@ -43,6 +43,8 @@
 }
 .icon-icon_add_on:before {
 	content: "\e60c";
+	font-size: 30px;
+
 }
 .icon-icon_export:before {
 	content: "\e60d";
