@@ -4,7 +4,11 @@ from ckan.logic.schema import (
     default_show_package_schema,
     default_update_package_schema,
 )
-from ckanext.project.logic.validators import project_name_validator
+from ckanext.project.logic.validators import (
+    project_name_validator,
+    if_empty_generate_uuid,
+    create_cadasta_project,
+)
 
 
 convert_to_extras = toolkit.get_validator('convert_to_extras')
@@ -26,8 +30,12 @@ def project_schema():
 
 def project_create_schema():
     schema = default_create_package_schema()
-    schema['title'] = [not_missing, unicode]
-    schema['name'] = [ignore_missing, unicode, project_name_validator]
+    schema.update({
+        'id': [if_empty_generate_uuid],
+        'title': [not_missing, unicode],
+        'name': [ignore_missing, unicode, project_name_validator],
+        '__after': [create_cadasta_project],
+    })
     schema.update(project_schema())
     return schema
 
@@ -44,6 +52,7 @@ def project_show_schema():
         'country': [convert_from_extras, ignore_missing, unicode],
         'province_state': [convert_from_extras, ignore_missing, unicode],
         'district_county': [convert_from_extras, ignore_missing, unicode],
+        'cadasta_id': [convert_from_extras, ignore_missing, unicode],
     })
 
     return schema
