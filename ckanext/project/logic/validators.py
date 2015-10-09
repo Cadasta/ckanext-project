@@ -93,6 +93,11 @@ def create_cadasta_project(key, data, errors, context):
     This calls cadasta_create_project and makes an external call and saves
     the returned project id into an extra cadasta_project_id
     '''
+    # if there are validation errors, do not make a call to cadasta api
+    for error in errors.values():
+        if error:
+            return
+
     organization = toolkit.get_action('organization_show')(
         context,
         {'id': data['owner_org', ]}
@@ -116,8 +121,7 @@ def create_cadasta_project(key, data, errors, context):
         convert_to_extras(('cadasta_id',), data, errors, context)
 
     except KeyError, e:
-        log.error('Error calling cadasta api: {0}').format(e.message)
+        log.error('Error calling cadasta api action: {0}').format(e.message)
     except toolkit.ValidationError, e:
-        error = 'Error contacting cadasta api: {0}'
-        e.error_dict['message'] = error.format(e.error_dict['message'])
+        e.error_summary['cadasta_api'] = 'Error contacting cadasta api'
         raise e
