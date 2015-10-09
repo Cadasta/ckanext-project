@@ -8,7 +8,7 @@
 
       {% block basic_fields %}
             {% set attrs = {'data-module': 'slug-preview-target'} %}
-            {{ form.input('title', label=_('Name'), id='field-name', placeholder=_('My Organization'), value=data.title, error=errors.title, classes=['control-medium', 'cadasta-org-input'], attrs=attrs) }}
+            {{ form.input('title', label=_('Name'), id='field-name', placeholder=_('My Organization'), value=data.title, error=errors.title, classes=['control-medium', 'cadasta-org-input'], attrs=attrs, is_required=true) }}
 
             {# Perhaps these should be moved into the controller? #}
             {% set prefix = h.url_for(controller='organization', action='read', id='') %}
