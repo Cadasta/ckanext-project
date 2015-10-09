@@ -41,7 +41,7 @@
       }).addTo(map);
 
       // Get overview data
-      var promise = dataService.overviewGet(ckanId, cadastaProject.id);
+      var promise = dataService.getOverview(ckanId, cadastaProject.id);
 
       promise.then(function(response){
 

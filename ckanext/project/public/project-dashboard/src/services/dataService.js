@@ -1,5 +1,3 @@
-
-
 var app = angular.module("app")
     .service("dataService", ['$http', '$q', 'ENV', function ($http, $q, ENV) {
 
@@ -27,10 +25,10 @@ var app = angular.module("app")
          * @returns {*}
          * todo pass in project id
          */
-        service.overviewGet = function(ckanProjectId, cadastaProjectId){
+        service.getOverview = function(ckanProjectId, cadastaProjectId){
 
-            var ckanProject = service.ckanProject(ckanProjectId);
-            var cadastaProject = service.cadastaProject(cadastaProjectId);
+            var ckanProject = service.getCkanProject(ckanProjectId);
+            var cadastaProject = service.getCadastaOverview(cadastaProjectId);
 
             return $q.all([ckanProject, cadastaProject]).then(function(results){
 
@@ -39,7 +37,7 @@ var app = angular.module("app")
             });
         };
 
-        service.cadastaProject = function(cadastaProjectId){
+        service.getCadastaOverview = function(cadastaProjectId){
             var deferred = $q.defer();
 
             // Cadasta API
@@ -50,11 +48,10 @@ var app = angular.module("app")
                     deferred.reject(response);
                 });
 
-
             return deferred.promise;
         };
 
-        service.ckanProject = function(ckanProjectId){
+        service.getCkanProject = function(ckanProjectId){
 
             var deferred = $q.defer();
 
@@ -75,11 +72,11 @@ var app = angular.module("app")
          * Get all activities associated with a project
          * @returns {*}
          */
-        service.getAllActivities = function(cadastaProjectId){
+        service.getProjectActivities = function(cadastaProjectId){
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot + '/show_activity?project_id=' + cadastaProjectId, { cache: true })
+            $http.get(ENV.apiCadastaRoot + '/projects/' + cadastaProjectId + '/activity', { cache: true })
                 .then(function(response) {
                     deferred.resolve(response.data);
                 }, function(response) {
@@ -94,11 +91,11 @@ var app = angular.module("app")
          * Get all resources associated with a project
          * @returns {*}
          */
-        service.getAllResources = function(){
+        service.getProjectResources = function(cadastaProjectId){
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot + '/resources', { cache: true })
+            $http.get(ENV.apiCadastaRoot + '/projects/' + cadastaProjectId +'/resources', { cache: true })
                 .then(function(response) {
                     deferred.resolve(response.data);
                 }, function(response) {

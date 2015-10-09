@@ -1,7 +1,8 @@
 var app = angular.module("app");
 
 
-app.controller("activityCtrl", ['$scope', '$state', '$stateParams','dataService', 'utilityService', '$rootScope', function($scope, $state, $stateParams, dataService, utilityService,$rootScope){
+app.controller("activityCtrl", ['$scope', '$state', '$stateParams','dataService', 'utilityService', '$rootScope', 'ckanId', 'cadastaProject',
+    function($scope, $state, $stateParams, dataService, utilityService,$rootScope,ckanId, cadastaProject){
 
     if($state.current.name !== "tabs.activity") {
         return;
@@ -9,7 +10,7 @@ app.controller("activityCtrl", ['$scope', '$state', '$stateParams','dataService'
 
     $rootScope.$broadcast('tab-change', {tab: 'Activity'}); // notify breadcrumbs of tab on page load
 
-    var promise = dataService.getAllActivities();
+    var promise = dataService.getProjectActivities(cadastaProject.id);
 
     promise.then(function(response){
         $scope.allActivities = response;

@@ -9,7 +9,7 @@ var app = angular.module("app")
          */
 
             //TODO get project id and pass as parameter in API call
-        service.parcelsGet = function () {
+        service.getProjectParcels = function (projectId) {
 
             var deferred = $q.defer();
 
@@ -28,11 +28,11 @@ var app = angular.module("app")
          * @param id parcel id from state params
          * @returns {*}
          */
-        service.parcelGet = function (id) {
+        service.getProjectParcel = function (projectId, parcelId) {
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot +  '/parcels/' + id + '/details', {cache: true}).
+            $http.get(ENV.apiCadastaRoot +  '/projects/'+ projectId + '/parcels/' + parcelId + '/details', {cache: true}).
                 then(function (response) {
                     deferred.resolve(response.data.features[0]);
                 }, function (response) {
@@ -48,11 +48,11 @@ var app = angular.module("app")
          * @param id parcel id from state params
          * @returns {*}
          */
-        service.parcelRelationshipHistory = function (id) {
+        service.getProjectParcelRelationshipHistory = function (projectId, parcelId) {
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot +  '/parcels/' + id + '/show_relationship_history', {cache: true}).
+            $http.get(ENV.apiCadastaRoot +  '/projects/'+ projectId + '/parcels/' + parcelId  + '/show_relationship_history', {cache: true}).
                 then(function (response) {
                     deferred.resolve(response.data.features);
                 }, function (response) {
@@ -68,11 +68,11 @@ var app = angular.module("app")
          * @returns {*}
          * todo pass in a project and parcel id
          */
-        service.getParcelResources = function(id){
+        service.getProjectParcelResources = function(projectId, parcelId){
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot + '/parcels/' + id + '/resources', { cache: true })
+            $http.get(ENV.apiCadastaRoot +'/projects/'+ projectId + '/parcels/' + parcelId + '/resources', { cache: true })
                 .then(function(response) {
                     deferred.resolve(response.data);
                 }, function(response) {

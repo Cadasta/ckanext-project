@@ -1,9 +1,7 @@
+var app = angular.module("app");
 
-  var app = angular.module("app");
-
-  app.controller("overviewCtrl", ['$scope', '$state', '$stateParams','$location', 'dataService','paramService', 'utilityService', '$rootScope', 'ckanId', 'cadastaProject', '$mdDialog',
+app.controller("overviewCtrl", ['$scope', '$state', '$stateParams','$location', 'dataService','paramService', 'utilityService', '$rootScope', 'ckanId', 'cadastaProject', '$mdDialog',
       function($scope, $state, $stateParams, $location, dataService, paramService, utilityService, $rootScope, ckanId, cadastaProject, $mdDialog) {
-
 
       var mapStr = $stateParams.map;
 
@@ -16,13 +14,11 @@
       var lng = mapArr[1];
       var zoom = mapArr[2];
 
-
       $scope.submit = function() {
           if (form.file.$valid && $scope.file && !$scope.file.$error) {
               //$scope.upload($scope.file);
 
               $scope.upload($scope.file);
-
           }
       };
 
@@ -78,7 +74,7 @@
       }).addTo(map);
 
       // Get overview data
-      var promise = dataService.overviewGet(ckanId, cadastaProject.id);
+      var promise = dataService.getOverview(ckanId, cadastaProject.id);
 
       promise.then(function(response){
 
@@ -132,20 +128,16 @@
           $scope.overviewData = "Server Error";
       });
 
-
-
-
   }]);
 
-
-  function DialogController($scope, $mdDialog) {
-      $scope.hide = function() {
-          $mdDialog.hide();
-      };
-      $scope.cancel = function() {
-          $mdDialog.cancel();
-      };
-      $scope.answer = function(answer) {
-          $mdDialog.hide(answer);
-      };
-  }
+function DialogController($scope, $mdDialog) {
+  $scope.hide = function() {
+      $mdDialog.hide();
+  };
+  $scope.cancel = function() {
+      $mdDialog.cancel();
+  };
+  $scope.answer = function(answer) {
+      $mdDialog.hide(answer);
+  };
+}

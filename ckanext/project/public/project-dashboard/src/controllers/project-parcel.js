@@ -1,4 +1,5 @@
-app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService','$rootScope','paramService', 'utilityService', 'uploadResourceService', '$mdDialog', function($scope, $state, $stateParams, parcelService,$rootScope,paramService, utilityService, uploadResourceService, $mdDialog){
+app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService','$rootScope','paramService', 'utilityService', 'uploadResourceService', '$mdDialog', 'ckanId', 'cadastaProject',
+    function($scope, $state, $stateParams, parcelService,$rootScope,paramService, utilityService, uploadResourceService, $mdDialog, ckanId, cadastaProject){
 
     var mapStr = $stateParams.map;
 
@@ -46,7 +47,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService'
         $rootScope.$broadcast('clear-inner-tabs');
     };
 
-    var promise = parcelService.parcelGet($stateParams.id);
+    var promise = parcelService.getProjectParcel(cadastaProject.id, $stateParams.id);
 
     promise.then(function(response){
 
@@ -102,14 +103,14 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService'
             map.setView([lat,lng],zoom);
         }
 
-        return parcelService.parcelRelationshipHistory($stateParams.id);
+        return parcelService.getProjectParcelRelationshipHistory(cadastaProject.id, $stateParams.id);
 
     },function(err){
         $scope.overviewData = "Server Error";
     });
 
 
-    var resource_promise = parcelService.getParcelResources($stateParams.id);
+    var resource_promise = parcelService.getProjectParcelResources(cadastaProject.id,$stateParams.id);
 
     resource_promise.then(function(response){
 
@@ -134,7 +135,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService'
         })
     };
 
-    $scope.uploadParcelResource = uploadResourceService.uploadParcelResource();
+    $scope.uploadParcelResource = uploadResourceService.uploadParcelResource;
 
     $scope.addRelationshipModal = function() {
         $mdDialog.show({

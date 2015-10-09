@@ -1,7 +1,8 @@
 var app = angular.module("app");
 
 
-app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService', 'utilityService','$rootScope', '$mdDialog', function($scope, $state, $stateParams, dataService, utilityService, $rootScope, $mdDialog){
+app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService', 'utilityService','$rootScope', '$mdDialog', 'ckanId', 'cadastaProject',
+    function($scope, $state, $stateParams, dataService, utilityService, $rootScope, $mdDialog, ckanId, cadastaProject){
 
     if($state.current.name !== "tabs.resources") {
         return;
@@ -9,7 +10,7 @@ app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService'
 
     $rootScope.$broadcast('tab-change', {tab: 'Resources'}); // notify breadcrumbs of tab on page load
 
-    var promise = dataService.getAllResources();
+    var promise = dataService.getProjectResources(cadastaProject.id);
 
     promise.then(function(response){
         $scope.allResources = response;

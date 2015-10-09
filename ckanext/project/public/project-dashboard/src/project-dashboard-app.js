@@ -149,7 +149,33 @@ var app = angular.module("app",
       reloadOnSearch: false,
       deepStateRedirect: dsrCb,
       paramsMap:[{key:'id'}, {key:'map', defaultValue: '(0,0,0)'}],
-      sticky:true
+      sticky:true,
+      resolve: {
+        ckanId: function ($window) {
+
+          return $window.location.pathname.split('/')[2];
+        },
+        cadastaProject: function ($q, $window, dataService) {
+
+          var ckanId = $window.location.pathname.split('/')[2];
+
+          var deferred = $q.defer();
+
+          var promise = dataService.getCadastaProject(ckanId);
+
+          promise.then(function(response){
+            deferred.resolve(response);
+          },function(err){
+            console.error(err);
+            deferred.reject(err);
+
+          });
+
+          return deferred.promise;
+
+        }
+      }
+
 
     });
 

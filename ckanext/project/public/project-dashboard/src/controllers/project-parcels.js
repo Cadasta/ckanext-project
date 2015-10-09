@@ -55,7 +55,7 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
         }
     ];
 
-    var promise = parcelService.parcelsGet();
+    var promise = parcelService.getProjectParcels(cadastaProject.id);
 
     promise.then(function (response) {
 
