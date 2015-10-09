@@ -3,8 +3,9 @@ from ckan.plugins import toolkit
 from ckan.logic.schema import group_form_schema, default_group_schema
 from ckan.lib.plugins import DefaultOrganizationForm
 
+from ckanext.project.logic.validators import if_empty_generate_uuid
+
 import logging
-import uuid
 
 
 log = logging.getLogger(__name__)
@@ -44,16 +45,6 @@ class CadastaOrganization(plugins.SingletonPlugin, DefaultOrganizationForm):
             'cadasta_id': [convert_from_extras, ignore_missing, unicode],
         })
         return schema
-
-
-def if_empty_generate_uuid(value):
-    """
-    Generate a uuid for early so that it may be
-    copied into the name field.
-    """
-    if not value or value is toolkit.missing:
-        return str(uuid.uuid4())
-    return value
 
 
 def create_cadasta_organization(key, data, errors, context):
