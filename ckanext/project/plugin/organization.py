@@ -65,10 +65,8 @@ def create_cadasta_organization(key, data, errors, context):
                                                                    data_dict)
         data['cadasta_id', ] = result['cadasta_organization_id']
         convert_to_extras(('cadasta_id',), data, errors, context)
-
     except KeyError, e:
-        log.error('Error calling cadasta api: {0}').format(e.message)
+        log.error('Error calling cadasta api action: {0}').format(e.message)
     except toolkit.ValidationError, e:
-        error = 'Error contacting cadasta api: {0}'
-        e.error_dict['message'] = error.format(e.error_dict['message'])
+        e.error_summary['cadasta_api'] = 'Error contacting cadasta api'
         raise e
