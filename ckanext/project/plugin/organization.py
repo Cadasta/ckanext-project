@@ -3,8 +3,14 @@ from ckan.plugins import toolkit
 from ckan.logic.schema import group_form_schema, default_group_schema
 from ckan.lib.plugins import DefaultOrganizationForm
 
+import logging
+import uuid
+
+
+log = logging.getLogger(__name__)
 
 ignore_missing = toolkit.get_validator('ignore_missing')
+not_missing = toolkit.get_validator('not_missing')
 convert_to_extras = toolkit.get_validator('convert_to_extras')
 convert_from_extras = toolkit.get_validator('convert_from_extras')
 
@@ -21,9 +27,11 @@ class CadastaOrganization(plugins.SingletonPlugin, DefaultOrganizationForm):
     def form_to_db_schema(self, group_type=None):
         schema = group_form_schema()
         schema.update({
+            'id': [if_empty_generate_uuid],
             'orgURL': [ignore_missing, unicode, convert_to_extras],
             'contact': [ignore_missing, unicode, convert_to_extras],
             'ona_api_token': [ignore_missing, unicode, convert_to_extras],
+            '__after': [create_cadasta_organization],
         })
         return schema
 
@@ -33,5 +41,43 @@ class CadastaOrganization(plugins.SingletonPlugin, DefaultOrganizationForm):
             'orgURL': [convert_from_extras, ignore_missing, unicode],
             'contact': [convert_from_extras, ignore_missing, unicode],
             'ona_api_token': [convert_from_extras, ignore_missing, unicode],
+            'cadasta_id': [convert_from_extras, ignore_missing, unicode],
         })
         return schema
+
+
+def if_empty_generate_uuid(value):
+    """
+    Generate a uuid for early so that it may be
+    copied into the name field.
+    """
+    if not value or value is toolkit.missing:
+        return str(uuid.uuid4())
+    return value
+
+
+def create_cadasta_organization(key, data, errors, context):
+    '''call cadasta_create_organization and save the id returned'''
+    data_dict = {
+        'ckan_id': data['id', ],
+        'ckan_title': data['title', ],
+        'ckan_description': data.get(('description',), '')
+    }
+    context = {
+        'model': context['model'],
+        'session': context['session'],
+        'user': context['user'],
+    }
+
+    try:
+        result = toolkit.get_action('cadasta_create_organization')(context,
+                                                                   data_dict)
+        data['cadasta_id', ] = result['cadasta_organization_id']
+        convert_to_extras(('cadasta_id',), data, errors, context)
+
+    except KeyError, e:
+        log.error('Error calling cadasta api: {0}').format(e.message)
+    except toolkit.ValidationError, e:
+        error = 'Error contacting cadasta api: {0}'
+        e.error_dict['message'] = error.format(e.error_dict['message'])
+        raise e
