@@ -1,14 +1,1 @@
 {% extends "project/read_base.html" %}
-
-{% set pkg = c.pkg_dict %}
-
-{% block breadcrumb_content %}
-{{ super() }}
-<li><div class="icon-lnr-chevron-right"></div></li>
-<a class='active' href="/dataset/{{c.id}}">Project Overview</a>
-{% endblock %}
-
-
-{% block primary_content_inner %}
-{% endblock %}
-

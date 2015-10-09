@@ -44,6 +44,7 @@ class projectController(PackageController):
 
         try:
             pkg_dict = get_action('package_create')(context, data_dict)
+
         except ValidationError as e:
             errors = e.error_dict
             error_summary = e.error_summary

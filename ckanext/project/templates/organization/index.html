@@ -10,27 +10,19 @@
 {% block page_header %}{% endblock %}
 
 {% block page_primary_action %}
-
-
-
 <div class="add-project-header">
     <div class="add-org">
+        <!-- TODO ADD PERMISSIONING FOR ADDING ORGANIZATIONS-->
         {% link_for _('Add Organization'), controller='organization', action='new', class_='cadasta-button' %}    </div>
 
-    <form {% if form_id %}id="{{ form_id }}" {% endif %}class="left search-form{% if no_bottom_border %} no-bottom-border{% endif %}" method="get" data-module="select-switch">
+        <form {% if form_id %}id="{{ form_id }}" {% endif %}class="left search-form{% if no_bottom_border %} no-bottom-border{% endif %}" method="get" data-module="select-switch">
 
+            {% block organizations_search_form %}
+            {% snippet 'snippets/search_form.html', form_id='organization-search-form', type='organization', query=c.q, sorting_selected=c.sort_by_selected, count=c.page.item_count, placeholder=_('Search organizations...'), show_empty=request.params, no_bottom_border=true if c.page.items %}
+            {% endblock %}
 
-        {% block organizations_search_form %}
-        {% snippet 'snippets/search_form.html', form_id='organization-search-form', type='organization', query=c.q, sorting_selected=c.sort_by_selected, count=c.page.item_count, placeholder=_('Search organizations...'), show_empty=request.params, no_bottom_border=true if c.page.items %}
-        {% endblock %}
-
-
-    </form>
+        </form>
 </div>
-
-
-
-
 {% endblock %}
 
 {% block primary_content_inner %}

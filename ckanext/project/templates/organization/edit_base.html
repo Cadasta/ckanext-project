@@ -7,19 +7,18 @@
 {% block breadcrumb_content %}
 <li><div class="icon-lnr-chevron-right arrow-right ckan"></div></li>
 <li>{% link_for _('Organizations'), controller='organization', action='index' %}</li>
-{% block breadcrumb_content_inner %}
-<li><div class="icon-lnr-chevron-right arrow-right ckan"></div></li>
-<li>{% link_for organization.display_name|truncate(35), controller='organization', action='read', id=organization.name %}</li>
-<li><div class="icon-lnr-chevron-right arrow-right ckan"></div></li>
-<li class="active">{% link_for _('Manage'), controller='organization', action='edit', id=organization.name %}</li>
-{% endblock %}
+    {%  block breadcrumb_content_inner %}
+    <li><div class="icon-lnr-chevron-right arrow-right ckan"></div></li>
+    <li>{% link_for organization.display_name|truncate(35), controller='organization', action='read', id=organization.name %}</li>
+    <li><div class="icon-lnr-chevron-right arrow-right ckan"></div></li>
+    <li class="active">{% link_for _('Manage'), controller='organization', action='edit', id=organization.name %}</li>
+    {% endblock %}
 {% endblock %}
 
 {% block content_action %}
 {% if organization and h.check_access('organization_update', {'id': organization.id}) %}
 <div class="new-addition-title">EDIT ORGANIZATION DETAILS</div>
 {% endif %}
-
 
 {% endblock %}
 
@@ -34,5 +33,4 @@
 {% endblock %}
 
 {% block links %}
-<!--{{ super() }}-->
 {% endblock %}
