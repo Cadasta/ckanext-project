@@ -34,5 +34,8 @@
 }
 
 #breadcrumb .active {
-    color: #2d3644;
+    font-weight: 600;
+    color: #8b8b8b;
+    cursor: default;
 }
+

@@ -53,7 +53,7 @@
               "color": "#e54573",
               "stroke": "#e54573",
               "stroke-width": 1,
-              "fill-opacity":1,
+              "fill-opacity":.8,
               "stroke-opacity":.8
           };
 
@@ -79,7 +79,7 @@
 
 
               $scope.overviewData.features[0].properties.parcels.forEach(function(parcel) {
-                  var popup_content = "Parcel " + parcel.properties.id + " -- See Full Details";
+                  var popup_content = '<h3>Parcel ' + parcel.properties.id + '</h3><a href="#/parcels/' + parcel.properties.id + '"> See Full Details</a>';
                   var parcelToAdd = L.geoJson(parcel.geometry, {style:parcelStyle});
                   parcelToAdd.bindPopup(popup_content);
                   parcelToAdd.addTo(map);

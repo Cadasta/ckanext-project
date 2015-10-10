@@ -1,0 +1,25 @@
+
+
+
+{% extends "page.html" %}
+
+{% block subtitle %}{{ _('Logged Out') }}{% endblock %}
+
+{% block breadcrumb_content %}
+<li><div class="icon-lnr-chevron-right arrow-right ckan"></div></li>
+<!--TODO this is redirecting to a random controller to get the breadcrumb correct-->
+<li class="active">{{ h.nav_link(_('Logged Out'), controller='user', action='register') }}</li>
+{% endblock %}
+
+<h1 class="page-heading">{% block page_heading %}{{ _('Logged Out') }}{% endblock %}
+
+{% block primary_content %}
+<div class="login-block">
+    <h3 class="user-headers">LOGGED OUT</h3>
+    <p>You are now logged out</p>
+</div>
+{% endblock %}
+
+{% block secondary_content %}
+
+{% endblock %}

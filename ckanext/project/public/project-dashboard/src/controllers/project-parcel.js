@@ -84,9 +84,19 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService'
             v.relationship_type = 'own' ? 'Owner' : v.relationship_type;
         });
 
+        var parcelStyle = {
+            "color": "#e54573",
+            "stroke": "#e54573",
+            "stroke-width": 1,
+            "fill-opacity":.8,
+            "stroke-opacity":.8
+        };
+
+
+
         // If there are any parcels, load the map and zoom to parcel
         if(response.geometry) {
-            var layer = L.geoJson(response).addTo(map);
+            var layer = L.geoJson(response, {style:parcelStyle}).addTo(map);
             map.fitBounds(layer.getBounds());
         } else {
             map.setView([lat,lng],zoom);
