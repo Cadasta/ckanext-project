@@ -39,24 +39,7 @@ var app = angular.module("app",
         'breadcrumbs@': { controller:'breadcrumbsCtrl', templateUrl: '/project-dashboard/src/partials/breadcrumbs.html' },
         'projectHeader@': { controller:'headerCtrl', templateUrl: '/project-dashboard/src/partials/projectHeader.html' },
         'tabs@': {  controller:'tabsCtrl', templateUrl: '/project-dashboard/src/partials/tabs.html' }
-      }});
-
-    // Child State
-    states.push({
-      name: 'tabs.overview',
-      url: 'overview?map',
-      views: {
-        'overviewtab': {controller: 'overviewCtrl', templateUrl: '/project-dashboard/src/partials/overview.html'}
       },
-      paramsMap:[{key:'map', defaultValue: '(0,0,0)'}],
-
-      onEnter: function($state, $stateParams, mapUtilityService){
-
-        $stateParams.map = mapUtilityService.validateMapParam($stateParams.map);
-      },
-      reloadOnSearch: false,
-      deepStateRedirect: dsrCb,
-      sticky: true,
       resolve: {
         ckanId: function ($window) {
 
@@ -81,7 +64,24 @@ var app = angular.module("app",
           return deferred.promise;
 
         }
-      }
+      }});
+
+    // Child State
+    states.push({
+      name: 'tabs.overview',
+      url: 'overview?map',
+      views: {
+        'overviewtab': {controller: 'overviewCtrl', templateUrl: '/project-dashboard/src/partials/overview.html'}
+      },
+      paramsMap:[{key:'map', defaultValue: '(0,0,0)'}],
+
+      onEnter: function($state, $stateParams, mapUtilityService){
+
+        $stateParams.map = mapUtilityService.validateMapParam($stateParams.map);
+      },
+      reloadOnSearch: false,
+      deepStateRedirect: dsrCb,
+      sticky: true
     });
 
     // Child State
@@ -105,32 +105,7 @@ var app = angular.module("app",
           templateUrl: '/project-dashboard/src/partials/parcelList.html', }
       },
       sticky:true,
-      deepStateRedirect: true,
-      resolve: {
-        ckanId: function ($window) {
-
-          return $window.location.pathname.split('/')[2];
-        },
-        cadastaProject: function ($q, $window, dataService) {
-
-          var ckanId = $window.location.pathname.split('/')[2];
-
-          var deferred = $q.defer();
-
-          var promise = dataService.getCadastaProject(ckanId);
-
-          promise.then(function(response){
-            deferred.resolve(response);
-          },function(err){
-            console.error(err);
-            deferred.reject(err);
-
-          });
-
-          return deferred.promise;
-
-        }
-      }
+      deepStateRedirect: true
     });
 
     // Grandchild State
@@ -194,32 +169,7 @@ var app = angular.module("app",
       },
       reloadOnSearch: false,
       deepStateRedirect: dsrCb,
-      sticky: true,
-      resolve: {
-        ckanId: function ($window) {
-
-          return $window.location.pathname.split('/')[2];
-        },
-        cadastaProject: function ($q, $window, dataService) {
-
-          var ckanId = $window.location.pathname.split('/')[2];
-
-          var deferred = $q.defer();
-
-          var promise = dataService.getCadastaProject(ckanId);
-
-          promise.then(function(response){
-            deferred.resolve(response);
-          },function(err){
-            console.error(err);
-            deferred.reject(err);
-
-          });
-
-          return deferred.promise;
-
-        }
-      }
+      sticky: true
     });
 
 
@@ -231,32 +181,7 @@ var app = angular.module("app",
         'activitytab': {  controller:'activityCtrl', templateUrl: '/project-dashboard/src/partials/project_activity.html' }
       },
       deepStateRedirect: dsrCb,
-      sticky: true,
-      resolve: {
-        ckanId: function ($window) {
-
-          return $window.location.pathname.split('/')[2];
-        },
-        cadastaProject: function ($q, $window, dataService) {
-
-          var ckanId = $window.location.pathname.split('/')[2];
-
-          var deferred = $q.defer();
-
-          var promise = dataService.getCadastaProject(ckanId);
-
-          promise.then(function(response){
-            deferred.resolve(response);
-          },function(err){
-            console.error(err);
-            deferred.reject(err);
-
-          });
-
-          return deferred.promise;
-
-        }
-      }
+      sticky: true
     });
 
 
@@ -268,32 +193,7 @@ var app = angular.module("app",
         'resourcetab': { controller:'resourceCtrl', templateUrl: '/project-dashboard/src/partials/project_resources.html' }
       },
       deepStateRedirect: dsrCb,
-      sticky: true,
-      resolve: {
-        ckanId: function ($window) {
-
-          return $window.location.pathname.split('/')[2];
-        },
-        cadastaProject: function ($q, $window, dataService) {
-
-          var ckanId = $window.location.pathname.split('/')[2];
-
-          var deferred = $q.defer();
-
-          var promise = dataService.getCadastaProject(ckanId);
-
-          promise.then(function(response){
-            deferred.resolve(response);
-          },function(err){
-            console.error(err);
-            deferred.reject(err);
-
-          });
-
-          return deferred.promise;
-
-        }
-      }
+      sticky: true
     });
 
     // Child State for activity list

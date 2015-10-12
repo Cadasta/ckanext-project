@@ -164,3 +164,11 @@ li.activity-block {
     padding-right:28px;
     float:right;
 }
+
+.leaflet-top.leaflet-left {
+    z-index: 50;
+}
+
+.leaflet-bottom.leaflet-right {
+    z-index: 50;
+}

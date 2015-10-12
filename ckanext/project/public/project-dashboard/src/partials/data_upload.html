@@ -18,21 +18,19 @@
                         <p>Freegan lo-fi meggings, tofu Intelligentsia sriracha letterpress organic street art VHS put a
                             bird on it wolf chillwave. Twee XOXO church-key, typewriter listicle YOLO dreamcatcher
                             normcore Banksy Kickstarter freegan fanny pack Shoreditch. Squid deep v raw denim High Life
-                            cray, letterpress chambray typewriter Helvetica butcher biodiesel pour-over XOXO trust fund.
-                            Mixtape readymade typewriter drinking vinegar letterpress American Apparel, kale chips
-                            Carles 90's mumblecore direct trade aesthetic gastropub 8-bit pug.
                         </p>
                         <br><br>
                     </div>
 
 
-                    <div>
-                        <form id="S3_Form" action="." method="POST" enctype="multipart/form-data">
-                            <input type="file" name="filedata">
-                            <br>
-                            <button type="submit" ng-click="uploadParcelResource" class="grey-btn">Upload file and import</button>
-                        </form>
-                    </div>
+                    <input type="file" nv-file-select uploader="uploader"/><br/>
+                    <ul>
+                        <li ng-repeat="item in uploader.queue">
+                            Name: <span ng-bind="item.file.name"></span><br/>
+                            <button class="grey-btn" ng-click="item.upload()">Upload Resource</button>
+                        </li>
+                    </ul>
+
                 </div>
 
 

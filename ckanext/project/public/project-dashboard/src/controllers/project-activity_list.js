@@ -3,7 +3,6 @@ var app = angular.module("app");
 
 app.controller("activityCtrl", ['$scope', '$state', '$stateParams','dataService', 'utilityService', '$rootScope', 'ckanId', 'cadastaProject',
     function($scope, $state, $stateParams, dataService, utilityService,$rootScope,ckanId, cadastaProject){
-
     if($state.current.name !== "tabs.activity") {
         return;
     }

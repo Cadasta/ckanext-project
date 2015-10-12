@@ -1,9 +1,9 @@
 var app = angular.module("app");
 
 
-app.controller("headerCtrl", ['$scope', '$rootScope','$state', '$stateParams','$location', 'dataService','paramService', function($scope, $rootScope,$state, $stateParams, $location, dataService, paramService) {
+app.controller("headerCtrl", ['$scope', '$rootScope','$state', '$stateParams','$location', 'dataService','paramService','ckanId','cadastaProject', function($scope, $rootScope,$state, $stateParams, $location, dataService, paramService, ckanId, cadastaProject) {
 
-    $scope.projectTitle = 'example project title';
-    $scope.projectId = 'demo-project';
+    $scope.projectTitle = cadastaProject.title;
+    $scope.projectId = ckanId;
 
 }]);
