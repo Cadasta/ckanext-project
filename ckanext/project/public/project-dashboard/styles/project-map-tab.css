@@ -38,3 +38,21 @@
     position: relative;
     top: 11px;
 }
+
+.material-icons.arrow-forward {
+    position: absolute;
+    padding: 0 0 0 5px;
+    font-size: 21px;
+}
+
+.leaflet-popup-content {
+    min-width: 130px;
+    width:auto;
+}
+
+
+
+
+/*.leaflet-zoom-animated path {*/
+/*fill-opacity: .2;*/
+/*}*/

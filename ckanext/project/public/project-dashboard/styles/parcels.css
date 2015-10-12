@@ -78,13 +78,20 @@
     display: inline-block;
     text-transform: uppercase;
     cursor: pointer;
+    padding-left:0;
 }
 
 #parcelDetails .back-link {
     font-weight: 700;
-    margin: -5px 0 0 7px;
+    margin: -5px 0 0 35px;
     line-height: 45px;
     font-size: 12px;
+}
+
+.back-link .material-icons.back_space {
+    margin-top: 10px !important;
+    margin-left: -28px !important;
+    position: absolute !important;
 }
 
 #parcelDetails .parcel-dropdown {
@@ -272,3 +279,17 @@
     line-height: 36px; }
 .inputdemoBasicUsage .md-datepicker-input-container {
     margin-left: 2px; }
+
+
+.add-relationship .text {
+    padding: 24px 20px 0 40px
+    margin: auto;
+}
+
+.add-relationship md-input-container {
+    width:auto;
+}
+
+.add-relationship .small-heading {
+    padding-left:0;
+}

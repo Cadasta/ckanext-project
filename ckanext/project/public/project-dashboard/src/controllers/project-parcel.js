@@ -1,4 +1,4 @@
-app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService','$rootScope','paramService', 'utilityService', 'uploadResourceService', '$mdDialog', function($scope, $state, $stateParams, parcelService,$rootScope,paramService, utilityService, uploadResourceService, $mdDialog){
+app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService','$rootScope','paramService', 'utilityService', 'uploadResourceService', '$mdDialog','FileUploader', 'ENV','ckanId','cadastaProject', function($scope, $state, $stateParams, parcelService,$rootScope,paramService, utilityService, uploadResourceService, $mdDialog, FileUploader, ENV, ckanId, cadastaProject){
 
     var mapStr = $stateParams.map;
 
@@ -125,71 +125,77 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService'
     });
 
 
-    $scope.showAdvanced = function() {
-        $mdDialog.show({
-            controller: DialogController,
-            templateUrl: '/project-dashboard/src/partials/data_upload.html',
-            parent: angular.element(document.body),
-            clickOutsideToClose:true
-        })
-    };
 
-    $scope.uploadParcelResource = uploadResourceService.uploadParcelResource();
-
-    $scope.addRelationshipModal = function() {
+    $scope.addRelationshipModal = function(ev) {
         $mdDialog.show({
-            controller: addResourceCtrl,
+            scope: $scope,
             templateUrl: '/project-dashboard/src/partials/add_relationship.html',
             parent: angular.element(document.body),
             clickOutsideToClose:true
         })
     };
 
-    $scope.user = {
-        title: 'Developer',
-        email: 'ipsum@lorem.com',
-        firstName: '',
-        lastName: '' ,
-        company: 'Google' ,
-        address: '1600 Amphitheatre Pkwy' ,
-        city: 'Mountain View' ,
-        state: 'CA' ,
-        biography: 'Loves kittens, snowboarding, and can type at 130 WPM.\n\nAnd rumor has it she bouldered up Castle Craig!',
-        postalCode : '94043'
+
+    $scope.showAdvanced = function(ev) {
+
+        $mdDialog.show({
+            scope: $scope,
+            templateUrl: '/project-dashboard/src/partials/data_upload.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose:true
+        })
+    };
+
+    $scope.cancel = function() {
+        $mdDialog.cancel();
     };
 
 
-
-}]);
-
-
-app.config( function($mdThemingProvider){
-        // Configure a dark theme with primary foreground yellow
-        $mdThemingProvider.theme('docs-dark', 'default')
-            .primaryPalette('yellow')
-            .dark();
+    $scope.uploader = new FileUploader({
+        alias: 'filedata',
+        //todo - add in dynamic resource upload
+        url: ENV.apiCadastaRoot + '/resources/'+ cadastaProject.id + '/parcel/' + 3
     });
 
 
-function DialogController($scope, $mdDialog) {
-    $scope.hide = function() {
-        $mdDialog.hide();
-    };
-    $scope.cancel = function() {
-        $mdDialog.cancel();
-    };
-}
+    $scope.tenure_types = [
+
+        {
+            type: 'own',
+            label: 'Owned Parcels'
+        },
+        {
+            type: 'lease',
+            label: 'Leased Parcels'
+        },
+        {
+            type: 'occupy',
+            label: 'Occupied Parcels'
+        },
+        {
+            type: 'informal occupy',
+            label: 'Informally Occupied Parcels'
+        }
+    ];
+
+    $scope.acquire_types = [
+
+        {
+            type: 'inheritance'
+        },
+        {
+            type: 'lease'
+        },
+        {
+            type: 'freehold'
+        },
+        {
+            type: 'other'
+        }
+    ];
+
+    $scope.myDate = new Date();
+}]);
 
 
-function addResourceCtrl($scope, $mdDialog) {
-    $scope.hide = function() {
-        $mdDialog.hide();
-    };
-    $scope.cancel = function() {
-        $mdDialog.cancel();
-
-    $scope.tenure_types = ['own', 'lease', 'informal relationship'];
-
-
-    };
-}

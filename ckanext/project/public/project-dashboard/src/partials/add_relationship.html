@@ -2,7 +2,7 @@
 
     <form>
         <md-dialog-content>
-            <div class="form_upload_content">
+            <div class="form_upload_content add-relationship">
                 <div class="cadasta-modal-header">
                     <div class="small-heading">
                         Add Relationship
@@ -30,26 +30,53 @@
                                     <div layout layout-sm="column">
                                         <md-input-container flex>
                                             <label>First name</label>
-                                            <input ng-model="user.firstName">
+                                            <input ng-model="relationship.firstName">
                                         </md-input-container>
                                         <md-input-container flex>
                                             <label>Last Name</label>
-                                            <input ng-model="theMax">
+                                            <input ng-model="relationship.lastName">
+                                        </md-input-container>
+                                        <span class="text">OR</span>
+                                        <md-input-container flex>
+                                            <label>Group Name</label>
+                                            <input ng-model="relationship.groupName">
                                         </md-input-container>
                                     </div>
                                     <md-input-container>
                                         <label>Tenure Type</label>
-                                        <md-select ng-model="ctrl.userState">
-                                            <md-option ng-repeat="t in tenure_types" value="{{t}}">
-                                                {{t}}
-                                            </md-option>
-                                            <md-option  value="own">
-                                                own {{tenure_types}}
+                                        <md-select ng-model="relationship.tenure_type">
+                                            <md-option ng-repeat="t in tenure_types" value="{{t.type}}">
+                                                {{t.label}}
                                             </md-option>
                                         </md-select>
                                     </md-input-container>
+                                    <md-input-container>
+                                        <label>How was the parcel acquired?</label>
+                                        <md-select ng-model="relationship.acquire_type">
+                                            <md-option ng-repeat="t in acquire_types" value="{{t.type}}">
+                                                {{t.type}}
+                                            </md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                    <div> Date of Parcel Acquisition</div>
+                                    <md-datepicker ng-model="relationship.acquisition_date" md-placeholder="Enter date"></md-datepicker>
+                                    <br><br>
                                 </form>
                             </md-content>
+
+                            <div class="small-heading">
+                                Add Relationship Resources
+                            </div><br>
+
+                            <!-- Add resources to a new relationship-->
+                            <input type="file" nv-file-select uploader="uploader"/><br/>
+                            <ul>
+                                <li ng-repeat="item in uploader.queue">
+                                    Name: <span ng-bind="item.file.name"></span><br/>
+                                    <button class="grey-btn" ng-click="item.upload()">Upload Relationship Resource</button>
+                                </li>
+                            </ul>
+
                         </div>
                     </div>
                 </div>

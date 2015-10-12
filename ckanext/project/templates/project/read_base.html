@@ -1,5 +1,6 @@
 {% extends 'page.html' %}
 
+{% block breadcrumb_content_selected %} class="active"{% endblock %}
 
 {% block main_content %}
         <div ng-app="app" >
@@ -8,7 +9,7 @@
             <div ui-view="tabs"></div>
         </div>
     </div>
-<!--extra tags are needed to keep footer seperate from main body (mismatch in page.html todo)-->
+<!--extra tags are needed to keep footer separate from main body (mismatch in page.html todo)-->
 </div>
 {% endblock %}
 
@@ -24,7 +25,7 @@
 <script type="text/javascript" src="../vendor/angular-file-upload/dist/angular-file-upload.min.js"></script>
 
 
-<script type="text/javascript" src="../../build/project-dashboard-app.min.js?rel=1444435261131"></script>
+<script type="text/javascript" src="../../build/project-dashboard-app.min.js?rel=1444690512261"></script>
 
 {% endblock %}
 
@@ -33,7 +34,7 @@
 <link href='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.css' rel='stylesheet' />
 <link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.2/leaflet.draw.css' rel='stylesheet' />
 <link href='../vendor/angular-material/angular-material.css' rel='stylesheet' />
-<link href='../build/project-dashboard-app.min.css?rel=1444435261131' rel='stylesheet' />
+<link href='../build/project-dashboard-app.min.css?rel=1444690512261' rel='stylesheet' />
 
 
 {% endblock %}

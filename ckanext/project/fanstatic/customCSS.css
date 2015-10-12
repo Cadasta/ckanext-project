@@ -1310,7 +1310,7 @@ input[type="text"].register-input :focus {
 }
 
 #org-list {
-    max-height: 500px;
+    /*max-height: 500px;*/
     overflow: auto;
 }
 

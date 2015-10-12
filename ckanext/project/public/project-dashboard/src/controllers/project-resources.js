@@ -1,13 +1,14 @@
 var app = angular.module("app");
 
 
-app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService', 'utilityService','$rootScope', '$mdDialog', function($scope, $state, $stateParams, dataService, utilityService, $rootScope, $mdDialog){
+app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService', 'utilityService','$rootScope', '$mdDialog','FileUploader', 'ENV','ckanId','cadastaProject', function($scope, $state, $stateParams, dataService, utilityService, $rootScope, $mdDialog, FileUploader, ENV, ckanId, cadastaProject){
 
     if($state.current.name !== "tabs.resources") {
         return;
     }
 
     $rootScope.$broadcast('tab-change', {tab: 'Resources'}); // notify breadcrumbs of tab on page load
+
 
     var promise = dataService.getAllResources();
 
@@ -67,10 +68,18 @@ app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService'
 
     $scope.status = '  ';
 
+    $scope.uploader = new FileUploader({
+        alias: 'filedata',
+        //todo - add in dynamic resource upload
+        url: ENV.apiCadastaRoot + '/resources/'+ cadastaProject.id + '/parcel/' + 3
+    });
+
 
     $scope.showAdvanced = function(ev) {
+
         $mdDialog.show({
-            controller: DialogController,
+            //controller: "resourceCtrl",
+            scope: $scope,
             templateUrl: '/project-dashboard/src/partials/data_upload.html',
             parent: angular.element(document.body),
             targetEvent: ev,
@@ -78,19 +87,12 @@ app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService'
         })
     };
 
-}]);
-
-function DialogController($scope, $mdDialog) {
-    $scope.hide = function() {
-        $mdDialog.hide();
-    };
     $scope.cancel = function() {
         $mdDialog.cancel();
     };
-    $scope.answer = function(answer) {
-        $mdDialog.hide(answer);
-    };
-}
+
+}]);
+
 
 
 // custom tenure type filter
