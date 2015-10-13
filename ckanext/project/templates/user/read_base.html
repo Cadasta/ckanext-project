@@ -12,18 +12,18 @@
 {% endblock %}
 
 {% block content_action %}
-{% if h.check_access('user_update', user) %}
-{% link_for _('Manage'), controller='user', action='edit', id=user.name, class_='btn', icon='wrench' %}
-{% endif %}
+<!--{% if h.check_access('user_update', user) %}-->
+<!--{% link_for _('Manage'), controller='user', action='edit', id=user.name, class_='btn', icon='wrench' %}-->
+<!--{% endif %}-->
 {% endblock %}
 
 {% block content_primary_nav %}
-{{ h.build_nav('user_datasets', _('Projects'), id=user.name) }}
-{{ h.build_nav('user_activity_stream', _('Activity Stream'), id=user.name) }}
+<!--{{ h.build_nav('user_datasets', _('Projects'), id=user.name) }}-->
+<!--{{ h.build_nav('user_activity_stream', _('Activity Stream'), id=user.name) }}-->
 {% endblock %}
 
-{% block secondary_content %}
-<div class="module context-info">
+{% block primary_content %}
+<div class="module context-info userpage">
     <section class="module-content">
         {% block secondary_content_inner %}
         {% block user_image %}
@@ -98,5 +98,36 @@
         </div>
         {% endblock %}
     </section>
+</div>
+{% endblock %}
+
+{% block secondary_content %}
+
+<div class='overview-background org-projects userpage'>
+    <span class="small-heading">PROJECTS</span>
+    <a href="/project/new"><span class="cadasta-round-button right" ng-click="route_add_project()">ADD PROJECT</span></a>
+
+    <table id="project-table-header">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Last Updated</th>
+        </tr>
+        </thead>
+    </table>
+
+    <div id="projectList">
+        <table>
+            <tbody>
+            <tr class="row-link">
+
+                <td><a href="/project/PROJECT NAE">PROJECT NAME</a></td>
+                <td>PROJECT DESCRIPTION</td>
+                <td>LAST UPDATED</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 {% endblock %}
