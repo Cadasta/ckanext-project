@@ -33,6 +33,18 @@ body {
     box-shadow: none;
 }
 
+.project-block {
+    display: inline-block;
+    text-align:left;
+    background-color:white;
+    font-size:10px;
+    border: none;
+    text-align:top;
+    vertical-align:top;
+    overflow:auto;
+}
+
+
 #summary-stats {
     height: 200px;
 }
@@ -885,6 +897,10 @@ input[type="text"].register-input :focus {
     margin: 30px 20px 0 0;
 }
 
+.control-label[for="field-image-upload"] {
+    float: none;
+}
+
 .controls.editor {
     width: 85%;
     margin: 0 auto;
@@ -924,7 +940,9 @@ input[type="text"].register-input :focus {
     margin: 0 0 9px 64px;
 }
 
-
+#organization-edit-form {
+    margin-left:64px;
+}
 
 .controls #field-name {
     width: 98%

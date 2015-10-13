@@ -1,8 +1,19 @@
 from ckan.plugins import toolkit as tk
+from ckan.plugins import toolkit
 from ckan.model import PACKAGE_NAME_MAX_LENGTH, PACKAGE_NAME_MIN_LENGTH
+
+import logging
+import uuid
+
+
+log = logging.getLogger(__name__)
 
 _ = tk._
 Invalid = tk.Invalid
+
+
+convert_to_extras = toolkit.get_validator('convert_to_extras')
+convert_from_extras = toolkit.get_validator('convert_from_extras')
 
 
 def convert_package_name_or_id_to_id_for_type(package_name_or_id, context, package_type='dataset'):
@@ -64,3 +75,53 @@ def project_name_validator(key, data, errors, context):
         errors['title',].append(
             _('Name "%s" length is more than maximum %s') % (value, PACKAGE_NAME_MAX_LENGTH)
         )
+
+
+def if_empty_generate_uuid(value):
+    """
+    Generate a uuid for early so that it may be
+    copied into the name field.
+    """
+    if not value or value is tk.missing:
+        return str(uuid.uuid4())
+    return value
+
+
+def create_cadasta_project(key, data, errors, context):
+    '''This validator makes a call to the external cadasta api.
+
+    This calls cadasta_create_project and makes an external call and saves
+    the returned project id into an extra cadasta_project_id
+    '''
+    # if there are validation errors, do not make a call to cadasta api
+    for error in errors.values():
+        if error:
+            return
+
+    organization = toolkit.get_action('organization_show')(
+        context,
+        {'id': data['owner_org', ]}
+    )
+
+    data_dict = {
+        'ckan_id': data['id', ],
+        'ckan_title': data['title', ],
+        'cadasta_organization_id': organization.get('cadasta_id', '')
+    }
+    context = {
+        'model': context['model'],
+        'session': context['session'],
+        'user': context['user'],
+    }
+
+    try:
+        result = toolkit.get_action('cadasta_create_project')(context,
+                                                              data_dict)
+        data['cadasta_id', ] = result['cadasta_project_id']
+        convert_to_extras(('cadasta_id',), data, errors, context)
+
+    except KeyError, e:
+        log.error('Error calling cadasta api action: {0}').format(e.message)
+    except toolkit.ValidationError, e:
+        e.error_summary['cadasta_api'] = 'Error contacting cadasta api'
+        raise e
