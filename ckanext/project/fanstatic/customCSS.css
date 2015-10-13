@@ -1281,6 +1281,7 @@ input[type="text"].register-input :focus {
     color: #dcdfe1;
     position: relative;
     bottom: 1px;
+    width:auto;
 }
 
 /*org list page*/
