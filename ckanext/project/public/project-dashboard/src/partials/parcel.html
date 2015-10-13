@@ -107,7 +107,7 @@
                     <tbody>
                     <tr ng-repeat="ph in parcel_history">
                         <td>{{ph.description}}</td>
-                        <td>{{ph.time_created}}</td>
+                        <td>{{ph.properties.time_created}}</td>
                         <td>View Map</td>
                     </tr>
                     </tbody>
@@ -162,7 +162,7 @@
                         <tr ng-repeat="ph in relationships">
                             <td>{{ph.first_name}} {{ph.last_name}}</td>
                             <td>{{ph.relationship_type}}</td>
-                            <td>{{ph.time_created}}</td>
+                            <td>{{ph.properties.time_created}}</td>
                             <td>View Map</td>
                         </tr>
                         </tbody>

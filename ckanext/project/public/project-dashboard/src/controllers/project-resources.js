@@ -68,9 +68,9 @@ app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService'
     $scope.status = '  ';
 
     $scope.uploader = new FileUploader({
-        alias: 'filedata',
-        //todo - add in dynamic resource upload
-        url: ENV.apiCadastaRoot + '/resources/'+ cadastaProject.id + '/parcel/' + 3
+        //alias: 'filedata',
+        ////todo - add in dynamic resource upload, this endpoint needs to be updated
+        //url: ENV.apiCadastaRoot + '/resources/'+ cadastaProject.id
     });
 
 

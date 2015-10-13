@@ -60,14 +60,16 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService'
         $scope.parcel.time_created = utilityService.formatDate($scope.parcel.time_created);
         $scope.parcel.time_updated = utilityService.formatDate($scope.parcel.time_created);
 
+        //reformat parcel history dates
         response.properties.parcel_history.forEach(function(val){
-            val.time_created = utilityService.formatDate(val.time_created);
-            val.time_updated = utilityService.formatDate(val.time_updated);
+            val.properties.time_created = utilityService.formatDate(val.properties.time_created);
+            val.properties.time_updated = utilityService.formatDate(val.properties.time_updated);
         });
 
+        //reformat relationship dates
         response.properties.relationships.forEach(function(val){
-            val.time_created = utilityService.formatDate(val.time_created);
-            val.time_updated = utilityService.formatDate(val.time_updated);
+            val.properties.time_created = utilityService.formatDate(val.properties.time_created);
+            val.properties.time_updated = utilityService.formatDate(val.properties.time_updated);
         });
 
         $scope.parcel_history = response.properties.parcel_history;
@@ -82,6 +84,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService'
                 v.showDropDownDetails = false;
             }
 
+
             v.active = v.active ? 'Active' : 'Inactive';
             v.relationship_type = 'own' ? 'Owner' : v.relationship_type;
         });
@@ -93,7 +96,6 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService'
             "fill-opacity":.8,
             "stroke-opacity":.8
         };
-
 
 
         // If there are any parcels, load the map and zoom to parcel
@@ -137,7 +139,6 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService'
         })
     };
 
-    $scope.uploadParcelResource = uploadResourceService.uploadParcelResource();
 
     $scope.showAdvanced = function(ev) {
 
@@ -157,8 +158,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService'
 
     $scope.uploader = new FileUploader({
         alias: 'filedata',
-        //todo - add in dynamic resource upload
-        url: ENV.apiCadastaRoot + '/resources/'+ cadastaProject.id + '/parcel/' + 3
+        url: ENV.apiCadastaRoot + '/resources/'+ cadastaProject.id + '/parcel/' + $stateParams.id
     });
 
 

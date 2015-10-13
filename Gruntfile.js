@@ -18,7 +18,7 @@ module.exports = function(grunt) {
 				constants: {
 					ENV: {
 						name: 'development',
-						apiCadastaRoot: 'http://localhost:5001',
+						apiCadastaRoot: 'http://localhost:9000',
 						apiCKANRoot: 'http://localhost:5000/api/3/action'
 					}
 				}
