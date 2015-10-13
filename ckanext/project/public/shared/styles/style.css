@@ -90,3 +90,7 @@ div.tabcontent {
 .cadasta-round-button:hover {
     background-color: #0d4252;
 }
+
+md-dialog > form {
+    overflow:hidden;
+}
