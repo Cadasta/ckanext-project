@@ -1656,3 +1656,7 @@ label {
     line-height: 20px;
     padding-left:20px;
 }
+
+.control-label[for="field-image-upload"] {
+    float: none;
+}
