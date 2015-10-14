@@ -101,6 +101,14 @@ class projectPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         map.redirect('/projects', '/project',
                       _redirect_code='301 Moved Permanently')
 
+
+
+        # remap login function to projects page rather than activity log
+        # done for demo 10/14
+        map.redirect('/dashboard', '/project')
+
+
+
         with SubMapper(map, controller='ckanext.project.controller:projectController') as m:
             m.connect('project_new', '/project/new', action='new')
             m.connect('project_edit', '/project/edit', action='edit')

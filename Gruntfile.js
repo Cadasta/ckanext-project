@@ -126,7 +126,8 @@ module.exports = function(grunt) {
 						"ckanext/project/public/project-dashboard/src/controllers/breadcrumbs.js",
 						"ckanext/project/public/project-dashboard/src/controllers/field-data.js",
 						"ckanext/project/public/shared/src/directives/sticky-state.js",
-						"ckanext/project/public/shared/src/other_scripts/custom_jquery.js"
+						"ckanext/project/public/shared/src/other_scripts/custom_jquery.js",
+						"ckanext/project/public/project-dashboard/src/other_scripts/custom_jquery.js"
 					]
 				}
 			},
@@ -149,7 +150,9 @@ module.exports = function(grunt) {
 						"ckanext/project/public/organization-dashboard/src/controllers/organization-members.js",
 						"ckanext/project/public/organization-dashboard/src/controllers/breadcrumbs.js",
 						"ckanext/project/public/organization-dashboard/src/directives/sticky-state.js",
-						"ckanext/project/public/shared/src/other_scripts/custom_jquery.js"
+						"ckanext/project/public/shared/src/other_scripts/custom_jquery.js",
+						"ckanext/project/public/organization-dashboard/src/other_scripts/custom_jquery.js"
+
 					]
 				}
 			}

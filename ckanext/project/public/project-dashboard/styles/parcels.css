@@ -293,3 +293,8 @@
 .add-relationship .small-heading {
     padding-left:0;
 }
+
+#parcelFilter .cadasta-round-button.right {
+    left:470px;
+    top:15px;
+}

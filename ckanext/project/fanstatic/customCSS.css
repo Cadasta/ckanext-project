@@ -467,12 +467,10 @@ input[type="text"] {
 
 .header-container span ul li:hover {
     border-bottom: 2px solid white;
-    font-weight: semi-bold;
     text-decoration: none;
 }
 
 .header-container span ul li.active a {
-    font-weight: semi-bold;
     text-decoration: none;
     color:white;
 }
@@ -1659,4 +1657,13 @@ label {
 
 .control-label[for="field-image-upload"] {
     float: none;
+}
+
+.btn.btn-danger.btn-remove-url {
+    background-image: url("/images/url-x.jpg");
+    height: 16px;
+    width: 8px;
+    border-radius: 1;
+    margin-bottom:10px;
+    margin-left:5px;
 }

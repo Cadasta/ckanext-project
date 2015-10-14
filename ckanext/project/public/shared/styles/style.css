@@ -57,7 +57,6 @@ div.tabcontent {
 }
 
 
-
 .pull-right {
     float: right;
     margin-right: 70px;
@@ -85,6 +84,7 @@ div.tabcontent {
     padding: 3px 15px;
     border-radius: 15px;
     font-weight: 600;
+    max-height:28px;
 }
 
 .cadasta-round-button:hover {

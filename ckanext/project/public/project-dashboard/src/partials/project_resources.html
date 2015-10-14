@@ -40,8 +40,8 @@
                     <table>
                         <tbody>
                         <tr ng-repeat="r in allResources.features | resourceType: ResourceTypeModel">
-                            <td>Map 1{{r.properties.properties.name}}</td>
-                            <td>Ground Survey 2015{{r.properties.description}}</td>
+                            <td>{{r.properties.file_name}}</td>
+                            <td>{{r.properties.description}}</td>
                             <td>{{r.properties.time_created}}</td>
                             <td>{{r.properties.type}}</td>
                             <td><a href="{{r.properties.url}}">Download</a></td>

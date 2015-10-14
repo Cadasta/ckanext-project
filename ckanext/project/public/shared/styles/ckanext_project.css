@@ -45,3 +45,7 @@ td.ckanext_project_pagination_footer {
 .module-narrow .nav-item > a {
     word-break: break-word;
 }
+
+.nav-active {
+    border-bottom: 2px solid white;
+}
