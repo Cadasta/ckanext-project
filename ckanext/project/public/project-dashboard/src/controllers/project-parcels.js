@@ -1,7 +1,7 @@
 var app = angular.module("app");
 
-app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelService', '$rootScope', 'utilityService', 'ckanId', 'cadastaProject',
-    function ($scope, $state, $stateParams, parcelService, $rootScope, utilityService, ckanId, cadastaProject) {
+app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelService', '$rootScope', 'utilityService', 'ckanId', 'cadastaProject', '$mdDialog',
+    function ($scope, $state, $stateParams, parcelService, $rootScope, utilityService, ckanId, cadastaProject, $mdDialog) {
 
     $rootScope.$broadcast('tab-change', {tab: 'Parcels'}); // notify breadcrumbs of tab on page load
 
@@ -71,6 +71,20 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
         $scope.overviewData = "Server Error";
     });
 
+
+    $scope.addParcelModal = function(ev) {
+        $mdDialog.show({
+            scope: $scope,
+            templateUrl: '/project-dashboard/src/partials/add_parcel.html',
+            parent: angular.element(document.body),
+            clickOutsideToClose:true
+        })
+    };
+
+
+    $scope.cancel = function() {
+        $mdDialog.cancel();
+    };
 
 
 }]);

@@ -1,6 +1,3 @@
-<!--TODO NOTHING ON THIS PAGE HAS BEEN CHANGED FROM CKAN-->
-<!--TODO USE THIS PAGE TO UPDATE FORM NAMES AND FIELDS-->
-
 {#
 Creates all the markup required for an input element. Handles matching labels to
 inputs, error messages and other useful elements.
@@ -414,10 +411,10 @@ options     - A list/tuple of fields to be used as <options>.
         {% set url_label = url_label or _('Image URL')  %}
         {% set upload_label = upload_label or _('Image')  %}
 
-        {% if is_upload_enabled %}
+
         <div class="image-upload" data-module="image-upload" data-module-is_url="{{ 'true' if is_url else 'false' }}" data-module-is_upload="{{ 'true' if is_upload else 'false' }}"
              data-module-field_url="{{ field_url }}" data-module-field_upload="{{ field_upload }}" data-module-field_clear="{{ field_clear }}" data-module-upload_label="{{ upload_label }}">
-            {% endif %}
+
 
             {{ input(field_url, label=url_label, id='field-image-url', placeholder=placeholder, value=data.get(field_url), error=errors.get(field_url), classes=['control-full']) }}
 

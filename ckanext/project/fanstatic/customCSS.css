@@ -1474,9 +1474,9 @@ input[type="text"].register-input :focus {
 }
 
 
-.cadasta-org-input {
-    padding-top: 30px !important;
-}
+/*.cadasta-org-input {*/
+    /*padding-top: 30px !important;*/
+/*}*/
 
 .js .image-upload #field-image-url {
     max-width: 725px;

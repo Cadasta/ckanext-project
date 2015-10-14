@@ -14,6 +14,13 @@
             <md-option ng-value="s.type" ng-repeat="s in sort_by" ng-click="filterTenureType(s.type)">{{s.label}}</md-option>
         </md-select>
     </md-input-container>
+
+    <md-menu-content width="2">
+        <md-menu-item>
+            <md-button class='cadasta-round-button right' ng-click="addParcelModal()"> Add Parcel </md-button>
+        </md-menu-item>
+    </md-menu-content>
+
 </div>
 </div>
 <table id="parcel-table-header">

@@ -1,0 +1,90 @@
+<md-dialog aria-label="Add Relationship" class="cadasta-modal resources">
+
+    <form>
+        <md-dialog-content>
+            <div class="form_upload_content add-relationship">
+                <div class="cadasta-modal-header">
+                    <div class="small-heading">
+                        Add Relationship
+                    </div>
+                    <div class="right">
+                        <md-button class="md-icon-button" ng-click="cancel()">
+                            <i class="material-icons right">clear</i>
+                        </md-button>
+                    </div>
+                </div>
+                <div class="modal-content">
+                    <div>
+                        <p>Freegan lo-fi meggings, tofu Intelligentsia sriracha letterpress organic street art VHS put a
+                            bird on it wolf chillwave. Twee XOXO church-key, typewriter listicle YOLO dreamcatcher
+                            normcore Banksy Kickstarter freegan fanny pack Shoreditch. Squid deep v raw denim High Life
+                            cray, letterpress chambray typewriter Helvetica butcher biodiesel pour-over XOXO trust fund.
+                            Mixtape readymade typewriter drinking vinegar letterpress American Apparel, kale chips
+                            Carles 90's mumblecore direct trade aesthetic gastropub 8-bit pug.
+                        </p>
+                        <br><br>
+
+                        <div>
+                            <md-content layout-padding>
+                                <form name="userForm">
+                                    <div layout layout-sm="column">
+                                        <md-input-container flex>
+                                            <label>First name</label>
+                                            <input ng-model="relationship.firstName">
+                                        </md-input-container>
+                                        <md-input-container flex>
+                                            <label>Last Name</label>
+                                            <input ng-model="relationship.lastName">
+                                        </md-input-container>
+                                        <span class="text">OR</span>
+                                        <md-input-container flex>
+                                            <label>Group Name</label>
+                                            <input ng-model="relationship.groupName">
+                                        </md-input-container>
+                                    </div>
+                                    <md-input-container>
+                                        <label>Tenure Type</label>
+                                        <md-select ng-model="relationship.tenure_type">
+                                            <md-option ng-repeat="t in tenure_types" value="{{t.type}}">
+                                                {{t.label}}
+                                            </md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label>How was the parcel acquired?</label>
+                                        <md-select ng-model="relationship.acquire_type">
+                                            <md-option ng-repeat="t in acquire_types" value="{{t.type}}">
+                                                {{t.type}}
+                                            </md-option>
+                                        </md-select>
+                                    </md-input-container>
+                                    <div> Date of Parcel Acquisition</div>
+                                    <md-datepicker ng-model="relationship.acquisition_date" md-placeholder="Enter date"></md-datepicker>
+                                    <br><br>
+                                </form>
+                            </md-content>
+
+                            <div class="small-heading">
+                                Add Relationship Resources
+                            </div><br>
+
+                            <!-- Add resources to a new relationship-->
+                            <input type="file" nv-file-select uploader="uploader"/><br/>
+                            <ul>
+                                <li ng-repeat="item in uploader.queue">
+                                    Name: <span ng-bind="item.file.name"></span><br/>
+                                    <button class="grey-btn" ng-click="item.upload()">Upload Relationship Resource</button>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </md-dialog-content>
+    </form>
+</md-dialog>
