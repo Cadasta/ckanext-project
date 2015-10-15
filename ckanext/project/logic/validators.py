@@ -4,6 +4,7 @@ from ckan.model import PACKAGE_NAME_MAX_LENGTH, PACKAGE_NAME_MIN_LENGTH
 
 import logging
 import uuid
+from slugify import slugify
 
 
 log = logging.getLogger(__name__)
@@ -49,6 +50,13 @@ def convert_package_name_or_id_to_id_for_type_project(package_name_or_id, contex
     return convert_package_name_or_id_to_id_for_type(package_name_or_id, context, package_type='project')
 
 
+def slugify_title_to_name(key, data, errors, context):
+    if not data[key]:
+        data[key] = slugify(data['title', ])
+    else:
+        data[key] = slugify(data[key])
+
+
 def project_name_validator(key, data, errors, context):
     model = context['model']
     session = context['session']
@@ -60,7 +68,7 @@ def project_name_validator(key, data, errors, context):
     else:
         package_id = data.get(key[:-1] + ('id',))
     if package_id and package_id is not tk.missing:
-        query = query.filter(model.Package.id <> package_id)
+        query = query.filter(model.Package.id != package_id)
     result = query.first()
 
     if result:
