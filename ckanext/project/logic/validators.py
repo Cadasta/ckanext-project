@@ -142,8 +142,12 @@ def create_cadasta_project(key, data, errors, context):
     try:
         result = toolkit.get_action('cadasta_create_project')(context,
                                                               data_dict)
-        data['cadasta_id', ] = result['cadasta_project_id']
-        convert_to_extras(('cadasta_id',), data, errors, context)
-
     except KeyError, e:
         log.error('Error calling cadasta api action: {0}').format(e.message)
+
+    try:
+        data['cadasta_id', ] = result['cadasta_project_id']
+        convert_to_extras(('cadasta_id',), data, errors, context)
+    except KeyError, e:
+        raise toolkit.ValidationError(result.get('error', ''),
+                                      error_summary=resultget('message', ''))

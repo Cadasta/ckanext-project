@@ -74,7 +74,12 @@ def create_cadasta_organization(key, data, errors, context):
     try:
         result = toolkit.get_action('cadasta_create_organization')(context,
                                                                    data_dict)
-        data['cadasta_id', ] = result['cadasta_organization_id']
-        convert_to_extras(('cadasta_id',), data, errors, context)
     except KeyError, e:
         log.error('Error calling cadasta api action: {0}').format(e.message)
+
+    try:
+        data['cadasta_id', ] = result['cadasta_organization_id']
+        convert_to_extras(('cadasta_id',), data, errors, context)
+    except KeyError:
+        raise toolkit.ValidationError(result['error'],
+                                      error_summary=result['message'])
