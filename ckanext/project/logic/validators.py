@@ -72,17 +72,34 @@ def project_name_validator(key, data, errors, context):
     result = query.first()
 
     if result:
-        errors['title',].append(_('That dataset name is already in use.'))
+        errors['title', ].append(_('That dataset name is already in use.'))
 
     value = data[key]
     if len(value) < PACKAGE_NAME_MIN_LENGTH:
-        errors['title',].append(
+        errors['title', ].append(
             _('Name "%s" length is less than minimum %s') % (value, PACKAGE_NAME_MIN_LENGTH)
         )
     if len(value) > PACKAGE_NAME_MAX_LENGTH:
-        errors['title',].append(
+        errors['title', ].append(
             _('Name "%s" length is more than maximum %s') % (value, PACKAGE_NAME_MAX_LENGTH)
         )
+
+
+def organization_name_validator(key, data, errors, context):
+    model = context['model']
+    session = context['session']
+    group = context.get('group')
+
+    query = session.query(model.Group.name).filter_by(name=data[key])
+    if group:
+        group_id = group.id
+    else:
+        group_id = data.get(key[:-1] + ('id',))
+    if group_id and group_id is not tk.missing:
+        query = query.filter(model.Group.id != group_id)
+    result = query.first()
+    if result:
+        errors['title', ].append(_('Organization name already exists.'))
 
 
 def if_empty_generate_uuid(value):
@@ -130,6 +147,3 @@ def create_cadasta_project(key, data, errors, context):
 
     except KeyError, e:
         log.error('Error calling cadasta api action: {0}').format(e.message)
-    except toolkit.ValidationError, e:
-        e.error_summary['cadasta_api'] = 'Error contacting cadasta api'
-        raise e
