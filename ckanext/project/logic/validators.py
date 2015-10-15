@@ -129,10 +129,18 @@ def create_cadasta_project(key, data, errors, context):
         {'id': data['owner_org', ]}
     )
 
+    try:
+        org_id = int(organization['id'])
+    except ValueError:
+        raise toolkit.ValidationError([
+            'ckan organization id is not an integer {0}'.format(
+                organization['id'])]
+        )
+
     data_dict = {
         'ckan_id': data['name', ],
         'ckan_title': data['title', ],
-        'cadasta_organization_id': organization['id']
+        'cadasta_organization_id': org_id,
     }
     context = {
         'model': context['model'],
@@ -160,4 +168,7 @@ def create_cadasta_project(key, data, errors, context):
                     str(data_dict))]
             )
         else:
-            raise toolkit.ValidationError([result.get('message', '')])
+            raise toolkit.ValidationError(
+                ['error: {0} : ckan_dict {1}'.format(
+                    result.get('message', ''),
+                    str(data_dict))])
