@@ -61,7 +61,7 @@ def create_cadasta_organization(key, data, errors, context):
         if error:
             return
     data_dict = {
-        'ckan_id': data['id', ],
+        'ckan_id': data['name', ],
         'ckan_title': data['title', ],
         'ckan_description': data.get(('description',), '')
     }
