@@ -132,7 +132,7 @@ def create_cadasta_project(key, data, errors, context):
     data_dict = {
         'ckan_id': data['name', ],
         'ckan_title': data['title', ],
-        'cadasta_organization_id': organization.get('cadasta_id', '')
+        'cadasta_organization_id': organization['id']
     }
     context = {
         'model': context['model'],
@@ -160,4 +160,4 @@ def create_cadasta_project(key, data, errors, context):
                     str(data_dict))]
             )
         else:
-            raise toolkit.ValidationError(result.get('message', ''))
+            raise toolkit.ValidationError([result.get('message', '')])

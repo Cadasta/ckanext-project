@@ -91,4 +91,4 @@ def create_cadasta_organization(key, data, errors, context):
                     str(data_dict))]
             )
         else:
-            raise toolkit.ValidationError(result.get('message', ''))
+            raise toolkit.ValidationError([result.get('message', '')])
