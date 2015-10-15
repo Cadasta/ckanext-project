@@ -1,0 +1,10 @@
+{% ckan_extends %}
+
+{% block form %}
+<p>{{ _('Are you sure you want to delete project - {name}?').format(name=c.pkg_dict.name) }}</p>
+<p class="form-actions">
+<form action="{% url_for 'project_delete', action='delete', id=c.pkg_dict.name %}" method="post">
+  <button class="btn" type="submit" name="cancel" >{{ _('Cancel') }}</button>
+  <button class="btn btn-primary" type="submit" name="delete" >{{ _('Confirm Delete') }}</button>
+</form>
+{% endblock %}

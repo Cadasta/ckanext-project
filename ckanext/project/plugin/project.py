@@ -112,6 +112,7 @@ class projectPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         with SubMapper(map, controller='ckanext.project.controller:projectController') as m:
             m.connect('project_new', '/project/new', action='new')
             m.connect('project_edit', '/project/edit', action='edit')
+            m.connect('project_delete', '/project/delete/{id}', action='delete')
         #new_routes
 
         controller = 'ckanext.project.upload_controller:Upload_Controller'
