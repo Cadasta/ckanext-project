@@ -78,8 +78,8 @@ def create_cadasta_organization(key, data, errors, context):
         log.error('Error calling cadasta api action: {0}').format(e.message)
 
     try:
-        data['cadasta_id', ] = result['cadasta_organization_id']
-        convert_to_extras(('cadasta_id',), data, errors, context)
+        data['id', ] = str(result['cadasta_organization_id'])
+        # convert_to_extras(('cadasta_id',), data, errors, context)
     except KeyError:
         error_dict = result.get('error')
         if error_dict:
