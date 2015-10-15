@@ -3,7 +3,11 @@ from ckan.plugins import toolkit
 from ckan.logic.schema import group_form_schema, default_group_schema
 from ckan.lib.plugins import DefaultOrganizationForm
 
-from ckanext.project.logic.validators import if_empty_generate_uuid
+from ckanext.project.logic.validators import (
+    if_empty_generate_uuid,
+    organization_name_validator,
+    slugify_title_to_name,
+)
 
 import logging
 
@@ -29,6 +33,9 @@ class CadastaOrganization(plugins.SingletonPlugin, DefaultOrganizationForm):
         schema = group_form_schema()
         schema.update({
             'id': [if_empty_generate_uuid],
+            'title': [not_missing, unicode],
+            'name': [ignore_missing, unicode, slugify_title_to_name,
+                     organization_name_validator],
             'orgURL': [ignore_missing, unicode, convert_to_extras],
             'contact': [ignore_missing, unicode, convert_to_extras],
             'ona_api_token': [ignore_missing, unicode, convert_to_extras],
@@ -71,6 +78,3 @@ def create_cadasta_organization(key, data, errors, context):
         convert_to_extras(('cadasta_id',), data, errors, context)
     except KeyError, e:
         log.error('Error calling cadasta api action: {0}').format(e.message)
-    except toolkit.ValidationError, e:
-        e.error_summary['cadasta_api'] = 'Error contacting cadasta api'
-        raise e
