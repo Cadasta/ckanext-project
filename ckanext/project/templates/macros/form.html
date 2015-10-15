@@ -418,13 +418,13 @@ options     - A list/tuple of fields to be used as <options>.
             IS URL  {{ is_url }}
             IS UPLOAD {{ is_upload }}
 
+
             {{ input(field_url, label=url_label, id='field-image-url', placeholder=placeholder, value=data.get(field_url), error=errors.get(field_url), classes=['control-full']) }}
 
-            {% if is_upload_enabled %}
             {{ input(field_upload, label=upload_label, id='field-image-upload', type='file', placeholder='', value='', error='', classes=['control-full']) }}
+
             {% if is_upload %}
             {{ checkbox(field_clear, label=_('Clear Upload'), id='field-clear-upload', value='true', error='', classes=['control-full']) }}
-            {% endif %}
             {% endif %}
 
         </div>
