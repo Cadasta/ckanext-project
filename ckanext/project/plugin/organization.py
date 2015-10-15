@@ -9,6 +9,7 @@ from ckanext.project.logic.validators import (
     slugify_title_to_name,
 )
 
+import json
 import logging
 
 
@@ -83,7 +84,11 @@ def create_cadasta_organization(key, data, errors, context):
     except KeyError:
         error_dict = result.get('error')
         if error_dict:
-            raise toolkit.ValidationError(result.get('error', ''),
-                                          error_summary=result.get('message', ''))
+            error_line = json.dumps(error_dict)
+            raise toolkit.ValidationError([
+                'error: {0} : {1}\n ckan dict: {2}'.format(
+                    result.get('message', ''), error_line,
+                    str(data_dict))]
+            )
         else:
             raise toolkit.ValidationError(result.get('message', ''))

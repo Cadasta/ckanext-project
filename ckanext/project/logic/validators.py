@@ -3,6 +3,7 @@ from ckan.plugins import toolkit
 from ckan.model import PACKAGE_NAME_MAX_LENGTH, PACKAGE_NAME_MIN_LENGTH
 
 import logging
+import json
 import uuid
 from slugify import slugify
 
@@ -152,7 +153,11 @@ def create_cadasta_project(key, data, errors, context):
     except KeyError, e:
         error_dict = result.get('error')
         if error_dict:
-            raise toolkit.ValidationError(result.get('error', ''),
-                                          error_summary=result.get('message', ''))
+            error_line = str(error_dict)
+            raise toolkit.ValidationError([
+                'error: {0} : {1}\n ckan dict: {2}'.format(
+                    result.get('message', ''), error_line,
+                    str(data_dict))]
+            )
         else:
             raise toolkit.ValidationError(result.get('message', ''))
