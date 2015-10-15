@@ -146,7 +146,8 @@ def create_cadasta_project(key, data, errors, context):
         log.error('Error calling cadasta api action: {0}').format(e.message)
 
     try:
-        data['id', ] = result['cadasta_project_id']
+        data['id', ] = str(result['cadasta_project_id'])
+
         # convert_to_extras(('cadasta_id',), data, errors, context)
     except KeyError, e:
         error_dict = result.get('error')
