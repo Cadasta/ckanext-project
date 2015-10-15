@@ -415,6 +415,8 @@ options     - A list/tuple of fields to be used as <options>.
         <div class="image-upload" data-module="image-upload" data-module-is_url="{{ 'true' if is_url else 'false' }}" data-module-is_upload="{{ 'true' if is_upload else 'false' }}"
              data-module-field_url="{{ field_url }}" data-module-field_upload="{{ field_upload }}" data-module-field_clear="{{ field_clear }}" data-module-upload_label="{{ upload_label }}">
 
+            IS URL  {{ is_url }}
+            IS UPLOAD {{ is_upload }}
 
             {{ input(field_url, label=url_label, id='field-image-url', placeholder=placeholder, value=data.get(field_url), error=errors.get(field_url), classes=['control-full']) }}
 
