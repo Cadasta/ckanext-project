@@ -7,6 +7,7 @@ from ckan.logic.schema import (
 from ckanext.project.logic.validators import (
     project_name_validator,
     if_empty_generate_uuid,
+    slugify_title_to_name,
     create_cadasta_project,
 )
 
@@ -33,7 +34,8 @@ def project_create_schema():
     schema.update({
         'id': [if_empty_generate_uuid],
         'title': [not_missing, unicode],
-        'name': [ignore_missing, unicode, project_name_validator],
+        'name': [ignore_missing, unicode, slugify_title_to_name,
+                 project_name_validator],
         '__after': [create_cadasta_project],
     })
     schema.update(project_schema())
