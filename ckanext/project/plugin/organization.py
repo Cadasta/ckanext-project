@@ -81,5 +81,5 @@ def create_cadasta_organization(key, data, errors, context):
         data['cadasta_id', ] = result['cadasta_organization_id']
         convert_to_extras(('cadasta_id',), data, errors, context)
     except KeyError:
-        raise toolkit.ValidationError(result['error'],
-                                      error_summary=result['message'])
+        raise toolkit.ValidationError(result.get('error', ''),
+                                      error_summary=result.get('message', ''))
