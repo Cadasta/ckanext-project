@@ -77,8 +77,7 @@ app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService'
     $scope.showAdvanced = function(ev) {
 
         $mdDialog.show({
-            //controller: "resourceCtrl",
-            scope: $scope,
+            controller: DialogController,
             templateUrl: '/project-dashboard/src/partials/data_upload.html',
             parent: angular.element(document.body),
             targetEvent: ev,
@@ -86,9 +85,17 @@ app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService'
         })
     };
 
-    $scope.cancel = function() {
-        $mdDialog.cancel();
-    };
+    function DialogController($scope, $mdDialog) {
+        $scope.hide = function() {
+            $mdDialog.hide();
+        };
+        $scope.cancel = function() {
+            $mdDialog.cancel();
+        };
+        $scope.answer = function(answer) {
+            $mdDialog.hide(answer);
+        };
+    }
 
 }]);
 

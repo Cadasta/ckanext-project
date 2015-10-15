@@ -130,37 +130,47 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService'
 
 
 
-    $scope.addRelationshipModal = function(ev) {
-        $mdDialog.show({
-            scope: $scope,
-            templateUrl: '/project-dashboard/src/partials/add_relationship.html',
-            parent: angular.element(document.body),
-            clickOutsideToClose:true
-        })
-    };
+    //$scope.addRelationshipModal = function(ev) {
+    //    $mdDialog.show({
+    //        scope: $scope,
+    //        templateUrl: '/project-dashboard/src/partials/add_relationship.html',
+    //        parent: angular.element(document.body),
+    //        clickOutsideToClose:true
+    //    })
+    //};
 
 
-    $scope.showAdvanced = function(ev) {
+        $scope.showAddResourceModal = function(ev) {
 
-        $mdDialog.show({
-            scope: $scope,
-            templateUrl: '/project-dashboard/src/partials/data_upload.html',
-            parent: angular.element(document.body),
-            targetEvent: ev,
-            clickOutsideToClose:true
-        })
-    };
+            $mdDialog.show({
+                controller: DialogController,
+                templateUrl: '/project-dashboard/src/partials/data_upload.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose:true
+            })
+        };
 
-    $scope.cancel = function() {
-        $mdDialog.cancel();
-    };
+        function DialogController($scope, $mdDialog, FileUploader, ENV) {
+            $scope.hide = function() {
+                $mdDialog.hide();
+            };
+            $scope.cancel = function() {
+                $mdDialog.cancel();
+            };
+            $scope.answer = function(answer) {
+                $mdDialog.hide(answer);
+            };
 
+            $scope.uploader = new FileUploader({
+                alias: 'filedata',
+                url: ENV.apiCadastaRoot + '/projects/'+ cadastaProject.id + '/parcel/' + $stateParams.id + '/resources'
+            });
 
-    $scope.uploader = new FileUploader({
-        alias: 'filedata',
-        url: ENV.apiCadastaRoot + '/resources/'+ cadastaProject.id + '/parcel/' + $stateParams.id
-    });
-
+            $scope.uploader.onCompleteItem = function (fileItem, response, status, headers) {
+                console.log(response);
+            }
+        }
 
     $scope.tenure_types = [
 

@@ -181,7 +181,7 @@
                 </div>
                 <md-button class="md-icon-button right parcel-page-layout" aria-label="More">
                     <div class="md-menu-demo">
-                        <div class="menu-demo-container" layout-align="center center" layout="column">
+                        <div class="menu-demo-container" layout-align="center center" layout$="column">
                             <div class="menus" layout-wrap layout="row" layout-align="space-between center">
                                 <div layout="column" flex="33" flex-sm="100" layout-align="center center">
                                     <md-menu md-offset="0 -7">
@@ -190,7 +190,7 @@
                                         </md-button>
                                         <md-menu-content width="2">
                                             <md-menu-item>
-                                                <md-button ng-click="showAdvanced()"> Add Resource </md-button>
+                                                <md-button ng-click="showAddResourceModal($event)"> Add Resource </md-button>
                                             </md-menu-item>
                                             <md-menu-item>
                                                 <md-button ng-click="ctrl.announceClick($index)"> Download Resources </md-button>
