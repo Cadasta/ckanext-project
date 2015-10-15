@@ -1279,8 +1279,8 @@ input[type="text"].register-input :focus {
 }
 
 .project-row .org-logo img {
-    height: 80px;
-    width: 100px;
+    max-height: 80px;
+    max-width: 100px;
     margin: 0 20px 0 18px;
 }
 
