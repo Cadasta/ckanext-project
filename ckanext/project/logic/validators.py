@@ -129,7 +129,7 @@ def create_cadasta_project(key, data, errors, context):
     )
 
     data_dict = {
-        'ckan_id': data['id', ],
+        'ckan_id': data['name', ],
         'ckan_title': data['title', ],
         'cadasta_organization_id': organization.get('cadasta_id', '')
     }
