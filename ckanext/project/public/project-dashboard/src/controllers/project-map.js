@@ -54,7 +54,8 @@
               "stroke": "#e54573",
               "stroke-width": 1,
               "fill-opacity":.8,
-              "stroke-opacity":.8
+              "stroke-opacity":.8,
+              "marker-color":"#e54573"
           };
 
           var ExtentStyle = {

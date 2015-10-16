@@ -9,8 +9,8 @@ var app = angular.module("app")
          */
         service.formatDate = function(date){
             var date_object = new Date(date);
-            var month = date_object.getMonth();
-            var day = date_object.getDay();
+            var month = date_object.getMonth() + 1;
+            var day = date_object.getDate();
             var year = date_object.getFullYear();
             var date_object_formatted = month + "/" + day + "/" + year;
 

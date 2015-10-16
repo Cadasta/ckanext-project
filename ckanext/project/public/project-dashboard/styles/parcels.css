@@ -37,7 +37,8 @@
 }
 
 .parcel-history-data tr td {
-    line-height: 55px;
+    padding-top: 17px;
+    padding-bottom: 17px;
 }
 
 
