@@ -17,9 +17,9 @@ app.service("paramService", [ function () {
 
     };
 
-    service.getState = function(id){
+    service.getState = function(name){
 
-        return states[id];
+        return states[name];
     };
 
     service.setStateParam = function(name, key, value){
