@@ -73,7 +73,7 @@ var app = angular.module("app",
       views: {
         'overviewtab': {controller: 'overviewCtrl', templateUrl: '/project-dashboard/src/partials/overview.html'}
       },
-      paramsMap:[{key:'map', defaultValue: '(0,0,0)'}],
+      paramsMap:[{key:'map', defaultValue: '(0,0,1)'}],
 
       onEnter: function($state, $stateParams, mapUtilityService){
 
@@ -123,7 +123,7 @@ var app = angular.module("app",
       },
       reloadOnSearch: false,
       deepStateRedirect: dsrCb,
-      paramsMap:[{key:'id'}, {key:'map', defaultValue: '(0,0,0)'}],
+      paramsMap:[{key:'id'}, {key:'map', defaultValue: '(0,0,1)'}],
       sticky:true,
       resolve: {
         ckanId: function ($window) {
@@ -161,9 +161,15 @@ var app = angular.module("app",
       views: {
           'maptab': { controller: 'projectMapCtrl', templateUrl: '/project-dashboard/src/partials/map.html' }
       },
-      paramsMap:[{key:'map', defaultValue: '(0,0,0)'}],
-      onEnter: function($state, $stateParams, mapUtilityService){
+      paramsMap:[{key:'map', defaultValue: '(0,0,2)'}],
+      onEnter: function($state, $stateParams, mapUtilityService, paramService){
 
+        var state;
+
+        if($stateParams.map === undefined) {
+          state = paramService.getState('tabs.map');
+          $stateParams.map = state.map;
+        }
         $stateParams.map = mapUtilityService.validateMapParam($stateParams.map);
 
       },

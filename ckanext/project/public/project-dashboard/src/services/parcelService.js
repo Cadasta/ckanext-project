@@ -13,7 +13,7 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot + '/show_parcels_list', {cache: true}).
+            $http.get(ENV.apiCadastaRoot + '/projects/' + projectId + '/parcels_list', {cache: true}).
                 then(function (response) {
                     deferred.resolve(response.data.features);
                 }, function (response) {
