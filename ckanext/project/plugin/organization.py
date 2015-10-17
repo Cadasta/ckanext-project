@@ -17,6 +17,7 @@ log = logging.getLogger(__name__)
 
 ignore_missing = toolkit.get_validator('ignore_missing')
 not_missing = toolkit.get_validator('not_missing')
+not_empty = toolkit.get_validator('not_empty')
 convert_to_extras = toolkit.get_validator('convert_to_extras')
 convert_from_extras = toolkit.get_validator('convert_from_extras')
 
@@ -34,7 +35,7 @@ class CadastaOrganization(plugins.SingletonPlugin, DefaultOrganizationForm):
         schema = group_form_schema()
         schema.update({
             'id': [if_empty_generate_uuid],
-            'title': [not_missing, unicode],
+            'title': [not_empty, unicode],
             'name': [ignore_missing, unicode, slugify_title_to_name,
                      organization_name_validator],
             'orgURL': [ignore_missing, unicode, convert_to_extras],
