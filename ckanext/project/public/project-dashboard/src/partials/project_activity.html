@@ -18,7 +18,7 @@
                 <!-- repeat each activity in the list and depending on the type of activity, print a different string-->
 
                 <li ng-if="activity.properties.activity_type === 'parcel'" class="activity-block block"><span
-                        class="bold"><a href="/project/demo-project#/parcels/{{ activity.properties.id }}">
+                        class="bold"><a href="#/parcels/{{ activity.properties.id }}">
                     Parcel {{activity.properties.id }}</a></span> was created on {{ activity.properties.time_created }}
                 </li>
 
@@ -30,7 +30,7 @@
                 <li ng-if="activity.properties.activity_type === 'relationship'" class="activity-block block">
                     <!-- todo remove hardcoding of project id-->
                     Relationship between <span class="bold"> {{ activity.properties.name }}</span> and <span
-                        class="bold"><a href="/project/demo-project#/parcels/{{ activity.properties.parcel_id }}">
+                        class="bold"><a href="#/parcels/{{ activity.properties.parcel_id }}">
                     parcel {{ activity.properties.parcel_id }}</a></span> was created on {{ activity.properties.time_created }}
                 </li>
             </div>

@@ -36,7 +36,7 @@
                 <li ng-if="activity.properties.activity_type === 'parcel'"
                     ng-class="{'remove-bottom-border': $index == overviewData.activityList.length-1}"
                     class="activity-block block">
-                    <span class="bold"><a href="/project/demo-project#/parcels/{{ activity.properties.id }}">
+                    <span class="bold"><a href="#/parcels/{{ activity.properties.id }}">
                         Parcel {{ activity.properties.id }}</a></span>
                     was created on {{ activity.properties.time_created }}
                 </li>
@@ -54,7 +54,7 @@
                     Relationship between
                     <span class="bold"> {{ activity.properties.name }}</span>
                     and
-                    <span class="bold"><a href="/project/demo-project#/parcels/{{ activity.properties.parcel_id }}">
+                    <span class="bold"><a href="#/parcels/{{ activity.properties.parcel_id }}">
                         parcel {{ activity.properties.parcel_id }}</a></span>
                     was created on {{ activity.properties.time_created }}
                 </li>
