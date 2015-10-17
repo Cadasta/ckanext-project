@@ -1,6 +1,7 @@
 from ckan import plugins
 from ckan.plugins import toolkit
 from ckan.logic.schema import group_form_schema, default_group_schema
+from ckanext.project.logic import schema as project_schema
 from ckan.lib.plugins import DefaultOrganizationForm
 
 from ckanext.project.logic.validators import (
@@ -52,6 +53,7 @@ class CadastaOrganization(plugins.SingletonPlugin, DefaultOrganizationForm):
             'contact': [convert_from_extras, ignore_missing, unicode],
             'ona_api_token': [convert_from_extras, ignore_missing, unicode],
             'cadasta_id': [convert_from_extras, ignore_missing, unicode],
+            'packages': project_schema.project_show_schema()
         })
         return schema
 
