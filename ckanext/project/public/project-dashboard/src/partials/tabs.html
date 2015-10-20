@@ -9,23 +9,25 @@
         <li ui-sref-active="active" ui-sref="tabs.map" ng-click="setTab('Map')">
             <a>MAP</a>
         </li>
+        <li ui-sref-active="active" ui-sref="tabs.relationships" ng-click="setTab('Relationships')">
+            <a>RELATIONSHIPS</a>
+        </li>
         <li ui-sref-active="active" ui-sref="tabs.resources" ng-click="setTab('Resources')">
             <a>RESOURCES</a>
         </li>
         <li ui-sref-active="active" ui-sref="tabs.activity" ng-click="setTab('Activity')">
             <a>ACTIVITY</a>
         </li>
-        <!--<li ui-sref-active="active" ui-sref="tabs.fieldData" ng-click="setTab('Field Data')">-->
-            <!--<a>FIELD DATA</a>-->
-        <!--</li>-->
+
     </ul>
 </div>
 
 <div class="tabcontent well-lg" sticky-state="tabs.overview" class="col-sm-6"></div>
 <div class="tabcontent well-lg" sticky-state="tabs.parcels" class="col-sm-6"></div>
 <div class="tabcontent well-lg" sticky-state="tabs.map" class="col-sm-6"></div>
+<div class="tabcontent well-lg" sticky-state="tabs.relationships" class="col-sm-6"></div>
 <div class="tabcontent well-lg" sticky-state="tabs.resources" class="col-sm-6"></div>
 <div class="tabcontent well-lg" sticky-state="tabs.activity" class="col-sm-6"></div>
-<!--<div class="tabcontent well-lg" sticky-state="tabs.fieldData" class="col-sm-6"></div>-->
+
 
 
