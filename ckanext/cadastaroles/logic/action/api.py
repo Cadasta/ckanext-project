@@ -99,7 +99,7 @@ def make_cadasta_action(action, cadasta_endpoint, decorator, cadasta_api_func):
         error_dict = {}
         endpoint = cadasta_endpoint.url
         for arg in string_arguments:
-            if arg not in data_dict.keys():
+            if arg not in data_dict.keys() or not data_dict.get(arg):
                 error_dict[arg] = ['Missing value']
             else:
                 arg_value = cadasta_dict.pop(arg, '')
