@@ -1,6 +1,8 @@
 import ckan.lib.helpers as h
 from ckan.plugins import toolkit as tk
-
+import logging
+log = logging.getLogger(__name__)
+import json
 
 def facet_remove_field(key, value=None, replace=None):
     '''
@@ -28,3 +30,15 @@ def get_site_statistics():
         tk.get_action('organization_list')({}, {}))
 
     return stats
+
+def organization_get_project_count_helper(organization):
+    '''
+    :return:
+    '''
+    search_facets = tk.get_action('package_search')(
+         {}, {"rows": 0, "facet.field":["organization"]})
+    log.debug("[ SEARCH FACETS ]: %s", json.dumps(search_facets, indent=4))
+
+    for org in search_facets['search_facets']['organization']['items']:
+        if org['name'] == organization['name']:
+            return {'package_count': org['count'] }
