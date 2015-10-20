@@ -1,0 +1,38 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": null,
+            "properties": {
+                "id": 45,
+                "time_created": "2015-08-24T14:03:27.144363-07:00",
+                "area": null,
+                "tenure_type": "own",
+                "num_relationships": 6
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": null,
+            "properties": {
+                "id": 44,
+                "time_created": "2015-08-24T14:03:27.144363-07:00",
+                "area": null,
+                "tenure_type": "lease",
+                "num_relationships": 5
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": null,
+            "properties": {
+                "id": 43,
+                "time_created": "2015-08-24T14:03:27.144363-07:00",
+                "area": null,
+                "tenure_type": "occupy",
+                "num_relationships": 2
+            }
+        }
+    ]
+}

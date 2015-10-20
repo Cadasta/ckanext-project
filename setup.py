@@ -76,6 +76,7 @@ setup(
         [ckan.plugins]
         project=ckanext.project.plugin:projectPlugin
         cadasta_organization=ckanext.project.plugin:CadastaOrganization
+        cadastaroles=ckanext.cadastaroles.plugin:CadastarolesPlugin
 
         [paste.paster_command]
         project=ckanext.project.commands.migrate:MigrationCommand

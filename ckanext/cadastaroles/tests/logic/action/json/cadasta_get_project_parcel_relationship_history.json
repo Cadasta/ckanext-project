@@ -1,0 +1,29 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+    {
+        "type": "Feature",
+        "geometry": null,
+        "properties": {
+            "relationship_id": 1,
+            "origin_id": 1,
+            "version": 1,
+            "parent_id": null,
+            "parcel_id": 1,
+            "expiration_date": null,
+            "description": "History",
+            "date_modified": "2015-09-02",
+            "active": true,
+            "time_created": "2015-09-02T18:09:15.057843+00:00",
+            "time_updated": "2015-09-02T18:09:15.057843+00:00",
+            "created_by": 11,
+            "updated_by": null,
+            "relationship_type": "own",
+            "spatial_source": "survey_sketch",
+            "party_id": 1,
+            "first_name": "Thurmond",
+            "last_name": "Thomas"
+        }
+    }
+    ]
+}
