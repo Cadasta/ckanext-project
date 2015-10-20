@@ -101,7 +101,15 @@ def organization_name_validator(key, data, errors, context):
     result = query.first()
     if result:
         errors['title', ].append(_('Organization name already exists.'))
-
+    value = data[key]
+    if len(value) < PACKAGE_NAME_MIN_LENGTH:
+        errors['title', ].append(
+            _('Name "%s" length is less than minimum %s') % (value, 2)
+        )
+    if len(value) > PACKAGE_NAME_MAX_LENGTH:
+        errors['title', ].append(
+            _('Name "%s" length is more than maximum %s') % (value, 70)
+        )
 
 def if_empty_generate_uuid(value):
     """
