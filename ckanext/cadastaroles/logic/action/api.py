@@ -7,6 +7,7 @@ from ckanext.cadastaroles.logic.action.util import (
 
 from functools import wraps
 import string
+import re
 
 from pylons import config
 
@@ -96,14 +97,17 @@ def make_cadasta_action(action, cadasta_endpoint, decorator, cadasta_api_func):
             cadasta_dict[k] = cadasta_endpoint.convert_argument(k, v)
 
         error_dict = {}
+        endpoint = cadasta_endpoint.url
         for arg in string_arguments:
             if arg not in data_dict.keys():
                 error_dict[arg] = ['Missing value']
-            cadasta_dict.pop(arg, None)
+            else:
+                arg_value = cadasta_dict.pop(arg, None)
+                arg_value = re.sub('[^0-9a-zA-Z]+', '', arg_value)
+                endpoint_arg = ''.join(['{', arg, '}'])
+                endpoint = endpoint.replace(endpoint_arg, arg_value)
         if error_dict:
             raise toolkit.ValidationError(error_dict)
-
-        endpoint = cadasta_endpoint.url.format(**data_dict)
 
         return cadasta_api_func(endpoint, cadasta_dict,
                                 cadasta_endpoint.upload_fields)
