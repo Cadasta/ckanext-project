@@ -6,6 +6,7 @@ from ckanext.cadastaroles.logic.action.api import (
     post_api_map,
     post_files_api_map,
 )
+from ckanext.cadastaroles.tests.helpers import CadastaRolesTestBase
 
 import os
 import json
@@ -23,7 +24,7 @@ from nose.tools import (
 )
 
 
-class TestGetApi(object):
+class TestGetApi(CadastaRolesTestBase):
     def setup(self):
         self.data_dir = os.path.abspath(os.path.join(os.path.dirname(__file__),
                                                      'json'))
@@ -122,7 +123,7 @@ class TestGetApi(object):
             print '\t[OK]'
 
 
-class TestPostApi(object):
+class TestPostApi(CadastaRolesTestBase):
     def setup(self):
         self.data_dir = os.path.abspath(os.path.join(os.path.dirname(__file__),
                                                      'json'))
@@ -194,7 +195,7 @@ class TestPostApi(object):
             print '\t[OK]'
 
 
-class TestPostFilesApi(object):
+class TestPostFilesApi(CadastaRolesTestBase):
     def setup(self):
         self.data_dir = os.path.abspath(os.path.join(os.path.dirname(__file__),
                                                      'json'))

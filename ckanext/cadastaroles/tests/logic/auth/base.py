@@ -2,11 +2,24 @@ from ckan.tests import helpers, factories
 from ckan import model
 from ckan.logic import schema
 from ckan.plugins import toolkit
+from ckan.plugins.core import unload, load
 
 from nose.tools import assert_raises, assert_true
 
 
 class TestProjectBase(helpers.FunctionalTestBase):
+    @classmethod
+    def setup_class(cls):
+        super(TestProjectBase, cls).setup_class()
+        unload('project')
+        unload('cadasta_organization')
+
+    @classmethod
+    def teardown_class(cls):
+        super(TestProjectBase, cls).teardown_class()
+        load('project')
+        load('cadasta_organization')
+
     def setup(self):
         super(TestProjectBase, self).setup()
         self.user = factories.User()

@@ -5,9 +5,10 @@ from ckan.plugins import toolkit
 from nose.tools import assert_raises
 
 from .base import TestProjectBase
+from ckanext.cadastaroles.tests.helpers import CadastaRolesTestBase
 
 
-class TestCadastaParcel(object):
+class TestCadastaParcel(CadastaRolesTestBase):
     def teardown(self):
         helpers.reset_db()
         search.clear_all()

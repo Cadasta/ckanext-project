@@ -3,9 +3,10 @@ import responses
 from ckan.tests import helpers
 from ckan.lib import search
 from ckan.plugins import toolkit
+from ckanext.cadastaroles.tests.helpers import CadastaRolesTestBase
 
 
-class TestCadastaGetParcel(object):
+class TestCadastaGetParcel(CadastaRolesTestBase):
     def teardown(self):
         helpers.reset_db()
         search.clear_all()
@@ -172,7 +173,7 @@ class TestCadastaGetParcel(object):
             result)
 
 
-class TestParcelDetail(object):
+class TestParcelDetail(CadastaRolesTestBase):
     def teardown(self):
         helpers.reset_db()
         search.clear_all()
@@ -305,7 +306,7 @@ class TestParcelDetail(object):
         )
 
 
-class TestRelationshipHistory(object):
+class TestRelationshipHistory(CadastaRolesTestBase):
     def teardown(self):
         helpers.reset_db()
         search.clear_all()
@@ -395,7 +396,7 @@ class TestRelationshipHistory(object):
         )
 
 
-class TestShowParcelResource(object):
+class TestShowParcelResource(CadastaRolesTestBase):
     def teardown(self):
         helpers.reset_db()
         search.clear_all()

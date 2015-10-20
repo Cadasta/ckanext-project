@@ -2,11 +2,12 @@ from ckan.plugins import toolkit
 from ckan.tests import helpers, factories
 from ckan.lib import search
 from ckan import model
+from ckanext.cadastaroles.tests.helpers import CadastaRolesTestBase
 
 from nose.tools import assert_equal, assert_is_none, assert_raises
 
 
-class TestCadastaUserRoleShow(object):
+class TestCadastaUserRoleShow(CadastaRolesTestBase):
     def teardown(self):
         helpers.reset_db()
         search.clear_all()

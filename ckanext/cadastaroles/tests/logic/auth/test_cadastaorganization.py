@@ -2,9 +2,10 @@ from nose.tools import assert_raises
 from ckan.tests import helpers, factories
 from ckan.lib import search
 from ckan.plugins import toolkit
+from ckanext.cadastaroles.tests.helpers import CadastaRolesTestBase
 
 
-class TestCadastaCreateOrganization(object):
+class TestCadastaCreateOrganization(CadastaRolesTestBase):
     def teardown(self):
         helpers.reset_db()
         search.clear_all()

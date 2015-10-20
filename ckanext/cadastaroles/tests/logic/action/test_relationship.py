@@ -2,9 +2,10 @@ from nose.tools import assert_equal
 import responses
 from ckan.tests import helpers
 from ckan.lib import search
+from ckanext.cadastaroles.tests.helpers import CadastaRolesTestBase
 
 
-class TestCadastaShowRelationship(object):
+class TestCadastaShowRelationship(CadastaRolesTestBase):
     def teardown(self):
         helpers.reset_db()
         search.clear_all()

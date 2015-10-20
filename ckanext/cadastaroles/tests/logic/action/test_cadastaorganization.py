@@ -3,9 +3,10 @@ import responses
 from ckan.tests import helpers, factories
 from ckan.lib import search
 from ckan.plugins import toolkit
+from ckanext.cadastaroles.tests.helpers import CadastaRolesTestBase
 
 
-class TestCadastaGetOrganization(object):
+class TestCadastaGetOrganization(CadastaRolesTestBase):
     def teardown(self):
         helpers.reset_db()
         search.clear_all()
