@@ -85,8 +85,8 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams','parcelService'
             }
 
 
-            v.active = v.active ? 'Active' : 'Inactive';
-            v.relationship_type = 'own' ? 'Owner' : v.relationship_type;
+            v.properties.active = v.properties.active ? 'Active' : 'Inactive';
+            v.properties.relationship_type = 'own' ? 'Owner' : v.properties.relationship_type;
         });
 
         var parcelStyle = {

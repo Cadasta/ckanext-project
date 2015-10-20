@@ -108,7 +108,7 @@ app.controller("overviewCtrl", ['$scope', '$state', '$stateParams','$location', 
               layer = L.geoJson($scope.overviewData.features[0], {style:extentStyle});
               layer.addTo(map);
 
-          } else if ( $scope.overviewData.features[0].properties.parcels && $scope.overviewData.features[0].properties.parcels[0].geometry) {
+          } else if ( $scope.overviewData.features[0].properties.parcels.length > 0 && $scope.overviewData.features[0].properties.parcels[0].geometry) {
               layer = L.geoJson($scope.overviewData.features[0].properties.parcels, {style:extentStyle});
               layer.addTo(map);
 

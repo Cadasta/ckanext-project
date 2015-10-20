@@ -37,6 +37,7 @@
           attribution: '',
           maxZoom: 18,
           id: 'spatialdev.map-rpljvvub',
+          zoomControl:true,
           accessToken: 'pk.eyJ1Ijoic3BhdGlhbGRldiIsImEiOiJKRGYyYUlRIn0.PuYcbpuC38WO6D1r7xdMdA#3/0.00/0.00'
       }).addTo(map);
 
@@ -54,7 +55,8 @@
               "stroke": "#e54573",
               "stroke-width": 1,
               "fill-opacity":.8,
-              "stroke-opacity":.8
+              "stroke-opacity":.8,
+              "marker-color":"#e54573"
           };
 
           var ExtentStyle = {

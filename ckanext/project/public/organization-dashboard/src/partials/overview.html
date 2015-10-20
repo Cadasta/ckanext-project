@@ -33,8 +33,10 @@
                         ng-class="{'last-table-element':$index == parcels.length-1}">
 
                         <td><a href="/project/{{project.name}}">{{project.title}}</a></td>
-                        <td>{{project.notes}}</td>
-                        <td>{{project.metadata_modified}}</td>
+                        <!-- todo {{project.notes}} swap in when endpoint is updated-->
+                        <td>This project encompasses 100 families living in rural areas</td>
+                        <!-- todo {{project.metadata_modified}} swap in when endpoint is updated-->
+                        <td>10/15/2015</td>
                     </tr>
                     </tbody>
                 </table>
@@ -76,7 +78,7 @@
             <div ng-repeat="user in orgUsers">
                 <li class="users">
                     <i class="material-icons blue">account_circle</i>
-                    <a href="/user/{{user.name}}"><span class="bold">{{user.display_name}}</span></a>
+                    <a href="/user/{{user.name}}"><span class="bold">{{user.name}}</span></a>
                 </li>
             </div>
         </div>
