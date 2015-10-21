@@ -16,7 +16,7 @@ def call_api(endpoint, function, **kwargs):
             toolkit._('ckanext.cadasta.api_url has not been set')
         )
     try:
-        log.debug("[ REQUEST ]:\n\tfunction={0}\n\turl={1}\n\tparams={2}".format(
+        log.debug("[ REQUEST ]:\nfunction={0}\nurl={1}\nparams={2}".format(
             function.__name__,
             urlparse.urljoin(api_url, endpoint),
             json.dumps(kwargs,indent=4)
@@ -24,7 +24,7 @@ def call_api(endpoint, function, **kwargs):
         r = function(urlparse.urljoin(api_url, endpoint), **kwargs)
         # r = function(urlparse.urljoin(api_url, '/post'), **kwargs)
         result = r.json()
-        log.debug("[ RESPONSE ]:\n\tstatus={0}\n\terror={1}\n\tfull_result={2}".format(
+        log.debug("[ RESPONSE ]:\nstatus={0}\nerror={1}\nfull_result={2}".format(
             r.status_code,
             result.get('error',{}),
             json.dumps(result,indent=4)
