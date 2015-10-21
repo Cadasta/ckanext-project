@@ -4,7 +4,9 @@ import urlparse
 
 from pylons import config
 import requests
-
+import logging
+log = logging.getLogger(__name__)
+import json
 
 def call_api(endpoint, function, **kwargs):
     try:
@@ -14,9 +16,19 @@ def call_api(endpoint, function, **kwargs):
             toolkit._('ckanext.cadasta.api_url has not been set')
         )
     try:
+        log.debug("[ REQUEST ]:\n\tfunction={0}\n\turl={1}\n\tparams={2}".format(
+            function.__name__,
+            urlparse.urljoin(api_url, endpoint),
+            json.dumps(kwargs,indent=4)
+        ))
         r = function(urlparse.urljoin(api_url, endpoint), **kwargs)
         # r = function(urlparse.urljoin(api_url, '/post'), **kwargs)
         result = r.json()
+        log.debug("[ RESPONSE ]:\n\tstatus={0}\n\terror={1}\n\tfull_result={2}".format(
+            r.status_code,
+            result.get('error',{}),
+            json.dumps(result,indent=4)
+        ))
         error_dict = result.get('error')
         if error_dict:
             message = result.get('message', '')
