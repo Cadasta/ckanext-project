@@ -94,7 +94,7 @@ var app = angular.module("app")
 
             $http({
                 method: "post",
-                url: ENV.apiCadastaRoot +'/projects/'+ projectId + '/parcels/create',
+                url: ENV.apiCadastaRoot +'/projects/'+ projectId + '/parcels',
                 data: {
                     project_id: projectId,
                     spatial_source: 2,
