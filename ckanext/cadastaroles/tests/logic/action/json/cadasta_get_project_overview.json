@@ -1,0 +1,108 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+                [
+                [
+                -68.1512832641601,
+                -16.4848144489816
+                ],
+                [
+                    -68.1435585021973,
+                    -16.5295818911947
+                ],
+                [
+                    -68.1191825866699,
+                    -16.5159223369972
+                ],
+                [
+                    -68.1524848937988,
+                    -16.4644023247451
+                ],
+                [
+                    -68.1512832641601,
+                    -16.4848144489816
+                ]
+                ]
+                ]
+        },
+        "properties": {
+            "id": 1,
+            "organization_id": 1,
+            "title": "Bolivia",
+            "ckan_id": null,
+            "active": true,
+            "sys_delete": false,
+            "time_created": "2015-09-16T15:14:31.46313-07:00",
+            "time_updated": "2015-09-16T15:14:31.46313-07:00",
+            "created_by": null,
+            "updated_by": null,
+            "project_resources": [
+            {
+                "type": "Feature",
+                "geometry": null,
+                "properties": {
+                    "id": 1,
+                    "project_id": 1,
+                    "url": "http://www.cadasta.org/2/parcel",
+                    "type": "parcel",
+                    "description": null,
+                    "active": true,
+                    "sys_delete": false,
+                    "time_created": "2015-09-16T16:10:44.884044-07:00",
+                    "time_updated": "2015-09-16T16:10:44.884044-07:00",
+                    "created_by": null,
+                    "updated_by": null
+                }
+            }
+            ],
+            "project_activity": [
+            {
+                "type": "Feature",
+                "geometry": null,
+                "properties": {
+                    "activity_type": "parcel",
+                    "id": 1,
+                    "type": "survey_sketch",
+                    "name": null,
+                    "parcel_id": null,
+                    "time_created": "2015-09-16T15:25:42.137404-07:00"
+                }
+            }
+            ],
+            "parcels": [
+            {
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [
+                        -73.724739,
+                        40.588342
+                    ]
+                },
+                "properties": {
+                    "id": 1,
+                    "project_id": 1,
+                    "spatial_source": 1,
+                    "user_id": "11",
+                    "area": null,
+                    "length": null,
+                    "land_use": null,
+                    "gov_pin": null,
+                    "active": true,
+                    "sys_delete": false,
+                    "time_created": "2015-09-16T15:25:42.137404-07:00",
+                    "time_updated": "2015-09-16T15:25:42.137404-07:00",
+                    "created_by": 11,
+                    "updated_by": null
+                }
+            }
+            ]
+        }
+    }
+    ]
+}

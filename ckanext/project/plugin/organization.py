@@ -3,6 +3,7 @@ from ckan.plugins import toolkit
 from ckan.logic.schema import group_form_schema, default_group_schema
 from ckanext.project.logic import schema as project_schema
 from ckan.lib.plugins import DefaultOrganizationForm
+from ckanext.project.logic.helpers import organization_get_project_count_helper
 
 from ckanext.project.logic.validators import (
     if_empty_generate_uuid,
@@ -24,7 +25,23 @@ convert_from_extras = toolkit.get_validator('convert_from_extras')
 
 
 class CadastaOrganization(plugins.SingletonPlugin, DefaultOrganizationForm):
+
     plugins.implements(plugins.IGroupForm, inherit=False)
+    plugins.implements(plugins.ITemplateHelpers)
+
+    # ITemplateHelpers
+    def get_helpers(self):
+        '''Register the most_popular_groups() function above as a template
+        helper function.
+
+        '''
+        # Template helper function names should begin with the name of the
+        # extension they belong to, to avoid clashing with functions from
+        # other extensions.
+        return {
+            'organization_get_project_count': organization_get_project_count_helper
+        }
+
 
     def group_types(self):
         return ('organization', )
@@ -98,3 +115,5 @@ def create_cadasta_organization(key, data, errors, context):
                 ['error: {0} : ckan_dict {1}'.format(
                     result.get('message', ''),
                     str(data_dict))])
+
+

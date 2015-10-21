@@ -1,6 +1,6 @@
 
 {% set url = h.url_for(organization.type ~ '_read', action='read', id=organization.name) %}
-
+{% set search_facet = h.organization_get_project_count(organization) %}
 
 
 
@@ -12,12 +12,12 @@
                 <a href="{{ url }}"><img src="{{ organization.image_display_url or h.url_for_static('/base/images/placeholder-organization.png') }}" alt="{{ organization.name }}">
                 </a></td>
             <td class="org-title"><a href="{{ url }}">
-                <h3 class="black-title-link"> {{ organization.display_name }}</h3>
+                <h3 class="black-title-link"> {{ organization.title }}</h3>
             </a></td>
 
             <td>
-                {% if organization.package_count %}
-                <strong class="count">{{ ungettext('{num} Project', '{num} Projects', organization.package_count).format(num=organization.package_count) }}</strong>
+                {% if search_facet.package_count %}
+                <strong class="count">{{ ungettext('{num} Project', '{num} Projects', search_facet.package_count).format(num=search_facet.package_count) }}</strong>
                 {% else %}
                 <span class="count">{{ _('0 Projects') }}</span>
                 {% endif %}

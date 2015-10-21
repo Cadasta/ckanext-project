@@ -1,0 +1,40 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+    {
+        "type": "Feature",
+        "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+                [
+                [
+                -105.228338241577,
+                21.1714137482368
+                ],
+                [
+                    -105.229024887085,
+                    21.1694127979643
+                ],
+                [
+                    -105.228338241577,
+                    21.1714137482368
+                ]
+                ]
+            ]
+        },
+        "properties": {
+            "id": 1,
+            "spatial_source": 4,
+            "user_id": "1",
+            "area": null,
+            "land_use": null,
+            "gov_pin": null,
+            "active": true,
+            "time_created": "2015-08-06T15:41:26.440037-07:00",
+            "time_updated": null,
+            "created_by": 1,
+            "updated_by": null
+        }
+    }
+    ]
+}

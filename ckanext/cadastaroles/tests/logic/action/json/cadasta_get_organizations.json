@@ -1,0 +1,37 @@
+{
+        "type": "FeatureCollection",
+        "features": [
+        {
+                "type": "Feature",
+                "geometry": null,
+                "properties": {
+                        "id": 2,
+                        "organization_id": 1,
+                        "title": "Medellin Pilot",
+                        "ckan_id": "Medellin",
+                        "active": true,
+                        "sys_delete": false,
+                        "time_created": "2015-09-08T15:24:29.278002-07:00",
+                        "time_updated": "2015-09-08T15:24:29.278002-07:00",
+                        "created_by": null,
+                        "updated_by": null
+                }
+        },
+        {
+                "type": "Feature",
+                "geometry": null,
+                "properties": {
+                        "id": 3,
+                        "organization_id": 1,
+                        "title": "Ghana Pilot",
+                        "ckan_id": "Ghana",
+                        "active": true,
+                        "sys_delete": false,
+                        "time_created": "2015-09-08T15:24:31.811772-07:00",
+                        "time_updated": "2015-09-08T15:24:31.811772-07:00",
+                        "created_by": null,
+                        "updated_by": null
+                }
+        }
+        ]
+}
