@@ -9,7 +9,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
         // parse map query param
         var mapArr = mapStr.substring(1, mapStr.length - 1).split(',');
 
-        getParcelResources(true);
+        getParcelResources(false);
 
         var lat = mapArr[0];
         var lng = mapArr[1];
@@ -139,7 +139,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
         $scope.showAddResourceModal = function (ev) {
 
             $mdDialog.show({
-                controller: parcelDialogController,
+                controller: resourceDialogController,
                 templateUrl: '/project-dashboard/src/partials/data_upload.html',
                 parent: angular.element(document.body),
                 targetEvent: ev,
@@ -147,7 +147,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
             })
         };
 
-        function parcelDialogController($scope, $mdDialog, FileUploader, ENV) {
+        function resourceDialogController($scope, $mdDialog, FileUploader, ENV) {
             $scope.hide = function () {
                 $mdDialog.hide();
             };
@@ -175,6 +175,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
                     $scope.uploader.clearQueue();
 
                     getParcelResources(false);
+                    $rootScope.$broadcast('new-resource'); // broadcast new resources to the app
                 }
             };
 

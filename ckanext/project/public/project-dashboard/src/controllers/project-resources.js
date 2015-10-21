@@ -14,7 +14,7 @@ app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService'
         $scope.ResourceTypeModel = type;
     };
 
-    getResources(true); //  get resources, cache results
+    getResources(false); //  get resources, cache results
 
     $scope.resource_types = [
         {
@@ -82,6 +82,11 @@ app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService'
         });
     }
 
+    // listen for new resources
+    $scope.$on('new-resource', function(e){
+        getResources(false);
+    });
+
     function DialogController($scope, $mdDialog, FileUploader) {
 
         $scope.uploader = new FileUploader({
@@ -103,6 +108,7 @@ app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService'
                 $scope.uploader.clearQueue();
 
                 getResources(false); // get resources, do not cache
+                $rootScope.$broadcast('new-resource'); // broadcast new resources to the app
             }
         };
 

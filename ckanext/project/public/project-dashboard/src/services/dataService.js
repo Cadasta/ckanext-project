@@ -51,6 +51,20 @@ var app = angular.module("app")
             return deferred.promise;
         };
 
+        service.getProjectResources = function(cadastaProjectId){
+            var deferred = $q.defer();
+
+            // Cadasta API
+            $http.get(ENV.apiCadastaRoot + '/projects/' + cadastaProjectId + '/resources', { cache: false })
+                .then(function(response) {
+                    deferred.resolve(response.data);
+                }, function(response) {
+                    deferred.reject(response);
+                });
+
+            return deferred.promise;
+        };
+
         service.getCkanProject = function(ckanProjectId){
 
             var deferred = $q.defer();
@@ -95,7 +109,7 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot + '/projects/' + cadastaProjectId +'/resources', {cache: cache || true})
+            $http.get(ENV.apiCadastaRoot + '/projects/' + cadastaProjectId +'/resources', {cache: false})
                 .then(function(response) {
                     deferred.resolve(response.data);
                 }, function(response) {
