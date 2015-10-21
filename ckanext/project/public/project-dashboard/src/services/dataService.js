@@ -91,11 +91,11 @@ var app = angular.module("app")
          * Get all resources associated with a project
          * @returns {*}
          */
-        service.getProjectResources = function(cadastaProjectId){
+        service.getProjectResources = function(cadastaProjectId, cache){
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot + '/projects/' + cadastaProjectId +'/resources', { cache: true })
+            $http.get(ENV.apiCadastaRoot + '/projects/' + cadastaProjectId +'/resources', {cache: cache || true})
                 .then(function(response) {
                     deferred.resolve(response.data);
                 }, function(response) {

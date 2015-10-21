@@ -68,11 +68,11 @@ var app = angular.module("app")
          * @returns {*}
          * todo pass in a project and parcel id
          */
-        service.getProjectParcelResources = function(projectId, parcelId){
+        service.getProjectParcelResources = function(projectId, parcelId, cache){
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot +'/projects/'+ projectId + '/parcels/' + parcelId + '/resources', { cache: true })
+            $http.get(ENV.apiCadastaRoot +'/projects/'+ projectId + '/parcels/' + parcelId + '/resources', { cache: cache })
                 .then(function(response) {
                     deferred.resolve(response.data);
                 }, function(response) {

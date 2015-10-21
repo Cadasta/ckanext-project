@@ -9,26 +9,12 @@ app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService'
 
     $rootScope.$broadcast('tab-change', {tab: 'Resources'}); // notify breadcrumbs of tab on page load
 
-    var promise = dataService.getProjectResources(cadastaProject.id);
-
-    promise.then(function(response){
-        $scope.allResources = response;
-
-        //reformat date created of activity list
-        $scope.allResources.features.forEach(function(resource) {
-            resource.properties.time_created = utilityService.formatDate(resource.properties.time_created);
-        });
-
-
-    },function(err){
-        $scope.overviewData = "Server Error";
-    });
-
-
     // update resource type on selection
     $scope.filterResourceType = function (type){
         $scope.ResourceTypeModel = type;
     };
+
+    getResources(true); //  get resources, cache results
 
     $scope.resource_types = [
         {
@@ -64,15 +50,9 @@ app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService'
         }
     ];
 
-
-    $scope.status = '  ';
-
-    $scope.uploader = new FileUploader({
-        //alias: 'filedata',
-        ////todo - add in dynamic resource upload, this endpoint needs to be updated
-        //url: ENV.apiCadastaRoot + '/resources/'+ cadastaProject.id
-    });
-
+    $scope.response = '';
+    $scope.error = '';
+    $scope.progress = 0;
 
     $scope.showAdvanced = function(ev) {
 
@@ -85,7 +65,64 @@ app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService'
         })
     };
 
-    function DialogController($scope, $mdDialog) {
+    function getResources (cache){
+        var promise = dataService.getProjectResources(cadastaProject.id, cache);
+
+        promise.then(function(response){
+            $scope.allResources = response;
+
+            //reformat date created of activity list
+            $scope.allResources.features.forEach(function(resource) {
+                resource.properties.time_created = utilityService.formatDate(resource.properties.time_created);
+            });
+
+
+        },function(err){
+            $scope.overviewData = "Server Error";
+        });
+    }
+
+    function DialogController($scope, $mdDialog, FileUploader) {
+
+        $scope.uploader = new FileUploader({
+            alias: 'filedata',
+            ////todo - add in dynamic resource upload, this endpoint needs to be updated
+            url: ENV.apiCadastaRoot + '/projects/'+ cadastaProject.id + '/project/' + cadastaProject.id + '/resources'
+        });
+
+
+        $scope.uploader.onProgressItem = function (item, progress) {
+            $scope.progress = progress;
+        };
+
+        // triggered when FileItem is has completed .upload()
+        $scope.uploader.onCompleteItem = function (fileItem, response, status, headers) {
+            if (response.message == "Success"){
+                $scope.response = 'File Successfully uploaded.';
+                $scope.error = ''; // clear error
+                $scope.uploader.clearQueue();
+
+                getResources(false); // get resources, do not cache
+            }
+        };
+
+        $scope.uploader.onAfterAddingFile = function() {
+            //remove previous item from queue
+            if($scope.uploader.queue.length > 1){
+                $scope.uploader.removeFromQueue(0);
+            }
+        };
+
+        $scope.uploader.onErrorItem = function (item, response, status, headers) {
+            if(response.type == "duplicate"){
+                $scope.error = 'This resource already exists. Rename resource to complete upload.'
+            } else {
+                $scope.error = response.error;
+            }
+
+            $scope.uploader.clearQueue();
+        };
+
         $scope.hide = function() {
             $mdDialog.hide();
         };
