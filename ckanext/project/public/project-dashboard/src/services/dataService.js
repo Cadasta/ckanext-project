@@ -20,10 +20,34 @@ var app = angular.module("app")
             return deferred.promise;
         };
 
+
+        /**
+         * This function returns a single Cadasta project with geometry
+         * @returns {*}
+         *
+         */
+        service.getCadastaProjectDetails = function(cadastaProjectId){
+            var deferred = $q.defer();
+
+            // Cadasta API
+            $http.get(ENV.apiCadastaRoot + '/projects/' + cadastaProjectId + '?returnGeometry=true', { cache: true })
+                .then(function(response) {
+                    deferred.resolve(response.data);
+                }, function(err) {
+                    deferred.reject(err);
+                });
+
+            // CKAN API for project description
+
+            return deferred.promise;
+        };
+
+
+
         /**
          * This function gets all of the data required for the parcel overview page
          * @returns {*}
-         * todo pass in project id
+         *
          */
         service.getOverview = function(ckanProjectId, cadastaProjectId){
 

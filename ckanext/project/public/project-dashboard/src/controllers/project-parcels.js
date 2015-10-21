@@ -1,7 +1,7 @@
 var app = angular.module("app");
 
-app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelService', '$rootScope', 'utilityService', 'ckanId', 'cadastaProject', '$mdDialog',
-    function ($scope, $state, $stateParams, parcelService, $rootScope, utilityService, ckanId, cadastaProject, $mdDialog) {
+app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelService', 'dataService', '$rootScope', 'utilityService', 'ckanId', 'cadastaProject', '$mdDialog',
+    function ($scope, $state, $stateParams, parcelService, dataService, $rootScope, utilityService, ckanId, cadastaProject, $mdDialog) {
 
         $rootScope.$broadcast('tab-change', {tab: 'Parcels'}); // notify breadcrumbs of tab on page load
 
@@ -86,7 +86,8 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
         function addMap() {
 
             //todo have set view be to project extent
-            var map = L.map('addParcelMap').setView([51.5, -0.09], 13);
+            var map = L.map('addParcelMap');
+
 
             L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
                 attribution: '',
@@ -96,6 +97,7 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
                 accessToken: 'pk.eyJ1Ijoic3BhdGlhbGRldiIsImEiOiJKRGYyYUlRIn0.PuYcbpuC38WO6D1r7xdMdA#3/0.00/0.00'
             }).addTo(map);
 
+
             var featureGroup = L.featureGroup().addTo(map);
 
             var drawControl = new L.Control.Draw({
@@ -104,11 +106,53 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
                 }
             }).addTo(map);
 
+            //when a new parcel is added, save the layer to a feature group
             map.on('draw:created', function (e) {
                 featureGroup.addLayer(e.layer);
                 $scope.layer = e.layer;
             });
 
+            //only allow one parcel to be drawn at a time
+            map.on('draw:drawstart', function (e) {
+                featureGroup.clearLayers();
+            });
+
+
+
+            var promise = dataService.getCadastaProjectDetails(cadastaProject.id);
+
+            promise.then(function(response) {
+                // If there is a project geom load map and zoom to it; else zoom to parcels
+                console.log(response);
+                var layer;
+
+                var extentStyle = {
+                    "color": "#256c97",
+                    "stroke": "#256c97",
+                    "stroke-width": 1,
+                    "fill-opacity":.1,
+                    "stroke-opacity":.7
+                };
+
+
+                if(response.features[0].geometry) {
+
+                    var layer = L.geoJson(response.features[0], {style: extentStyle});
+                    layer.addTo(map);
+                }
+
+                if(layer === undefined){
+                    map.setView([19,-15],2);
+                } else {
+                    map.fitBounds(layer.getBounds());
+                }
+            });
+
+        }
+
+        //todo FIX i am not sure if this is the right way to grab data between scopes
+        function getLayer() {
+            return $scope.layer;
         }
 
 
@@ -123,8 +167,9 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
             $scope.cadastaProjectId = cadastaProject.id;
             $scope.showSaveParcel = false;
 
-            $scope.saveNewParcel = function (projectId, layer) {
+            $scope.saveNewParcel = function (projectId) {
                 // todo hit endpoint to save new parcel geometry
+                var layer = getLayer();
                 alert("saved new project" + projectId + layer);
             }
 
