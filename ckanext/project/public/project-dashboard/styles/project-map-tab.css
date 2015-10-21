@@ -57,6 +57,12 @@
 }
 
 
+#editParcelMap {
+    height: 400px;
+    width: 100%;
+}
+
+
 .cadasta-modal.resources .add-relationship  .modal-content {
     margin:4px 7px 10px 13px;
 }

@@ -299,3 +299,8 @@
     left:470px;
     top:15px;
 }
+
+#parcelDetails .section-map .cadasta-button {
+    position: relative;
+    bottom: 312px;
+}

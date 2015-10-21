@@ -1,5 +1,5 @@
-app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService', '$rootScope', 'paramService', 'utilityService', 'uploadResourceService', '$mdDialog', 'ckanId', 'cadastaProject', 'FileUploader', 'ENV',
-    function ($scope, $state, $stateParams, parcelService, $rootScope, paramService, utilityService, uploadResourceService, $mdDialog, ckanId, cadastaProject, FileUploader, ENV) {
+app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService', '$rootScope', 'paramService', 'utilityService', 'uploadResourceService', 'dataService', '$mdDialog', 'ckanId', 'cadastaProject', 'FileUploader', 'ENV',
+    function ($scope, $state, $stateParams, parcelService, $rootScope, paramService, utilityService, uploadResourceService, dataService, $mdDialog, ckanId, cadastaProject, FileUploader, ENV) {
 
 
         var mapStr = $stateParams.map;
@@ -35,7 +35,6 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
 
         L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
             attribution: '',
-            maxZoom: 18,
             id: 'spatialdev.map-rpljvvub',
             accessToken: 'pk.eyJ1Ijoic3BhdGlhbGRldiIsImEiOiJKRGYyYUlRIn0.PuYcbpuC38WO6D1r7xdMdA#3/0.00/0.00'
         }).addTo(map);
@@ -57,6 +56,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
             $rootScope.$broadcast('parcel-details', {id: $stateParams.id});
 
             $scope.parcel = response.properties;
+            $scope.parcelObject = response;
 
             // format dates
             $scope.parcel.time_created = utilityService.formatDate($scope.parcel.time_created);
@@ -135,6 +135,168 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
         $scope.response = '';
         $scope.error = '';
         $scope.progress = 0;
+
+
+
+        //modal for adding a parcel
+        $scope.updateParcelModal = function (ev) {
+            $mdDialog.show({
+                templateUrl: '/project-dashboard/src/partials/edit_parcel.html',
+                controller: updateParcelCtrl,
+                parent: angular.element(document.body),
+                clickOutsideToClose: false,
+                onComplete: addMap,
+                locals: {cadastaProject: cadastaProject}
+            })
+        };
+
+        function addMap() {
+
+            var map = L.map('editParcelMap');
+
+            L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+                attribution: '',
+                id: 'spatialdev.map-rpljvvub',
+                zoomControl: true,
+                accessToken: 'pk.eyJ1Ijoic3BhdGlhbGRldiIsImEiOiJKRGYyYUlRIn0.PuYcbpuC38WO6D1r7xdMdA#3/0.00/0.00'
+            }).addTo(map);
+
+
+            var featureGroup = L.featureGroup().addTo(map);
+
+
+            var options = {
+                draw: {
+                    polyline: {
+                        shapeOptions: {
+                            "color": "#FF8000",
+                            "stroke": "#FF8000",
+                            "stroke-width": 1,
+                            "fill-opacity":.7,
+                            "stroke-opacity":.8
+                        }
+                    },
+                    polygon: {
+                        shapeOptions: {
+                            "color": "#FF8000",
+                            "stroke": "#FF8000",
+                            "stroke-width": 1,
+                            "fill-opacity":.7,
+                            "stroke-opacity":.8
+                        }
+                    },
+                    circle: {
+                        shapeOptions: {
+                            "color": "#FF8000",
+                            "stroke": "#FF8000",
+                            "stroke-width": 1,
+                            "fill-opacity":.7,
+                            "stroke-opacity":.8
+                        }
+                    },
+                    rectangle: {
+                        shapeOptions: {
+                            "color": "#FF8000",
+                            "stroke": "#FF8000",
+                            "stroke-width": 1,
+                            "fill-opacity":.7,
+                            "stroke-opacity":.8
+                        }
+                    }
+                    //},
+                    //marker: {
+                    //    icon: new MyCustomMarker()
+                    //}
+                },
+                edit: {
+                    featureGroup: featureGroup
+                }
+            };
+
+            var drawControl = new L.Control.Draw(options).addTo(map);
+
+            //when a new parcel is added, save the layer to a feature group
+            map.on('draw:created', function (e) {
+
+                featureGroup.addLayer(e.layer);
+                $scope.layer = e.layer;
+            });
+
+            //only allow one parcel to be drawn at a time
+            map.on('draw:drawstart', function (e) {
+                featureGroup.clearLayers();
+
+            });
+
+
+            //add project extent to the map
+            var promise = dataService.getCadastaProjectDetails(cadastaProject.id);
+
+            promise.then(function(response) {
+                // If there is a project geom load map and zoom to it; else zoom to parcels
+                console.log(response);
+                var layer;
+
+                var extentStyle = {
+                    "color": "#256c97",
+                    "stroke": "#256c97",
+                    "stroke-width": 1,
+                    "fill-opacity":.1,
+                    "stroke-opacity":.7
+                };
+
+
+                if(response.features[0].geometry) {
+
+                    var layer = L.geoJson(response.features[0], {style: extentStyle});
+                    layer.addTo(map);
+                }
+
+            });
+
+            var parcelStyle = {
+                "color": "#e54573",
+                "stroke": "#e54573",
+                "stroke-width": 1,
+                "fill-opacity":.8,
+                "stroke-opacity":.8,
+                "marker-color":"#e54573"
+            };
+
+            //add parcel extent to the map
+            var parcelLayer = L.geoJson($scope.parcelObject, {style: parcelStyle});
+
+            parcelLayer.addTo(map);
+
+            map.fitBounds(parcelLayer.getBounds());
+
+        }
+
+        function getLayer() {
+            return $scope.layer;
+        }
+
+
+        function updateParcelCtrl($scope, $mdDialog) {
+            $scope.hide = function () {
+                $mdDialog.hide();
+            };
+            $scope.cancel = function () {
+                $mdDialog.cancel();
+            };
+
+            $scope.cadastaProjectId = cadastaProject.id;
+            $scope.showSaveParcel = false;
+
+            $scope.saveNewParcel = function (projectId) {
+                // todo hit endpoint to save new parcel geometry
+                var layer = getLayer();
+                alert("saved new project" + projectId + layer.toGeoJSON());
+                parcelService.createProjectParcel(projectId, layer.toGeoJSON());
+            }
+
+        }
+
 
         $scope.showAddResourceModal = function (ev) {
 

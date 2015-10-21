@@ -81,6 +81,36 @@ var app = angular.module("app")
 
             return deferred.promise;
         };
+
+
+        /**
+         * Creates a new parcel via a post request
+         * @returns {*}
+         * todo pass in a project and parcel id
+         */
+        service.createProjectParcel = function(projectId, geoJSON){
+
+            var deferred = $q.defer();
+
+            $http({
+                method: "post",
+                url: ENV.apiCadastaRoot +'/projects/'+ projectId + '/parcels/create',
+                data: {
+                    project_id: projectId,
+                    spatial_source: 2,
+                    geojson: geoJSON
+                }
+            }).then(function(response) {
+                    deferred.resolve(response.data);
+                }, function(response) {
+                    deferred.reject(response);
+                });
+
+            return deferred.promise;
+        };
+
+
+
         return service;
     }]);
 

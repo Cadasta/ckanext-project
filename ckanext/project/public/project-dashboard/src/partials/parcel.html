@@ -14,26 +14,7 @@
                 <div class="container">
                     <div class="title">{{parcel.id}} (alternative ID here)</div>
 
-                    <md-button class="md-icon-button right parcel-page-layout" aria-label="More">
-                        <div class="md-menu-demo">
-                            <div class="menu-demo-container" layout-align="center center" layout="column">
-                                <div class="menus" layout-wrap layout="row" layout-align="space-between center">
-                                    <div layout="column" flex="33" flex-sm="100" layout-align="center center">
-                                        <md-menu md-offset="0 -7">
-                                            <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                                                <i class="material-icons">more_vert</i>
-                                            </md-button>
-                                            <md-menu-content width="2">
-                                                <md-menu-item>
-                                                    <md-button ng-click="addRelationshipModal()"> Add Relationship </md-button>
-                                                </md-menu-item>
-                                            </md-menu-content>
-                                        </md-menu>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </md-button>
+                    <div class="cadasta-round-button float-right" ng-click="addRelationshipModal()"> Add Relationship </div>
 
                     <div class="relationship-container">
                         <!-- Remove bottom border if first element in array-->
@@ -54,12 +35,12 @@
                                 <div>{{r.properties.active}} <a href="">change</a></div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
             <div class="section-map">
                 <div id="parcelDetailsMap"></div>
+                <div class='cadasta-button float-right' ng-click="updateParcelModal()"> Update Parcel Geometry </div>
             </div>
 
         </div>
@@ -73,26 +54,7 @@
                 <div class="small-heading">
                     Parcel History
                 </div>
-                <!--<md-button class="md-icon-button right parcel-page-layout" aria-label="More">-->
-                    <!--<div class="md-menu-demo">-->
-                        <!--<div class="menu-demo-container" layout-align="center center" layout="column">-->
-                            <!--<div class="menus" layout-wrap layout="row" layout-align="space-between center">-->
-                                <!--<div layout="column" flex="33" flex-sm="100" layout-align="center center">-->
-                                    <!--<md-menu md-offset="0 -7">-->
-                                        <!--<md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">-->
-                                            <!--<i class="material-icons">more_vert</i>-->
-                                        <!--</md-button>-->
-                                        <!--<md-menu-content width="2">-->
-                                            <!--<md-menu-item>-->
-                                                <!--<md-button ng-click="ctrl.announceClick($index)"> View More </md-button>-->
-                                            <!--</md-menu-item>-->
-                                        <!--</md-menu-content>-->
-                                    <!--</md-menu>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</md-button>-->
+
                 <table class="parcel-history">
                     <thead>
                     <tr>
@@ -124,27 +86,7 @@
                 <div class="small-heading">
                     Relationship History
                 </div>
-                <!--<md-button class="md-icon-button right parcel-page-layout" aria-label="More">-->
-                    <!--<div class="md-menu-demo">-->
-                        <!--<div class="menu-demo-container" layout-align="center center" layout="column">-->
-                            <!--<div class="menus" layout-wrap layout="row" layout-align="space-between center">-->
-                                <!--<div layout="column" flex="33" flex-sm="100" layout-align="center center">-->
-                                    <!--<md-menu md-offset="0 -7">-->
-                                        <!--<md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">-->
-                                            <!--<i class="material-icons">more_vert</i>-->
-                                        <!--</md-button>-->
-                                        <!--<md-menu-content width="2">-->
-                                            <!--<md-menu-item>-->
-                                                <!--<md-button ng-click="ctrl.announceClick($index)"> View More </md-button>-->
-                                            <!--</md-menu-item>-->
-                                        <!--</md-menu-content>-->
-                                    <!--</md-menu>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</md-button>-->
-
+                <!--todo this needs to be updated with relationship history data as opposed to current data-->
 
                 <table class="parcel-history">
                     <thead>

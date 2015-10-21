@@ -536,6 +536,7 @@ a:active {
 
 a {
     border: none;
+    color:  #256c97;
 }
 
 .sort-box {
@@ -1612,7 +1613,7 @@ label {
 
 
 .userpage .cadasta-round-button {
-    background-color: #187794;
+    background-color: #256c97;
     color: #fff;
     padding: 3px 15px;
     border-radius: 15px;
