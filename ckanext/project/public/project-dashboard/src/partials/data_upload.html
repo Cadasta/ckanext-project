@@ -7,6 +7,7 @@
                     <div class="small-heading">
                         Add Resource
                     </div>
+
                     <div class="right">
                         <md-button class="md-icon-button" ng-click="cancel()">
                             <i class="material-icons right">clear</i>
@@ -20,10 +21,16 @@
                             normcore Banksy Kickstarter freegan fanny pack Shoreditch. Squid deep v raw denim High Life
                         </p>
                         <br><br>
+                        <div class="resource-upload-error">
+                            {{error}}
+                        </div>
+                        <div class="resource-upload-success">
+                            {{response}}
+                        </div>
                     </div>
 
+                    <input type="file" nv-file-select uploader="uploader" multiple/><br/>
 
-                    <input type="file" nv-file-select uploader="uploader"/><br/>
                     <ul>
                         <li ng-repeat="item in uploader.queue">
                             Name: <span ng-bind="item.file.name"></span><br/>
