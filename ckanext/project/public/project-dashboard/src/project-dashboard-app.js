@@ -102,7 +102,7 @@ var app = angular.module("app",
       views: {
         'parcelslist': {
           controller: 'parcelsCtrl',
-          templateUrl: '/project-dashboard/src/partials/parcelList.html', }
+          templateUrl: '/project-dashboard/src/partials/parcelList.html' }
       },
       sticky:true,
       deepStateRedirect: true
@@ -177,6 +177,78 @@ var app = angular.module("app",
       deepStateRedirect: dsrCb,
       sticky: true
     });
+
+
+    // Child State
+    states.push({
+      name: 'tabs.relationships',
+      url: 'relationships',
+      views: {
+        'relationshipstab': {  templateUrl: '/project-dashboard/src/partials/relationships.html' }
+      },
+      deepStateRedirect: { default: "tabs.relationships.relationshiplist" },
+      sticky: true
+    });
+
+    // Grandchild State
+    states.push({
+      name: 'tabs.relationships.relationshiplist',
+      url: '/list',
+      views: {
+        'relationshiplist': {
+          controller: 'relationshipsCtrl',
+          templateUrl: '/project-dashboard/src/partials/relationshipList.html'}
+      },
+      sticky:true,
+      deepStateRedirect: true
+    });
+
+    // Grandchild State
+    states.push({
+      name: 'tabs.relationships.relationship',
+      url: '/:id?map',
+      views: {
+        'parcel': {
+          controller: 'relationshipCtrl',
+          templateUrl: '/project-dashboard/src/partials/relationship.html' }
+      },
+      onEnter: function($state, $stateParams, mapUtilityService){
+
+        $stateParams.map = mapUtilityService.validateMapParam($stateParams.map);
+      },
+      reloadOnSearch: false,
+      deepStateRedirect: dsrCb,
+      paramsMap:[{key:'id'}, {key:'map', defaultValue: '(0,0,1)'}],
+      sticky:true,
+      resolve: {
+        ckanId: function ($window) {
+
+          return $window.location.pathname.split('/')[2];
+        },
+        cadastaProject: function ($q, $window, dataService) {
+
+          var ckanId = $window.location.pathname.split('/')[2];
+
+          var deferred = $q.defer();
+
+          var promise = dataService.getCadastaProject(ckanId);
+
+          promise.then(function(response){
+            deferred.resolve(response);
+          },function(err){
+            console.error(err);
+            deferred.reject(err);
+
+          });
+
+          return deferred.promise;
+
+        }
+      }
+
+
+    });
+
 
 
     // Child State for activity list

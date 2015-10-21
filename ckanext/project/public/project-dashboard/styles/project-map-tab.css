@@ -51,8 +51,20 @@
 }
 
 
+#addParcelMap {
+    height: 400px;
+    width: 100%;
+}
 
 
-/*.leaflet-zoom-animated path {*/
-/*fill-opacity: .2;*/
-/*}*/
+.cadasta-modal.resources .add-relationship  .modal-content {
+    margin:4px 7px 10px 13px;
+}
+
+.cadasta-modal.resources .add-relationship  .small-heading {
+   margin: 16px 0 0 12px;
+}
+
+.add-relationship .right {
+    margin-right:0;
+}
