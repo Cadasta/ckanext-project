@@ -21,6 +21,13 @@ def org_id_or_name_exists(reference, context):
     return reference
 
 
+def user_role_show():
+    return {
+        'organization_id': [ignore_missing, unicode, org_id_or_name_exists,
+                            as_org_id],
+    }
+
+
 def cadasta_admin_schema():
     return {
         'username': [not_missing, unicode, user_exists],

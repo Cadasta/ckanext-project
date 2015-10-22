@@ -76,3 +76,34 @@ class TestCadastaUserRoleShow(CadastaRolesTestBase):
             organization_id=organization['id'],
         )
         assert_equal(result, [])
+
+    def test_user_role_by_org(self):
+        user = factories.User()
+        organization = factories.Organization(id='1',
+                                              users=[{'name': user['name'],
+                                                      'capacity': 'surveyor'}])
+        organization_2 = factories.Organization(id='2',
+                                                users=[{'name': user['name'],
+                                                        'capacity': 'surveyor'}]
+                                                )
+        dataset = factories.Dataset(owner_org=organization['id'],
+                                    name='test')
+
+        context = {
+            'model': model,
+            'session': model.Session,
+            'user': user['name']
+        }
+        result = helpers.call_action(
+            'user_role_show',
+            context=context,
+            user_id=user['name'],
+            organization_id='1',
+        )
+
+        assert_equal('surveyor', result[0]['role'])
+        assert_equal(organization['id'], result[0]['organization']['id'])
+        assert_equal(dataset['id'],
+                     result[0]['organization']['packages'][0]['id'])
+
+        assert_equal(1, len(result))
