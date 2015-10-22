@@ -95,10 +95,14 @@ var app = angular.module("app")
             $http({
                 method: "post",
                 url: ENV.apiCadastaRoot +'/projects/'+ projectId + '/parcels',
-                data: {
+                data: JSON.stringify({
                     project_id: projectId,
-                    spatial_source: 2,
-                    geojson: geoJSON
+                    spatial_source: "digitized",
+                    geojson: geoJSON.geometry,
+                    description: " "
+                }),
+                headers: {
+                    'Content-type': 'application/json'
                 }
             }).then(function(response) {
                     deferred.resolve(response.data);

@@ -165,11 +165,16 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
             $scope.showSaveParcel = false;
 
             $scope.saveNewParcel = function (projectId) {
-                // todo hit endpoint to save new parcel geometry
+                // todo hit endpoint to save new parcel geometry!
                 var layer = getLayer();
-                alert("saved new project" + projectId + layer.toGeoJSON());
-            }
 
+                var createParcel = parcelService.createProjectParcel(projectId, layer.toGeoJSON());
+
+                createParcel.then(function (response) {
+                    $scope.parcelCreated = "parcel successfully added";
+                });
+
+            }
         }
 
 

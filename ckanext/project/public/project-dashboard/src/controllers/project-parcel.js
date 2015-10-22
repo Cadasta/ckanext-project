@@ -288,13 +288,12 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
             $scope.cadastaProjectId = cadastaProject.id;
             $scope.showSaveParcel = false;
 
-            $scope.saveNewParcel = function (projectId) {
-                // todo hit endpoint to save new parcel geometry
+            $scope.updateParcel = function (projectId) {
+                // todo hit endpoint to update parcel geometry
                 var layer = getLayer();
                 alert("saved new project" + projectId + layer.toGeoJSON());
                 parcelService.createProjectParcel(projectId, layer.toGeoJSON());
             }
-
         }
 
 
