@@ -29,7 +29,6 @@ class TestCadastaUserRoleShow(CadastaRolesTestBase):
             'user_role_show',
             context=context,
             user_id=user['id'],
-            organization_id=organization['id'],
         )
 
         assert_equal('surveyor', result[0]['role'])
@@ -54,7 +53,6 @@ class TestCadastaUserRoleShow(CadastaRolesTestBase):
             'user_role_show',
             context=context,
             user_id=user['name'],
-            organization_id=organization['name'],
         )
 
         assert_equal('surveyor', result[0]['role'])
@@ -78,18 +76,3 @@ class TestCadastaUserRoleShow(CadastaRolesTestBase):
             organization_id=organization['id'],
         )
         assert_equal(result, [])
-
-    def test_org_does_not_exist_raises_validation(self):
-        user = factories.User()
-
-        context = {
-            'model': model,
-            'session': model.Session,
-            'user': user['name']
-        }
-        assert_raises(toolkit.ValidationError,
-                      helpers.call_action,
-                      'user_role_show',
-                      context=context,
-                      user_id=user['id'],
-                      organization_id='no')
