@@ -9,6 +9,7 @@ from ckanext.project.logic.validators import (
     if_empty_generate_uuid,
     slugify_title_to_name,
     create_cadasta_project,
+    update_cadasta_project,
 )
 
 
@@ -45,6 +46,9 @@ def project_create_schema():
 def project_update_schema():
     schema = default_update_package_schema()
     schema.update(project_schema())
+    schema.update({
+        '__after': [update_cadasta_project],
+    })
     return schema
 
 

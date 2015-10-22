@@ -76,6 +76,8 @@ post_api_map = {
 patch_api_map = {
     'cadasta_update_organization': CadastaEndpoint(
         '/organizations/{cadasta_organization_id}'),
+    'cadasta_update_project': CadastaEndpoint(
+        '/projects/{cadasta_project_id}'),
 }
 
 post_files_api_map = {
