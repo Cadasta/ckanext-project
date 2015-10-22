@@ -23,21 +23,19 @@ class projectPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
     plugins.implements(plugins.IRoutes, inherit=True)
     plugins.implements(plugins.IAuthFunctions)
     plugins.implements(plugins.IActions)
+    plugins.implements(plugins.IPackageController)
 
     # IConfigurer
-
     def update_config(self, config):
         toolkit.add_template_directory(config, '../templates')
         toolkit.add_public_directory(config, '../public')
         toolkit.add_resource('../fanstatic', 'project')
 
     # IConfigurable
-
     def configure(self, config):
         model_setup()
 
     # IDatasetForm
-
     def package_types(self):
         return [DATASET_TYPE_NAME]
 
@@ -72,7 +70,6 @@ class projectPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         return project_schema.project_show_schema()
 
     # IRoutes
-
     def before_map(self, map):
 
         # rerouting existing CKAN routes
@@ -166,13 +163,60 @@ class projectPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         return map
 
     # IAuthFunctions
-
     def get_auth_functions(self):
         return {}
 
     # IActions
-
     def get_actions(self):
         return dict((name, function) for name, function
                     in action.__dict__.items()
                     if callable(function))
+
+    # IPackageController
+    def after_delete(self, context, package_dict):
+        project_schema.project_archive(package_dict,context)
+
+    def after_search(self, search_results, search_params):
+        return search_results
+
+    def after_show(self, context, package_dict):
+        pass
+
+    def after_update(self, context, package_dict):
+        pass
+
+    def after_create(self, context, package_dict):
+        pass
+
+    def before_search(self, search_params):
+        return search_params
+
+    def before_view(self, package_dict):
+        return package_dict
+
+    def before_index(self,package_dict):
+        return package_dict
+
+    def read(self, entity):
+        pass
+
+    def create(self, entity):
+        pass
+
+    def edit(self, entity):
+        pass
+
+    def authz_add_role(self, object_role):
+        pass
+
+    def authz_remove_role(self, object_role):
+        pass
+
+    def delete(self, entity):
+        pass
+
+
+
+
+
+
