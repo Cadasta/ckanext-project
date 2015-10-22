@@ -2,10 +2,13 @@
 var app = angular.module("app");
 
 
-app.controller("breadcrumbsCtrl", ['$scope', '$state', '$stateParams','$location', 'dataService','paramService', function($scope, $state, $stateParams, $location, dataService, paramService) {
+app.controller("breadcrumbsCtrl", ['$scope', '$state', '$stateParams','$location', 'dataService','paramService','ckanId','cadastaProject', 'ENV', function($scope, $state, $stateParams, $location, dataService, paramService,ckanId, cadastaProject, ENV) {
 
     $scope.tab = '';
     $scope.tab_parcel = '';
+    $scope.ckanId = ckanId;
+    $scope.cadastaProject = cadastaProject;
+    $scope.ENV = ENV;
 
     // listen for tab change
     $scope.$on('tab-change',function(evt,data){

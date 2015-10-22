@@ -154,7 +154,7 @@ a.md-button:not([disabled]):hover, .md-button:not([disabled]):hover {
 }
 
 a.md-button:not([disabled]):hover, .md-button:not([disabled]):focus {
-    background-color: #187794;
+    background-color: #256c97;
 }
 
 .resources .cadasta-round-button {

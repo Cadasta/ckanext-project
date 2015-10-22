@@ -5,7 +5,7 @@
             <div class="form_upload_content add-relationship">
                 <div class="cadasta-modal-header">
                     <div class="small-heading">
-                        Add Parcel
+                        Update Parcel Geometry
                     </div>
                     <div class="right">
                         <md-button class="md-icon-button" ng-click="cancel()">
@@ -15,10 +15,10 @@
                 </div>
                 <div class="modal-content">
                     <div>
-                        <p>Draw the geometry of a new parcel using the tools on the left.
-                        <br><br>
+                        <p>Use the tools on the left to update the parcel geometry by retracing the parcel extent.
+                            <br><br>
 
-                        <div id="addParcelMap"></div>
+                        <div id="editParcelMap"></div>
 
                         <!--map legend-->
                         <div id='legend'>
@@ -27,13 +27,13 @@
                                 <span class='legend-key' style='background:#256c97;'></span>
                                 <span class="legend-label">Project Extent</span>
                                 <span class='legend-key' style='background:#e54573;'></span>
-                                <span class="legend-label">Parcel Geometry</span>
+                                <span class="legend-label">Current Parcel Geometry</span>
+                                <span class='legend-key' style='background:#FF8000;'></span>
+                                <span class="legend-label">New Parcel Geometry</span>
                             </nav>
                         </div>
 
-                        <p>{{parcelCreated}}</p>
-
-                        <div class="cadasta-button right" ng-click="saveNewParcel(cadastaProjectId, layer)">Save Parcel</div>
+                        <div class="cadasta-button right" ng-click="updateParcel(cadastaProjectId, layer)">Update Parcel</div>
 
                     </div>
                 </div>

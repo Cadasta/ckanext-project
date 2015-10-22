@@ -13,8 +13,6 @@ from ckanext.project.logic.validators import (
 
 import json
 import logging
-
-
 log = logging.getLogger(__name__)
 
 ignore_missing = toolkit.get_validator('ignore_missing')
@@ -59,7 +57,7 @@ class CadastaOrganization(plugins.SingletonPlugin, DefaultOrganizationForm):
             'orgURL': [ignore_missing, unicode, convert_to_extras],
             'contact': [ignore_missing, unicode, convert_to_extras],
             'ona_api_token': [ignore_missing, unicode, convert_to_extras],
-            '__after': [create_cadasta_organization],
+            '__after': [create_or_update_cadasta_organization],
         })
         return schema
 
@@ -75,33 +73,74 @@ class CadastaOrganization(plugins.SingletonPlugin, DefaultOrganizationForm):
         return schema
 
 
-def create_cadasta_organization(key, data, errors, context):
-    '''call cadasta_create_organization and save the id returned'''
+def is_edit_request(context):
+    return context.get('for_edit',False)
+
+
+def transform_request_params(data, context):
+    '''
+    depending on create or update
+    return the correct data dict
+    used for request params
+
+    :param data:
+    :param context:
+    :return: None
+    '''
+    if is_edit_request(context) is True:
+        # update call
+        return {
+            'cadasta_organization_id': context['group'].id,
+            'ckan_name': data['name',],
+            'title': data['title', ],
+            'description': data.get(('description',), '')
+        }
+    else:
+        # create call
+        return {
+            'ckan_id': data['name', ],
+            'ckan_name': data['name',],
+            'ckan_title': data['title', ],
+            'ckan_description': data.get(('description',), '')
+        }
+
+
+def create_or_update_cadasta_organization(key, data, errors, context):
+    '''
+    call "cadasta_{ create || update }_organization" call.
+    for create workflow the cadasta_organization_id
+    is swapped for the normal ckan organization id
+
+    :return: None
+    '''
+
     # do not make api calls when there are errors
     for error in errors.values():
         if error:
             return
-    data_dict = {
-        'ckan_id': data['name', ],
-        'ckan_name': data['name',],
-        'ckan_title': data['title', ],
-        'ckan_description': data.get(('description',), '')
-    }
-    context = {
+
+    request_params = transform_request_params(data,context)
+    request_context = {
         'model': context['model'],
         'session': context['session'],
         'user': context['user'],
     }
 
+    if is_edit_request(context) is True:
+        update_cadasta_organization(key,data, errors, request_context, request_params)
+    else:
+        create_cadasta_organization(key, data, errors, request_context, request_params)
+
+
+def create_cadasta_organization(key, data, errors, context, request_params=None):
     try:
-        result = toolkit.get_action('cadasta_create_organization')(context,
-                                                                   data_dict)
+        result = toolkit.get_action('cadasta_create_organization')(context,request_params)
     except KeyError, e:
         log.error('Error calling cadasta api action: {0}').format(e.message)
 
+
     try:
         data['id', ] = str(result['cadasta_organization_id'])
-        # convert_to_extras(('cadasta_id',), data, errors, context)
     except KeyError:
         error_dict = result.get('error')
         if error_dict:
@@ -109,12 +148,17 @@ def create_cadasta_organization(key, data, errors, context):
             raise toolkit.ValidationError([
                 'error: {0} : {1}\n ckan dict: {2}'.format(
                     result.get('message', ''), error_line,
-                    str(data_dict))]
+                    str(request_params))]
             )
         else:
             raise toolkit.ValidationError(
                 ['error: {0} : ckan_dict {1}'.format(
                     result.get('message', ''),
-                    str(data_dict))])
+                    str(request_params))])
 
 
+def update_cadasta_organization(key, data, errors, context, request_params=None):
+    try:
+        toolkit.get_action('cadasta_update_organization')(context,request_params)
+    except KeyError, e:
+        log.error('Error calling cadasta api action: {0}').format(e.message)

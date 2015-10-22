@@ -14,6 +14,10 @@ div.hovercode {
     outline: none;
 }
 
+a {
+    color:#256c97;
+}
+
 .hovertrigger .hovercode {
     display: block;
     position: absolute;
@@ -79,7 +83,7 @@ div.tabcontent {
 }
 
 .cadasta-round-button {
-    background-color: #187794;
+    background-color: #256c97;
     color: white;
     padding: 3px 15px;
     border-radius: 15px;
@@ -93,4 +97,8 @@ div.tabcontent {
 
 md-dialog > form {
     overflow:hidden;
+}
+
+.float-right {
+    float:right;
 }

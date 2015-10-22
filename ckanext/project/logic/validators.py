@@ -121,12 +121,17 @@ def if_empty_generate_uuid(value):
     return value
 
 
-def create_cadasta_project(key, data, errors, context):
-    '''This validator makes a call to the external cadasta api.
 
-    This calls cadasta_create_project and makes an external call and saves
-    the returned project id into an extra cadasta_project_id
+def create_cadasta_project(key, data, errors, context):
     '''
+    This validator makes a call to the external cadasta api.
+    This calls cadasta_create_project.
+    The create workflow makes an external call and saves
+    the returned project id into an extra cadasta_project_id
+
+    :return: None
+    '''
+
     # if there are validation errors, do not make a call to cadasta api
     for error in errors.values():
         if error:
@@ -145,29 +150,26 @@ def create_cadasta_project(key, data, errors, context):
                 organization['id'])]
         )
 
-    data_dict = {
+    request_params = {
         'cadasta_organization_id': org_id,
         'ckan_id': data['name', ],
         'ckan_name': data['name', ],
         'title': data['title', ],
         'description': data.get('description',''),
     }
-    context = {
+    request_context = {
         'model': context['model'],
         'session': context['session'],
         'user': context['user'],
     }
 
     try:
-        result = toolkit.get_action('cadasta_create_project')(context,
-                                                              data_dict)
+        result = toolkit.get_action('cadasta_create_project')(request_context,request_params)
     except KeyError, e:
         log.error('Error calling cadasta api action: {0}').format(e.message)
 
     try:
         data['id', ] = str(result['cadasta_project_id'])
-
-        # convert_to_extras(('cadasta_id',), data, errors, context)
     except KeyError, e:
         error_dict = result.get('error')
         if error_dict:
@@ -175,10 +177,35 @@ def create_cadasta_project(key, data, errors, context):
             raise toolkit.ValidationError([
                 'error: {0} : {1}\n ckan dict: {2}'.format(
                     result.get('message', ''), error_line,
-                    str(data_dict))]
+                    str(request_params))]
             )
         else:
             raise toolkit.ValidationError(
                 ['error: {0} : ckan_dict {1}'.format(
                     result.get('message', ''),
-                    str(data_dict))])
+                    str(request_params))])
+
+
+def update_cadasta_project(key, data, errors, context):
+
+    # if there are validation errors, do not make a call to cadasta api
+    for error in errors.values():
+        if error:
+            return
+
+    request_params = {
+        'cadasta_project_id': context['package'].id,
+        'ckan_name': data['name', ],
+        'title': data['title', ],
+        'description': data.get('description',''),
+    }
+    request_context = {
+        'model': context['model'],
+        'session': context['session'],
+        'user': context['user'],
+    }
+
+    try:
+        toolkit.get_action('cadasta_update_project')(request_context,request_params)
+    except KeyError, e:
+        log.error('Error calling cadasta api action: {0}').format(e.message)
