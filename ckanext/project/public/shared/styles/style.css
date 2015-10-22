@@ -89,6 +89,7 @@ div.tabcontent {
     border-radius: 15px;
     font-weight: 600;
     max-height:28px;
+    cursor: pointer;
 }
 
 .cadasta-round-button:hover {
@@ -101,4 +102,8 @@ md-dialog > form {
 
 .float-right {
     float:right;
+}
+
+md-dialog {
+    max-height: 95%;
 }

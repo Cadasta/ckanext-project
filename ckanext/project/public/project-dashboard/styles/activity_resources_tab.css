@@ -116,11 +116,10 @@ md-content.md-default-theme {
     margin: 0 auto;
     border-radius: 0;
     width: 858px;
-    margin-top: -100px;
 }
-.cadasta-modal.resources .modal-content {
-    margin: 4px 112px 10px 25px;
-}
+/*.cadasta-modal.resources .modal-content {*/
+    /*margin: 4px 112px 10px 25px;*/
+/*}*/
 
 
 .modal-content .grey-btn {
@@ -128,7 +127,7 @@ md-content.md-default-theme {
 }
 
 .cadasta-modal-header {
-    width: 840px;
+    width: 100%;
     margin-top: -23px;
 }
 
@@ -160,6 +159,7 @@ a.md-button:not([disabled]):hover, .md-button:not([disabled]):focus {
 .resources .cadasta-round-button {
     position: relative;
     top: 23px;
+    cursor: pointer;
 }
 
 
@@ -169,10 +169,6 @@ a.md-button:not([disabled]):hover, .md-button:not([disabled]):focus {
     min-height: 20px;
 }
 
-.resources .cadasta-round-button {
-    position: relative;
-    top: 23px;
-}
 
 .file-upload-drop-zone {
     border: dotted 3px lightgray;
