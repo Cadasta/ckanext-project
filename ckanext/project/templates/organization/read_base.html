@@ -6,7 +6,9 @@
 <div class="icon-lnr-chevron-right arrow-right ckan"></div>
 <li>{% link_for _('Organizations'), controller='organization', action='index' %}</li>
 <li><div class="icon-lnr-chevron-right arrow-right ckan"></div></li>
-<li class="active">{% link_for c.group_dict.display_name|truncate(35), controller='organization', action='read', id=c.group_dict.name %}</li>
+<li class="active org-breadcrumb">{{c.group_dict.title}}</li>
+<div class="icon-lnr-chevron-right arrow-right ckan"></div>
+<li class="active org-breadcrumb">Overview</li>
 {% endblock %}
 
 {% block content_action %}
@@ -23,7 +25,7 @@
     {% endif %}
 </div>
 <div class="org-tab-header">
-    {{ h.build_nav('organization_read', _('OVERVIEW'), id=c.group_dict.name) }}
+    <li class="active-org-nav"><span>OVERVIEW</span></li>
     {{ h.build_nav('organization_members', _('MEMBERS'), id=c.group_dict.name) }}
 </div>
 {% endblock %}

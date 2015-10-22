@@ -71,6 +71,7 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
             $scope.overviewData = "Server Error";
         });
 
+        //modal for adding a parcel
         $scope.addParcelModal = function (ev) {
             $mdDialog.show({
                 templateUrl: '/project-dashboard/src/partials/add_parcel.html',
@@ -82,16 +83,12 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
             })
         };
 
-
         function addMap() {
 
-            //todo have set view be to project extent
             var map = L.map('addParcelMap');
-
 
             L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
                 attribution: '',
-                maxZoom: 18,
                 id: 'spatialdev.map-rpljvvub',
                 zoomControl: true,
                 accessToken: 'pk.eyJ1Ijoic3BhdGlhbGRldiIsImEiOiJKRGYyYUlRIn0.PuYcbpuC38WO6D1r7xdMdA#3/0.00/0.00'
@@ -168,11 +165,16 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
             $scope.showSaveParcel = false;
 
             $scope.saveNewParcel = function (projectId) {
-                // todo hit endpoint to save new parcel geometry
+                // todo hit endpoint to save new parcel geometry!
                 var layer = getLayer();
-                alert("saved new project" + projectId + layer);
-            }
 
+                var createParcel = parcelService.createProjectParcel(projectId, layer.toGeoJSON());
+
+                createParcel.then(function (response) {
+                    $scope.parcelCreated = "parcel successfully added";
+                });
+
+            }
         }
 
 
