@@ -209,3 +209,21 @@ def update_cadasta_project(key, data, errors, context):
         toolkit.get_action('cadasta_update_project')(request_context,request_params)
     except KeyError, e:
         log.error('Error calling cadasta api action: {0}').format(e.message)
+
+
+def archive_cadasta_project(data, context):
+
+    request_params = {
+        'cadasta_project_id': data['id'],
+    }
+    request_context = {
+        'model': context['model'],
+        'session': context['session'],
+        'user': context['user'],
+    }
+
+    try:
+        toolkit.get_action('cadasta_delete_project')(request_context,request_params)
+    except KeyError, e:
+        log.error('Error calling cadasta api action: {0}').format(e.message)
+

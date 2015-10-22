@@ -1,5 +1,5 @@
 from ckan import plugins
-from ckan.plugins import toolkit
+from ckan.plugins import toolkit, IOrganizationController
 from ckan.logic.schema import group_form_schema, default_group_schema
 from ckanext.project.logic import schema as project_schema
 from ckan.lib.plugins import DefaultOrganizationForm
@@ -26,6 +26,18 @@ class CadastaOrganization(plugins.SingletonPlugin, DefaultOrganizationForm):
 
     plugins.implements(plugins.IGroupForm, inherit=False)
     plugins.implements(plugins.ITemplateHelpers)
+    plugins.implements(IOrganizationController, inherit=True)
+
+    # IOrganizationController
+    def delete(self, entity):
+        request_params = {
+            'cadasta_organization_id': entity.id,
+        }
+        request_context = {
+            'session': entity.Session,
+        }
+        delete_cadasta_organization(request_context,request_params)
+
 
     # ITemplateHelpers
     def get_helpers(self):
@@ -160,5 +172,11 @@ def create_cadasta_organization(key, data, errors, context, request_params=None)
 def update_cadasta_organization(key, data, errors, context, request_params=None):
     try:
         toolkit.get_action('cadasta_update_organization')(context,request_params)
+    except KeyError, e:
+        log.error('Error calling cadasta api action: {0}').format(e.message)
+
+def delete_cadasta_organization(context, request_params):
+    try:
+        toolkit.get_action('cadasta_delete_organization')(context,request_params)
     except KeyError, e:
         log.error('Error calling cadasta api action: {0}').format(e.message)

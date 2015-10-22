@@ -37,8 +37,8 @@ def organization_get_project_count_helper(organization):
     '''
     search_facets = tk.get_action('package_search')(
          {}, {"rows": 0, "facet.field":["organization"]})
-    log.debug("[ SEARCH FACETS ]: %s", json.dumps(search_facets, indent=4))
+    #log.debug("[ SEARCH FACETS ]: %s", json.dumps(search_facets, indent=4))
 
-    for org in search_facets['search_facets']['organization']['items']:
+    for org in search_facets.get('search_facets',{}).get('organization',{}).get('items',[]):
         if org['name'] == organization['name']:
             return {'package_count': org['count'] }

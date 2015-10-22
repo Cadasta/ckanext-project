@@ -10,6 +10,7 @@ from ckanext.project.logic.validators import (
     slugify_title_to_name,
     create_cadasta_project,
     update_cadasta_project,
+    archive_cadasta_project,
 )
 
 
@@ -62,3 +63,9 @@ def project_show_schema():
     })
 
     return schema
+
+def project_archive(data,context):
+    archive_cadasta_project(data,context)
+
+
+
