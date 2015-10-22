@@ -2,6 +2,7 @@ from ckan.plugins import toolkit
 from ckanext.cadastaroles.logic.action.util import (
     cadasta_get_api,
     cadasta_post_api,
+    cadasta_patch_api,
     cadasta_post_files_api,
 )
 
@@ -10,6 +11,8 @@ import string
 import re
 
 from pylons import config
+import logging
+log = logging.getLogger(__name__)
 
 
 default_converter_types = {
@@ -70,6 +73,11 @@ post_api_map = {
     'cadasta_create_organization': CadastaEndpoint('/organizations'),
 }
 
+patch_api_map = {
+    'cadasta_update_organization': CadastaEndpoint(
+        '/organizations/{cadasta_organization_id}'),
+}
+
 post_files_api_map = {
     'cadasta_upload_resource': CadastaEndpoint(
         '/resources/{project_id}/{resource_type}/{resource_type_id}',
@@ -80,6 +88,7 @@ post_files_api_map = {
 
 
 def make_cadasta_action(action, cadasta_endpoint, decorator, cadasta_api_func):
+
     @decorator
     def cadasta_api_action(context, data_dict):
         # we actually always want to call check access
@@ -111,6 +120,7 @@ def make_cadasta_action(action, cadasta_endpoint, decorator, cadasta_api_func):
 
         return cadasta_api_func(endpoint, cadasta_dict,
                                 cadasta_endpoint.upload_fields)
+
     return cadasta_api_action
 
 
@@ -141,6 +151,13 @@ def post_actions():
                                               cadasta_post_api)
     return actions
 
+def patch_actions():
+    actions = {}
+    for action, cadasta_endpoint in patch_api_map.items():
+        actions[action] = make_cadasta_action(action, cadasta_endpoint,
+                                              post_request,
+                                              cadasta_patch_api)
+    return actions
 
 def post_files_actions():
     actions = {}

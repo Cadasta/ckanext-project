@@ -4,8 +4,13 @@ from ckan.plugins import toolkit
 from ckanext.cadastaroles.logic import action, auth
 from ckanext.cadastaroles import model
 from ckanext.cadastaroles.logic.action.api import (
-    get_actions, post_actions, post_files_actions
+    get_actions,
+    post_actions,
+    patch_actions,
+    post_files_actions
 )
+import logging
+log = logging.getLogger(__name__)
 
 
 class CadastarolesPlugin(plugins.SingletonPlugin):
@@ -23,7 +28,9 @@ class CadastarolesPlugin(plugins.SingletonPlugin):
                        if callable(function))
         actions.update(get_actions())
         actions.update(post_actions())
+        actions.update(patch_actions())
         actions.update(post_files_actions())
+
         return actions
 
     # IAuthFunctions
