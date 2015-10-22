@@ -6,7 +6,6 @@ from ckanext.cadastaroles.logic import schema
 
 
 @toolkit.side_effect_free
-@validate(schema.user_role_show)
 def user_role_show(context, data_dict):
     model = context['model']
     session = context['session']
