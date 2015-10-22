@@ -13,8 +13,6 @@ from ckanext.project.logic.validators import (
 
 import json
 import logging
-
-
 log = logging.getLogger(__name__)
 
 ignore_missing = toolkit.get_validator('ignore_missing')
@@ -77,6 +75,7 @@ class CadastaOrganization(plugins.SingletonPlugin, DefaultOrganizationForm):
 
 def is_edit_request(context):
     return context.get('for_edit',False)
+
 
 def transform_request_params(data, context):
     '''
