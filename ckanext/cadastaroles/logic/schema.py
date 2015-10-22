@@ -23,7 +23,6 @@ def org_id_or_name_exists(reference, context):
 
 def user_role_show():
     return {
-        'user_id': [not_missing, unicode, user_exists, as_user_id],
         'organization_id': [not_missing, unicode, org_id_or_name_exists,
                             as_org_id],
     }
