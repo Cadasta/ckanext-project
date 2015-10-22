@@ -30,4 +30,8 @@ app.controller("breadcrumbsCtrl", ['$scope', '$state', '$stateParams','$location
         }
     });
 
+    $scope.go = function ( path ) {
+        $location.path( path );
+    };
+
 }]);

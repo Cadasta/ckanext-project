@@ -109,6 +109,14 @@ app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location',
                     "stroke-opacity": .7
                 };
 
+          var parcelStyle = {
+              "color": "#e54573",
+              "stroke": "#e54573",
+              "stroke-width": 1,
+              "fill-opacity": .8,
+              "stroke-opacity": .8
+          };
+
                 // If there is a project geom load map and zoom to it; else zoom to parcels
                 if ($scope.overviewData.features[0].geometry) {
                     layer = L.geoJson($scope.overviewData.features[0], {style: extentStyle});
@@ -138,3 +146,6 @@ app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location',
         });
 
     }]);
+
+
+

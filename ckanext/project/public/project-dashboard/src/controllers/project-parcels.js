@@ -1,7 +1,7 @@
 var app = angular.module("app");
 
-app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelService', 'dataService', '$rootScope', 'utilityService', 'ckanId', 'cadastaProject', '$mdDialog',
-    function ($scope, $state, $stateParams, parcelService, dataService, $rootScope, utilityService, ckanId, cadastaProject, $mdDialog) {
+app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelService', 'dataService', '$rootScope', 'utilityService', 'ckanId', 'cadastaProject', '$mdDialog', '$location',
+    function ($scope, $state, $stateParams, parcelService, dataService, $rootScope, utilityService, ckanId, cadastaProject, $mdDialog, $location) {
 
         $rootScope.$broadcast('tab-change', {tab: 'Parcels'}); // notify breadcrumbs of tab on page load
 
@@ -55,21 +55,25 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
             }
         ];
 
-        var promise = parcelService.getProjectParcels(cadastaProject.id);
+        getParcels();
 
-        promise.then(function (response) {
+        function getParcels() {
+            var promise = parcelService.getProjectParcels(cadastaProject.id);
 
-            //format dates
-            response.forEach(function (val) {
-                val.properties.time_created = utilityService.formatDate(val.properties.time_created);
-            })
+            promise.then(function (response) {
 
-            $scope.parcels = response;
+                //format dates
+                response.forEach(function (val) {
+                    val.properties.time_created = utilityService.formatDate(val.properties.time_created);
+                })
+
+                $scope.parcels = response;
 
 
-        }, function (err) {
-            $scope.overviewData = "Server Error";
-        });
+            }, function (err) {
+                $scope.overviewData = "Server Error";
+            });
+        }
 
         //modal for adding a parcel
         $scope.addParcelModal = function (ev) {
@@ -82,6 +86,7 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
                 locals: {cadastaProject: cadastaProject}
             })
         };
+
 
         function addMap() {
 
@@ -97,11 +102,25 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
 
             var featureGroup = L.featureGroup().addTo(map);
 
-            var drawControl = new L.Control.Draw({
+            var editIcon = L.icon({
+                iconUrl: '/images/pink_marker.png',
+                iconSize: [30, 30]
+            });
+
+
+            var options = {
+                draw: {
+                    marker: {
+                        icon : editIcon
+                    },
+                    circle: false
+                },
                 edit: {
                     featureGroup: featureGroup
                 }
-            }).addTo(map);
+            };
+
+            var drawControl = new L.Control.Draw(options).addTo(map);
 
             //when a new parcel is added, save the layer to a feature group
             map.on('draw:created', function (e) {
@@ -113,6 +132,7 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
             map.on('draw:drawstart', function (e) {
                 featureGroup.clearLayers();
             });
+
 
 
 
@@ -162,21 +182,36 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
             };
 
             $scope.cadastaProjectId = cadastaProject.id;
-            $scope.showSaveParcel = false;
 
             $scope.saveNewParcel = function (projectId) {
-                // todo hit endpoint to save new parcel geometry!
+
                 var layer = getLayer();
 
-                var createParcel = parcelService.createProjectParcel(projectId, layer.toGeoJSON());
+                if (layer === undefined) {
+                    $scope.parcelCreated = "please draw parcel geometry before saving";
+                } else {
+                    var createParcel = parcelService.createProjectParcel(projectId, layer.toGeoJSON());
 
-                createParcel.then(function (response) {
-                    $scope.parcelCreated = "parcel successfully added";
-                });
+                    createParcel.then(function (response) {
+                        if (response.cadasta_parcel_id){
 
+                            $scope.parcelCreated = 'parcel sucessfully added';
+
+                            $rootScope.$broadcast('new-parcel');
+                            getParcels();
+
+                            var timeoutID = window.setTimeout(function() {
+                                    $scope.cancel();
+                                $location.path('/parcels/' + response.cadasta_parcel_id);
+                                }, 500);
+                        }
+                    }).catch(function(err){
+
+                        $scope.parcelCreated ='unable to create parcel';
+                    }).done();
+                }
             }
         }
-
 
     }]);
 

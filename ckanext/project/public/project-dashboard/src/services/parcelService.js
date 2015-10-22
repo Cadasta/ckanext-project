@@ -13,7 +13,7 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot + '/projects/' + projectId + '/parcels_list', {cache: true}).
+            $http.get(ENV.apiCadastaRoot + '/projects/' + projectId + '/parcels_list', {cache: false}).
                 then(function (response) {
                     deferred.resolve(response.data.features);
                 }, function (response) {
@@ -109,6 +109,38 @@ var app = angular.module("app")
                 }, function(response) {
                     deferred.reject(response);
                 });
+
+            return deferred.promise;
+        };
+
+
+        /**
+         * Updates a parcel via a post request
+         * @returns {*}
+         * todo pass in a project and parcel id
+         */
+        service.updateProjectParcel = function(projectId, parcelId, geoJSON){
+
+            var deferred = $q.defer();
+
+            $http({
+                method: "post",
+                url: ENV.apiCadastaRoot +'/projects/'+ projectId + '/parcel' + parcelId,
+                data: JSON.stringify({
+                    project_id: projectId,
+                    parcel_id: parcelId,
+                    spatial_source: "digitized",
+                    geojson: geoJSON.geometry,
+                    description: " "
+                }),
+                headers: {
+                    'Content-type': 'application/json'
+                }
+            }).then(function(response) {
+                deferred.resolve(response.data);
+            }, function(response) {
+                deferred.reject(response);
+            });
 
             return deferred.promise;
         };

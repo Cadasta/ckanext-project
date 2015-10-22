@@ -2,6 +2,7 @@
     height: 613px;
 }
 
+
 #legend {
     height: 50px;
     width:100%;
@@ -33,6 +34,11 @@
     bottom: 2px;
 }
 
+.add-relationship #legend {
+    width: 95%;
+    float: left;
+}
+
 .legend.clearfix {
     float: right;
     position: relative;
@@ -52,14 +58,14 @@
 
 
 #addParcelMap {
-    height: 400px;
-    width: 100%;
+    height: 375px;
+    width: 95%;
 }
 
 
 #editParcelMap {
-    height: 400px;
-    width: 100%;
+    height: 375px;
+    width: 95%;
 }
 
 
@@ -72,5 +78,5 @@
 }
 
 .add-relationship .right {
-    margin-right:0;
+    margin-right:40px;
 }
