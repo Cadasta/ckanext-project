@@ -5,26 +5,33 @@ from ckan.plugins import toolkit
 from ckanext.cadastaroles.logic import schema
 
 
-@toolkit.side_effect_free
 @validate(schema.user_role_show)
+@toolkit.side_effect_free
 def user_role_show(context, data_dict):
     model = context['model']
     session = context['session']
-    user_id = data_dict['user_id']
-    organization_id = data_dict['organization_id']
+    user = model.User.get(context['user'])
 
-    user = model.User.get(user_id)
-    organization = model.Group.get(organization_id)
-
-    member = session.query(model.Member)\
+    members = session.query(model.Member)\
         .filter(model.Member.table_name == 'user')\
         .filter(model.Member.table_id == user.id)\
-        .filter(model.Member.group_id == organization.id)\
-        .filter(model.Member.state == 'active').first()
-    if member:
-        member_dict = member_dictize(member, context)
-        member_dict['role'] = member_dict.pop('capacity')
-        member_dict['organization_id'] = member_dict.pop('group_id')
-        member_dict['user_id'] = member_dict.pop('table_id')
-        member_dict.pop('table_name')
-        return member_dict
+        .filter(model.Member.state == 'active')
+
+    organization_id = data_dict.get('organization_id')
+    if organization_id:
+        members = members.filter(model.Member.group_id == organization_id)
+    result = []
+    for member in members:
+        membership = {
+            'role': member.capacity,
+            'organization': toolkit.get_action('organization_show')(data_dict={
+                'include_datasets': True,
+                'include_tags': data_dict.get('include_tags', False),
+                'include_users': data_dict.get('include_users', False),
+                'include_groups': data_dict.get('include_groups', False),
+                'include_followers': data_dict.get('include_followers', False),
+                'id': member.group_id})
+        }
+
+        result.append(membership)
+    return result
