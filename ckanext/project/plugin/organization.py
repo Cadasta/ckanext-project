@@ -62,13 +62,15 @@ class CadastaOrganization(plugins.SingletonPlugin, DefaultOrganizationForm):
         return schema
 
     def db_to_form_schema(self, group_type=None):
+        packages_schema = project_schema.project_show_schema()
+        packages_schema.pop('organization', '')
         schema = default_group_schema()
         schema.update({
             'orgURL': [convert_from_extras, ignore_missing, unicode],
             'contact': [convert_from_extras, ignore_missing, unicode],
             'ona_api_token': [convert_from_extras, ignore_missing, unicode],
             'cadasta_id': [convert_from_extras, ignore_missing, unicode],
-            'packages': project_schema.project_show_schema()
+            'packages': packages_schema,
         })
         return schema
 
