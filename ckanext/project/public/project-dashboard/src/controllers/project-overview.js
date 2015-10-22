@@ -97,8 +97,7 @@ app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location',
                 $scope.overviewData.features[0].properties.project_activity.forEach(function (activity) {
                     activity.properties.time_created = utilityService.formatDate(activity.properties.time_created);
                 });
-
-
+                
                 var layer;
 
                 var extentStyle = {
@@ -109,13 +108,13 @@ app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location',
                     "stroke-opacity": .7
                 };
 
-          var parcelStyle = {
-              "color": "#e54573",
-              "stroke": "#e54573",
-              "stroke-width": 1,
-              "fill-opacity": .8,
-              "stroke-opacity": .8
-          };
+              var parcelStyle = {
+                  "color": "#e54573",
+                  "stroke": "#e54573",
+                  "stroke-width": 1,
+                  "fill-opacity": .8,
+                  "stroke-opacity": .8
+              };
 
                 // If there is a project geom load map and zoom to it; else zoom to parcels
                 if ($scope.overviewData.features[0].geometry) {
@@ -123,9 +122,8 @@ app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location',
                     layer.addTo(map);
 
                 } else if ($scope.overviewData.features[0].properties.parcels.length > 0 && $scope.overviewData.features[0].properties.parcels[0].geometry) {
-                    layer = L.geoJson($scope.overviewData.features[0].properties.parcels, {style: extentStyle});
+                    layer = L.geoJson($scope.overviewData.features[0].properties.parcels, {style: parcelStyle});
                     layer.addTo(map);
-
                 }
 
                 if (layer === undefined) {
