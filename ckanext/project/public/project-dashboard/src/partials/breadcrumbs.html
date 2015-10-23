@@ -7,10 +7,14 @@
         <a class="title" href="/project/">Projects</a>
 
         <div class="icon-lnr-chevron-right arrow-right"></div>
-        <a class="title" href="" ng-click="go('/overview')">{{cadastaProject.title}}</a>
+        <a class="title" ui-sref="tabs.overview">{{cadastaProject.title}}</a>
 
         <div class="icon-lnr-chevron-right arrow-right"></div>
-        <a class="title active" href="">{{tab}}</a>
+
+        <a ng-show="tab_parcel.length > 0" class="title" ui-sref="tabs.parcels.parcellist">{{tab}}</a>
+
+        <!-- parcels breadcrumb when on a specific parcel page-->
+        <a ng-show="tab_parcel.length <= 0" class="title active" href="">{{tab}}</a>
 
         <div ng-show="tab_parcel.length > 0" class="icon-lnr-chevron-right arrow-right"></div>
         <a ng-show="tab_parcel.length > 0" class="active title" href="">{{tab_parcel}}</a>

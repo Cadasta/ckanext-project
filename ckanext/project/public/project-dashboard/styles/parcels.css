@@ -304,3 +304,28 @@
     position: relative;
     bottom: 312px;
 }
+
+.add-relationship md-input-container.pin-id {
+    width: 200px;
+    margin-right: 25px;
+}
+
+.add-relationship md-input-container.pin-id * {
+    width:150px;
+}
+
+md-input-container.notes textarea {
+ width:310px;
+}
+
+.cadasta-button.right.parcel-save {
+    margin-top:147px;
+}
+
+.caption{
+    text-transform: uppercase;
+    color: #858c92;
+    font-weight: bold;
+    width: 100px;
+    float: left;
+}

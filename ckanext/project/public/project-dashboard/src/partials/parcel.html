@@ -12,9 +12,15 @@
             </div>
             <div class="section">
                 <div class="container">
-                    <div class="title">{{parcel.id}} (alternative ID here)</div>
+                    <div class="title">Parcel {{parcel.id}} <span ng-show="parcel.gov_pin">({{parcel.gov_pin}})</span> </div>
 
                     <div class="cadasta-round-button float-right" ng-click="addRelationshipModal()"> Add Relationship </div>
+
+                    <div>
+                        <span class="caption">Landuse</span>
+                        <span>{{parcel.land_use | emptyString}}</span>
+                        <br>
+                    </div>
 
                     <div class="relationship-container">
                         <!-- Remove bottom border if first element in array-->

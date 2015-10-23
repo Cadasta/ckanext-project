@@ -6,6 +6,10 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','parcelSe
 
         $rootScope.$broadcast('tab-change', {tab: 'Relationships'}); // notify breadcrumbs of tab on page load
 
+        $scope.clearRelationshipBreadCrumb = function () {
+            $rootScope.$broadcast('clear-inner-relationship-tab');
+        };
+
         // parse map query param
         //var mapArr = mapStr.substring(1,mapStr.length-1).split(',');
         //

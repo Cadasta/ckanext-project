@@ -4,27 +4,17 @@
         <div class="overview">
 
             <div class="back-link">
-                <a ng-click="clearParcelBreadCrumb()" ui-sref="^.parcellist"><i class="material-icons back_space">keyboard_backspace</i> Back to list</a>
+                <a ng-click="clearParcelBreadCrumb()" ui-sref="^.relationshiplist"><i class="material-icons back_space">keyboard_backspace</i> Back to relationship list</a>
                 <div class="button-controller right">
                 </div>
             </div>
             <div class="section">
                 <div class="container">
-                    <div class="title">{{parcel.id}} (alternative ID here)</div>
+                    <div class="title">{{relationship.id}}</div>
 
-                    <div class="cadasta-round-button float-right" ng-click="addRelationshipModal()"> Add Relationship </div>
 
-                    <div class="relationship-container">
-                        <!-- Remove bottom border if first element in array-->
-                        <div class="parcel-dropdown" ng-repeat="r in relationships"
-                             ng-class="{'remove-bottom-border': $index < relationships.length-1 && relationships.length > 0}">
-                            <div ng-click="toggleDropdownDetails(r)" class="name">{{r.properties.first_name}} {{r.properties.last_name}}
-                                <i ng_show="!r.showDropDownDetails" class="material-icons right">expand_more</i>
-                                <i ng_show="r.showDropDownDetails" class="material-icons right">expand_less</i>
-                            </div>
-
-                            <div ng_show="r.showDropDownDetails" class="dropdown-details">
-                                <div class="caption">Tenure Type</div>
+                        Name : {{r.properties.first_name}} {{r.properties.last_name}}
+                        Tenure Type: <div class="caption">Tenure Type</div>
                                 <div>{{r.properties.relationship_type}}</div>
                                 <div class="caption">Date Added</div>
                                 <div>{{r.properties.time_created}}</div>
@@ -37,43 +27,10 @@
             </div>
             <div class="section-map">
                 <div id="parcelDetailsMap"></div>
-                <div class='cadasta-button float-right' ng-click="updateParcelModal()"> Update Parcel Geometry </div>
             </div>
 
         </div>
         <!-- Overview End-->
-    </div>
-
-    <!-- Parcel history-->
-    <div class="history-container">
-        <div class="parcel-history">
-            <div class="small-table-container">
-                <div class="small-heading">
-                    Parcel History
-                </div>
-
-                <table class="parcel-history">
-                    <thead>
-                    <tr>
-                        <th>Event</th>
-                        <th>Date</th>
-                        <th>Image</th>
-                    </tr>
-                    </thead>
-                </table>
-                <div class="parcel-history-data relationship">
-                    <table>
-                        <tbody>
-                        <tr ng-repeat="ph in parcel_history">
-                            <td>{{ph.properties.description}}</td>
-                            <td>{{ph.properties.time_created}}</td>
-                            <td>View Map</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
     </div>
 
     <!-- Relationship history-->
@@ -116,7 +73,7 @@
         <div class="parcel-history">
             <div class="small-table-container">
                 <div class="small-heading">
-                    Parcel Resources
+                    Relationship Resources
                 </div>
                 <md-button class="md-icon-button right parcel-page-layout" aria-label="More">
                     <div class="md-menu-demo">

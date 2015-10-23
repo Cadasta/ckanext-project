@@ -174,6 +174,7 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
 
 
         function addParcelCtrl($scope, $mdDialog) {
+
             $scope.hide = function () {
                 $mdDialog.hide();
             };
@@ -190,7 +191,8 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
                 if (layer === undefined) {
                     $scope.parcelCreated = "please draw parcel geometry before saving";
                 } else {
-                    var createParcel = parcelService.createProjectParcel(projectId, layer.toGeoJSON());
+
+                    var createParcel = parcelService.createProjectParcel(projectId, layer.toGeoJSON(), $scope.parcel);
 
                     createParcel.then(function (response) {
                         if (response.cadasta_parcel_id){
@@ -203,12 +205,12 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
                             var timeoutID = window.setTimeout(function() {
                                     $scope.cancel();
                                 $location.path('/parcels/' + response.cadasta_parcel_id);
-                                }, 500);
+                                }, 300);
                         }
                     }).catch(function(err){
 
                         $scope.parcelCreated ='unable to create parcel';
-                    }).done();
+                    });
                 }
             }
         }

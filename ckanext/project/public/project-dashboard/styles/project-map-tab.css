@@ -37,6 +37,7 @@
 .add-relationship #legend {
     width: 95%;
     float: left;
+    height: 35px;
 }
 
 .legend.clearfix {
@@ -58,8 +59,9 @@
 
 
 #addParcelMap {
-    height: 375px;
+    height: 350px;
     width: 95%;
+    margin-top: -40px;
 }
 
 
@@ -80,3 +82,4 @@
 .add-relationship .right {
     margin-right:40px;
 }
+

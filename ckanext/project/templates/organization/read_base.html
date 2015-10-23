@@ -6,7 +6,7 @@
 <div class="icon-lnr-chevron-right arrow-right ckan"></div>
 <li>{% link_for _('Organizations'), controller='organization', action='index' %}</li>
 <li><div class="icon-lnr-chevron-right arrow-right ckan"></div></li>
-<li class="active org-breadcrumb">{{c.group_dict.title}}</li>
+<li><a href="/organization/{{c.group_dict.name}}">{{c.group_dict.title}}</a></li>
 <div class="icon-lnr-chevron-right arrow-right ckan"></div>
 <li class="active org-breadcrumb">Overview</li>
 {% endblock %}

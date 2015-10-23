@@ -424,3 +424,10 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
     }]);
 
 
+// replace null with '-' for table
+app.filter('emptyString', function () {
+    return function (input) {
+        return input == null ? '- -' : input;
+    }
+});
+

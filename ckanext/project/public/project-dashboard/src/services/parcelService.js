@@ -88,9 +88,20 @@ var app = angular.module("app")
          * @returns {*}
          * todo pass in a project and parcel id
          */
-        service.createProjectParcel = function(projectId, geoJSON){
+        service.createProjectParcel = function(projectId, geoJSON, parcel){
 
             var deferred = $q.defer();
+
+            var gov_pin = null;
+            var description = " ";
+            var landuse = null;
+
+            if (parcel) {
+                if (parcel.pinid){ gov_pin = parcel.pinid; }
+                if (parcel.notes){ description = parcel.notes; }
+                if (parcel.landuse){ landuse = parcel.landuse; }
+            }
+
 
             $http({
                 method: "post",
@@ -99,7 +110,9 @@ var app = angular.module("app")
                     project_id: projectId,
                     spatial_source: "digitized",
                     geojson: geoJSON.geometry,
-                    description: " "
+                    description: description,
+                    land_use: landuse,
+                    gov_pin : gov_pin
                 }),
                 headers: {
                     'Content-type': 'application/json'
@@ -112,7 +125,6 @@ var app = angular.module("app")
 
             return deferred.promise;
         };
-
 
         /**
          * Updates a parcel via a post request
