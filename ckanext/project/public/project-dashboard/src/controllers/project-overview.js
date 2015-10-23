@@ -97,7 +97,7 @@ app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location',
                 $scope.overviewData.features[0].properties.project_activity.forEach(function (activity) {
                     activity.properties.time_created = utilityService.formatDate(activity.properties.time_created);
                 });
-                
+
                 var layer;
 
                 var extentStyle = {
@@ -141,6 +141,16 @@ app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location',
         // listen for new resources
         $scope.$on('new-resource', function(e){
             getResources(cadastaProject.id);
+        });
+
+        // listen for new parcels to update geom and activity
+        $scope.$on('new-parcel', function(e){
+            getOverviewData();
+        });
+
+        // listen for new parcels to update geom and activity
+        $scope.$on('update-parcel', function(e){
+            getOverviewData();
         });
 
     }]);

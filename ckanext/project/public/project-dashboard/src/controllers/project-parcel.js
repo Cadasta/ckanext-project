@@ -305,7 +305,6 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
 
                             $scope.parcelCreated = 'parcel sucessfully updated';
 
-                            //todo add broadcast updates to other pages
                             $rootScope.$broadcast('updated-parcel');
                             getParcelDetails();
 

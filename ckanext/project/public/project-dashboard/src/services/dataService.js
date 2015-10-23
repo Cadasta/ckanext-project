@@ -30,7 +30,7 @@ var app = angular.module("app")
             var deferred = $q.defer();
 
             // Cadasta API
-            $http.get(ENV.apiCadastaRoot + '/projects/' + cadastaProjectId + '?returnGeometry=true', { cache: true })
+            $http.get(ENV.apiCadastaRoot + '/projects/' + cadastaProjectId + '?returnGeometry=true', { cache: false })
                 .then(function(response) {
                     deferred.resolve(response.data);
                 }, function(err) {
@@ -65,7 +65,7 @@ var app = angular.module("app")
             var deferred = $q.defer();
 
             // Cadasta API
-            $http.get(ENV.apiCadastaRoot + '/projects/' + cadastaProjectId + '/overview', { cache: true })
+            $http.get(ENV.apiCadastaRoot + '/projects/' + cadastaProjectId + '/overview', { cache: false })
                 .then(function(response) {
                     deferred.resolve(response.data);
                 }, function(response) {
@@ -95,7 +95,7 @@ var app = angular.module("app")
 
 
             // CKAN API for project description
-            $http.get(ENV.apiCKANRoot + '/package_show?id=' + ckanProjectId, {cache: true})
+            $http.get(ENV.apiCKANRoot + '/package_show?id=' + ckanProjectId, { cache: false })
                 .then(function(response) {
                     deferred.resolve(response.data.result);
                 }, function(response) {
@@ -114,7 +114,7 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot + '/projects/' + cadastaProjectId + '/activity', { cache: true })
+            $http.get(ENV.apiCadastaRoot + '/projects/' + cadastaProjectId + '/activity', { cache: false })
                 .then(function(response) {
                     deferred.resolve(response.data);
                 }, function(response) {
@@ -148,7 +148,7 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot + '/parcels?project_id=1', { cache: true })
+            $http.get(ENV.apiCadastaRoot + '/parcels?project_id=1', { cache: false })
                 .then(function(response) {
                     deferred.resolve(response.data);
                 }, function(response) {

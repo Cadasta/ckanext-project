@@ -9,20 +9,24 @@ app.controller("activityCtrl", ['$scope', '$state', '$stateParams','dataService'
 
     $rootScope.$broadcast('tab-change', {tab: 'Activity'}); // notify breadcrumbs of tab on page load
 
-    var promise = dataService.getProjectActivities(cadastaProject.id);
+    function getActivities() {
 
-    promise.then(function(response){
-        $scope.allActivities = response;
+        var promise = dataService.getProjectActivities(cadastaProject.id);
 
-        //reformat date created of activity list
-        $scope.allActivities.features.forEach(function(activity) {
-            activity.properties.time_created = utilityService.formatDate(activity.properties.time_created);
+        promise.then(function (response) {
+            $scope.allActivities = response;
+
+            //reformat date created of activity list
+            $scope.allActivities.features.forEach(function (activity) {
+                activity.properties.time_created = utilityService.formatDate(activity.properties.time_created);
+            });
+
+        }, function (err) {
+            $scope.allActivities = "Server Error";
         });
+    }
 
-
-    },function(err){
-        $scope.overviewData = "Server Error";
-    });
+    getActivities();
 
     // update activity type on selection
     $scope.filterActivityType = function (type){
@@ -47,6 +51,17 @@ app.controller("activityCtrl", ['$scope', '$state', '$stateParams','dataService'
             label: 'Relationship Activity'
         }
     ];
+
+
+    // listen for new parcels to get activity
+    $scope.$on('new-parcel', function(e){
+        getActivities();
+    });
+
+    // listen for updated parcels to get activity
+    $scope.$on('update-parcel', function(e){
+        getActivities();
+    });
 
 
 

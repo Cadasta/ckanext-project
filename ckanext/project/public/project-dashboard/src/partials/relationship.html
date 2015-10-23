@@ -1,1 +1,173 @@
-RELATIONSHIP.HTML
+<div id="parcelDetails">
+    <div class="details-container">
+        <!-- Overview Start-->
+        <div class="overview">
+
+            <div class="back-link">
+                <a ng-click="clearParcelBreadCrumb()" ui-sref="^.parcellist"><i class="material-icons back_space">keyboard_backspace</i> Back to list</a>
+                <div class="button-controller right">
+                </div>
+            </div>
+            <div class="section">
+                <div class="container">
+                    <div class="title">{{parcel.id}} (alternative ID here)</div>
+
+                    <div class="cadasta-round-button float-right" ng-click="addRelationshipModal()"> Add Relationship </div>
+
+                    <div class="relationship-container">
+                        <!-- Remove bottom border if first element in array-->
+                        <div class="parcel-dropdown" ng-repeat="r in relationships"
+                             ng-class="{'remove-bottom-border': $index < relationships.length-1 && relationships.length > 0}">
+                            <div ng-click="toggleDropdownDetails(r)" class="name">{{r.properties.first_name}} {{r.properties.last_name}}
+                                <i ng_show="!r.showDropDownDetails" class="material-icons right">expand_more</i>
+                                <i ng_show="r.showDropDownDetails" class="material-icons right">expand_less</i>
+                            </div>
+
+                            <div ng_show="r.showDropDownDetails" class="dropdown-details">
+                                <div class="caption">Tenure Type</div>
+                                <div>{{r.properties.relationship_type}}</div>
+                                <div class="caption">Date Added</div>
+                                <div>{{r.properties.time_created}}</div>
+                                <div class="caption">Status</div>
+                                <div>{{r.properties.active}} <a href="">change</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section-map">
+                <div id="parcelDetailsMap"></div>
+                <div class='cadasta-button float-right' ng-click="updateParcelModal()"> Update Parcel Geometry </div>
+            </div>
+
+        </div>
+        <!-- Overview End-->
+    </div>
+
+    <!-- Parcel history-->
+    <div class="history-container">
+        <div class="parcel-history">
+            <div class="small-table-container">
+                <div class="small-heading">
+                    Parcel History
+                </div>
+
+                <table class="parcel-history">
+                    <thead>
+                    <tr>
+                        <th>Event</th>
+                        <th>Date</th>
+                        <th>Image</th>
+                    </tr>
+                    </thead>
+                </table>
+                <div class="parcel-history-data relationship">
+                    <table>
+                        <tbody>
+                        <tr ng-repeat="ph in parcel_history">
+                            <td>{{ph.properties.description}}</td>
+                            <td>{{ph.properties.time_created}}</td>
+                            <td>View Map</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Relationship history-->
+    <div class="history-container">
+        <div class="parcel-history">
+            <div class="small-table-container">
+                <div class="small-heading">
+                    Relationship History
+                </div>
+                <!--todo this needs to be updated with relationship history data as opposed to current data-->
+
+                <table class="parcel-history">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Date</th>
+                        <th>Image</th>
+                    </tr>
+                    </thead>
+                </table>
+                <div class="parcel-history-data">
+                    <table>
+                        <tbody>
+                        <tr ng-repeat="ph in relationships">
+                            <td>{{ph.properties.first_name}} {{ph.properties.last_name}}</td>
+                            <td>{{ph.relationship_type}}</td>
+                            <td>{{ph.properties.time_created}}</td>
+                            <td>View Map</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Parcel resources-->
+    <div class="history-container">
+        <div class="parcel-history">
+            <div class="small-table-container">
+                <div class="small-heading">
+                    Parcel Resources
+                </div>
+                <md-button class="md-icon-button right parcel-page-layout" aria-label="More">
+                    <div class="md-menu-demo">
+                        <div class="menu-demo-container" layout-align="center center" layout$="column">
+                            <div class="menus" layout-wrap layout="row" layout-align="space-between center">
+                                <div layout="column" flex="33" flex-sm="100" layout-align="center center">
+                                    <md-menu md-offset="0 -7">
+                                        <md-button aria-label="Open resource menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                                            <i class="material-icons">more_vert</i>
+                                        </md-button>
+                                        <md-menu-content width="2">
+                                            <md-menu-item>
+                                                <md-button ng-click="showAddResourceModal($event)"> Add Resource </md-button>
+                                            </md-menu-item>
+                                            <md-menu-item>
+                                                <md-button ng-click="ctrl.announceClick($index)"> Download Resources </md-button>
+                                            </md-menu-item>
+                                        </md-menu-content>
+                                    </md-menu>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </md-button>
+
+                <table class="parcel-history">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Date</th>
+                        <th>View</th>
+                    </tr>
+                    </thead>
+                </table>
+                <div class="parcel-history-data relationship">
+                    <table>
+                        <tbody>
+                        <tr ng-repeat="r in parcelResources.features">
+                            <td>{{r.properties.file_name}}</td>
+                            <td>{{r.properties.description}}</td>
+                            <td>{{r.properties.time_created}}</td>
+                            <td><a href="{{r.properties.url}}">Download</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
