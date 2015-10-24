@@ -63,6 +63,36 @@ var app = angular.module("app",
 
           return deferred.promise;
 
+        },
+        userRole: function($q, $window, userService){
+          var ckanName = $window.location.pathname.split('/')[2];
+
+          var deferred = $q.defer();
+
+          var promise = userService.getUserRole();
+
+          promise.then(function(response){
+
+            var role = "public";
+
+            angular.forEach(response, function(org){
+
+              angular.forEach(org.organization.packages, function(project) {
+
+                if(project.name === ckanName) {
+                  role = org.role;
+                }
+              });
+            });
+            
+            deferred.resolve(role);
+          },function(err){
+            console.error(err);
+            deferred.reject(err);
+
+          });
+
+          return deferred.promise;
         }
       }});
 
@@ -124,34 +154,7 @@ var app = angular.module("app",
       reloadOnSearch: false,
       deepStateRedirect: dsrCb,
       paramsMap:[{key:'id'}, {key:'map', defaultValue: '(0,0,1)'}],
-      sticky:true,
-      resolve: {
-        ckanId: function ($window) {
-
-          return $window.location.pathname.split('/')[2];
-        },
-        cadastaProject: function ($q, $window, dataService) {
-
-          var ckanId = $window.location.pathname.split('/')[2];
-
-          var deferred = $q.defer();
-
-          var promise = dataService.getCadastaProject(ckanId);
-
-          promise.then(function(response){
-            deferred.resolve(response);
-          },function(err){
-            console.error(err);
-            deferred.reject(err);
-
-          });
-
-          return deferred.promise;
-
-        }
-      }
-
-
+      sticky:true
     });
 
     // Child State
@@ -219,33 +222,7 @@ var app = angular.module("app",
       reloadOnSearch: false,
       deepStateRedirect: dsrCb,
       paramsMap:[{key:'id'}, {key:'map', defaultValue: '(0,0,1)'}],
-      sticky:true,
-      resolve: {
-        ckanId: function ($window) {
-
-          return $window.location.pathname.split('/')[2];
-        },
-        cadastaProject: function ($q, $window, dataService) {
-
-          var ckanId = $window.location.pathname.split('/')[2];
-
-          var deferred = $q.defer();
-
-          var promise = dataService.getCadastaProject(ckanId);
-
-          promise.then(function(response){
-            deferred.resolve(response);
-          },function(err){
-            console.error(err);
-            deferred.reject(err);
-
-          });
-
-          return deferred.promise;
-
-        }
-      }
-
+      sticky:true
 
     });
 
