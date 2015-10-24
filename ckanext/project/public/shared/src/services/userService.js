@@ -9,11 +9,9 @@ var app = angular.module("app")
 
             $http.get(ENV.apiCKANRoot + '/user_role_show')
                 .then(function (response) {
-                    console.log(response.data.result);
                     deferred.resolve(response.data.result);
                 }, function (err) {
                     deferred.reject(response);
-                    console.log(err)
                 });
 
             return deferred.promise;

@@ -8,12 +8,12 @@ module.exports = function(grunt) {
 		ngconstant: {
 			// Options for all targets
 			options: {
-				name: 'app.config',
+				name: 'env.config',
 			},
 			// Environment targets
 			development: {
 				options: {
-					dest: 'ckanext/project/public/shared/src/config.js'
+					dest: 'ckanext/project/public/shared/src/env.config.js'
 				},
 				constants: {
 					ENV: {
@@ -25,7 +25,7 @@ module.exports = function(grunt) {
 			},
 			staging: {
 				options: {
-					dest: 'ckanext/project/public/shared/src/config.js'
+					dest: 'ckanext/project/public/shared/src/env.config.js'
 				},
 				constants: {
 					ENV: {
@@ -37,7 +37,7 @@ module.exports = function(grunt) {
 			},
 			local_staging: {
 				options: {
-					dest: 'ckanext/project/public/shared/src/config.js'
+					dest: 'ckanext/project/public/shared/src/env.config.js'
 				},
 				constants: {
 					ENV: {
@@ -49,7 +49,7 @@ module.exports = function(grunt) {
 			},
 			demo: {
 				options: {
-					dest: 'ckanext/project/public/shared/src/config.js'
+					dest: 'ckanext/project/public/shared/src/env.config.js'
 				},
 				constants: {
 					ENV: {
@@ -61,7 +61,7 @@ module.exports = function(grunt) {
 			},
 			production: {
 				options: {
-					dest: 'ckanext/project/public/shared/src/config.js'
+					dest: 'ckanext/project/public/shared/src/env.config.js'
 				},
 				constants: {
 					ENV: {
@@ -106,7 +106,8 @@ module.exports = function(grunt) {
 				},
 				files: {
 					'ckanext/project/public/build/project-dashboard-app.min.js': [
-						"ckanext/project/public/shared/src/config.js",
+						"ckanext/project/public/shared/src/app.config.js",
+						"ckanext/project/public/shared/src/env.config.js",
 						"ckanext/project/public/shared/src/modules/params-manager.js",
 						"ckanext/project/public/project-dashboard/src/project-dashboard-app.js",
 						"ckanext/project/public/project-dashboard/src/services/dataService.js",

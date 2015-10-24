@@ -2,7 +2,7 @@
 ckanext_project.egg*
 
 ckanext/project/public/build/**
-
+ckanext/project/public/shared/src/env.config.js
 .idea/
 
 bower_components/
