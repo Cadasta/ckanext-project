@@ -32,7 +32,7 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot +  '/projects/'+ projectId + '/parcels/' + parcelId + '/details', {cache: true}).
+            $http.get(ENV.apiCadastaRoot +  '/projects/'+ projectId + '/parcels/' + parcelId + '/details', {cache: false}).
                 then(function (response) {
                     deferred.resolve(response.data.features[0]);
                 }, function (response) {
@@ -52,7 +52,7 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot +  '/projects/'+ projectId + '/parcels/' + parcelId  + '/show_relationship_history', {cache: true}).
+            $http.get(ENV.apiCadastaRoot +  '/projects/'+ projectId + '/parcels/' + parcelId  + '/show_relationship_history', {cache: false}).
                 then(function (response) {
                     deferred.resolve(response.data.features);
                 }, function (response) {
@@ -68,11 +68,11 @@ var app = angular.module("app")
          * @returns {*}
          * todo pass in a project and parcel id
          */
-        service.getProjectParcelResources = function(projectId, parcelId, cache){
+        service.getProjectParcelResources = function(projectId, parcelId){
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot +'/projects/'+ projectId + '/parcels/' + parcelId + '/resources', { cache: cache })
+            $http.get(ENV.apiCadastaRoot +'/projects/'+ projectId + '/parcels/' + parcelId + '/resources', { cache: false })
                 .then(function(response) {
                     deferred.resolve(response.data);
                 }, function(response) {
@@ -131,19 +131,30 @@ var app = angular.module("app")
          * @returns {*}
          * todo pass in a project and parcel id
          */
-        service.updateProjectParcel = function(projectId, parcelId, geoJSON){
+        service.updateProjectParcel = function(projectId, parcelId, geoJSON, parcel){
 
             var deferred = $q.defer();
 
+            var gov_pin = null;
+            var description = " ";
+            var landuse = null;
+
+            if (parcel) {
+                if (parcel.pinid){ gov_pin = parcel.pinid; }
+                if (parcel.notes){ description = parcel.notes; }
+                if (parcel.landuse){ landuse = parcel.landuse; }
+            }
+
+
             $http({
-                method: "post",
-                url: ENV.apiCadastaRoot +'/projects/'+ projectId + '/parcel' + parcelId,
+                method: "patch",
+                url: ENV.apiCadastaRoot +'/projects/'+ projectId + '/parcels/' + parcelId,
                 data: JSON.stringify({
-                    project_id: projectId,
-                    parcel_id: parcelId,
                     spatial_source: "digitized",
                     geojson: geoJSON.geometry,
-                    description: " "
+                    description: description,
+                    land_use: landuse,
+                    gov_pin : gov_pin
                 }),
                 headers: {
                     'Content-type': 'application/json'

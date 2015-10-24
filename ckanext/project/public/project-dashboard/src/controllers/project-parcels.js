@@ -167,7 +167,6 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
 
         }
 
-        //todo FIX i am not sure if this is the right way to grab data between scopes
         function getLayer() {
             return $scope.layer;
         }
@@ -204,7 +203,7 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
 
                             var timeoutID = window.setTimeout(function() {
                                     $scope.cancel();
-                                $location.path('/parcels/' + response.cadasta_parcel_id);
+                                    $state.go("tabs.parcels.parcel", {id:response.cadasta_parcel_id})
                                 }, 300);
                         }
                     }).catch(function(err){

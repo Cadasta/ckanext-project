@@ -291,32 +291,34 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
             $scope.showSaveParcel = false;
 
             $scope.updateParcel = function (projectId) {
-                // todo hit endpoint to update parcel geometry
+
                 var layer = getLayer();
-                var projectId = $stateParams.id;
 
                 if (layer === undefined) {
-                    $scope.parcelCreated = "please draw parcel geometry before saving";
+                    layer = null;
                 } else {
-                    var updateExistingParcel = parcelService.updateProjectParcel(projectId, projectId, layer.toGeoJSON());
-
-                    updateExistingParcel.then(function (response) {
-                        if (response.cadasta_parcel_id){
-
-                            $scope.parcelCreated = 'parcel sucessfully updated';
-
-                            $rootScope.$broadcast('updated-parcel');
-                            getParcelDetails();
-
-                            var timeoutID = window.setTimeout(function() {
-                                $scope.cancel();
-                            }, 500);
-                        }
-                    }).catch(function(err){
-
-                        $scope.parcelCreated ='unable to update parcel';
-                    }).done();
+                    layer = layer.toGeoJSON();
                 }
+                var updateExistingParcel = parcelService.updateProjectParcel(cadastaProject.id, $stateParams.id, layer, $scope.parcel);
+
+                updateExistingParcel.then(function (response) {
+                    if (response.cadata_parcel_history_id){
+
+                        $scope.parcelCreated = 'parcel successfully updated';
+
+                        $rootScope.$broadcast('updated-parcel');
+
+                        getParcelDetails();
+
+                        var timeoutID = window.setTimeout(function() {
+                            $scope.cancel();
+                        }, 300);
+                    }
+                }).catch(function(err){
+
+                    $scope.parcelCreated ='unable to update parcel';
+                });
+
             }
         }
 
