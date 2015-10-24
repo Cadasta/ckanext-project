@@ -64,27 +64,35 @@ var app = angular.module("app",
           return deferred.promise;
 
         },
+
+        // Get the current user's role on currently view project
         userRole: function($q, $window, userService){
+
+          // Get CKAN project name from URL
           var ckanName = $window.location.pathname.split('/')[2];
 
           var deferred = $q.defer();
 
+          //  Query the CKAN API to get all organizations (and child projects) that this user is a member to
           var promise = userService.getUserRole();
 
           promise.then(function(response){
 
             var role = "public";
 
+            //  Loop thru orgs
             angular.forEach(response, function(org){
 
+              // Loop thru org's projects
               angular.forEach(org.organization.packages, function(project) {
 
+                //  If the project names match, grab the role this user plays in the current org.
                 if(project.name === ckanName) {
                   role = org.role;
                 }
               });
             });
-            
+
             deferred.resolve(role);
           },function(err){
             console.error(err);
