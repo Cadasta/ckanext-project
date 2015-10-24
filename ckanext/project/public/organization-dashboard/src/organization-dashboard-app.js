@@ -1,5 +1,5 @@
 
-var OrganizationDashboardApp = angular.module("OrganizationDashboardApp", [ 'ct.ui.router.extras', 'params.manager', 'app.config', 'ngMaterial']);
+var OrganizationDashboardApp = angular.module("OrganizationDashboardApp", [ 'ct.ui.router.extras', 'params.manager', 'app.config', 'env.config', 'ngMaterial']);
 ////
 
 var dsrCb = function ($dsr$, paramService) {

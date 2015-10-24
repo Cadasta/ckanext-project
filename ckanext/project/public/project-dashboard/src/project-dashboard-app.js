@@ -1,6 +1,6 @@
 
 var app = angular.module("app",
-    [ 'ct.ui.router.extras', 'params.manager', 'app.config', 'ngMaterial', 'angularFileUpload']);
+    [ 'ct.ui.router.extras', 'params.manager', 'app.config', 'env.config', 'ngMaterial', 'angularFileUpload']);
 
   var dsrCb = function ($dsr$, paramService) {
 
@@ -63,6 +63,44 @@ var app = angular.module("app",
 
           return deferred.promise;
 
+        },
+
+        // Get the current user's role on currently view project
+        userRole: function($q, $window, userService){
+
+          // Get CKAN project name from URL
+          var ckanName = $window.location.pathname.split('/')[2];
+
+          var deferred = $q.defer();
+
+          //  Query the CKAN API to get all organizations (and child projects) that this user is a member to
+          var promise = userService.getUserRole();
+
+          promise.then(function(response){
+
+            var role = "public";
+
+            //  Loop thru orgs
+            angular.forEach(response, function(org){
+
+              // Loop thru org's projects
+              angular.forEach(org.organization.packages, function(project) {
+
+                //  If the project names match, grab the role this user plays in the current org.
+                if(project.name === ckanName) {
+                  role = org.role;
+                }
+              });
+            });
+
+            deferred.resolve(role);
+          },function(err){
+            console.error(err);
+            deferred.reject(err);
+
+          });
+
+          return deferred.promise;
         }
       }});
 
@@ -124,34 +162,7 @@ var app = angular.module("app",
       reloadOnSearch: false,
       deepStateRedirect: dsrCb,
       paramsMap:[{key:'id'}, {key:'map', defaultValue: '(0,0,1)'}],
-      sticky:true,
-      resolve: {
-        ckanId: function ($window) {
-
-          return $window.location.pathname.split('/')[2];
-        },
-        cadastaProject: function ($q, $window, dataService) {
-
-          var ckanId = $window.location.pathname.split('/')[2];
-
-          var deferred = $q.defer();
-
-          var promise = dataService.getCadastaProject(ckanId);
-
-          promise.then(function(response){
-            deferred.resolve(response);
-          },function(err){
-            console.error(err);
-            deferred.reject(err);
-
-          });
-
-          return deferred.promise;
-
-        }
-      }
-
-
+      sticky:true
     });
 
     // Child State
@@ -219,33 +230,7 @@ var app = angular.module("app",
       reloadOnSearch: false,
       deepStateRedirect: dsrCb,
       paramsMap:[{key:'id'}, {key:'map', defaultValue: '(0,0,1)'}],
-      sticky:true,
-      resolve: {
-        ckanId: function ($window) {
-
-          return $window.location.pathname.split('/')[2];
-        },
-        cadastaProject: function ($q, $window, dataService) {
-
-          var ckanId = $window.location.pathname.split('/')[2];
-
-          var deferred = $q.defer();
-
-          var promise = dataService.getCadastaProject(ckanId);
-
-          promise.then(function(response){
-            deferred.resolve(response);
-          },function(err){
-            console.error(err);
-            deferred.reject(err);
-
-          });
-
-          return deferred.promise;
-
-        }
-      }
-
+      sticky:true
 
     });
 

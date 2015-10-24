@@ -3,13 +3,13 @@ var app = angular.module("app");
 app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location', 'dataService', 'paramService', 'utilityService', '$rootScope', 'ckanId', 'cadastaProject', '$mdDialog',
     function ($scope, $state, $stateParams, $location, dataService, paramService, utilityService, $rootScope, ckanId, cadastaProject, $mdDialog) {
 
-        var mapStr = $stateParams.map;
-
         $rootScope.$broadcast('tab-change', {tab: 'Overview'}); // notify breadcrumbs of tab on page load
 
-        // parse map query param
-        var mapArr = mapStr.substring(1, mapStr.length - 1).split(',');
+        // Get map querystring from state parameters
+        var mapStr = $stateParams.map;
 
+        // Parse map querystring
+        var mapArr = mapStr.substring(1, mapStr.length - 1).split(',');
         var lat = mapArr[0];
         var lng = mapArr[1];
         var zoom = mapArr[2];

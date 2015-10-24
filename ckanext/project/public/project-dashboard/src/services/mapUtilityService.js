@@ -27,7 +27,7 @@ var app = angular.module("app")
                     mapParamValue = '(0,0,0)';
                 } else {
 
-                    if(lat > 90 || lat < 0) {
+                    if(lat > 90 || lat < -90) {
                         console.warn('Invalid latitude param:', mapParamValue + ', resetting latitude to 0.');
                         lat = 0;
                     }
