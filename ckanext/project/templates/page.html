@@ -46,7 +46,7 @@ file.
     </div>
     {% endblock %}
 
-    <div class="row1 clearfix {% block wrapper_class %}{% endblock %}{% if self.secondary()|trim == '' %} no-nav{% endif %}">
+    <div class="row1 clearfix member-management {% block wrapper_class %}{% endblock %}{% if self.secondary()|trim == '' %} no-nav{% endif %}">
 
       {% block primary %}
       <div class=" span9">
@@ -62,7 +62,7 @@ file.
             {% block content_primary_nav %}{% endblock %}
           </header>
           {% endblock %}
-          <div>
+          <div class="base_page_primary_action">
             {% if self.page_primary_action() | trim %}
             <div class="page_primary_action">
               {% block page_primary_action %}{% endblock %}

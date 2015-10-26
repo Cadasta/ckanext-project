@@ -46,16 +46,16 @@
         {% endif %}
         {% endblock %}
         {% block user_nums %}
-        <div class="nums">
-            <dl>
-                <dt>{{ _('Projects') }}</dt>
-                <dd>{{ h.SI_number_span(user.number_created_packages) }}</dd>
-            </dl>
-            <dl>
-                <dt>{{ _('Edits') }}</dt>
-                <dd>{{ h.SI_number_span(user.number_of_edits) }}</dd>
-            </dl>
-        </div>
+        <!--<div class="nums">-->
+            <!--<dl>-->
+                <!--<dt>{{ _('Projects') }}</dt>-->
+                <!--<dd>{{ h.SI_number_span(user.number_created_packages) }}</dd>-->
+            <!--</dl>-->
+            <!--<dl>-->
+                <!--<dt>{{ _('Edits') }}</dt>-->
+                <!--<dd>{{ h.SI_number_span(user.number_of_edits) }}</dd>-->
+            <!--</dl>-->
+        <!--</div>-->
         {% endblock %}
 
         {% block user_info %}
@@ -102,32 +102,4 @@
 {% endblock %}
 
 {% block secondary_content %}
-
-<div class='overview-background org-projects userpage'>
-    <span class="small-heading">PROJECTS</span>
-    <a href="/project/new"><span class="cadasta-round-button right" ng-click="route_add_project()">ADD PROJECT</span></a>
-
-    <table id="project-table-header">
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Last Updated</th>
-        </tr>
-        </thead>
-    </table>
-
-    <div id="projectList">
-        <table>
-            <tbody>
-            <tr class="row-link">
-
-                <td><a href="/project/PROJECT NAE">PROJECT NAME</a></td>
-                <td>PROJECT DESCRIPTION</td>
-                <td>LAST UPDATED</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
 {% endblock %}
