@@ -5,12 +5,12 @@
 {% block breadcrumb_content %}
 <li><div class="icon-lnr-chevron-right arrow-right ckan"></div></li>
 <li>{% link_for _('Organizations'), controller='organization', action='index' %}</li>
-    {%  block breadcrumb_content_inner %}
-    <li><div class="icon-lnr-chevron-right arrow-right ckan"></div></li>
-    <li>{% link_for c.group_dict.title, controller='organization', action='read', id=organization.name %}</li>
-    <li><div class="icon-lnr-chevron-right arrow-right ckan"></div></li>
-    <li class="active">{% link_for _('Members'), controller='organization', action='edit', id=organization.name %}</li>
-    {% endblock %}
+{%  block breadcrumb_content_inner %}
+<li><div class="icon-lnr-chevron-right arrow-right ckan"></div></li>
+<li>{% link_for c.group_dict.title, controller='organization', action='read', id=organization.name %}</li>
+<li><div class="icon-lnr-chevron-right arrow-right ckan"></div></li>
+<li class="active">{% link_for _('Members'), controller='organization', action='edit', id=organization.name %}</li>
+{% endblock %}
 {% endblock %}
 
 {% block content_action %}
@@ -38,7 +38,7 @@
 {% endblock %}
 
 {% block primary_content_inner %}
-<h3 class="page-heading">{{ _('{0} members'.format(c.members|length)) }}</h3>
+<!--<h3 class="page-heading">{{ _('{0} members'.format(c.members|length)) }}</h3>-->
 <table class="table table-header table-hover table-bordered">
     <col width="70" />
     <col width="40" />
