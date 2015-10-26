@@ -49,9 +49,13 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
             $rootScope.$broadcast('clear-inner-tabs');
         };
 
+        var parcelGroup = L.featureGroup().addTo(map);
+
         getParcelDetails();
 
+
         function getParcelDetails() {
+
 
             var promise = parcelService.getProjectParcel(cadastaProject.id, $stateParams.id);
 
@@ -103,10 +107,13 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
                     "stroke-opacity": .8
                 };
 
+                //clear layers
+                parcelGroup.clearLayers();
+
 
                 // If there are any parcels, load the map and zoom to parcel
                 if (response.geometry) {
-                    var layer = L.geoJson(response, {style: parcelStyle}).addTo(map);
+                    var layer = L.geoJson(response, {style: parcelStyle}).addTo(parcelGroup);
                     map.fitBounds(layer.getBounds());
                 } else {
                     map.setView([lat, lng], zoom);
@@ -168,6 +175,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
 
 
             var featureGroup = L.featureGroup().addTo(map);
+
 
             var editIcon = L.icon({
                 iconUrl: '/images/orange_marker.png',
@@ -251,7 +259,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
                 if(response.features[0].geometry) {
 
                     var layer = L.geoJson(response.features[0], {style: extentStyle});
-                    layer.addTo(map);
+                    layer.addTo(parcelGroup);
                 }
 
             });
