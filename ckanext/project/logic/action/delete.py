@@ -4,16 +4,9 @@ from ckan.plugins import toolkit
 
 
 def organization_delete(context, data_dict):
-    '''Delete an organization.
 
-    You must be authorized to delete the organization.
-
-    :param id: the name or id of the organization
-    :type id: string
-
-    '''
-
-    # TODO: validate user for this call
+    # authorize user for this call
+    toolkit.check_access('organization_delete', context, data_dict)
 
     organization = toolkit.get_action('organization_show')(
         context,
