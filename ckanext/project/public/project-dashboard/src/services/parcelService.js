@@ -138,11 +138,13 @@ var app = angular.module("app")
             var gov_pin = null;
             var description = " ";
             var landuse = null;
+            var parcel_geoJSON = null;
 
             if (parcel) {
                 if (parcel.pinid){ gov_pin = parcel.pinid; }
                 if (parcel.notes){ description = parcel.notes; }
                 if (parcel.landuse){ landuse = parcel.landuse; }
+                if (geoJSON) { parcel_geoJSON = geoJSON.geometry; }
             }
 
 
@@ -151,7 +153,7 @@ var app = angular.module("app")
                 url: ENV.apiCadastaRoot +'/projects/'+ projectId + '/parcels/' + parcelId,
                 data: JSON.stringify({
                     spatial_source: "digitized",
-                    geojson: geoJSON.geometry,
+                    geojson: parcel_geoJSON,
                     description: description,
                     land_use: landuse,
                     gov_pin : gov_pin
