@@ -145,7 +145,8 @@ module.exports = function(grunt) {
 				},
 				files: {
 					'ckanext/project/public/build/organization-dashboard-app.min.js': [
-						"ckanext/project/public/shared/src/config.js",
+						"ckanext/project/public/shared/src/app.config.js",
+						"ckanext/project/public/shared/src/env.config.js",
 						"ckanext/project/public/organization-dashboard/src/modules/params-manager.js",
 						"ckanext/project/public/organization-dashboard/src/organization-dashboard-app.js",
 						//"ckanext/project/public/shared/src/services/userService.js",
