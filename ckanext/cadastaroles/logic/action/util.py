@@ -34,8 +34,7 @@ def call_api(endpoint, function, **kwargs):
             message = result.get('message', '')
             error_dict['message'] = message
             raise toolkit.ValidationError(
-                error_dict,
-                'Error returned from Cadasta API: {0}'.format(message)
+                error_dict
             )
         return result
     except requests.exceptions.RequestException, e:
