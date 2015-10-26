@@ -149,7 +149,7 @@ app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location',
         });
 
         // listen for new parcels to update geom and activity
-        $scope.$on('update-parcel', function(e){
+        $scope.$on('updated-parcel', function(e){
             getOverviewData();
         });
 

@@ -5,6 +5,10 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
 
         $rootScope.$broadcast('tab-change', {tab: 'Parcels'}); // notify breadcrumbs of tab on page load
 
+        $scope.$on('updated-parcel', function(e){
+            getParcels();
+        });
+
         $scope.parcels = [];
         $scope.parcelsList = [];
 
@@ -212,6 +216,7 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
                     });
                 }
             }
+
         }
 
     }]);

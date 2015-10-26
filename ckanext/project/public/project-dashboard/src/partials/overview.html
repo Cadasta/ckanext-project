@@ -31,6 +31,14 @@
                     was created on {{ activity.properties.time_created }}
                 </li>
 
+                <li ng-if="activity.properties.activity_type === 'parcel_history'"
+                    ng-class="{'remove-bottom-border': $index == overviewData.activityList.length-1}"
+                    class="activity-block block">
+                    <span class="bold"><a href="#/parcels/{{ activity.properties.id }}">
+                        Parcel {{ activity.properties.id }}</a></span>
+                    was updated at {{ activity.properties.time_created }}
+                </li>
+
                 <li ng-if="activity.properties.activity_type === 'party'"
                     ng-class="{'remove-bottom-border': $index == overviewData.activityList.length-1}"
                     class="activity-block block">

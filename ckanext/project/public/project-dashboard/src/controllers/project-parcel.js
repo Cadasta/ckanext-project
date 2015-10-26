@@ -49,9 +49,10 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
             $rootScope.$broadcast('clear-inner-tabs');
         };
 
-        var parcelGroup = L.featureGroup().addTo(map);
+         //add layer for adding parcels
+        var parcelGroup = L.featureGroup().addTo(map);        
 
-        getParcelDetails();
+	getParcelDetails();
 
 
         function getParcelDetails() {
