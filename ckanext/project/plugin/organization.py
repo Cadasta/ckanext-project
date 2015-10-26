@@ -26,17 +26,6 @@ class CadastaOrganization(plugins.SingletonPlugin, DefaultOrganizationForm):
 
     plugins.implements(plugins.IGroupForm, inherit=False)
     plugins.implements(plugins.ITemplateHelpers)
-    plugins.implements(IOrganizationController, inherit=True)
-
-    # IOrganizationController
-    def delete(self, entity):
-        request_params = {
-            'cadasta_organization_id': entity.id,
-        }
-        request_context = {
-            'session': entity.Session,
-        }
-        delete_cadasta_organization(request_context,request_params)
 
 
     # ITemplateHelpers
