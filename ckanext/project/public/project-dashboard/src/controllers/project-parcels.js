@@ -69,7 +69,7 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
                 //format dates
                 response.forEach(function (val) {
                     val.properties.time_created = utilityService.formatDate(val.properties.time_created);
-                })
+                });
 
                 $scope.parcels = response;
 
@@ -136,9 +136,6 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
             map.on('draw:drawstart', function (e) {
                 featureGroup.clearLayers();
             });
-
-
-
 
             var promise = dataService.getCadastaProjectDetails(cadastaProject.id);
 

@@ -52,8 +52,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
          //add layer for adding parcels
         var parcelGroup = L.featureGroup().addTo(map);        
 
-	getParcelDetails();
-
+	    getParcelDetails();
 
         function getParcelDetails() {
 
@@ -110,7 +109,6 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
 
                 //clear layers
                 parcelGroup.clearLayers();
-
 
                 // If there are any parcels, load the map and zoom to parcel
                 if (response.geometry) {
@@ -299,7 +297,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
             $scope.cadastaProjectId = cadastaProject.id;
             $scope.showSaveParcel = false;
 
-            $scope.updateParcel = function (projectId) {
+            $scope.updateParcel = function () {
 
                 var layer = getLayer();
 
