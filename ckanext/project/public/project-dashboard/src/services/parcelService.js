@@ -147,14 +147,14 @@ var app = angular.module("app")
             var parcel_geoJSON = null;
 
             if (parcelProperties) {
-                if (parcel.pinid) {
-                    gov_pin = parcel.pinid;
+                if (parcelProperties.pinid) {
+                    gov_pin = parcelProperties.pinid;
                 }
-                if (parcel.notes) {
-                    description = parcel.notes;
+                if (parcelProperties.notes) {
+                    description = parcelProperties.notes;
                 }
-                if (parcel.landuse) {
-                    landuse = parcel.landuse;
+                if (parcelProperties.landuse) {
+                    landuse = parcelProperties.landuse;
                 }
             }
 
