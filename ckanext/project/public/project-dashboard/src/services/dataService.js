@@ -114,9 +114,9 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot + '/projects/' + cadastaProjectId + '/activity', { cache: false })
+            $http.get(ENV.apiCadastaRoot + '/cadasta_get_project_activities?=cadasta_project_id=' + cadastaProjectId, { cache: false })
                 .then(function(response) {
-                    deferred.resolve(response.data);
+                    deferred.resolve(response.data.result);
                 }, function(response) {
                     deferred.reject(response);
                 });
