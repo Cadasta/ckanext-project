@@ -60,8 +60,11 @@ get_api_map = {
     'cadasta_get_project_parcel_history': CadastaEndpoint('projects/{id}/parcels/{parcel_id}/history'),
     'cadasta_get_project_parcel_relationship_history': CadastaEndpoint('/projects/{id}/parcels/{parcel_id}/show_relationship_history'),
 
-    'cadasta_get_all_projects': CadastaEndpoint('/projects?outputFormat=JSON&ckan_id={ckan_id}'),
-    'cadasta_get_project_details': CadastaEndpoint('/projects/{cadasta_project_id}?returnGeometry=true'),
+    # get params are carried through request
+    'cadasta_get_all_projects': CadastaEndpoint('/projects'),
+
+    # get params are carried through request
+    'cadasta_get_project_details': CadastaEndpoint('/projects/{cadasta_project_id}',argument_types={'returnGeometry': str}),
     'cadasta_get_project_resources': CadastaEndpoint('/projects/{cadasta_project_id}/resources'),
 
 }

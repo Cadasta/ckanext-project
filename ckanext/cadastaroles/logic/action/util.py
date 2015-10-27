@@ -22,11 +22,8 @@ def call_api(endpoint, function, **kwargs):
             json.dumps(kwargs,indent=4)
         ))
 
-        r = None
-        if function.__name__ == 'get':
-            r = function(urlparse.urljoin(api_url, endpoint))
-        else:
-            r = function(urlparse.urljoin(api_url, endpoint),**kwargs)
+
+        r = function(urlparse.urljoin(api_url, endpoint),**kwargs)
 
         result = r.json()
         log.debug("[ RESPONSE ]:\nstatus={0}\nerror={1}\nfull_result={2}".format(
