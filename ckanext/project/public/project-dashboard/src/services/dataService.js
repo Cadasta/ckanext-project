@@ -75,6 +75,11 @@ var app = angular.module("app")
             return deferred.promise;
         };
 
+
+        /**
+         * Get all resources associated with a project
+         * @returns {*}
+         */
         service.getProjectResources = function(cadastaProjectId){
             var deferred = $q.defer();
 
@@ -124,24 +129,6 @@ var app = angular.module("app")
             return deferred.promise;
         };
 
-
-        /**
-         * Get all resources associated with a project
-         * @returns {*}
-         */
-        service.getProjectResources = function(cadastaProjectId, cache){
-
-            var deferred = $q.defer();
-
-            $http.get(ENV.apiCadastaRoot + '/projects/' + cadastaProjectId +'/resources', {cache: false})
-                .then(function(response) {
-                    deferred.resolve(response.data);
-                }, function(response) {
-                    deferred.reject(response);
-                });
-
-            return deferred.promise;
-        };
 
         //todo pass in project_id as a parameter
         service.getProjectParcels = function(id){
