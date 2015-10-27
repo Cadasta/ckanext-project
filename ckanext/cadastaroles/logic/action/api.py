@@ -61,6 +61,7 @@ get_api_map = {
     'cadasta_get_project_parcel_relationship_history': CadastaEndpoint('/projects/{id}/parcels/{parcel_id}/show_relationship_history'),
 
     'cadasta_get_all_projects': CadastaEndpoint('/projects?outputFormat=JSON&ckan_id={ckan_id}'),
+    'cadasta_get_project_details': CadastaEndpoint('/projects/{cadasta_project_id}?returnGeometry=true'),
 }
 
 post_api_map = {
