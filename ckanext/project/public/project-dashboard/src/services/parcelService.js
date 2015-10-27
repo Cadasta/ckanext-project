@@ -7,15 +7,13 @@ var app = angular.module("app")
          * Get all parcels from parcel endpoint
          * @returns {*}
          */
-
-            //TODO get project id and pass as parameter in API call
         service.getProjectParcels = function (projectId) {
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot + '/projects/' + projectId + '/parcels_list', {cache: false}).
+            $http.get(ENV.apiCKANRoot + '/cadasta_get_project_parcels?cadasta_project_id=' + projectId, {cache: false}).
                 then(function (response) {
-                    deferred.resolve(response.data.features);
+                    deferred.resolve(response.data.result.features);
                 }, function (response) {
                     deferred.reject(response);
                 });

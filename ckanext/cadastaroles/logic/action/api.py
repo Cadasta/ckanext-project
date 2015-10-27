@@ -66,7 +66,7 @@ get_api_map = {
     'cadasta_get_project_details': CadastaEndpoint('/projects/{cadasta_project_id}',argument_types={'returnGeometry': str}),
     'cadasta_get_project_resources': CadastaEndpoint('/projects/{cadasta_project_id}/resources'),
     'cadasta_get_project_activities': CadastaEndpoint('/projects/{cadasta_project_id}/activity'),
-
+    'cadasta_get_project_parcels': CadastaEndpoint('/projects/{cadasta_project_id}/parcels_list'),
 }
 
 post_api_map = {
