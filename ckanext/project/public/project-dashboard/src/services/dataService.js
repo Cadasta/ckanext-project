@@ -8,9 +8,9 @@ var app = angular.module("app")
             var deferred = $q.defer();
 
             // Cadasta API
-            $http.get(ENV.apiCadastaRoot + '/projects?outputFormat=JSON&ckan_id=' + ckanProjectId, { cache: true })
+            $http.get(ENV.apiCKANRoot + '/cadasta_get_all_projects?outputFormat=JSON&ckan_id=' + ckanProjectId, { cache: true })
                 .then(function(response) {
-                    deferred.resolve(response.data[0]);
+                    deferred.resolve(response.data.result[0]);
                 }, function(err) {
                     deferred.reject(err);
                 });

@@ -26,16 +26,18 @@ def call_api(endpoint, function, **kwargs):
         result = r.json()
         log.debug("[ RESPONSE ]:\nstatus={0}\nerror={1}\nfull_result={2}".format(
             r.status_code,
-            result.get('error',{}),
+            result.get('error',{}) if hasattr(result, 'get') else {},
             json.dumps(result,indent=4)
         ))
-        error_dict = result.get('error')
-        if error_dict:
-            message = result.get('message', '')
-            error_dict['message'] = message
-            raise toolkit.ValidationError(
-                error_dict
-            )
+
+        if hasattr(result,'get') and result.get("error",None) is not None:
+            error_dict = result.get('error')
+            if error_dict:
+                message = result.get('message', '')
+                error_dict['message'] = message
+                raise toolkit.ValidationError(
+                    error_dict
+                )
         return result
     except requests.exceptions.RequestException, e:
         error = 'error connection cadasta api: {0}'.format(e.message)
