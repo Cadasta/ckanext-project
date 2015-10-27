@@ -180,6 +180,7 @@ module.exports = function(grunt) {
 						"ckanext/project/public/shared/styles/tabs.css",
 						"ckanext/project/public/project-dashboard/styles/parcels.css",
 						"ckanext/project/public/project-dashboard/styles/project_overview.css",
+						"ckanext/project/public/project-dashboard/styles/project-relationships.css",
 						"ckanext/project/public/project-dashboard/styles/project-map-tab.css",
 						"ckanext/project/public/project-dashboard/styles/activity_resources_tab.css"]
 				}
