@@ -30,9 +30,9 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot + '/projects/' + projectId + '/parcels/' + parcelId + '/details', {cache: false}).
+            $http.get(ENV.apiCKANRoot + '/cadasta_get_project_parcel_details?project_id='+projectId+'&parcel_id='+parcelId, {cache: false}).
                 then(function (response) {
-                    deferred.resolve(response.data.features[0]);
+                    deferred.resolve(response.data.result.features[0]);
                 }, function (response) {
                     deferred.reject(response);
                 });
@@ -50,9 +50,9 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot + '/projects/' + projectId + '/parcels/' + parcelId + '/show_relationship_history', {cache: false}).
+            $http.get(ENV.apiCKANRoot + '/cadasta_get_project_parcel_relationships?project_id='+projectId+'&parcel_id='+parcelId, {cache: false}).
                 then(function (response) {
-                    deferred.resolve(response.data.features);
+                    deferred.resolve(response.data.result.features);
                 }, function (response) {
                     deferred.reject(response);
                 });
@@ -70,9 +70,9 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot + '/projects/' + projectId + '/parcels/' + parcelId + '/resources', {cache: false})
+            $http.get(ENV.apiCKANRoot + '/cadasta_get_project_parcel_resources?project_id='+projectId+'&parcel_id='+parcelId, {cache: false})
                 .then(function (response) {
-                    deferred.resolve(response.data);
+                    deferred.resolve(response.data.result);
                 }, function (response) {
                     deferred.reject(response);
                 });

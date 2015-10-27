@@ -67,6 +67,24 @@ get_api_map = {
     'cadasta_get_project_resources': CadastaEndpoint('/projects/{cadasta_project_id}/resources'),
     'cadasta_get_project_activities': CadastaEndpoint('/projects/{cadasta_project_id}/activity'),
     'cadasta_get_project_parcels': CadastaEndpoint('/projects/{cadasta_project_id}/parcels_list'),
+    'cadasta_get_project_parcel_details': CadastaEndpoint(
+        '/projects/{project_id}/parcels/{parcel_id}/details',
+        argument_types={
+            'project_id': str,
+            'parcel_id' : str,
+    }),
+    'cadasta_get_project_parcel_relationships': CadastaEndpoint(
+        '/projects/{project_id}/parcels/{parcel_id}/show_relationship_history',
+        argument_types={
+            'project_id': str,
+            'parcel_id' : str,
+    }),
+    'cadasta_get_project_parcel_resources': CadastaEndpoint(
+        '/projects/{project_id}/parcels/{parcel_id}/resources',
+        argument_types={
+            'project_id': str,
+            'parcel_id' : str,
+    })
 }
 
 post_api_map = {
@@ -116,7 +134,7 @@ def make_cadasta_action(action, cadasta_endpoint, decorator, cadasta_api_func):
                 error_dict[arg] = ['Missing value']
             else:
                 arg_value = cadasta_dict.pop(arg, '')
-                arg_value = re.sub('[^0-9a-zA-Z]+', '', arg_value)
+                arg_value = re.sub('[^0-9a-zA-Z_]+', '', arg_value)
                 endpoint_arg = ''.join(['{', arg, '}'])
                 endpoint = endpoint.replace(endpoint_arg, arg_value)
         if error_dict:
