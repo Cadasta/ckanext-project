@@ -38,7 +38,7 @@
         <tr class="row-link" ng-show="relationshipsList.length ==0 " ng-repeat="relationship in relationships | tenureType: TenureTypeModel"
             ng-class="{'last-table-element':$index == relationships.length-1}" ui-sref="^.relationship({id: relationship.properties.id})">
             <td>{{relationship.properties.id}}</td>
-            <td>{{relationship.properties.party_id}}</td>
+            <td>{{relationship.properties.first_name}} {{relationship.properties.last_name}}</td>
             <td>{{relationship.properties.tenure_type}}</td>
             <td>{{relationship.properties.how_acquired}}</td>
             <td>{{relationship.properties.acquired_date}}</td>

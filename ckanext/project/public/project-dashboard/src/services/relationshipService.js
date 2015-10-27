@@ -7,11 +7,11 @@ var app = angular.module("app")
          * Get all relationships for a project
          * @returns {*}
          */
-        service.getProjectRelationships = function (projectId) {
+        service.getProjectRelationshipsList = function (projectId) {
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot + '/projects/' + projectId + '/relationships', {cache: false}).
+            $http.get(ENV.apiCadastaRoot + '/projects/' + projectId + '/relationships/relationships_list', {cache: false}).
                 then(function (response) {
                     deferred.resolve(response.data.features);
                 }, function (response) {

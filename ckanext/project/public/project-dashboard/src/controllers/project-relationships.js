@@ -15,7 +15,7 @@ app.controller("relationshipsCtrl", ['$scope', '$state', '$stateParams', 'relati
 
 
 
-        var promise = relationshipService.getProjectRelationships(cadastaProject.id);
+        var promise = relationshipService.getProjectRelationshipsList(cadastaProject.id);
 
         promise.then(function (response) {
 
@@ -121,13 +121,13 @@ app.filter('tenureType', function () {
 
                 return output;
                 break;
-            case 'time_created':
+            case 'date_acquired':
                 // create unique copy of array
                 var arr = inputs.slice();
                 // sort by date DESC
                 arr.sort(function(a,b){
-                    var a_date = new Date(a.properties.time_created);
-                    var b_date = new Date(b.properties.time_created);
+                    var a_date = new Date(a.properties.acquired_date);
+                    var b_date = new Date(b.properties.acquired_date);
                     return   b_date - a_date;
                 });
                 return arr;
