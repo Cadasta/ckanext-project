@@ -32,7 +32,7 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot +  '/projects/'+ projectId + '/parcels/' + parcelId + '/details', {cache: false}).
+            $http.get(ENV.apiCadastaRoot + '/projects/' + projectId + '/parcels/' + parcelId + '/details', {cache: false}).
                 then(function (response) {
                     deferred.resolve(response.data.features[0]);
                 }, function (response) {
@@ -52,7 +52,7 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot +  '/projects/'+ projectId + '/parcels/' + parcelId  + '/show_relationship_history', {cache: false}).
+            $http.get(ENV.apiCadastaRoot + '/projects/' + projectId + '/parcels/' + parcelId + '/show_relationship_history', {cache: false}).
                 then(function (response) {
                     deferred.resolve(response.data.features);
                 }, function (response) {
@@ -68,14 +68,14 @@ var app = angular.module("app")
          * @returns {*}
          * todo pass in a project and parcel id
          */
-        service.getProjectParcelResources = function(projectId, parcelId){
+        service.getProjectParcelResources = function (projectId, parcelId) {
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot +'/projects/'+ projectId + '/parcels/' + parcelId + '/resources', { cache: false })
-                .then(function(response) {
+            $http.get(ENV.apiCadastaRoot + '/projects/' + projectId + '/parcels/' + parcelId + '/resources', {cache: false})
+                .then(function (response) {
                     deferred.resolve(response.data);
-                }, function(response) {
+                }, function (response) {
                     deferred.reject(response);
                 });
 
@@ -88,7 +88,7 @@ var app = angular.module("app")
          * @returns {*}
          * todo pass in a project and parcel id
          */
-        service.createProjectParcel = function(projectId, geoJSON, parcel){
+        service.createProjectParcel = function (projectId, geoJSON, parcel) {
 
             var deferred = $q.defer();
 
@@ -97,31 +97,37 @@ var app = angular.module("app")
             var landuse = null;
 
             if (parcel) {
-                if (parcel.pinid){ gov_pin = parcel.pinid; }
-                if (parcel.notes){ description = parcel.notes; }
-                if (parcel.landuse){ landuse = parcel.landuse; }
+                if (parcel.pinid) {
+                    gov_pin = parcel.pinid;
+                }
+                if (parcel.notes) {
+                    description = parcel.notes;
+                }
+                if (parcel.landuse) {
+                    landuse = parcel.landuse;
+                }
             }
 
 
             $http({
                 method: "post",
-                url: ENV.apiCadastaRoot +'/projects/'+ projectId + '/parcels',
+                url: ENV.apiCadastaRoot + '/projects/' + projectId + '/parcels',
                 data: JSON.stringify({
                     project_id: projectId,
                     spatial_source: "digitized",
                     geojson: geoJSON.geometry,
                     description: description,
                     land_use: landuse,
-                    gov_pin : gov_pin
+                    gov_pin: gov_pin
                 }),
                 headers: {
                     'Content-type': 'application/json'
                 }
-            }).then(function(response) {
-                    deferred.resolve(response.data);
-                }, function(response) {
-                    deferred.reject(response);
-                });
+            }).then(function (response) {
+                deferred.resolve(response.data);
+            }, function (response) {
+                deferred.reject(response);
+            });
 
             return deferred.promise;
         };
@@ -131,7 +137,7 @@ var app = angular.module("app")
          * @returns {*}
          * todo pass in a project and parcel id
          */
-        service.updateProjectParcel = function(projectId, parcelId, geoJSON, parcel){
+        service.updateProjectParcel = function (projectId, parcelId, geoJSON, parcelProperties) {
 
             var deferred = $q.defer();
 
@@ -140,36 +146,44 @@ var app = angular.module("app")
             var landuse = null;
             var parcel_geoJSON = null;
 
-            if (parcel) {
-                if (parcel.pinid){ gov_pin = parcel.pinid; }
-                if (parcel.notes){ description = parcel.notes; }
-                if (parcel.landuse){ landuse = parcel.landuse; }
-                if (geoJSON) { parcel_geoJSON = geoJSON.geometry; }
+            if (parcelProperties) {
+                if (parcelProperties.pinid) {
+                    gov_pin = parcelProperties.pinid;
+                }
+                if (parcelProperties.notes) {
+                    description = parcelProperties.notes;
+                }
+                if (parcelProperties.landuse) {
+                    landuse = parcelProperties.landuse;
+                }
+            }
+
+            if (geoJSON) {
+                parcel_geoJSON = geoJSON.geometry;
             }
 
 
             $http({
                 method: "patch",
-                url: ENV.apiCadastaRoot +'/projects/'+ projectId + '/parcels/' + parcelId,
+                url: ENV.apiCadastaRoot + '/projects/' + projectId + '/parcels/' + parcelId,
                 data: JSON.stringify({
                     spatial_source: "digitized",
                     geojson: parcel_geoJSON,
                     description: description,
                     land_use: landuse,
-                    gov_pin : gov_pin
+                    gov_pin: gov_pin
                 }),
                 headers: {
                     'Content-type': 'application/json'
                 }
-            }).then(function(response) {
+            }).then(function (response) {
                 deferred.resolve(response.data);
-            }, function(response) {
+            }, function (response) {
                 deferred.reject(response);
             });
 
             return deferred.promise;
         };
-
 
 
         return service;

@@ -5,6 +5,14 @@ app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location',
 
         $rootScope.$broadcast('tab-change', {tab: 'Overview'}); // notify breadcrumbs of tab on page load
 
+        $scope.$on('updated-parcel',function(){
+            getOverviewData();
+        });
+
+        $scope.$on('new-parcel',function(){
+            getOverviewData();
+        });
+
         // Get map querystring from state parameters
         var mapStr = $stateParams.map;
 
@@ -62,8 +70,10 @@ app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location',
             accessToken: 'pk.eyJ1Ijoic3BhdGlhbGRldiIsImEiOiJKRGYyYUlRIn0.PuYcbpuC38WO6D1r7xdMdA#3/0.00/0.00'
         }).addTo(map);
 
-        getOverviewData(); // Get overview data
+        //add layer for adding parcels
+        var parcelGroup = L.featureGroup().addTo(map);
 
+        getOverviewData(); // Get overview data
 
         // update project resources in activity pane
         function getResources (projectId){
@@ -116,14 +126,17 @@ app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location',
                   "stroke-opacity": .8
               };
 
+                //clear layers
+                parcelGroup.clearLayers();
+
                 // If there is a project geom load map and zoom to it; else zoom to parcels
                 if ($scope.overviewData.features[0].geometry) {
                     layer = L.geoJson($scope.overviewData.features[0], {style: extentStyle});
-                    layer.addTo(map);
+                    layer.addTo(parcelGroup);
 
                 } else if ($scope.overviewData.features[0].properties.parcels.length > 0 && $scope.overviewData.features[0].properties.parcels[0].geometry) {
                     layer = L.geoJson($scope.overviewData.features[0].properties.parcels, {style: parcelStyle});
-                    layer.addTo(map);
+                    layer.addTo(parcelGroup);
                 }
 
                 if (layer === undefined) {

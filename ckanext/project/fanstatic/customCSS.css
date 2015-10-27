@@ -1704,26 +1704,3 @@ label {
     left: 25px;
     font-weight: bold;
 }
-
-.member-management .base_page_primary_action .page_primary_action{
-    border: 1px solid #dcdfe1;
-    height: 107px;
-}
-
-
-.member-management .base_page_primary_action .page_primary_action .cadasta-button {
-    margin-top:0;
-}
-
-
-.member-management .base_page_primary_action table {
-    border-left:none;
-    border-right:none;
-}
-
-.member-management .base_page_primary_action table * {
-    border-radius:0 !important;
-    text-align: left;
-    padding-left: 8px;
-    font-size:12px;
-}
