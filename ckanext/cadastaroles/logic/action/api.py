@@ -55,7 +55,7 @@ get_api_map = {
     'cadasta_get_resources': CadastaEndpoint('/resources'),
     'cadasta_get_parcels_list': CadastaEndpoint('/projects/{id}/parcels_list'),
     'cadasta_get_project_parcel': CadastaEndpoint('/projects/{id}/parcels/{parcel_id}'),
-    'cadasta_get_project_overview': CadastaEndpoint('/projects/{id}/overview'),
+    'cadasta_get_project_overview': CadastaEndpoint('/projects/{cadasta_project_id}/overview'),
     'cadasta_get_project_parcel_detail': CadastaEndpoint('/projects/{id}/parcels/{parcel_id}/details'),
     'cadasta_get_project_parcel_history': CadastaEndpoint('projects/{id}/parcels/{parcel_id}/history'),
     'cadasta_get_project_parcel_relationship_history': CadastaEndpoint('/projects/{id}/parcels/{parcel_id}/show_relationship_history'),
