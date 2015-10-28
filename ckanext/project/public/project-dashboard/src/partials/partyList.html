@@ -16,18 +16,18 @@
         </md-input-container>
 
 
-        <md-button class='cadasta-round-button right' ng-click="addRelationshipModal()"> Add Relationship </md-button>
+        <!--<md-button class='cadasta-round-button right' ng-click="addRelationshipModal()"> Add Party </md-button>-->
 
     </div>
 </div>
 <table id="parcel-table-header">
     <thead>
     <tr>
-        <th>Relationship ID</th>
+        <th>Party ID</th>
         <th>Name</th>
-        <th>Tenure Type</th>
-        <th>How Acquired</th>
-        <th>Acquired Date</th>
+        <th>Party Type</th>
+        <th>Active Relationships</th>
+        <th>Date Created</th>
     </tr>
     </thead>
 </table>
@@ -35,13 +35,13 @@
 <div id="parcelList">
     <table>
         <tbody>
-        <tr class="row-link" ng-show="relationshipsList.length ==0 " ng-repeat="relationship in relationships | tenureType: TenureTypeModel"
-            ng-class="{'last-table-element':$index == relationships.length-1}" ui-sref="^.relationship({id: relationship.properties.id})">
-            <td>{{relationship.properties.id}}</td>
-            <td>{{relationship.properties.first_name}} {{relationship.properties.last_name}}</td>
-            <td>{{relationship.properties.tenure_type}}</td>
-            <td>{{relationship.properties.how_acquired}}</td>
-            <td>{{relationship.properties.acquired_date}}</td>
+        <tr class="row-link" ng-show="partiesList.length ==0 " ng-repeat="party in parties | tenureType: TenureTypeModel"
+            ng-class="{'last-table-element':$index == parties.length-1}" ui-sref="^.party({id: party.properties.id})">
+            <td>{{party.properties.id}}</td>
+            <td>{{party.properties.name}}</td>
+            <td>{{party.properties.party_type}}</td>
+            <td>{{party.properties.how_acquired}}</td>
+            <td>{{party.properties.acquired_date}}</td>
         </tr>
         </tbody>
     </table>
