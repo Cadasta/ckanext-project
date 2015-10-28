@@ -14,7 +14,7 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
             $rootScope.$broadcast('clear-inner-relationship-tab');
         };
 
-         //parse map query param
+        //parse map query param
         var mapArr = mapStr.substring(1,mapStr.length-1).split(',');
 
         var lat = mapArr[0];
@@ -24,9 +24,19 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
         var parcelStyle = {
             "color": "#e54573",
             "stroke": "#e54573",
-            "stroke-width": 1,
-            "fill-opacity": .8,
-            "stroke-opacity": .8
+            "weight": 1,
+            "fillOpacity": .5,
+            "opacity": .8,
+            "marker-color": "#e54573"
+        };
+
+
+        var relationshipStyle = {
+            "color": "#88D40E",
+            "stroke": "#88D40E",
+            "opacity":.8,
+            "fillOpacity":.5,
+            "weight" : 1
         };
 
         // setup map
@@ -83,9 +93,9 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
                     //clear layers
                     relationshipGroup.clearLayers();
 
-                    // If there are any parcels, load the map and zoom to parcel
+                    // If there are any relationships, load the map and zoom to relationship
                     if (response.geometry) {
-                        var layer = L.geoJson(response, {style: parcelStyle}).addTo(relationshipGroup);
+                        var layer = L.geoJson(response, {style: relationshipStyle}).addTo(relationshipGroup);
                         map.fitBounds(layer.getBounds());
                     } else {
                         map.setView([lat, lng], zoom);
@@ -108,11 +118,11 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
 
             promise
                 .then(function(response){
-                $scope.resources = response;
+                    $scope.resources = response;
                 })
                 .catch(function(err){
-                $scope.error = err;
-            })
+                    $scope.error = err;
+                })
         }
 
         $scope.showAddResourceModal = function (ev) {
@@ -174,75 +184,9 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
                 $scope.uploader.clearQueue();
             };
 
-        }        //
-        //var promise = parcelService.getProjectParcel(cadastaProject.id, $stateParams.id);
-        //
-        //promise.then(function(response){
-        //
-        //    $rootScope.$broadcast('parcel-details', {id:$stateParams.id});
-        //
-        //    $scope.parcel = response.properties;
-        //
-        //    // format dates
-        //    $scope.parcel.time_created = utilityService.formatDate($scope.parcel.time_created);
-        //    $scope.parcel.time_updated = utilityService.formatDate($scope.parcel.time_created);
-        //
-        //    //reformat parcel history dates
-        //    response.properties.parcel_history.forEach(function(val){
-        //        val.properties.time_created = utilityService.formatDate(val.properties.time_created);
-        //        val.properties.time_updated = utilityService.formatDate(val.properties.time_updated);
-        //    });
-        //
-        //    //reformat relationship dates
-        //    response.properties.relationships.forEach(function(val){
-        //        val.properties.time_created = utilityService.formatDate(val.properties.time_created);
-        //        val.properties.time_updated = utilityService.formatDate(val.properties.time_updated);
-        //    });
-        //
-        //    $scope.parcel_history = response.properties.parcel_history;
-        //
-        //    $scope.relationships = response.properties.relationships;
-        //
-        //    //update values for UI
-        //    $scope.relationships.forEach(function(v,i){
-        //        if (i === 0){
-        //            v.showDropDownDetails = true;
-        //        } else {
-        //            v.showDropDownDetails = false;
-        //        }
-        //
-        //
-        //        v.properties.active = v.properties.active ? 'Active' : 'Inactive';
-        //        v.properties.relationship_type = 'own' ? 'Owner' : v.properties.relationship_type;
-        //    });
-        //
-        //    var parcelStyle = {
-        //        "color": "#e54573",
-        //        "stroke": "#e54573",
-        //        "stroke-width": 1,
-        //        "fill-opacity":.8,
-        //        "stroke-opacity":.8
-        //    };
-        //
-        //
-        //    // If there are any parcels, load the map and zoom to parcel
-        //    if(response.geometry) {
-        //        var layer = L.geoJson(response, {style:parcelStyle}).addTo(map);
-        //        map.fitBounds(layer.getBounds());
-        //    } else {
-        //        map.setView([lat,lng],zoom);
-        //    }
-        //
-        //    return parcelService.getProjectParcelRelationshipHistory(cadastaProject.id, $stateParams.id);
-        //
-        //},function(err){
-        //    $scope.overviewData = "Server Error";
-        //});
-        //
-        //
+        }
 
 
 
     }]);
-
 
