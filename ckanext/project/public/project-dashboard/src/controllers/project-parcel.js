@@ -10,6 +10,14 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
         var mapArr = mapStr.substring(1, mapStr.length - 1).split(',');
 
 
+        var parcelStyle = {
+            "color": "#e54573",
+            "stroke": "#e54573",
+            "stroke-width": 1,
+            "fill-opacity": .8,
+            "stroke-opacity": .8
+        };
+
         getParcelResources(false);
 
         var lat = mapArr[0];
@@ -50,10 +58,11 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
             $rootScope.$broadcast('clear-inner-tabs');
         };
 
-         //add layer for adding parcels
-        var parcelGroup = L.featureGroup().addTo(map);        
+        //add layer for adding parcels
+        var parcelGroup = L.featureGroup().addTo(map);
 
-	    getParcelDetails();
+        getParcelDetails();
+
 
         function getParcelDetails() {
 
@@ -104,18 +113,6 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
                     v.properties.relationship_type = 'own' ? 'Owner' : v.properties.relationship_type;
 
                 });
-
-                var parcelStyle = {
-                    "color": "#e54573",
-                    "stroke": "#e54573",
-                    "stroke-width": 1,
-                    "fill-opacity": .8,
-                    "stroke-opacity": .8
-                };
-
-                //clear layers
-                parcelGroup.clearLayers();
-
 
                 // If there are any parcels, load the map and zoom to parcel
                 if (response.geometry) {
@@ -304,7 +301,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
             $scope.cadastaProjectId = cadastaProject.id;
             $scope.showSaveParcel = false;
 
-            $scope.updateParcel = function () {
+            $scope.updateParcel = function (projectId) {
 
                 var layer = getLayer();
 
@@ -446,4 +443,3 @@ app.filter('emptyString', function () {
         return input == null ? '- -' : input;
     }
 });
-
