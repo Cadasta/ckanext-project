@@ -1,3 +1,4 @@
+import json
 from ckan.plugins import toolkit
 from ckanext.cadastaroles.logic.action.util import (
     cadasta_get_api,
@@ -23,9 +24,10 @@ default_converter_types = {
 
 
 class CadastaEndpoint(object):
-    def __init__(self, url, argument_types=None, upload_fields=None):
+    def __init__(self, url, argument_types=None, upload_fields=None, keep_param_key=False):
         self.url = url
         self.upload_fields = upload_fields
+        self.keep_param_key = keep_param_key
         if argument_types is None:
             self.argument_types = default_converter_types
         else:
@@ -33,6 +35,8 @@ class CadastaEndpoint(object):
 
     def convert_argument(self, argument_name, value):
         try:
+            if value is None:
+                return None
             converter = self.argument_types.get(argument_name, str)
             return converter(value)
         except ValueError:
@@ -63,34 +67,38 @@ get_api_map = {
     'cadasta_get_all_projects': CadastaEndpoint('/projects'),
 
     # get params are carried through request
-    'cadasta_get_project_details': CadastaEndpoint('/projects/{cadasta_project_id}',argument_types={'returnGeometry': str}),
+    'cadasta_get_project_details': CadastaEndpoint(
+        '/projects/{cadasta_project_id}',
+        argument_types={
+            'returnGeometry': str,
+        }
+    ),
     'cadasta_get_project_resources': CadastaEndpoint('/projects/{cadasta_project_id}/resources'),
     'cadasta_get_project_activities': CadastaEndpoint('/projects/{cadasta_project_id}/activity'),
     'cadasta_get_project_parcels': CadastaEndpoint('/projects/{cadasta_project_id}/parcels_list'),
     'cadasta_get_project_parcel_details': CadastaEndpoint(
         '/projects/{project_id}/parcels/{parcel_id}/details',
-        argument_types={
-            'project_id': str,
-            'parcel_id' : str,
-    }),
+    ),
     'cadasta_get_project_parcel_relationships': CadastaEndpoint(
         '/projects/{project_id}/parcels/{parcel_id}/show_relationship_history',
-        argument_types={
-            'project_id': str,
-            'parcel_id' : str,
-    }),
+    ),
     'cadasta_get_project_parcel_resources': CadastaEndpoint(
         '/projects/{project_id}/parcels/{parcel_id}/resources',
-        argument_types={
-            'project_id': str,
-            'parcel_id' : str,
-    })
+    )
 }
 
 post_api_map = {
     'cadasta_create_project': CadastaEndpoint(
         '/projects', {'cadasta_organization_id': int}),
     'cadasta_create_organization': CadastaEndpoint('/organizations'),
+    'cadasta_create_project_parcel': CadastaEndpoint(
+        '/projects/{project_id}/parcels',
+        argument_types={
+            'project_id': int,
+            'geojson': json.dumps,
+        },
+        keep_param_key=True
+    ),
 }
 
 patch_api_map = {
@@ -133,8 +141,12 @@ def make_cadasta_action(action, cadasta_endpoint, decorator, cadasta_api_func):
             if arg not in data_dict.keys() or not data_dict.get(arg):
                 error_dict[arg] = ['Missing value']
             else:
-                arg_value = cadasta_dict.pop(arg, '')
-                arg_value = re.sub('[^0-9a-zA-Z_]+', '', arg_value)
+                arg_value = ''
+                if cadasta_endpoint.keep_param_key is True:
+                    arg_value = cadasta_dict.get(arg, '')
+                else:
+                    arg_value = cadasta_dict.pop(arg, '')
+                arg_value = re.sub('[^0-9a-zA-Z_]+', '', str(arg_value))
                 endpoint_arg = ''.join(['{', arg, '}'])
                 endpoint = endpoint.replace(endpoint_arg, arg_value)
         if error_dict:

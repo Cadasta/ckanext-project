@@ -109,7 +109,7 @@ var app = angular.module("app")
 
             $http({
                 method: "post",
-                url: ENV.apiCadastaRoot + '/projects/' + projectId + '/parcels',
+                url: ENV.apiCKANRoot + '/cadasta_create_project_parcel',
                 data: JSON.stringify({
                     project_id: projectId,
                     spatial_source: "digitized",
@@ -122,7 +122,7 @@ var app = angular.module("app")
                     'Content-type': 'application/json'
                 }
             }).then(function (response) {
-                deferred.resolve(response.data);
+                deferred.resolve(response.data.result);
             }, function (response) {
                 deferred.reject(response);
             });
