@@ -11,10 +11,10 @@ var app = angular.module("app")
          * @returns {*} success response
          *
          */
-        service.submitForm = function(){
+        service.submitForm = function(project_id){
 
             //TODO get real project id
-            $http.post(ENV.apiCadastaRoot + '/providers/ona/load-form/1', form)
+            $http.post(ENV.apiCKANRoot + '/cadasta_upload_ona_form?project_id=' + (project_id||1), form)
                 .then(function(response) {
                     cb(response.data);
                 }, function(response) {

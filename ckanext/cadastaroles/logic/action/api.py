@@ -122,6 +122,11 @@ post_files_api_map = {
         '/resources/{project_id}/{resource_type}/{resource_type_id}',
         argument_types={'filedata': convert_field_storage},
         upload_fields=['filedata']
+    ),
+    'cadasta_upload_ona_form': CadastaEndpoint(
+        '/providers/ona/load-form/{project_id}',
+        argument_types={'filedata': convert_field_storage},
+        upload_fields=['filedata']
     )
 }
 
