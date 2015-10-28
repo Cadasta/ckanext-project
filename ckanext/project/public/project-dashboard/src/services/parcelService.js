@@ -162,9 +162,11 @@ var app = angular.module("app")
 
 
             $http({
-                method: "patch",
-                url: ENV.apiCadastaRoot + '/projects/' + projectId + '/parcels/' + parcelId,
+                method: "post",
+                url: ENV.apiCKANRoot + '/cadasta_update_project_parcel',
                 data: JSON.stringify({
+                    project_id: projectId,
+                    parcel_id: parcelId,
                     spatial_source: "digitized",
                     geojson: parcel_geoJSON,
                     description: description,
@@ -175,7 +177,7 @@ var app = angular.module("app")
                     'Content-type': 'application/json'
                 }
             }).then(function (response) {
-                deferred.resolve(response.data);
+                deferred.resolve(response.data.result);
             }, function (response) {
                 deferred.reject(response);
             });

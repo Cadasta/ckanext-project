@@ -106,6 +106,12 @@ patch_api_map = {
     'cadasta_delete_organization': CadastaEndpoint('/organizations/{cadasta_organization_id}/archive'),
     'cadasta_update_project': CadastaEndpoint('/projects/{cadasta_project_id}'),
     'cadasta_delete_project': CadastaEndpoint('/projects/{cadasta_project_id}/archive'),
+    'cadasta_update_project_parcel': CadastaEndpoint(
+        '/projects/{project_id}/parcels/{parcel_id}',
+        argument_types={
+            'geojson': json.dumps,
+        },
+    ),
 }
 
 post_files_api_map = {
