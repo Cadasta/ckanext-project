@@ -7,13 +7,11 @@ var app = angular.module("app")
          * Get all relationships for a project
          * @returns {*}
          */
-
-            //TODO update endpoint to pass id in get relationships
-        service.getProjectRelationships = function (projectId) {
+        service.getProjectRelationshipsList = function (projectId) {
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot + '/relationships', {cache: true}).
+            $http.get(ENV.apiCadastaRoot + '/projects/' + projectId + '/relationships/relationships_list', {cache: false}).
                 then(function (response) {
                     deferred.resolve(response.data.features);
                 }, function (response) {
@@ -23,6 +21,25 @@ var app = angular.module("app")
             return deferred.promise;
         };
 
+
+        /**
+         * Get all resources associated with a relationship
+         * @returns {*}
+         *
+         */
+        service.getProjectRelationshipResources = function(projectId, resourceId){
+
+            var deferred = $q.defer();
+
+            $http.get(ENV.apiCadastaRoot +'/projects/'+ projectId + '/relationships/' + resourceId + '/resources', { cache: false })
+                .then(function(response) {
+                    deferred.resolve(response.data);
+                }, function(response) {
+                    deferred.reject(response);
+                });
+
+            return deferred.promise;
+        };
 
 
         return service;

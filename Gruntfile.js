@@ -124,6 +124,8 @@ module.exports = function(grunt) {
 						"ckanext/project/public/project-dashboard/src/controllers/project-map.js",
 						"ckanext/project/public/project-dashboard/src/controllers/project-relationship.js",
 						"ckanext/project/public/project-dashboard/src/controllers/project-relationships.js",
+						"ckanext/project/public/project-dashboard/src/controllers/project-party.js",
+						"ckanext/project/public/project-dashboard/src/controllers/project-parties.js",
 						"ckanext/project/public/project-dashboard/src/controllers/project-resources.js",
 						"ckanext/project/public/project-dashboard/src/controllers/project-activity_list.js",
 						"ckanext/project/public/project-dashboard/src/controllers/tabs.js",
@@ -180,6 +182,7 @@ module.exports = function(grunt) {
 						"ckanext/project/public/shared/styles/tabs.css",
 						"ckanext/project/public/project-dashboard/styles/parcels.css",
 						"ckanext/project/public/project-dashboard/styles/project_overview.css",
+						"ckanext/project/public/project-dashboard/styles/project-relationships.css",
 						"ckanext/project/public/project-dashboard/styles/project-map-tab.css",
 						"ckanext/project/public/project-dashboard/styles/activity_resources_tab.css"]
 				}

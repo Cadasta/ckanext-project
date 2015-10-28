@@ -6,51 +6,45 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','parcelSe
 
         $rootScope.$broadcast('tab-change', {tab: 'Relationships'}); // notify breadcrumbs of tab on page load
 
+        $rootScope.$broadcast('relationship-details', {id: $stateParams.id});
+
         $scope.clearRelationshipBreadCrumb = function () {
             $rootScope.$broadcast('clear-inner-relationship-tab');
         };
 
-        // parse map query param
-        //var mapArr = mapStr.substring(1,mapStr.length-1).split(',');
-        //
-        //var lat = mapArr[0];
-        //var lng = mapArr[1];
-        //var zoom = mapArr[2];
-        //
-        //// setup map
-        //var map = L.map('parcelDetailsMap', {scrollWheelZoom:false});
-        //
-        //// After each pan or zoom
-        //map.on('moveend', function(){
-        //
-        //    if($state.current.name !== 'tabs.parcels.parcel') {
-        //        return;
-        //    }
-        //
-        //    var center = map.getCenter();
-        //    var zoom = map.getZoom();
-        //    var param  = '('+[center.lat, center.lng, zoom].join(',')+ ')';
-        //    $stateParams.map = param;
-        //    paramService.setStateParam($state.current.name, 'map', param);
-        //    $state.go($state.current.name, $stateParams, {notify:false});
-        //});
-        //
-        //L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-        //    attribution: '',
-        //    maxZoom: 18,
-        //    id: 'spatialdev.map-rpljvvub',
-        //    accessToken: 'pk.eyJ1Ijoic3BhdGlhbGRldiIsImEiOiJKRGYyYUlRIn0.PuYcbpuC38WO6D1r7xdMdA#3/0.00/0.00'
-        //}).addTo(map);
-        //
-        //$scope.parcel = null;
-        //
-        //$scope.toggleDropdownDetails = function(obj){
-        //    obj.showDropDownDetails = !obj.showDropDownDetails;
-        //};
-        //
-        //$scope.clearParcelBreadCrumb = function () {
-        //    $rootScope.$broadcast('clear-inner-tabs');
-        //};
+         //parse map query param
+        var mapArr = mapStr.substring(1,mapStr.length-1).split(',');
+
+        var lat = mapArr[0];
+        var lng = mapArr[1];
+        var zoom = mapArr[2];
+
+        // setup map
+        var map = L.map('relationshipDetailsMap', {scrollWheelZoom:false});
+
+        // After each pan or zoom
+        map.on('moveend', function(){
+
+            if($state.current.name !== 'tabs.relationships.relationship') {
+                return;
+            }
+
+            var center = map.getCenter();
+            var zoom = map.getZoom();
+            var param  = '('+[center.lat, center.lng, zoom].join(',')+ ')';
+            $stateParams.map = param;
+            paramService.setStateParam($state.current.name, 'map', param);
+            $state.go($state.current.name, $stateParams, {notify:false});
+        });
+
+        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+            attribution: '',
+            maxZoom: 18,
+            id: 'spatialdev.map-rpljvvub',
+            accessToken: 'pk.eyJ1Ijoic3BhdGlhbGRldiIsImEiOiJKRGYyYUlRIn0.PuYcbpuC38WO6D1r7xdMdA#3/0.00/0.00'
+        }).addTo(map);
+
+
         //
         //var promise = parcelService.getProjectParcel(cadastaProject.id, $stateParams.id);
         //
