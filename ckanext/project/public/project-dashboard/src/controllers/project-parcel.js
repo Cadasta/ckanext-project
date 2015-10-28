@@ -9,6 +9,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
         // parse map query param
         var mapArr = mapStr.substring(1, mapStr.length - 1).split(',');
 
+
         getParcelResources(false);
 
         var lat = mapArr[0];
@@ -56,6 +57,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
 
         function getParcelDetails() {
 
+            var layer;
 
             var promise = parcelService.getProjectParcel(cadastaProject.id, $stateParams.id);
 
@@ -86,17 +88,21 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
 
                 $scope.relationships = response.properties.relationships;
 
+                parcelGroup.clearLayers();
+
                 //update values for UI
                 $scope.relationships.forEach(function (v, i) {
-                    if (i === 0) {
-                        v.showDropDownDetails = true;
-                    } else {
-                        v.showDropDownDetails = false;
+
+                    if(v.geometry !== null){
+                        layer = L.geoJson(v, {style: parcelStyle}).addTo(parcelGroup);
+                        map.fitBounds(layer.getBounds());
                     }
 
+                    v.showDropDownDetails = (i === 0);
 
                     v.properties.active = v.properties.active ? 'Active' : 'Inactive';
                     v.properties.relationship_type = 'own' ? 'Owner' : v.properties.relationship_type;
+
                 });
 
                 var parcelStyle = {
@@ -110,9 +116,10 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
                 //clear layers
                 parcelGroup.clearLayers();
 
+
                 // If there are any parcels, load the map and zoom to parcel
                 if (response.geometry) {
-                    var layer = L.geoJson(response, {style: parcelStyle}).addTo(parcelGroup);
+                    layer = L.geoJson(response, {style: parcelStyle}).addTo(parcelGroup);
                     map.fitBounds(layer.getBounds());
                 } else {
                     map.setView([lat, lng], zoom);

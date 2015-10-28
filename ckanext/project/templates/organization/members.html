@@ -17,9 +17,10 @@
 {% endblock %}
 
 {% block page_primary_action %}
-<br><br>
-{% link_for _('Add Member'), controller='organization', action='member_new', id=c.group_dict.id, class_='cadasta-button right' %}
-{% endblock %}
+<div id="org-members-add">
+    {% link_for _('Add Member'), controller='organization', action='member_new', id=c.group_dict.id, class_='cadasta-button right' %}
+</div>
+    {% endblock %}
 
 {% block content_primary_nav %}
 <div class="org-header">
@@ -39,7 +40,7 @@
 
 {% block primary_content_inner %}
 <!--<h3 class="page-heading">{{ _('{0} members'.format(c.members|length)) }}</h3>-->
-<table class="table table-header table-hover table-bordered">
+<table id="member-table" class="table">
     <col width="70" />
     <col width="40" />
     <col width="20" />
@@ -47,7 +48,7 @@
     <tr>
         <th scope="col">{{ _('User') }}</th>
         <th scope="col">{{ _('Role') }}</th>
-        <th scope="col"></th>
+        <th scope="col">Management</th>
     </tr>
     </thead>
     <tbody>

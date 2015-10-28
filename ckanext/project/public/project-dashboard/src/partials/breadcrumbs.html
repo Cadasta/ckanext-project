@@ -11,6 +11,7 @@
 
         <div class="icon-lnr-chevron-right arrow-right"></div>
 
+        <!-- parcels breadcrumb when on parcel list page-->
         <a ng-show="tab_parcel.length > 0" class="title" ui-sref="tabs.parcels.parcellist">{{tab}}</a>
 
         <!-- parcels breadcrumb when on a specific parcel page-->
@@ -18,5 +19,15 @@
 
         <div ng-show="tab_parcel.length > 0" class="icon-lnr-chevron-right arrow-right"></div>
         <a ng-show="tab_parcel.length > 0" class="active title" href="">{{tab_parcel}}</a>
+
+        <!--&lt;!&ndash; parcels breadcrumb when on relationship list page&ndash;&gt;-->
+        <!--<a ng-show="tab_parcel.length > 0" class="title" ui-sref="tabs.parcels.parcellist">{{tab}}</a>-->
+
+        <!--&lt;!&ndash; parcels breadcrumb when on a specific parcel page&ndash;&gt;-->
+        <!--<a ng-show="tab_parcel.length <= 0" class="title active" href="">{{tab}}</a>-->
+
+        <!--<div ng-show="tab_parcel.length > 0" class="icon-lnr-chevron-right arrow-right"></div>-->
+        <!--<a ng-show="tab_parcel.length > 0" class="active title" href="">{{tab_parcel}}</a>-->
+
     </div>
 </div>

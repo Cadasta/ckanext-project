@@ -30,14 +30,14 @@
                             </nav>
                         </div>
 
-                        <md-content class="layout-padding left" >
+                        <md-content class="layout-padding left add-parcel-extra-fields" >
                             <p>2. Add additional (optional) data to the parcel.</p>
                                 <div layout layout-sm="column">
-                                    <md-input-container flex class="pin-id">
+                                    <md-input-container md-no-float flex class="pin-id">
                                         <label>Government Pin Id</label>
                                         <input ng-model="parcel.pinid">
                                     </md-input-container>
-                                    <md-input-container flex>
+                                    <md-input-container md-no-float flex class="landuse">
                                         <label>Landuse</label>
                                         <md-select ng-model="parcel.landuse">
                                             <md-option>Commercial</md-option>
@@ -45,7 +45,7 @@
                                         </md-select>
                                     </md-input-container>
                                 </div>
-                            <md-input-container flex class="notes">
+                            <md-input-container md-no-float flex class="notes">
                                 <label>Notes</label>
                                 <textarea ng-model="parcel.notes" columns="1" md-maxlength="150"></textarea>
                             </md-input-container>
