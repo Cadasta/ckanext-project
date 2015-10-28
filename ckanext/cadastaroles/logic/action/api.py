@@ -84,6 +84,9 @@ get_api_map = {
     ),
     'cadasta_get_project_parcel_resources': CadastaEndpoint(
         '/projects/{project_id}/parcels/{parcel_id}/resources',
+    ),
+    'cadasta_get_project_relationships': CadastaEndpoint(
+        '/relationships',
     )
 }
 

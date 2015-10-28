@@ -8,12 +8,12 @@ var app = angular.module("app")
          * @returns {*}
          */
 
-            //TODO update endpoint to pass id in get relationships
+        //TODO update endpoint to pass id in get relationships
         service.getProjectRelationships = function (projectId) {
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot + '/relationships', {cache: true}).
+            $http.get(ENV.apiCKANRoot + '/relationships?project_id=' + projectId, {cache: true}).
                 then(function (response) {
                     deferred.resolve(response.data.features);
                 }, function (response) {
