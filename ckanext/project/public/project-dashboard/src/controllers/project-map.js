@@ -67,8 +67,6 @@
               "stroke-opacity":.7
           };
 
-
-
           // If there is a project extent add it to the map
           if($scope.overviewData.features[0].geometry) {
               layer = L.geoJson($scope.overviewData.features[0], {style:ExtentStyle});

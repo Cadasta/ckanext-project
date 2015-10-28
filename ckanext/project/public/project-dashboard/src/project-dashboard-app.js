@@ -1,6 +1,6 @@
 
 var app = angular.module("app",
-    [ 'ct.ui.router.extras', 'params.manager', 'app.config', 'env.config', 'ngMaterial', 'angularFileUpload']);
+    [ 'ct.ui.router.extras', 'params.manager', 'app.config', 'env.config', 'app.filters','ngMaterial', 'angularFileUpload']);
 
   var dsrCb = function ($dsr$, paramService) {
 

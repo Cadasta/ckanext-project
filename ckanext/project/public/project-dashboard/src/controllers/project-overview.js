@@ -1,9 +1,12 @@
 var app = angular.module("app");
 
-app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location', 'dataService', 'paramService', 'utilityService', '$rootScope', 'ckanId', 'cadastaProject', '$mdDialog',
-    function ($scope, $state, $stateParams, $location, dataService, paramService, utilityService, $rootScope, ckanId, cadastaProject, $mdDialog) {
+app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location', 'dataService', 'paramService', 'utilityService', '$rootScope', 'ckanId', 'cadastaProject', '$mdDialog', 'USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole',
+    function ($scope, $state, $stateParams, $location, dataService, paramService, utilityService, $rootScope, ckanId, cadastaProject, $mdDialog,USER_ROLES, PROJECT_CRUD_ROLES, userRole) {
 
         $rootScope.$broadcast('tab-change', {tab: 'Overview'}); // notify breadcrumbs of tab on page load
+
+        // Add user's role to the scope
+        $scope.showEditLink = PROJECT_CRUD_ROLES.indexOf(userRole) > -1;
 
         // Get map querystring from state parameters
         var mapStr = $stateParams.map;

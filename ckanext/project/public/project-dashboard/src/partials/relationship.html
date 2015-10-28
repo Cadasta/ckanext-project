@@ -10,16 +10,19 @@
             </div>
             <div class="section">
                 <div class="container">
-                    <div class="title">Relationship ID {{relationship.id}}</div>
+                    <div class="title">Relationship ID {{relationship.properties.id}}</div>
                     <br>
                     <div class="caption">Name</div>
-                    <div>{{r.properties.name}} example person</div>
+                    <div>{{relationship.properties.first_name}} {{relationship.properties.last_name}}</div>
                     <div class="caption">Tenure Type</div>
-                    <div>{{r.properties.tenure_type}} example tenure</div>
-                    <div class="caption">Date Added</div>
-                    <div>{{r.properties.time_created}} example date</div>
+                    <div>{{relationship.properties.tenure_type}}</div>
+                    <div class="caption">Date Acquired</div>
+                    <div>{{relationship.properties.acquired_date}}</div>
+                    <div class="caption">Parcel ID</div>
+                    <div>
+                        <a ui-sref="tabs.parcels.parcel({id: relationship.properties.parcel_id})">{{relationship.properties.parcel_id}}</a></div>
                     <div class="caption">Status</div>
-                    <div>{{r.properties.active}} <a href="">change</a></div>
+                    <div>{{relationship.properties.active}} <a href="">change</a></div>
                 </div>
             </div>
             <div class="section-map">
@@ -79,7 +82,7 @@
                 <div class="parcel-history-data relationship">
                     <table>
                         <tbody>
-                        <tr ng-repeat="r in parcelResources.features">
+                        <tr ng-repeat="r in resources">
                             <td>{{r.properties.file_name}}</td>
                             <td>{{r.properties.description}}</td>
                             <td>{{r.properties.time_created}}</td>

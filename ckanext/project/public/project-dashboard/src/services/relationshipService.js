@@ -4,6 +4,24 @@ var app = angular.module("app")
         var service = {};
 
         /**
+         * Get one relationships for a project
+         * @returns {*}
+         */
+        service.getProjectRelationship = function (projectId, relationshipId) {
+
+            var deferred = $q.defer();
+
+            $http.get(ENV.apiCadastaRoot + '/projects/' + projectId + '/relationships/' + relationshipId + '/details?returnGeometry=true', {cache: true}).
+                then(function (response) {
+                    deferred.resolve(response.data.features[0]);
+                }, function (response) {
+                    deferred.reject(response);
+                });
+
+            return deferred.promise;
+        };
+
+        /**
          * Get all relationships for a project
          * @returns {*}
          */
@@ -27,13 +45,13 @@ var app = angular.module("app")
          * @returns {*}
          *
          */
-        service.getProjectRelationshipResources = function(projectId, resourceId){
+        service.getProjectRelationshipResources = function(projectId, relationshipId){
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot +'/projects/'+ projectId + '/relationships/' + resourceId + '/resources', { cache: false })
+            $http.get(ENV.apiCadastaRoot +'/projects/'+ projectId + '/relationships/' + relationshipId + '/resources', { cache: false })
                 .then(function(response) {
-                    deferred.resolve(response.data);
+                    deferred.resolve(response.data.features);
                 }, function(response) {
                     deferred.reject(response);
                 });

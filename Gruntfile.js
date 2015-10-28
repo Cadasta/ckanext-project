@@ -108,6 +108,7 @@ module.exports = function(grunt) {
 					'ckanext/project/public/build/project-dashboard-app.min.js': [
 						"ckanext/project/public/shared/src/app.config.js",
 						"ckanext/project/public/shared/src/env.config.js",
+						"ckanext/project/public/shared/src/custom-filters.js",
 						"ckanext/project/public/shared/src/modules/params-manager.js",
 						"ckanext/project/public/project-dashboard/src/project-dashboard-app.js",
 						"ckanext/project/public/project-dashboard/src/services/dataService.js",
@@ -147,6 +148,7 @@ module.exports = function(grunt) {
 					'ckanext/project/public/build/organization-dashboard-app.min.js': [
 						"ckanext/project/public/shared/src/app.config.js",
 						"ckanext/project/public/shared/src/env.config.js",
+						"ckanext/project/public/shared/src/custom-filters.js",
 						"ckanext/project/public/organization-dashboard/src/modules/params-manager.js",
 						"ckanext/project/public/organization-dashboard/src/organization-dashboard-app.js",
 						//"ckanext/project/public/shared/src/services/userService.js",
