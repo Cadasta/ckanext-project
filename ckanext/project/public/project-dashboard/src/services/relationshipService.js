@@ -62,4 +62,3 @@ var app = angular.module("app")
 
         return service;
     }]);
-

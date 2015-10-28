@@ -174,10 +174,7 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
                 $scope.uploader.clearQueue();
             };
 
-        }
-
-
-        //
+        }        //
         //var promise = parcelService.getProjectParcel(cadastaProject.id, $stateParams.id);
         //
         //promise.then(function(response){

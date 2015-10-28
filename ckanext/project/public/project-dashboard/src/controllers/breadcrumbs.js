@@ -17,6 +17,9 @@ app.controller("breadcrumbsCtrl", ['$scope', '$state', '$stateParams','$location
         if(!data.parcel){
             $scope.tab_parcel = '';
         }
+        if(!data.relationship){
+            $scope.tab_relationship = '';
+        }
     });
 
     // clear inner tab parcel on 'Back to Parcel List click'
