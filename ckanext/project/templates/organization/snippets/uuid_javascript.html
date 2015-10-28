@@ -1,0 +1,21 @@
+<script>
+   (function(){
+    window.uuid = function(){
+    var uuid_array = [];
+    while(uuid_array.length < 8){
+      var randomnumber = Math.ceil(Math.random()*100);
+      var found=false;
+
+      for(var i=0;i<uuid_array.length;i++){
+        if(uuid_array[i]==randomnumber){
+            found=true;break
+        }
+      }
+
+      if(!found) {
+        uuid_array[uuid_array.length]=randomnumber;
+      }
+    }
+    return uuid_array.join('');
+  };})();
+</script>
