@@ -38,10 +38,10 @@
         <tr class="row-link" ng-show="partiesList.length ==0 " ng-repeat="party in parties | tenureType: TenureTypeModel"
             ng-class="{'last-table-element':$index == parties.length-1}" ui-sref="^.party({id: party.properties.id})">
             <td>{{party.properties.id}}</td>
-            <td>{{party.properties.name}}</td>
-            <td>{{party.properties.party_type}}</td>
-            <td>{{party.properties.how_acquired}}</td>
-            <td>{{party.properties.acquired_date}}</td>
+            <td>{{party.properties.first_name}} {{party.properties.last_name}}</td>
+            <td>{{party.properties.type}}</td>
+            <td>{{party.properties.num_relationships}}</td>
+            <td>{{party.properties.time_created}}</td>
         </tr>
         </tbody>
     </table>

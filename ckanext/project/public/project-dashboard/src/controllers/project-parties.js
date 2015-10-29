@@ -1,12 +1,12 @@
 var app = angular.module("app");
 
-app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'relationshipService', '$rootScope', 'utilityService', 'ckanId', 'cadastaProject', '$mdDialog',
-    function ($scope, $state, $stateParams, relationshipService, $rootScope, utilityService, ckanId, cadastaProject, $mdDialog) {
+app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService', '$rootScope', 'utilityService', 'ckanId', 'cadastaProject', '$mdDialog',
+    function ($scope, $state, $stateParams, partyService, $rootScope, utilityService, ckanId, cadastaProject, $mdDialog) {
 
         $rootScope.$broadcast('tab-change', {tab: 'Parties'}); // notify breadcrumbs of tab on page load
 
-        $scope.relationships = [];
-        $scope.relationshipsList = [];
+        $scope.parties = [];
+        $scope.partiesList = [];
 
         // update tenure type on selection
         $scope.filterTenureType = function (type){
@@ -15,7 +15,7 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'relationship
 
 
 
-        var promise = relationshipService.getProjectRelationshipsList(cadastaProject.id);
+        var promise = partyService.getProjectParties(cadastaProject.id);
 
         promise.then(function (response) {
 
@@ -24,11 +24,11 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'relationship
                 val.properties.time_created = utilityService.formatDate(val.properties.time_created);
             })
 
-            $scope.relationships = response;
+            $scope.parties = response;
 
 
         }, function (err) {
-            $scope.overviewData = "Server Error";
+            $scope.parties = "Server Error";
         });
 
 
@@ -132,7 +132,7 @@ app.filter('tenureType', function () {
                 });
                 return arr;
                 break;
-            case 'num_relationships':
+            case 'num_parties':
                 var arr = inputs.slice();
                 // sort by DESC
                 arr.sort(function(a,b){

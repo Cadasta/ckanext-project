@@ -10,7 +10,7 @@
             </div>
             <div class="relationship-container">
                 <!-- Remove bottom border if first element in array-->
-                <div class="parcel-dropdown" ng-repeat="r in parties"
+                <div class="parcel-dropdown" ng-repeat="p in parties"
                      ng-class="{'remove-bottom-border': $index < parties.length-1 && parties.length > 0}">
                     <div ng-click="toggleDropdownDetails(r)" class="name">{{r.properties.first_name}} {{r.properties.last_name}}
                         <i ng_show="!r.showDropDownDetails" class="material-icons right">expand_more</i>
