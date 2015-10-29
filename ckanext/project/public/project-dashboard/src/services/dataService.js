@@ -75,6 +75,20 @@ var app = angular.module("app")
             return deferred.promise;
         };
 
+        service.getCadastaMapData = function(cadastaProjectId){
+            var deferred = $q.defer();
+
+            // Cadasta API
+            $http.get(ENV.apiCadastaRoot + '/projects/' + cadastaProjectId + '/map-data', { cache: false })
+                .then(function(response) {
+                    deferred.resolve(response.data);
+                }, function(response) {
+                    deferred.reject(response);
+                });
+
+            return deferred.promise;
+        };
+
         service.getProjectResources = function(cadastaProjectId){
             var deferred = $q.defer();
 
