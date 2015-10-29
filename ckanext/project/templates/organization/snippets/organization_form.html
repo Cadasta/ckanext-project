@@ -18,8 +18,6 @@
 
             {{ form.input("orgURL", id="field-orgURL", label=_("URL"), placeholder=_("www.myorganization.com"), value=data.orgURL, error=errors.orgURL, classes=["control-medium", "cadasta-org-input"]) }}
 
-            {{ form.input("ona_api_token", id="field-ona_api_token", label=_("ONA API Token"), placeholder=_("..."), value=data.ona_api_token, error=errors.ona_api_token, classes=["control-medium", "cadasta-org-input"]) }}
-
             {% set is_upload = data.image_url and not data.image_url.startswith('http') %}
             {% set is_url = data.image_url and data.image_url.startswith('http') %}
 
