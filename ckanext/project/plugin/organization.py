@@ -57,7 +57,7 @@ class CadastaOrganization(plugins.SingletonPlugin, DefaultOrganizationForm):
                      organization_name_validator],
             'orgURL': [ignore_missing, unicode, convert_to_extras],
             'contact': [ignore_missing, unicode, convert_to_extras],
-            'ona_api_token': [ignore_missing, unicode, convert_to_extras],
+            #'ona_api_token': [ignore_missing, unicode, convert_to_extras],
             '__after': [create_or_update_cadasta_organization],
         })
         return schema
@@ -69,7 +69,7 @@ class CadastaOrganization(plugins.SingletonPlugin, DefaultOrganizationForm):
         schema.update({
             'orgURL': [convert_from_extras, ignore_missing, unicode],
             'contact': [convert_from_extras, ignore_missing, unicode],
-            'ona_api_token': [convert_from_extras, ignore_missing, unicode],
+            #s'ona_api_token': [convert_from_extras, ignore_missing, unicode],
             'cadasta_id': [convert_from_extras, ignore_missing, unicode],
             'packages': packages_schema,
         })

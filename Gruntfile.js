@@ -108,11 +108,13 @@ module.exports = function(grunt) {
 					'ckanext/project/public/build/project-dashboard-app.min.js': [
 						"ckanext/project/public/shared/src/app.config.js",
 						"ckanext/project/public/shared/src/env.config.js",
+						"ckanext/project/public/shared/src/custom-filters.js",
 						"ckanext/project/public/shared/src/modules/params-manager.js",
 						"ckanext/project/public/project-dashboard/src/project-dashboard-app.js",
 						"ckanext/project/public/project-dashboard/src/services/dataService.js",
 						"ckanext/project/public/shared/src/services/userService.js",
 						"ckanext/project/public/project-dashboard/src/services/mapUtilityService.js",
+						"ckanext/project/public/project-dashboard/src/services/partyService.js",
 						"ckanext/project/public/shared/src/services/utilityService.js",
 						"ckanext/project/public/project-dashboard/src/services/parcelService.js",
 						"ckanext/project/public/project-dashboard/src/services/relationshipService.js",
@@ -124,6 +126,8 @@ module.exports = function(grunt) {
 						"ckanext/project/public/project-dashboard/src/controllers/project-map.js",
 						"ckanext/project/public/project-dashboard/src/controllers/project-relationship.js",
 						"ckanext/project/public/project-dashboard/src/controllers/project-relationships.js",
+						"ckanext/project/public/project-dashboard/src/controllers/project-party.js",
+						"ckanext/project/public/project-dashboard/src/controllers/project-parties.js",
 						"ckanext/project/public/project-dashboard/src/controllers/project-resources.js",
 						"ckanext/project/public/project-dashboard/src/controllers/project-activity_list.js",
 						"ckanext/project/public/project-dashboard/src/controllers/tabs.js",
@@ -147,6 +151,7 @@ module.exports = function(grunt) {
 					'ckanext/project/public/build/organization-dashboard-app.min.js': [
 						"ckanext/project/public/shared/src/app.config.js",
 						"ckanext/project/public/shared/src/env.config.js",
+						"ckanext/project/public/shared/src/custom-filters.js",
 						"ckanext/project/public/organization-dashboard/src/modules/params-manager.js",
 						"ckanext/project/public/organization-dashboard/src/organization-dashboard-app.js",
 						//"ckanext/project/public/shared/src/services/userService.js",
@@ -180,6 +185,7 @@ module.exports = function(grunt) {
 						"ckanext/project/public/shared/styles/tabs.css",
 						"ckanext/project/public/project-dashboard/styles/parcels.css",
 						"ckanext/project/public/project-dashboard/styles/project_overview.css",
+						"ckanext/project/public/project-dashboard/styles/project-relationships.css",
 						"ckanext/project/public/project-dashboard/styles/project-map-tab.css",
 						"ckanext/project/public/project-dashboard/styles/activity_resources_tab.css"]
 				}

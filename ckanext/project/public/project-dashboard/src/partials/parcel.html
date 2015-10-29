@@ -34,7 +34,11 @@
 
                             <div ng_show="r.showDropDownDetails" class="dropdown-details">
                                 <div class="caption">Tenure Type</div>
-                                <div>{{r.properties.relationship_type}}</div>
+                                <div>{{r.properties.tenure_type}}</div>
+                                <div class="caption">Relationship ID</div>
+                                <div>
+                                    <a ui-sref="tabs.relationships.relationship({id:r.properties.id})">{{r.properties.id}}</a>
+                                </div>
                                 <div class="caption">Date Added</div>
                                 <div>{{r.properties.time_created}}</div>
                                 <div class="caption">Status</div>

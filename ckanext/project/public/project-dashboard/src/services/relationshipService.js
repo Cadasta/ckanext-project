@@ -4,16 +4,32 @@ var app = angular.module("app")
         var service = {};
 
         /**
-         * Get all relationships for a project
+         * Get one relationships for a project
          * @returns {*}
          */
-
-            //TODO update endpoint to pass id in get relationships
-        service.getProjectRelationships = function (projectId) {
+        service.getProjectRelationship = function (projectId, relationshipId) {
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot + '/relationships', {cache: true}).
+            $http.get(ENV.apiCadastaRoot + '/projects/' + projectId + '/relationships/' + relationshipId + '/details?returnGeometry=true', {cache: true}).
+                then(function (response) {
+                    deferred.resolve(response.data.features[0]);
+                }, function (response) {
+                    deferred.reject(response);
+                });
+
+            return deferred.promise;
+        };
+
+        /**
+         * Get all relationships for a project
+         * @returns {*}
+         */
+        service.getProjectRelationshipsList = function (projectId) {
+
+            var deferred = $q.defer();
+
+            $http.get(ENV.apiCadastaRoot + '/projects/' + projectId + '/relationships/relationships_list', {cache: false}).
                 then(function (response) {
                     deferred.resolve(response.data.features);
                 }, function (response) {
@@ -24,7 +40,25 @@ var app = angular.module("app")
         };
 
 
+        /**
+         * Get all resources associated with a relationship
+         * @returns {*}
+         *
+         */
+        service.getProjectRelationshipResources = function(projectId, relationshipId){
+
+            var deferred = $q.defer();
+
+            $http.get(ENV.apiCadastaRoot +'/projects/'+ projectId + '/relationships/' + relationshipId + '/resources', { cache: false })
+                .then(function(response) {
+                    deferred.resolve(response.data.features);
+                }, function(response) {
+                    deferred.reject(response);
+                });
+
+            return deferred.promise;
+        };
+
 
         return service;
     }]);
-

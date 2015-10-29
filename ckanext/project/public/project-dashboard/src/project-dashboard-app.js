@@ -1,6 +1,6 @@
 
 var app = angular.module("app",
-    [ 'ct.ui.router.extras', 'params.manager', 'app.config', 'env.config', 'ngMaterial', 'angularFileUpload']);
+    [ 'ct.ui.router.extras', 'params.manager', 'app.config', 'env.config', 'app.filters','ngMaterial', 'angularFileUpload']);
 
   var dsrCb = function ($dsr$, paramService) {
 
@@ -222,6 +222,52 @@ var app = angular.module("app",
         'parcel': {
           controller: 'relationshipCtrl',
           templateUrl: '/project-dashboard/src/partials/relationship.html' }
+      },
+      onEnter: function($state, $stateParams, mapUtilityService){
+
+        $stateParams.map = mapUtilityService.validateMapParam($stateParams.map);
+      },
+      reloadOnSearch: false,
+      deepStateRedirect: dsrCb,
+      paramsMap:[{key:'id'}, {key:'map', defaultValue: '(0,0,1)'}],
+      sticky:true
+
+    });
+
+
+
+    // Child State
+    states.push({
+      name: 'tabs.parties',
+      url: 'parties',
+      views: {
+        'partiestab': {  templateUrl: '/project-dashboard/src/partials/parties.html' }
+      },
+      deepStateRedirect: { default: "tabs.parties.partylist" },
+      sticky: true
+    });
+
+    // Grandchild State
+    states.push({
+      name: 'tabs.parties.partylist',
+      url: '/list',
+      views: {
+        'relationshiplist': {
+          controller: 'partiesCtrl',
+          templateUrl: '/project-dashboard/src/partials/partyList.html'}
+      },
+      sticky:true,
+      deepStateRedirect: true
+    });
+
+    // Grandchild State
+    states.push({
+      name: 'tabs.parties.party',
+      url: '/:id?map',
+      views: {
+        'parcel': {
+          controller: 'partyCtrl',
+          templateUrl: '/project-dashboard/src/partials/party.html' }
       },
       onEnter: function($state, $stateParams, mapUtilityService){
 

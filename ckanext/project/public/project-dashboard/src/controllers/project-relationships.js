@@ -1,7 +1,7 @@
 var app = angular.module("app");
 
-app.controller("relationshipsCtrl", ['$scope', '$state', '$stateParams', 'relationshipService', '$rootScope', 'utilityService', 'ckanId', 'cadastaProject', '$mdDialog',
-    function ($scope, $state, $stateParams, relationshipService, $rootScope, utilityService, ckanId, cadastaProject, $mdDialog) {
+app.controller("relationshipsCtrl", ['$scope', '$state', '$stateParams', 'relationshipService', '$rootScope', 'utilityService', 'ckanId', 'cadastaProject', '$mdDialog','sortByRelationship',
+    function ($scope, $state, $stateParams, relationshipService, $rootScope, utilityService, ckanId, cadastaProject, $mdDialog, sortByRelationship) {
 
         $rootScope.$broadcast('tab-change', {tab: 'Relationships'}); // notify breadcrumbs of tab on page load
 
@@ -9,13 +9,11 @@ app.controller("relationshipsCtrl", ['$scope', '$state', '$stateParams', 'relati
         $scope.relationshipsList = [];
 
         // update tenure type on selection
-        $scope.filterTenureType = function (type){
-            $scope.TenureTypeModel = type;
+        $scope.setRelationshipFilter = function (type){
+            $scope.relationshipFilter = type;
         };
 
-
-
-        var promise = relationshipService.getProjectRelationships(cadastaProject.id);
+        var promise = relationshipService.getProjectRelationshipsList(cadastaProject.id);
 
         promise.then(function (response) {
 
@@ -46,28 +44,7 @@ app.controller("relationshipsCtrl", ['$scope', '$state', '$stateParams', 'relati
             $mdDialog.cancel();
         };
 
-        $scope.sort_by = [
-            {
-                label: 'None',
-                type: 'all'
-            },
-            {
-                label: 'Relationship ID',
-                type: 'id'
-            },
-            {
-                label: 'Name',
-                type: 'name'
-            },
-            {
-                label: 'How Acquired',
-                type: 'how_aquired'
-            },
-            {
-                label: 'Acquired Date',
-                type: 'date_acquired'
-            }
-        ];
+        $scope.sort_by = sortByRelationship;
 
         $scope.tenure_types = [
             {
@@ -100,56 +77,4 @@ app.filter('emptyString', function (){
     return function(input){
         return input == null ? '-': input;
     }
-});
-
-
-// custom tenure type filter
-app.filter('tenureType', function () {
-    return function(inputs,filter_type) {
-        var output = [];
-        switch(filter_type){
-            case 'own':
-            case 'lease':
-            case 'occupy':
-            case 'informal occupy':
-                //check if array contains filter selection
-                inputs.forEach(function (input,i) {
-                    if (input.properties.tenure_type.indexOf(filter_type) !== -1) {
-                        output.push(input);
-                    }
-                });
-
-                return output;
-                break;
-            case 'time_created':
-                // create unique copy of array
-                var arr = inputs.slice();
-                // sort by date DESC
-                arr.sort(function(a,b){
-                    var a_date = new Date(a.properties.time_created);
-                    var b_date = new Date(b.properties.time_created);
-                    return   b_date - a_date;
-                });
-                return arr;
-                break;
-            case 'num_relationships':
-                var arr = inputs.slice();
-                // sort by DESC
-                arr.sort(function(a,b){
-                    return b.properties[filter_type] - a.properties[filter_type];
-                });
-                return arr;
-                break;
-            case 'id':
-                // sort by ASC
-                var arr = inputs.slice();
-                arr.sort(function(a,b){
-                    return a.properties[filter_type] - b.properties[filter_type];
-                });
-                return arr;
-                break;
-            default:
-                return inputs;
-        }
-    };
 });

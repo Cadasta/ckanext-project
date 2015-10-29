@@ -70,7 +70,7 @@
             <div ng-repeat="resource in overviewData.features[0].properties.project_resources">
                 <li ng-class="{'remove-bottom-border': $index == overviewData.features[0].properties.project_resources.length-1}"
                     class="activity-block block">
-                    <span class="bold">{{resource.properties.type}}</span> resource uploaded on
+                    <span class="bold">{{resource.properties.file_name}}</span> uploaded on
                     {{resource.properties.time_created}}
                     <div><a href="{{resource.properties.url}}">Download</a></div>
                 </li>
