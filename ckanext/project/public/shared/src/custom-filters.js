@@ -22,9 +22,20 @@ angular.module('app.filters', [])
                         output.push(input);
                     }
                 });
-
                 return output;
                 break;
+
+            case 'group':
+            case 'individual':
+                //check if array contains filter selection
+                inputs.forEach(function (input, i) {
+                    if (input.properties.type.indexOf(filter_type) !== -1) {
+                        output.push(input);
+                    }
+                });
+                return output;
+                break;
+
             case 'time_created':
                 // create unique copy of array
                 var arr = inputs.slice();
@@ -36,6 +47,7 @@ angular.module('app.filters', [])
                 });
                 return arr;
                 break;
+
             case 'date_acquired':
                 // create unique copy of array
                 var arr = inputs.slice();
@@ -47,6 +59,7 @@ angular.module('app.filters', [])
                 });
                 return arr;
                 break;
+
             case 'num_relationships':
                 var arr = inputs.slice();
                 // sort by DESC
@@ -78,6 +91,33 @@ angular.module('app.filters', [])
                 // sort by DESC
                 arr.sort(function(a,b){
                     return b.properties[filter_type].toLowerCase() >= a.properties[filter_type].toLowerCase() ? -1 : 1;;
+                });
+                return arr;
+                break;
+
+            case 'type':
+                var arr = inputs.slice();
+                // sort by DESC
+                arr.sort(function(a,b){
+                    return b.properties[filter_type] < a.properties[filter_type] ? -1 : 1;;
+                });
+                return arr;
+                break;
+
+            case 'party_name':
+                var arr = inputs.slice();
+                // party names, first need to figure out if group or individual
+                arr.sort(function(a,b){
+                    var name1;
+                    var name2;
+
+                    if (a.properties.first_name) { name1 = a.properties.first_name }
+                    else { name1 = a.properties.group_name }
+
+                    if (a.properties.first_name) { name1 = a.properties.first_name }
+                    else { name1 = a.properties.group_name }
+
+                    return b.properties[filter_type] < a.properties[filter_type] ? -1 : 1;;
                 });
                 return arr;
                 break;

@@ -11,6 +11,61 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
         };
 
 
+        var mapStr = $stateParams.map;
+
+        // parse map query param
+        var mapArr = mapStr.substring(1, mapStr.length - 1).split(',');
+
+
+        var parcelStyle = {
+            "color": "#e54573",
+            "stroke": "#e54573",
+            "weight": 1,
+            "fillOpacity": .5,
+            "opacity": .8,
+            "marker-color": "#e54573"
+        };
+
+
+        var relationshipStyle = {
+            "color": "#88D40E",
+            "stroke": "#88D40E",
+            "opacity":.8,
+            "fillOpacity":.5,
+            "weight" : 1
+        };
+
+
+        var lat = mapArr[0];
+        var lng = mapArr[1];
+        var zoom = mapArr[2];
+
+        // setup map
+        var map = L.map('partyDetailsMap', {scrollWheelZoom: false});
+
+        // After each pan or zoom
+        map.on('moveend', function () {
+
+            if ($state.current.name !== 'tabs.parties.party') {
+                return;
+            }
+
+            var center = map.getCenter();
+            var zoom = map.getZoom();
+            var param = '(' + [center.lat, center.lng, zoom].join(',') + ')';
+            $stateParams.map = param;
+            paramService.setStateParam($state.current.name, 'map', param);
+            $state.go($state.current.name, $stateParams, {notify: false});
+        });
+
+        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+            attribution: '',
+            id: 'spatialdev.map-rpljvvub',
+            accessToken: 'pk.eyJ1Ijoic3BhdGlhbGRldiIsImEiOiJKRGYyYUlRIn0.PuYcbpuC38WO6D1r7xdMdA#3/0.00/0.00'
+        }).addTo(map);
+
+
+
 
         var promise = partyService.getProjectParty(cadastaProject.id, $stateParams.id);
 

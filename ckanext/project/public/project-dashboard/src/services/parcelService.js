@@ -86,7 +86,7 @@ var app = angular.module("app")
         /**
          * Creates a new parcel via a post request
          * @returns {*}
-         * todo pass in a project and parcel id
+         *
          */
         service.createProjectParcel = function (projectId, geoJSON, parcel) {
 

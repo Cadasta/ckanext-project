@@ -3,15 +3,15 @@
     <div layout="row">
         <md-input-container>
             <label>Filter by</label>
-            <md-select ng-model="TenureTypeModel">
-                <md-option ng-value="t.type" ng-repeat="t in tenure_types" ng-click="filterTenureType(t.type)">{{t.label}}</md-option>
+            <md-select ng-model="PartyTypeModel">
+                <md-option ng-value="t.type" ng-repeat="t in party_types" ng-click="filterPartyType(t.type)">{{t.label}}</md-option>
             </md-select>
         </md-input-container>
 
         <md-input-container>
             <label>Sort by</label>
-            <md-select ng-model="TenureTypeModel">
-                <md-option ng-value="s.type" ng-repeat="s in sort_by" ng-click="filterTenureType(s.type)">{{s.label}}</md-option>
+            <md-select ng-model="PartyTypeModel">
+                <md-option ng-value="s.type" ng-repeat="s in sort_by" ng-click="filterPartyType(s.type)">{{s.label}}</md-option>
             </md-select>
         </md-input-container>
 
@@ -35,7 +35,7 @@
 <div id="parcelList">
     <table>
         <tbody>
-        <tr class="row-link" ng-show="partiesList.length ==0 " ng-repeat="party in parties | tenureType: TenureTypeModel"
+        <tr class="row-link" ng-show="partiesList.length ==0 " ng-repeat="party in parties | customFilter: PartyTypeModel"
             ng-class="{'last-table-element':$index == parties.length-1}" ui-sref="^.party({id: party.properties.id})">
             <td>{{party.properties.id}}</td>
             <td><span ng-show="party.properties.first_name">{{party.properties.first_name}} {{party.properties.last_name}}</span><span ng-show="party.properties.group_name">{{party.properties.group_name}}</span></td>

@@ -63,9 +63,15 @@ app.controller("activityCtrl", ['$scope', '$state', '$stateParams','dataService'
         getActivities();
     });
 
+    // listen for new parties to get activity
+    $scope.$on('new-party', function(e){
+        getActivities();
+    });
 
 
-}]);
+
+
+    }]);
 
 // custom activity type filter
 app.filter('activityType', function () {

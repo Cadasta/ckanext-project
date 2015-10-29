@@ -169,6 +169,11 @@ app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location',
             getOverviewData();
         });
 
+        // listen for new parties to update geom and activity
+        $scope.$on('new-party', function(e){
+            getOverviewData();
+        });
+
     }]);
 
 

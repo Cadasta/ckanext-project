@@ -16,8 +16,8 @@
                 <div class="modal-content">
                     <div>
 
-                        <md-radio-group ng-model="party.type" ng-init="party.type='individual'" >
-                            <label>Party Type</label>
+                        <md-radio-group ng-model="party.party_type" ng-init="party.party_type='individual'" >
+                            <label class="party-type">Party Type</label>
                             <md-radio-button value="individual" class="md-primary">Individual</md-radio-button>
                             <md-radio-button value="group">Group</md-radio-button>
                         </md-radio-group>
@@ -25,25 +25,25 @@
                         <md-content class="layout-padding left add-parcel-extra-fields" >
                             <div layout layout-sm="column">
 
-                                <md-input-container md-no-float flex class="pin-id" ng-show="(party.type === 'individual')">
+                                <md-input-container md-no-float flex class="pin-id" ng-show="(party.party_type === 'individual')">
                                     <label>First Name</label>
                                     <input ng-model="party.first_name">
                                 </md-input-container>
 
-                                <md-input-container md-no-float flex class="pin-id" ng-show="(party.type === 'individual')">
+                                <md-input-container md-no-float flex class="pin-id" ng-show="(party.party_type === 'individual')">
                                     <label>Last Name</label>
                                     <input ng-model="party.last_name">
                                 </md-input-container>
 
-                                <md-input-container md-no-float flex class="pin-id" ng-show="(party.type === 'group')">
+                                <md-input-container md-no-float flex class="pin-id group-name" ng-show="(party.party_type === 'group')">
                                     <label>Name</label>
                                     <input ng-model="party.group_name">
                                 </md-input-container>
                             </div>
                         </md-content>
-                        <div class="cadasta-button right parcel-save" ng-click="saveNewParty(cadastaProjectId, party)">Save Party</div>
                     </div>
                 </div>
+                <div class="cadasta-button right parcel-save" ng-click="saveNewParty(cadastaProjectId, party)">Save Party</div>
             </div>
         </md-dialog-content>
     </form>
