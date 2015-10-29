@@ -118,7 +118,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
                 $scope.relationships.forEach(function (v, i) {
 
                     //todo update route using state param
-                    var popup_content = '<h3>Relationship ' + v.properties.id + '</h3><a href="#/relationships/' + v.properties.id + '"> See Full Details<i class="material-icons arrow-forward">arrow_forward</i></a>';
+                    var popup_content = '<h3>Relationship ' + v.properties.id + '</h3><a ui-sref="tabs.relationships{id: ' + v.properties.id + '}"> See Full Details<i class="material-icons arrow-forward">arrow_forward</i></a>';
 
 
                     if(v.geometry !== null){

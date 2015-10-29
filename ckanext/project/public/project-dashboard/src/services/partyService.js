@@ -23,24 +23,24 @@ var app = angular.module("app")
             return deferred.promise;
         };
 
-        ///**
-        // * Get parcel details
-        // * @param id parcel id from state params
-        // * @returns {*}
-        // */
-        //service.getProjectParcel = function (projectId, parcelId) {
-        //
-        //    var deferred = $q.defer();
-        //
-        //    $http.get(ENV.apiCadastaRoot + '/projects/' + projectId + '/parcels/' + parcelId + '/details', {cache: false}).
-        //        then(function (response) {
-        //            deferred.resolve(response.data.features[0]);
-        //        }, function (response) {
-        //            deferred.reject(response);
-        //        });
-        //
-        //    return deferred.promise;
-        //};
+        /**
+         * Get [arty details
+         * @param id party id from state params
+         * @returns {*}
+         */
+        service.getProjectParty = function (projectId, partyId) {
+
+            var deferred = $q.defer();
+
+            $http.get(ENV.apiCadastaRoot + '/projects/' + projectId + '/parties/' + partyId, {cache: false}).
+                then(function (response) {
+                    deferred.resolve(response.data.features[0]);
+                }, function (response) {
+                    deferred.reject(response);
+                });
+
+            return deferred.promise;
+        };
         //
         //
         ///**
@@ -63,24 +63,24 @@ var app = angular.module("app")
         //};
 
 
-        ///**
-        // * Get all resources associated with a parcel
-        // * @returns {*}
-        // * todo pass in a project and parcel id
-        // */
-        //service.getProjectParcelResources = function (projectId, parcelId) {
-        //
-        //    var deferred = $q.defer();
-        //
-        //    $http.get(ENV.apiCadastaRoot + '/projects/' + projectId + '/parcels/' + parcelId + '/resources', {cache: false})
-        //        .then(function (response) {
-        //            deferred.resolve(response.data);
-        //        }, function (response) {
-        //            deferred.reject(response);
-        //        });
-        //
-        //    return deferred.promise;
-        //};
+        /**
+         * Get all resources associated with a party
+         * @returns {*}
+         *
+         */
+        service.getProjectPartyResources = function (projectId, partyId) {
+
+            var deferred = $q.defer();
+
+            $http.get(ENV.apiCadastaRoot + '/projects/' + projectId + '/parties/' + partyId + '/resources', {cache: false})
+                .then(function (response) {
+                    deferred.resolve(response.data);
+                }, function (response) {
+                    deferred.reject(response);
+                });
+
+            return deferred.promise;
+        };
 
 
 

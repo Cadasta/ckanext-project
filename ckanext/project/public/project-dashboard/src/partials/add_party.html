@@ -2,7 +2,7 @@
 
     <form>
         <md-dialog-content>
-            <div class="form_upload_content add-relationship">
+            <div class="form_upload_content add-party">
                 <div class="cadasta-modal-header">
                     <div class="small-heading">
                         Add Party
@@ -15,8 +15,9 @@
                 </div>
                 <div class="modal-content">
                     <div>
-                        Party Type
+
                         <md-radio-group ng-model="party.type" ng-init="party.type='individual'" >
+                            <label>Party Type</label>
                             <md-radio-button value="individual" class="md-primary">Individual</md-radio-button>
                             <md-radio-button value="group">Group</md-radio-button>
                         </md-radio-group>
@@ -29,26 +30,21 @@
                                     <input ng-model="party.first_name">
                                 </md-input-container>
 
-                                <md-input-container md-no-float flex class="landuse" ng-show="(party.type === 'individual')">
+                                <md-input-container md-no-float flex class="pin-id" ng-show="(party.type === 'individual')">
                                     <label>Last Name</label>
                                     <input ng-model="party.last_name">
                                 </md-input-container>
 
-                                <md-input-container md-no-float flex class="landuse" ng-show="(party.type === 'group')">
+                                <md-input-container md-no-float flex class="pin-id" ng-show="(party.type === 'group')">
                                     <label>Name</label>
                                     <input ng-model="party.group_name">
                                 </md-input-container>
-
                             </div>
-
-
-
+                        </md-content>
                         <div class="cadasta-button right parcel-save" ng-click="saveNewParty(cadastaProjectId, party)">Save Party</div>
-
                     </div>
                 </div>
             </div>
-
         </md-dialog-content>
     </form>
 </md-dialog>

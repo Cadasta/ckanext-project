@@ -70,20 +70,24 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
                 type: 'all'
             },
             {
-                label: 'Relationship ID',
+                label: 'Party ID',
                 type: 'id'
             },
             {
                 label: 'Name',
-                type: 'name'
+                type: 'first_name'
             },
             {
-                label: 'How Acquired',
-                type: 'how_aquired'
+                label: 'Party Type',
+                type: 'type'
             },
             {
-                label: 'Acquired Date',
-                type: 'date_acquired'
+                label: 'Active Relationships',
+                type: 'num_relationships'
+            },
+            {
+                label: 'Date Created',
+                type: 'time_created'
             }
         ];
 
@@ -93,20 +97,12 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
                 label: 'All Types'
             },
             {
-                type: 'own',
-                label: 'Own'
+                type: 'individual',
+                label: 'Individuals'
             },
             {
-                type: 'lease',
-                label: 'Lease'
-            },
-            {
-                type: 'occupy',
-                label: 'Occupy'
-            },
-            {
-                type: 'informal occupy',
-                label: 'Informally Occupy'
+                type: 'group',
+                label: 'Groups'
             }
         ];
 
