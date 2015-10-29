@@ -1,12 +1,12 @@
 var app = angular.module("app");
 
-app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'relationshipService', '$rootScope', 'utilityService', 'ckanId', 'cadastaProject', '$mdDialog',
-    function ($scope, $state, $stateParams, relationshipService, $rootScope, utilityService, ckanId, cadastaProject, $mdDialog) {
+app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService', '$rootScope', 'utilityService', 'ckanId', 'cadastaProject', '$mdDialog',
+    function ($scope, $state, $stateParams, partyService, $rootScope, utilityService, ckanId, cadastaProject, $mdDialog) {
 
         $rootScope.$broadcast('tab-change', {tab: 'Parties'}); // notify breadcrumbs of tab on page load
 
-        $scope.relationships = [];
-        $scope.relationshipsList = [];
+        $scope.parties = [];
+        $scope.partiesList = [];
 
         // update tenure type on selection
         $scope.filterTenureType = function (type){
@@ -15,7 +15,7 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'relationship
 
 
 
-        var promise = relationshipService.getProjectRelationshipsList(cadastaProject.id);
+        var promise = partyService.getProjectParties(cadastaProject.id);
 
         promise.then(function (response) {
 
@@ -24,23 +24,41 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'relationship
                 val.properties.time_created = utilityService.formatDate(val.properties.time_created);
             })
 
-            $scope.relationships = response;
+            $scope.parties = response;
 
 
         }, function (err) {
-            $scope.overviewData = "Server Error";
+            $scope.parties = "Server Error";
         });
 
 
-        $scope.addRelationshipModal = function(ev) {
+
+        //modal for adding a parcel
+        $scope.addPartyModal = function (ev) {
             $mdDialog.show({
-                scope: $scope,
-                templateUrl: '/project-dashboard/src/partials/add_relationship.html',
+                templateUrl: '/project-dashboard/src/partials/add_party.html',
+                controller: addPartyCtrl,
                 parent: angular.element(document.body),
-                clickOutsideToClose:true
+                clickOutsideToClose: false,
+                locals: {cadastaProject: cadastaProject}
             })
         };
 
+
+        function addPartyCtrl($scope, $mdDialog, $stateParams) {
+            $scope.hide = function () {
+                $mdDialog.hide();
+            };
+            $scope.cancel = function () {
+                $mdDialog.cancel();
+            };
+
+            $scope.cadastaProjectId = cadastaProject.id;
+
+            $scope.saveNewParty = function(projectId, party){
+                console.log(projectId, party);
+            }
+        }
 
         $scope.cancel = function() {
             $mdDialog.cancel();
@@ -52,20 +70,24 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'relationship
                 type: 'all'
             },
             {
-                label: 'Relationship ID',
+                label: 'Party ID',
                 type: 'id'
             },
             {
                 label: 'Name',
-                type: 'name'
+                type: 'first_name'
             },
             {
-                label: 'How Acquired',
-                type: 'how_aquired'
+                label: 'Party Type',
+                type: 'type'
             },
             {
-                label: 'Acquired Date',
-                type: 'date_acquired'
+                label: 'Active Relationships',
+                type: 'num_relationships'
+            },
+            {
+                label: 'Date Created',
+                type: 'time_created'
             }
         ];
 
@@ -75,20 +97,12 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'relationship
                 label: 'All Types'
             },
             {
-                type: 'own',
-                label: 'Own'
+                type: 'individual',
+                label: 'Individuals'
             },
             {
-                type: 'lease',
-                label: 'Lease'
-            },
-            {
-                type: 'occupy',
-                label: 'Occupy'
-            },
-            {
-                type: 'informal occupy',
-                label: 'Informally Occupy'
+                type: 'group',
+                label: 'Groups'
             }
         ];
 
@@ -132,7 +146,7 @@ app.filter('tenureType', function () {
                 });
                 return arr;
                 break;
-            case 'num_relationships':
+            case 'num_parties':
                 var arr = inputs.slice();
                 // sort by DESC
                 arr.sort(function(a,b){

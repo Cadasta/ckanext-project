@@ -13,9 +13,19 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
         var parcelStyle = {
             "color": "#e54573",
             "stroke": "#e54573",
-            "stroke-width": 1,
-            "fill-opacity": .8,
-            "stroke-opacity": .8
+            "weight": 1,
+            "fillOpacity": .5,
+            "opacity": .8,
+            "marker-color": "#e54573"
+        };
+
+
+        var relationshipStyle = {
+            "color": "#88D40E",
+            "stroke": "#88D40E",
+            "opacity":.8,
+            "fillOpacity":.5,
+            "weight" : 1
         };
 
         getParcelResources(false);
@@ -61,6 +71,10 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
         //add layer for adding parcels
         var parcelGroup = L.featureGroup().addTo(map);
 
+        //layer for adding relationships
+        var relationshipGroup = L.featureGroup().addTo(map);
+
+
         getParcelDetails();
 
 
@@ -97,15 +111,23 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
 
                 $scope.relationships = response.properties.relationships;
 
+                relationshipGroup.clearLayers();
                 parcelGroup.clearLayers();
 
                 //update values for UI
                 $scope.relationships.forEach(function (v, i) {
 
+                    //todo update route using state param
+                    var popup_content = '<h3>Relationship ' + v.properties.id + '</h3><a ui-sref="tabs.relationships{id: ' + v.properties.id + '}"> See Full Details<i class="material-icons arrow-forward">arrow_forward</i></a>';
+
+
                     if(v.geometry !== null){
-                        layer = L.geoJson(v, {style: parcelStyle}).addTo(parcelGroup);
+                        layer = L.geoJson(v, {style: relationshipStyle});
+                        layer.bindPopup(popup_content);
+                        layer.addTo(relationshipGroup);
                         map.fitBounds(layer.getBounds());
                     }
+
 
                     v.showDropDownDetails = (i === 0);
 

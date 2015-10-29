@@ -67,18 +67,18 @@ app.controller("projectMapCtrl", ['$scope', '$state', '$stateParams', '$location
                 var parcelStyle = {
                     "color": "#e54573",
                     "stroke": "#e54573",
-                    "stroke-width": 1,
-                    "fill-opacity": .8,
-                    "stroke-opacity": .8,
+                    "weight": 1,
+                    "fillOpacity": .5,
+                    "opacity": .8,
                     "marker-color": "#e54573"
                 };
 
                 var ExtentStyle = {
                     "color": "#256c97",
                     "stroke": "#256c97",
-                    "stroke-width": 1,
-                    "fill-opacity": .1,
-                    "stroke-opacity": .7
+                    "weight": 2,
+                    "fillOpacity": .1,
+                    "opacity": .8
                 };
 
                 //clear layers

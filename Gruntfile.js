@@ -138,6 +138,7 @@ module.exports = function(grunt) {
 						"ckanext/project/public/project-dashboard/src/services/dataService.js",
 						"ckanext/project/public/shared/src/services/userService.js",
 						"ckanext/project/public/project-dashboard/src/services/mapUtilityService.js",
+						"ckanext/project/public/project-dashboard/src/services/partyService.js",
 						"ckanext/project/public/shared/src/services/utilityService.js",
 						"ckanext/project/public/project-dashboard/src/services/parcelService.js",
 						"ckanext/project/public/project-dashboard/src/services/relationshipService.js",
