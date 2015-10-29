@@ -32,15 +32,33 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
         });
 
 
-        $scope.addRelationshipModal = function(ev) {
+
+        //modal for adding a parcel
+        $scope.addPartyModal = function (ev) {
             $mdDialog.show({
-                scope: $scope,
-                templateUrl: '/project-dashboard/src/partials/add_relationship.html',
+                templateUrl: '/project-dashboard/src/partials/add_party.html',
+                controller: addPartyCtrl,
                 parent: angular.element(document.body),
-                clickOutsideToClose:true
+                clickOutsideToClose: false,
+                locals: {cadastaProject: cadastaProject}
             })
         };
 
+
+        function addPartyCtrl($scope, $mdDialog, $stateParams) {
+            $scope.hide = function () {
+                $mdDialog.hide();
+            };
+            $scope.cancel = function () {
+                $mdDialog.cancel();
+            };
+
+            $scope.cadastaProjectId = cadastaProject.id;
+
+            $scope.saveNewParty = function(projectId, party){
+                console.log(projectId, party);
+            }
+        }
 
         $scope.cancel = function() {
             $mdDialog.cancel();

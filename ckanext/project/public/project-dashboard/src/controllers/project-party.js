@@ -81,6 +81,7 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','parcelService',
         });
 
 
+
     }]);
 
 
