@@ -28,6 +28,7 @@ def project_schema():
         'country': [ignore_missing, unicode, convert_to_extras],
         'province_state': [ignore_missing, unicode, convert_to_extras],
         'district_county': [ignore_missing, unicode, convert_to_extras],
+        'ona_api_token': [ignore_missing, unicode, convert_to_extras],
     }
 
 
@@ -38,6 +39,8 @@ def project_create_schema():
         'title': [not_missing, unicode],
         'name': [ignore_missing, unicode, slugify_title_to_name,
                  project_name_validator],
+        'ona_api_token': [ignore_missing, unicode],
+
         '__after': [create_cadasta_project],
     })
     schema.update(project_schema())
@@ -60,6 +63,7 @@ def project_show_schema():
         'province_state': [convert_from_extras, ignore_missing, unicode],
         'district_county': [convert_from_extras, ignore_missing, unicode],
         'cadasta_id': [convert_from_extras, ignore_missing, unicode],
+        'ona_api_token': [convert_from_extras, ignore_missing, unicode],
     })
 
     return schema

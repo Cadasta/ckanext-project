@@ -4,31 +4,52 @@
         <div class="overview">
 
             <div class="back-link">
-                <a ng-click="clearRelationshipBreadCrumb()" ui-sref="^.partylist"><i class="material-icons back_space">keyboard_backspace</i> Back to party list</a>
+                <a ng-click="clearPartyBreadCrumb()" ui-sref="^.partylist"><i class="material-icons back_space">keyboard_backspace</i> Back to party list</a>
                 <div class="button-controller right">
                 </div>
             </div>
-            <div class="relationship-container">
-                <!-- Remove bottom border if first element in array-->
-                <div class="parcel-dropdown" ng-repeat="r in parties"
-                     ng-class="{'remove-bottom-border': $index < parties.length-1 && parties.length > 0}">
-                    <div ng-click="toggleDropdownDetails(r)" class="name">{{r.properties.first_name}} {{r.properties.last_name}}
-                        <i ng_show="!r.showDropDownDetails" class="material-icons right">expand_more</i>
-                        <i ng_show="r.showDropDownDetails" class="material-icons right">expand_less</i>
+            <div class="section">
+                <div class="container">
+                    <div class="title" ng-show="party.properties.first_name">Party {{party.id}} {{party.properties.first_name}} {{party.properties.last_name}}</div>
+                    <div class="title" ng-show="party.properties.group_name">Party {{party.id}} {{party.properties.group_name}} </div>
+
+                    <div class="cadasta-round-button float-right" ng-click="addRelationshipModal()"> Add Relationship </div>
+
+                    <div>
+                        <span class="caption">Id</span>
+                        <span>{{party.properties.id}}</span>
+                        <br>
+                        <span class="caption">Type</span>
+                        <span>{{party.properties.type}}</span>
+                        <br>
                     </div>
 
+                    <div class="relationship-container">
+                        <!-- Remove bottom border if first element in array-->
+                        <div class="parcel-dropdown" ng-repeat="r in relationships"
+                             ng-class="{'remove-bottom-border': $index < relationships.length-1 && relationships.length > 0}">
+                            <div ng-click="toggleDropdownDetails(r)" class="name">{{r.properties.first_name}} {{r.properties.last_name}}
+                                <i ng_show="!r.showDropDownDetails" class="material-icons right">expand_more</i>
+                                <i ng_show="r.showDropDownDetails" class="material-icons right">expand_less</i>
+                            </div>
 
-                    <div ng_show="r.showDropDownDetails" class="dropdown-details">
-                        <div class="caption">Tenure Type</div>
-                        <div>{{r.properties.relationship_type}}</div>
-                        <div class="caption">Date Added</div>
-                        <div>{{r.properties.time_created}}</div>
-                        <div class="caption">Status</div>
-                        <div>{{r.properties.active}} <a href="">change</a></div>
+
+                            <div ng_show="r.showDropDownDetails" class="dropdown-details">
+                                <div class="caption">Tenure Type</div>
+                                <div>{{r.properties.tenure_type}}</div>
+                                <div class="caption">Relationship ID</div>
+                                <div>
+                                    <a ui-sref="tabs.relationships.relationship({id:r.properties.id})">{{r.properties.id}}</a>
+                                </div>
+                                <div class="caption">Date Added</div>
+                                <div>{{r.properties.time_created}}</div>
+                                <div class="caption">Status</div>
+                                <div>{{r.properties.active}} <a href="">change</a></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
@@ -71,7 +92,7 @@
     <div class="parcel-history">
         <div class="small-table-container">
             <div class="small-heading">
-                Relationship Resources
+                Party Resources
             </div>
             <md-button class="md-icon-button right parcel-page-layout" aria-label="More">
                 <div class="md-menu-demo">
