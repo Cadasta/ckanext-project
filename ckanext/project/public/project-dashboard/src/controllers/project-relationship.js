@@ -30,7 +30,6 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
             "marker-color": "#e54573"
         };
 
-
         var relationshipStyle = {
             "color": "#88D40E",
             "stroke": "#88D40E",
@@ -104,6 +103,7 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
                     response.properties.active = response.properties.active ? 'Active' : 'Inactive';
 
                     $scope.relationship  = response;
+                    $scope.relationship_history = response.properties.relationship_history;
 
                     getRelationshipParcel(response.properties.parcel_id);
 

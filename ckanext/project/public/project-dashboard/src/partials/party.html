@@ -10,17 +10,17 @@
             </div>
             <div class="section">
                 <div class="container">
-                    <div class="title" ng-show="party.properties.first_name">Party {{party.id}} {{party.properties.first_name}} {{party.properties.last_name}}</div>
-                    <div class="title" ng-show="party.properties.group_name">Party {{party.id}} {{party.properties.group_name}} </div>
+                    <div class="title" ng-show="party.first_name">{{party.first_name}} {{party.last_name}}</div>
+                    <div class="title" ng-show="party.group_name">{{party.group_name}} </div>
 
                     <div class="cadasta-round-button float-right" ng-click="addRelationshipModal()"> Add Relationship </div>
 
                     <div>
                         <span class="caption">Id</span>
-                        <span>{{party.properties.id}}</span>
+                        <span>{{party.id}}</span>
                         <br>
                         <span class="caption">Type</span>
-                        <span>{{party.properties.type}}</span>
+                        <span>{{party.type}}</span>
                         <br>
                     </div>
 
@@ -28,7 +28,7 @@
                         <!-- Remove bottom border if first element in array-->
                         <div class="parcel-dropdown" ng-repeat="r in relationships"
                              ng-class="{'remove-bottom-border': $index < relationships.length-1 && relationships.length > 0}">
-                            <div ng-click="toggleDropdownDetails(r)" class="name">{{r.properties.first_name}} {{r.properties.last_name}}
+                            <div ng-click="toggleDropdownDetails(r)" class="name">{{r.properties.id}} - {{r.properties.tenure_type}}
                                 <i ng_show="!r.showDropDownDetails" class="material-icons right">expand_more</i>
                                 <i ng_show="r.showDropDownDetails" class="material-icons right">expand_less</i>
                             </div>
@@ -41,8 +41,13 @@
                                 <div>
                                     <a ui-sref="tabs.relationships.relationship({id:r.properties.id})">{{r.properties.id}}</a>
                                 </div>
+                                <div class="caption">Parcel ID</div>
+                                <div>
+                                    <a ui-sref="tabs.parcels.parcel({id:r.properties.parcel_id})">{{r.properties.parcel_id}}</a>
+                                </div>
                                 <div class="caption">Date Added</div>
                                 <div>{{r.properties.time_created}}</div>
+
                                 <div class="caption">Status</div>
                                 <div>{{r.properties.active}} <a href="">change</a></div>
                             </div>
@@ -58,12 +63,12 @@
 </div>
 <!-- Overview End-->
 
-<!-- Parcel history-->
+<!-- Relationship history-->
 <div class="history-container">
     <div class="parcel-history">
         <div class="small-table-container">
             <div class="small-heading">
-                Parcel History
+                Relationship History
             </div>
 
             <table class="parcel-history">
@@ -78,9 +83,9 @@
             <div class="parcel-history-data relationship">
                 <table>
                     <tbody>
-                    <tr ng-repeat="ph in parcel_history">
-                        <td>{{ph.properties.description}}</td>
-                        <td>{{ph.properties.time_created}}</td>
+                    <tr ng-repeat="rh in relationship_history">
+                        <td>{{rh.properties.description}}</td>
+                        <td>{{rh.properties.time_created}}</td>
                         <td>View Map</td>
                     </tr>
                     </tbody>
@@ -134,7 +139,7 @@
             <div class="parcel-history-data relationship">
                 <table>
                     <tbody>
-                    <tr ng-repeat="r in parcelResources.features">
+                    <tr ng-repeat="r in partyResources.features">
                         <td>{{r.properties.file_name}}</td>
                         <td>{{r.properties.description}}</td>
                         <td>{{r.properties.time_created}}</td>

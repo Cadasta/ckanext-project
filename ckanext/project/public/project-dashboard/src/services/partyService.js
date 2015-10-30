@@ -32,7 +32,7 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot + '/projects/' + projectId + '/parties/' + partyId, {cache: false}).
+            $http.get(ENV.apiCadastaRoot + '/projects/' + projectId + '/parties/' + partyId + '/details', {cache: false}).
                 then(function (response) {
                     deferred.resolve(response.data.features[0]);
                 }, function (response) {

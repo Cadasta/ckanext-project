@@ -10,6 +10,9 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
             $rootScope.$broadcast('clear-inner-party-tab');
         };
 
+        $scope.toggleDropdownDetails = function (obj) {
+            obj.showDropDownDetails = !obj.showDropDownDetails;
+        };
 
         var mapStr = $stateParams.map;
 
@@ -26,7 +29,6 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
             "marker-color": "#e54573"
         };
 
-
         var relationshipStyle = {
             "color": "#88D40E",
             "stroke": "#88D40E",
@@ -34,7 +36,6 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
             "fillOpacity":.5,
             "weight" : 1
         };
-
 
         var lat = mapArr[0];
         var lng = mapArr[1];
@@ -64,43 +65,70 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
             accessToken: 'pk.eyJ1Ijoic3BhdGlhbGRldiIsImEiOiJKRGYyYUlRIn0.PuYcbpuC38WO6D1r7xdMdA#3/0.00/0.00'
         }).addTo(map);
 
+        //add layer for adding parcels
+        var parcelGroup = L.featureGroup().addTo(map);
+        var relationshipGroup = L.featureGroup().addTo(map);
 
 
-
-        var promise = partyService.getProjectParty(cadastaProject.id, $stateParams.id);
-
-        promise.then(function (response) {
-
-            $rootScope.$broadcast('party-details', {id: $stateParams.id});
-
-            $scope.party = response;
-
-            //// format dates
-            //$scope.party.time_created = utilityService.formatDate($scope.party.time_created);
-            //$scope.party.time_updated = utilityService.formatDate($scope.party.time_created);
-            //
-            ////reformat party history dates
-            //response.properties.party_history.forEach(function (val) {
-            //    val.properties.time_created = utilityService.formatDate(val.properties.time_created);
-            //    val.properties.time_updated = utilityService.formatDate(val.properties.time_updated);
-            //});
-            //
-            ////reformat relationship dates
-            //response.properties.relationships.forEach(function (val) {
-            //    val.properties.time_created = utilityService.formatDate(val.properties.time_created);
-            //    val.properties.time_updated = utilityService.formatDate(val.properties.time_updated);
-            //});
-            //
-            //$scope.party_history = response.properties.party_history;
-            //
-            //$scope.relationships = response.properties.relationships;
-
-
-        }, function (err) {
-            $scope.partyDetails = "Server Error";
-        });
-
+        getPartyDetails ();
         getPartyResources();
+
+        function getPartyDetails () {
+
+            var layer;
+
+            var promise = partyService.getProjectParty(cadastaProject.id, $stateParams.id);
+
+            promise.then(function (response) {
+
+                $rootScope.$broadcast('party-details', {id: $stateParams.id});
+
+                $scope.party = response.properties;
+
+                parcelGroup.clearLayers();
+                relationshipGroup.clearLayers();
+
+                //// format dates
+                $scope.party.time_created = utilityService.formatDate($scope.party.time_created);
+                $scope.party.time_updated = utilityService.formatDate($scope.party.time_created);
+
+                if (response.properties.relationships.length > 0){
+                    response.properties.relationships.forEach(function (val) {
+                        ////reformat relationship dates
+                        val.properties.time_created = utilityService.formatDate(val.properties.time_created);
+                        val.properties.time_updated = utilityService.formatDate(val.properties.time_updated);
+
+                        // add relationship geometries to map
+                        if(val.geometry !== null){
+                            layer = L.geoJson(val, {style: relationshipStyle});
+                            layer.addTo(parcelGroup);
+                            map.fitBounds(parcelGroup.getBounds());
+                        }
+                    })
+                }
+
+                var parcels = response.properties.parcels;
+
+                // add parcel geometries to map
+                if(parcels.length>0){
+                    parcels.forEach(function(p){
+                        if (p.geometry !== null){
+                            layer = L.geoJson(p, {style: parcelStyle});
+                            layer.addTo(parcelGroup);
+                            map.fitBounds(parcelGroup.getBounds());
+                        }
+                    })
+                } else {
+                    map.setView([lat, lng], zoom); // set bounds to default if no parcels
+                }
+
+                $scope.relationships = response.properties.relationships;
+                $scope.relationship_history = response.properties.relationship_history;
+
+            }, function (err) {
+                $scope.partyDetails = "Server Error";
+            });
+        }
 
         function getPartyResources() {
             var resource_promise = partyService.getProjectPartyResources(cadastaProject.id, $stateParams.id);
@@ -119,7 +147,6 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
             });
 
         }
-
 
         $scope.showAddResourceModal = function (ev) {
 
@@ -159,7 +186,7 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
                     $scope.error = ''; // clear error
                     $scope.uploader.clearQueue();
 
-                    getParcelResources(false);
+                    getPartyResources();
                     $rootScope.$broadcast('new-resource'); // broadcast new resources to the app
                 }
             };
@@ -182,8 +209,6 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
             };
 
         }
-
-
 
     }]);
 
