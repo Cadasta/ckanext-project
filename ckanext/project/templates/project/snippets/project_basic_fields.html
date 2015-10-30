@@ -74,7 +74,7 @@
 
 
     {% block package_basic_fields_custom %}
-    {{ form.input("ona_api_token", id="field-ona_api_token", label=_("ONA API Token"), placeholder=_("..."), value=data.ona_api_token, error=errors.ona_api_token, classes=["control-medium", "cadasta-org-input"]) }}
+    {{ form.input("ona_api_key", id="field-ona_api_key", label=_("ONA API Token"), placeholder=_("..."), value=data.ona_api_key, error=errors.ona_api_key, classes=["control-medium", "cadasta-project-input"]) }}
     {% endblock %}
 
 

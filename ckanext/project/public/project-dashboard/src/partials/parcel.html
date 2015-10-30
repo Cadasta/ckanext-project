@@ -26,7 +26,10 @@
                         <!-- Remove bottom border if first element in array-->
                         <div class="parcel-dropdown" ng-repeat="r in relationships"
                              ng-class="{'remove-bottom-border': $index < relationships.length-1 && relationships.length > 0}">
-                            <div ng-click="toggleDropdownDetails(r)" class="name">{{r.properties.first_name}} {{r.properties.last_name}}
+                            <div ng-click="toggleDropdownDetails(r)" class="name">
+                                <a ui-sref="tabs.parties.party({id:r.properties.party_id})">
+                                    {{r.properties.first_name}} {{r.properties.last_name}}
+                                </a>
                                 <i ng_show="!r.showDropDownDetails" class="material-icons right">expand_more</i>
                                 <i ng_show="r.showDropDownDetails" class="material-icons right">expand_less</i>
                             </div>
@@ -68,9 +71,12 @@
                 <table class="parcel-history">
                     <thead>
                     <tr>
-                        <th>Event</th>
-                        <th>Date</th>
-                        <th>Image</th>
+                        <th>Time Created</th>
+                        <th>Gov Pin</th>
+                        <th>Land Use</th>
+                        <th>Area</th>
+                        <th>Length</th>
+                        <th>Spatial Source</th>
                     </tr>
                     </thead>
                 </table>
@@ -78,9 +84,12 @@
                 <table>
                     <tbody>
                     <tr ng-repeat="ph in parcel_history">
-                        <td>{{ph.properties.description}}</td>
-                        <td>{{ph.properties.time_created}}</td>
-                        <td>View Map</td>
+                        <td>{{ph.properties.time_created | emptyString}}</td>
+                        <td>{{ph.properties.gov_pin | emptyString}}</td>
+                        <td>{{ph.properties.land_use | emptyString}}</td>
+                        <td>{{ph.properties.area | emptyString}}</td>
+                        <td>{{ph.properties.length | emptyString}}</td>
+                        <td>{{ph.properties.spatial_source | emptyString}}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -90,39 +99,39 @@
     </div>
 
     <!-- Relationship history-->
-    <div class="history-container">
-        <div class="parcel-history">
-            <div class="small-table-container">
-                <div class="small-heading">
-                    Relationship History
-                </div>
-                <!--todo this needs to be updated with relationship history data as opposed to current data-->
+    <!--<div class="history-container">-->
+        <!--<div class="parcel-history">-->
+            <!--<div class="small-table-container">-->
+                <!--<div class="small-heading">-->
+                    <!--Relationship History-->
+                <!--</div>-->
+                <!--&lt;!&ndash;todo this needs to be updated with relationship history data as opposed to current data&ndash;&gt;-->
 
-                <table class="parcel-history">
-                    <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Type</th>
-                        <th>Date</th>
-                        <th>Image</th>
-                    </tr>
-                    </thead>
-                </table>
-                <div class="parcel-history-data">
-                    <table>
-                        <tbody>
-                        <tr ng-repeat="ph in relationships">
-                            <td>{{ph.properties.first_name}} {{ph.properties.last_name}}</td>
-                            <td>{{ph.relationship_type}}</td>
-                            <td>{{ph.properties.time_created}}</td>
-                            <td>View Map</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+                <!--<table class="parcel-history">-->
+                    <!--<thead>-->
+                    <!--<tr>-->
+                        <!--<th>Name</th>-->
+                        <!--<th>Type</th>-->
+                        <!--<th>Date</th>-->
+                        <!--<th>Image</th>-->
+                    <!--</tr>-->
+                    <!--</thead>-->
+                <!--</table>-->
+                <!--<div class="parcel-history-data">-->
+                    <!--<table>-->
+                        <!--<tbody>-->
+                        <!--<tr ng-repeat="ph in relationships">-->
+                            <!--<td>{{ph.properties.first_name}} {{ph.properties.last_name}}</td>-->
+                            <!--<td>{{ph.relationship_type}}</td>-->
+                            <!--<td>{{ph.properties.time_created}}</td>-->
+                            <!--<td>View Map</td>-->
+                        <!--</tr>-->
+                        <!--</tbody>-->
+                    <!--</table>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
 
     <!-- Parcel resources-->
     <div class="history-container">

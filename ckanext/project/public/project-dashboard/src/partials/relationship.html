@@ -13,7 +13,11 @@
                     <div class="title">Relationship ID {{relationship.properties.id}}</div>
                     <br>
                     <div class="caption">Name</div>
-                    <div>{{relationship.properties.first_name}} {{relationship.properties.last_name}}</div>
+                    <div>
+                        <a ui-sref="tabs.parties.party({id: relationship.properties.party_id})">
+                            {{relationship.properties.first_name}} {{relationship.properties.last_name}}
+                        </a>
+                    </div>
                     <div class="caption">Tenure Type</div>
                     <div>{{relationship.properties.tenure_type}}</div>
                     <div class="caption">Date Acquired</div>
@@ -34,11 +38,39 @@
 </div>
 
 
-</div>
-<!-- Overview End-->
+<!-- Relationship history-->
+<div class="history-container">
+    <div class="parcel-history">
+        <div class="small-table-container">
+            <div class="small-heading">
+                Relationship History
+            </div>
+
+            <table class="parcel-history">
+                <thead>
+                <tr>
+                    <th>Event</th>
+                    <th>Date</th>
+                    <th>Image</th>
+                </tr>
+                </thead>
+            </table>
+            <div class="parcel-history-data relationship">
+                <table>
+                    <tbody>
+                    <tr ng-repeat="rh in relationship_history">
+                        <td>{{rh.properties.description}}</td>
+                        <td>{{rh.properties.time_created}}</td>
+                        <td>View Map</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 
-<!-- Parcel resources-->
+<!-- Relationship resources-->
 <div class="history-container">
     <div class="parcel-history">
         <div class="small-table-container">
@@ -93,7 +125,5 @@
             </div>
         </div>
     </div>
-</div>
-
 </div>
 

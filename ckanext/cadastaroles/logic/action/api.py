@@ -69,7 +69,12 @@ get_api_map = {
 
 post_api_map = {
     'cadasta_create_project': CadastaEndpoint(
-        '/projects', {'cadasta_organization_id': int}),
+        '/projects',
+        argument_types={
+            'cadasta_organization_id': int,
+            'ona_api_key': lambda v: None if v is None else v,
+        }
+    ),
     'cadasta_create_organization': CadastaEndpoint('/organizations'),
 }
 

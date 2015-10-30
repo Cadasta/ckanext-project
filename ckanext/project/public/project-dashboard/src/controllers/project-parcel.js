@@ -28,7 +28,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
             "weight" : 1
         };
 
-        getParcelResources(false);
+        getParcelResources();
 
         var lat = mapArr[0];
         var lng = mapArr[1];
@@ -150,8 +150,8 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
             });
         }
 
-        function getParcelResources(cache) {
-            var resource_promise = parcelService.getProjectParcelResources(cadastaProject.id, $stateParams.id, cache);
+        function getParcelResources() {
+            var resource_promise = parcelService.getProjectParcelResources(cadastaProject.id, $stateParams.id);
 
             resource_promise.then(function (response) {
 
@@ -485,7 +485,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
                     $scope.error = ''; // clear error
                     $scope.uploader.clearQueue();
 
-                    getParcelResources(false);
+                    getParcelResources();
                     $rootScope.$broadcast('new-resource'); // broadcast new resources to the app
                 }
             };
