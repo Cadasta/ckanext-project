@@ -38,7 +38,7 @@ def call_api(endpoint, function, **kwargs):
             # https://github.com/Cadasta/ckanext-project/issues/68
             #
             if 'violates unique constraint "project_ona_api_key_key"' in message:
-                error_dict = { 'message': ['ona_api_token already in use']}
+                error_dict = { 'message': ['Ona API Token already in use']}
 
             #
             # ckan/logic/__init__.error_summary.summarise seems to require a certain format
@@ -65,7 +65,7 @@ def cadasta_get_api(endpoint, params, _=None, **kwargs):
 
 
 def cadasta_post_api(endpoint, data, _=None, **kwargs):
-    return call_api(endpoint, requests.post, data=data, **kwargs)
+    return call_api(endpoint, requests.post, json=data, **kwargs)
 
 def cadasta_patch_api(endpoint, data, _=None, **kwargs):
     return call_api(endpoint, requests.patch, data=data, **kwargs)
