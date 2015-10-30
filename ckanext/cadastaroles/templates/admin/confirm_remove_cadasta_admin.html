@@ -12,8 +12,8 @@
         <p class="form-actions">
           <form action="{% url_for 'cadasta_admin_remove' %}" method="post">
             <input type="hidden" name="user" value="{{ user_dict.id }}" />
-            <button class="btn" type="submit" name="cancel" >{{ _('Cancel') }}</button>
-            <button class="btn btn-primary" type="submit" name="delete" >{{ _('Confirm Remove') }}</button>
+            <button class="cadasta-button" type="submit" name="cancel" >{{ _('Cancel') }}</button>
+            <button class="cadasta-button red" type="submit" name="delete" >{{ _('Confirm Remove') }}</button>
           </form>
         </p>
       {% endblock %}

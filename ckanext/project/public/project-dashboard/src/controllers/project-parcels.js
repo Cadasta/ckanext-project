@@ -170,20 +170,19 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
 
             $scope.cadastaProjectId = cadastaProject.id;
 
-            $scope.saveNewParcel = function (projectId) {
+            $scope.saveNewParcel = function () {
 
                 var layer = getLayer();
 
                 if (layer === undefined) {
-                    $scope.parcelCreated = "please draw parcel geometry before saving";
+                    $scope.parcelCreated = "parcel geometry is required";
                 } else {
 
-                    var createParcel = parcelService.createProjectParcel(projectId, layer.toGeoJSON(), $scope.parcel);
+                    var createParcel = parcelService.createProjectParcel(cadastaProject.id, layer.toGeoJSON(), $scope.parcel);
 
                     createParcel.then(function (response) {
                         if (response.cadasta_parcel_id){
 
-                            $scope.parcelCreated = 'parcel sucessfully added';
 
                             $rootScope.$broadcast('new-parcel');
                             getParcels();

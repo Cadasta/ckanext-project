@@ -114,10 +114,10 @@ angular.module('app.filters', [])
                     if (a.properties.first_name) { name1 = a.properties.first_name }
                     else { name1 = a.properties.group_name }
 
-                    if (a.properties.first_name) { name1 = a.properties.first_name }
-                    else { name1 = a.properties.group_name }
+                    if (b.properties.first_name) { name2 = b.properties.first_name }
+                    else { name2 = b.properties.group_name }
 
-                    return b.properties[filter_type] < a.properties[filter_type] ? -1 : 1;;
+                    return name2 > name1 ? -1 : 1;
                 });
                 return arr;
                 break;

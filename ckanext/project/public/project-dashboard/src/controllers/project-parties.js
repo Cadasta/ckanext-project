@@ -1,7 +1,7 @@
 var app = angular.module("app");
 
-app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService', '$rootScope', 'utilityService', 'ckanId', 'cadastaProject', '$mdDialog','sortByParcel',
-    function ($scope, $state, $stateParams, partyService, $rootScope, utilityService, ckanId, cadastaProject, $mdDialog, sortByParcel) {
+app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService', '$rootScope', 'utilityService', 'ckanId', 'cadastaProject', '$mdDialog','sortByParty',
+    function ($scope, $state, $stateParams, partyService, $rootScope, utilityService, ckanId, cadastaProject, $mdDialog, sortByParty) {
 
         $rootScope.$broadcast('tab-change', {tab: 'Parties'}); // notify breadcrumbs of tab on page load
 
@@ -13,7 +13,6 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
             $scope.PartyTypeModel = type;
         };
 
-        $scope.sort_by = sortByParcel;
 
         getParties();
 
@@ -86,32 +85,8 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
             $mdDialog.cancel();
         };
 
-        $scope.sort_by = [
-            {
-                label: 'None',
-                type: 'all'
-            },
-            {
-                label: 'Party ID',
-                type: 'id'
-            },
-            {
-                label: 'Name',
-                type: 'first_name'
-            },
-            {
-                label: 'Party Type',
-                type: 'type'
-            },
-            {
-                label: 'Active Relationships',
-                type: 'num_relationships'
-            },
-            {
-                label: 'Date Created',
-                type: 'time_created'
-            }
-        ];
+
+        $scope.sort_by = sortByParty;
 
         $scope.party_types = [
             {
@@ -137,55 +112,3 @@ app.filter('emptyString', function (){
         return input == null ? '-': input;
     }
 });
-
-
-//// custom tenure type filter
-//app.filter('tenureType', function () {
-//    return function(inputs,filter_type) {
-//        var output = [];
-//        switch(filter_type){
-//            case 'own':
-//            case 'lease':
-//            case 'occupy':
-//            case 'informal occupy':
-//                //check if array contains filter selection
-//                inputs.forEach(function (input,i) {
-//                    if (input.properties.tenure_type.indexOf(filter_type) !== -1) {
-//                        output.push(input);
-//                    }
-//                });
-//
-//                return output;
-//                break;
-//            case 'date_acquired':
-//                // create unique copy of array
-//                var arr = inputs.slice();
-//                // sort by date DESC
-//                arr.sort(function(a,b){
-//                    var a_date = new Date(a.properties.acquired_date);
-//                    var b_date = new Date(b.properties.acquired_date);
-//                    return   b_date - a_date;
-//                });
-//                return arr;
-//                break;
-//            case 'num_parties':
-//                var arr = inputs.slice();
-//                // sort by DESC
-//                arr.sort(function(a,b){
-//                    return b.properties[filter_type] - a.properties[filter_type];
-//                });
-//                return arr;
-//                break;
-//            case 'id':
-//                // sort by ASC
-//                var arr = inputs.slice();
-//                arr.sort(function(a,b){
-//                    return a.properties[filter_type] - b.properties[filter_type];
-//                });
-//                return arr;
-//                break;
-//            default:
-//                return inputs;
-//        }
-//    };
-//});

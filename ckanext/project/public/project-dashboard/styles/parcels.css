@@ -349,7 +349,7 @@ md-content.add-parcel-extra-fields md-input-container.notes textarea {
     height: 80px !important;
     width: 723px;
     margin-left: -5px;
-    margin-top: -40px;
+    margin-top: -15px;
     border: 1px solid #dcdfe1;
     box-shadow:none;
 }
@@ -359,8 +359,9 @@ md-content.add-parcel-extra-fields md-input-container.notes textarea * {
 }
 
 .add-parcel-extra-fields md-input-container.landuse md-select {
-    width: 341px;
-    border: 1px solid #dcdfe1;
+    padding-left: 0px;
+    margin-top: -25px;
+    width: 346px;
 }
 
 

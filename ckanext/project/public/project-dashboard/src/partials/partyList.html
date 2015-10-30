@@ -38,7 +38,8 @@
         <tr class="row-link" ng-show="partiesList.length ==0 " ng-repeat="party in parties | customFilter: PartyTypeModel"
             ng-class="{'last-table-element':$index == parties.length-1}" ui-sref="^.party({id: party.properties.id})">
             <td>{{party.properties.id}}</td>
-            <td><span ng-show="party.properties.first_name">{{party.properties.first_name}} {{party.properties.last_name}}</span><span ng-show="party.properties.group_name">{{party.properties.group_name}}</span></td>
+            <td><span ng-show="party.properties.first_name">{{party.properties.first_name}} {{party.properties.last_name}}</span>
+                <span ng-show="party.properties.group_name">{{party.properties.group_name}}</span></td>
             <td>{{party.properties.type}}</td>
             <td>{{party.properties.num_relationships}}</td>
             <td>{{party.properties.time_created}}</td>
