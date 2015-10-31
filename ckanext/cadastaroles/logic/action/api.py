@@ -81,7 +81,12 @@ post_api_map = {
 patch_api_map = {
     'cadasta_update_organization': CadastaEndpoint('/organizations/{cadasta_organization_id}'),
     'cadasta_delete_organization': CadastaEndpoint('/organizations/{cadasta_organization_id}/archive'),
-    'cadasta_update_project': CadastaEndpoint('/projects/{cadasta_project_id}'),
+    'cadasta_update_project': CadastaEndpoint(
+        '/projects/{cadasta_project_id}',
+        argument_types={
+            'ona_api_key': lambda v: None if v is None else v,
+        }
+    ),
     'cadasta_delete_project': CadastaEndpoint('/projects/{cadasta_project_id}/archive'),
 }
 
