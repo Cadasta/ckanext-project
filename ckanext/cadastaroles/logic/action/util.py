@@ -32,14 +32,26 @@ def call_api(endpoint, function, **kwargs):
             json.dumps(result,indent=4)
         ))
 
-        if hasattr(result,'get') and result.get("error",None) is not None:
-            error_dict = result.get('error')
-            if error_dict:
-                message = result.get('message', '')
-                error_dict['message'] = message
-                raise toolkit.ValidationError(
-                    error_dict
-                )
+        error_dict = result.get('error')
+        if error_dict:
+            message = result.get('message', '')
+            error_dict['message'] = message
+
+            #
+            # https://github.com/Cadasta/ckanext-project/issues/68
+            #
+            if 'violates unique constraint "project_ona_api_key_key"' in message:
+                error_dict = { 'message': ['Ona API Token already in use']}
+
+            #
+            # ckan/logic/__init__.error_summary.summarise seems to require a certain format
+            #
+            for key, value in error_dict.items():
+                error_dict[key] = [value,]
+            raise toolkit.ValidationError(
+                error_dict
+            )
+
         return result
     except requests.exceptions.RequestException, e:
         error = 'error connection cadasta api: {0}'.format(e.message)
@@ -57,10 +69,10 @@ def cadasta_get_api(endpoint, params, _=None, **kwargs):
 
 
 def cadasta_post_api(endpoint, data, _=None, **kwargs):
-    return call_api(endpoint, requests.post, data=data, **kwargs)
+    return call_api(endpoint, requests.post, json=data, **kwargs)
 
 def cadasta_patch_api(endpoint, data, _=None, **kwargs):
-    return call_api(endpoint, requests.patch, data=data, **kwargs)
+    return call_api(endpoint, requests.patch, json=data, **kwargs)
 
 def cadasta_post_files_api(endpoint, data, upload_field, **kwargs):
     requests_data = data.copy()

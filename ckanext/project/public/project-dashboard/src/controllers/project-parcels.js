@@ -1,9 +1,12 @@
 var app = angular.module("app");
 
-app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelService', 'dataService', '$rootScope', 'utilityService', 'ckanId', 'cadastaProject', '$mdDialog', '$location',
-    function ($scope, $state, $stateParams, parcelService, dataService, $rootScope, utilityService, ckanId, cadastaProject, $mdDialog, $location) {
+app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelService', 'dataService', '$rootScope', 'utilityService', 'ckanId', 'cadastaProject', '$mdDialog', '$location','sortByParcel','USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole',
+    function ($scope, $state, $stateParams, parcelService, dataService, $rootScope, utilityService, ckanId, cadastaProject, $mdDialog, $location,sortByParcel,USER_ROLES, PROJECT_CRUD_ROLES, userRole) {
 
         $rootScope.$broadcast('tab-change', {tab: 'Parcels'}); // notify breadcrumbs of tab on page load
+
+        // Add user's role to the scope
+        $scope.showEditLink = PROJECT_CRUD_ROLES.indexOf(userRole) > -1;
 
         $scope.$on('updated-parcel', function(e){
             getParcels();
@@ -17,24 +20,7 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
             $scope.TenureTypeModel = type;
         };
 
-        $scope.sort_by = [
-            {
-                label: 'None',
-                type: 'all'
-            },
-            {
-                label: 'Parcel ID',
-                type: 'id'
-            },
-            {
-                label: 'Number of Active Relationships',
-                type: 'num_relationships'
-            },
-            {
-                label: 'Date Created',
-                type: 'time_created'
-            }
-        ];
+        $scope.sort_by = sortByParcel;
 
         $scope.tenure_types = [
             {
@@ -184,20 +170,19 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
 
             $scope.cadastaProjectId = cadastaProject.id;
 
-            $scope.saveNewParcel = function (projectId) {
+            $scope.saveNewParcel = function () {
 
                 var layer = getLayer();
 
                 if (layer === undefined) {
-                    $scope.parcelCreated = "please draw parcel geometry before saving";
+                    $scope.parcelCreated = "parcel geometry is required";
                 } else {
 
-                    var createParcel = parcelService.createProjectParcel(projectId, layer.toGeoJSON(), $scope.parcel);
+                    var createParcel = parcelService.createProjectParcel(cadastaProject.id, layer.toGeoJSON(), $scope.parcel);
 
                     createParcel.then(function (response) {
                         if (response.cadasta_parcel_id){
 
-                            $scope.parcelCreated = 'parcel sucessfully added';
 
                             $rootScope.$broadcast('new-parcel');
                             getParcels();
@@ -217,62 +202,3 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
         }
 
     }]);
-
-// replace null with '-' for table
-app.filter('emptyString', function () {
-    return function (input) {
-        return input == null ? '-' : input;
-    }
-});
-
-
-// custom tenure type filter
-app.filter('tenureType', function () {
-    return function (inputs, filter_type) {
-        var output = [];
-        switch (filter_type) {
-            case 'own':
-            case 'lease':
-            case 'occupy':
-            case 'informal occupy':
-                //check if array contains filter selection
-                inputs.forEach(function (input, i) {
-                    if (input.properties.tenure_type.indexOf(filter_type) !== -1) {
-                        output.push(input);
-                    }
-                });
-
-                return output;
-                break;
-            case 'time_created':
-                // create unique copy of array
-                var arr = inputs.slice();
-                // sort by date DESC
-                arr.sort(function (a, b) {
-                    var a_date = new Date(a.properties.time_created);
-                    var b_date = new Date(b.properties.time_created);
-                    return b_date - a_date;
-                });
-                return arr;
-                break;
-            case 'num_relationships':
-                var arr = inputs.slice();
-                // sort by DESC
-                arr.sort(function (a, b) {
-                    return b.properties[filter_type] - a.properties[filter_type];
-                });
-                return arr;
-                break;
-            case 'id':
-                // sort by ASC
-                var arr = inputs.slice();
-                arr.sort(function (a, b) {
-                    return a.properties[filter_type] - b.properties[filter_type];
-                });
-                return arr;
-                break;
-            default:
-                return inputs;
-        }
-    };
-});

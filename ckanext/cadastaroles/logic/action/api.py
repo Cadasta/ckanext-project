@@ -95,7 +95,12 @@ get_api_map = {
 
 post_api_map = {
     'cadasta_create_project': CadastaEndpoint(
-        '/projects', {'cadasta_organization_id': int}),
+        '/projects',
+        argument_types={
+            'cadasta_organization_id': int,
+            'ona_api_key': lambda v: None if v is None else v,
+        }
+    ),
     'cadasta_create_organization': CadastaEndpoint('/organizations'),
     'cadasta_create_project_parcel': CadastaEndpoint(
         '/projects/{project_id}/parcels',
@@ -110,7 +115,12 @@ post_api_map = {
 patch_api_map = {
     'cadasta_update_organization': CadastaEndpoint('/organizations/{cadasta_organization_id}'),
     'cadasta_delete_organization': CadastaEndpoint('/organizations/{cadasta_organization_id}/archive'),
-    'cadasta_update_project': CadastaEndpoint('/projects/{cadasta_project_id}'),
+    'cadasta_update_project': CadastaEndpoint(
+        '/projects/{cadasta_project_id}',
+        argument_types={
+            'ona_api_key': lambda v: None if v is None else v,
+        }
+    ),
     'cadasta_delete_project': CadastaEndpoint('/projects/{cadasta_project_id}/archive'),
     'cadasta_update_project_parcel': CadastaEndpoint(
         '/projects/{project_id}/parcels/{parcel_id}',

@@ -4,16 +4,33 @@ var app = angular.module("app")
         var service = {};
 
         /**
-         * Get all relationships for a project
+         * Get one relationships for a project
          * @returns {*}
          */
-
-        //TODO update endpoint to pass id in get relationships
-        service.getProjectRelationships = function (projectId) {
+        service.getProjectRelationship = function (projectId, relationshipId) {
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCKANRoot + '/relationships?project_id=' + projectId, {cache: true}).
+            $http.get(ENV.apiCadastaRoot + '/projects/' + projectId + '/relationships/' + relationshipId + '/details?returnGeometry=true', {cache: true}).
+                then(function (response) {
+                    deferred.resolve(response.data.features[0]);
+                }, function (response) {
+                    deferred.reject(response);
+                });
+
+            return deferred.promise;
+        };
+
+        /**
+         * Get all relationships for a project
+         * @returns {*}
+         */
+        service.getProjectRelationshipsList = function (projectId) {
+
+            var deferred = $q.defer();
+
+            $http.get(ENV.apiCadastaRoot + '/projects/' + projectId + '/relationships/relationships_list', {cache: false}).
+
                 then(function (response) {
                     deferred.resolve(response.data.features);
                 }, function (response) {
@@ -24,7 +41,78 @@ var app = angular.module("app")
         };
 
 
+        /**
+         * Get all resources associated with a relationship
+         * @returns {*}
+         *
+         */
+        service.getProjectRelationshipResources = function(projectId, relationshipId){
+
+            var deferred = $q.defer();
+
+            $http.get(ENV.apiCadastaRoot +'/projects/'+ projectId + '/relationships/' + relationshipId + '/resources', { cache: false })
+                .then(function(response) {
+                    deferred.resolve(response.data.features);
+                }, function(response) {
+                    deferred.reject(response);
+                });
+
+            return deferred.promise;
+        };
+
+
+        /**
+         * Create a new relationship
+         * @returns {*}
+         *
+         */
+        service.createProjectRelationship = function(projectId, parcelId, layer, relationship){
+
+            console.log(projectId);
+            console.log(layer);
+            console.log(relationship);
+
+            var deferred = $q.defer();
+
+            var tenure_type = null;
+            var acquired_date = null;
+            var how_acquired = null;
+            var description = null;
+            var parcel_id = parseInt(parcelId);
+
+            if (relationship.tenure_type) { tenure_type = relationship.tenure_type;}
+            if (relationship.acquisition_date) { acquired_date = relationship.acquisition_date;}
+            if (relationship.acquired_type) { how_acquired = relationship.acquired_type;}
+            if (relationship.description) { description = relationship.description;}
+
+
+
+            $http({
+                method: "post",
+                url: ENV.apiCadastaRoot + '/projects/' + projectId + '/relationships',
+                data: JSON.stringify({
+                    parcel_id: parcel_id,
+                    ckan_user_id: null,
+                    party_id: relationship.party.properties.id,
+                    geom_id: null,
+                    tenure_type: tenure_type,
+                    acquired_date: acquired_date,
+                    how_acquired: how_acquired,
+                    description: description
+                }),
+                headers: {
+                    'Content-type': 'application/json'
+                }
+            }).then(function (response) {
+                deferred.resolve(response.data);
+            }, function (response) {
+                deferred.reject(response);
+            });
+
+            return deferred.promise;
+        };
+
+
 
         return service;
     }]);
-

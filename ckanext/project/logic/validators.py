@@ -155,6 +155,7 @@ def create_cadasta_project(key, data, errors, context):
         'ckan_id': data['name', ],
         'ckan_name': data['name', ],
         'title': data['title', ],
+        'ona_api_key': data['ona_api_key',] or None,
         'description': data.get('description',''),
     }
     request_context = {
@@ -198,6 +199,8 @@ def update_cadasta_project(key, data, errors, context):
         'ckan_name': data['name', ],
         'title': data['title', ],
         'description': data.get('description',''),
+        'ona_api_key': data['ona_api_key',] or None,
+
     }
     request_context = {
         'model': context['model'],

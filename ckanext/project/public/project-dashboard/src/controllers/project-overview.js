@@ -1,7 +1,7 @@
 var app = angular.module("app");
 
-app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location', 'dataService', 'paramService', 'utilityService', '$rootScope', 'ckanId', 'cadastaProject', '$mdDialog',
-    function ($scope, $state, $stateParams, $location, dataService, paramService, utilityService, $rootScope, ckanId, cadastaProject, $mdDialog) {
+app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location', 'dataService', 'paramService', 'utilityService', '$rootScope', 'ckanId', 'cadastaProject', '$mdDialog', 'USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole',
+    function ($scope, $state, $stateParams, $location, dataService, paramService, utilityService, $rootScope, ckanId, cadastaProject, $mdDialog,USER_ROLES, PROJECT_CRUD_ROLES, userRole) {
 
         $rootScope.$broadcast('tab-change', {tab: 'Overview'}); // notify breadcrumbs of tab on page load
 
@@ -11,9 +11,11 @@ app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location',
 
         $scope.$on('new-parcel',function(){
             getOverviewData();
-        });
+        });        
+       // Add user's role to the scope
+        $scope.showEditLink = PROJECT_CRUD_ROLES.indexOf(userRole) > -1;
 
-        // Get map querystring from state parameters
+// Get map querystring from state parameters
         var mapStr = $stateParams.map;
 
         // Parse map querystring
@@ -113,18 +115,19 @@ app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location',
                 var extentStyle = {
                     "color": "#256c97",
                     "stroke": "#256c97",
-                    "stroke-width": 1,
-                    "fill-opacity": .1,
-                    "stroke-opacity": .7
+                    "weight": 2,
+                    "fillOpacity": .1,
+                    "opacity": .8
                 };
 
-              var parcelStyle = {
-                  "color": "#e54573",
-                  "stroke": "#e54573",
-                  "stroke-width": 1,
-                  "fill-opacity": .8,
-                  "stroke-opacity": .8
-              };
+                var parcelStyle = {
+                    "color": "#e54573",
+                    "stroke": "#e54573",
+                    "weight": 1,
+                    "fillOpacity": .5,
+                    "opacity": .8,
+                    "marker-color": "#e54573"
+                };
 
                 //clear layers
                 parcelGroup.clearLayers();
@@ -163,6 +166,11 @@ app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location',
 
         // listen for new parcels to update geom and activity
         $scope.$on('updated-parcel', function(e){
+            getOverviewData();
+        });
+
+        // listen for new parties to update geom and activity
+        $scope.$on('new-party', function(e){
             getOverviewData();
         });
 

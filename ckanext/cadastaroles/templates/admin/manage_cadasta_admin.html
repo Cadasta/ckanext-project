@@ -28,7 +28,7 @@
       </div>
 
       <div class="form-actions">
-        <button class="btn btn-primary" type="submit" name="submit" >
+        <button class="cadasta-button" type="submit" name="submit" >
           {{ _('Add User') }}
         </button>
       </div>
@@ -50,7 +50,7 @@
           {{ h.linked_user(user_dict['id'], maxlength=20) }}
           {% set locale = h.dump_json({'content': _('Are you sure you want to remove this user from the Cadasta Admin list?')}) %}
           <div class="btn-group pull-right">
-            <a class="btn btn-danger btn-small" href="{% url_for 'cadasta_admin_remove', user=user_dict['id'] %}" data-module="confirm-action" data-module-i18n="{{ locale }}" title="{{ _('Remove') }}">{% block delete_button_text %}<i class="icon-remove"></i> {{ _('Remove') }}{% endblock %}</a>
+            <a class="cadasta-button red btn-small" href="{% url_for 'cadasta_admin_remove', user=user_dict['id'] %}" data-module="confirm-action" data-module-i18n="{{ locale }}" title="{{ _('Remove') }}">{% block delete_button_text %}<i class="icon-remove"></i> {{ _('Remove') }}{% endblock %}</a>
           </div>
         </td>
       </tr>

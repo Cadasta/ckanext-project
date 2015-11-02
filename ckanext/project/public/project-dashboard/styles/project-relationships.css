@@ -1,0 +1,69 @@
+#relationshipDetailsMap {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.add-party md-input-container.pin-id {
+    width: auto;
+    margin-right: 25px;
+}
+
+.add-party md-input-container.pin-id.group-name {
+    display: block;
+    width: 772px;
+}
+
+
+
+.add-party md-radio-group .party-type{
+    padding-left:15px;
+    font-size:12px;
+    font-weight: 600;
+}
+
+.add-party .cadasta-modal-header .small-heading {
+    padding-left:14px;
+}
+
+#partyDetailsMap {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+
+#addRelationshipMap {
+    width: 780px;
+    height: 300px;
+    position: relative;
+    margin-top: -40px;
+}
+
+.add-relationship md-input-container.add-relationship-format {
+    width:300px;
+    padding-right:25px;
+ }
+
+.add-relationship md-input-container.add-relationship-format input {
+    width: 100%;
+    border: 1px solid #dcdfe1;
+}
+
+md-datepicker.add-relationship-format {
+    margin-left: -15px;
+}
+
+md-datepicker.add-relationship-format .md-datepicker-input-container {
+    border: 1px solid #dcdfe1;
+}
+
+
+
+md-datepicker.add-relationship-format .md-datepicker-input {
+    width: 241px;
+}
+
+.add-relationship .resource-upload-error {
+    margin-top: 60px;
+}
