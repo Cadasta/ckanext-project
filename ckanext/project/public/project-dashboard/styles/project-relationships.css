@@ -67,3 +67,17 @@ md-datepicker.add-relationship-format .md-datepicker-input {
 .add-relationship .resource-upload-error {
     margin-top: 60px;
 }
+
+
+#editRelationshipMap {
+    width: 780px;
+    height: 300px;
+}
+
+.cadasta-round-button.right.relationship {
+    left: 430px !important;
+}
+
+.cadasta-round-button.right.relationship-page-layout {
+    margin: -5px 20px 0 0;
+}

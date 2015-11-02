@@ -1,5 +1,5 @@
-app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relationshipService','$rootScope','paramService', 'utilityService', 'uploadResourceService', '$mdDialog', 'ckanId', 'cadastaProject', 'FileUploader', 'ENV','parcelService',
-    function($scope, $state, $stateParams, relationshipService,$rootScope,paramService, utilityService, uploadResourceService, $mdDialog, ckanId, cadastaProject, FileUploader, ENV,parcelService){
+app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relationshipService','$rootScope','paramService', 'utilityService', 'uploadResourceService', '$mdDialog', 'ckanId', 'cadastaProject', 'FileUploader', 'ENV','parcelService', 'partyService',
+    function($scope, $state, $stateParams, relationshipService,$rootScope,paramService, utilityService, uploadResourceService, $mdDialog, ckanId, cadastaProject, FileUploader, ENV, parcelService, partyService){
 
 
         var mapStr = $stateParams.map;
@@ -65,6 +65,7 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
 
         //add layer for adding parcels
         var relationshipGroup = L.featureGroup().addTo(map);
+        var relationshipParcelLayer = null;
 
         getRelationship();
         getRelationshipResources();
@@ -78,6 +79,8 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
                     if(response.geometry !== null){
                         var layer = L.geoJson(response, {style: parcelStyle}).addTo(relationshipGroup);
                         map.fitBounds(layer.getBounds());
+
+                        relationshipParcelLayer = layer;
                     }
 
                 })
@@ -185,6 +188,202 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
             };
 
         }
+
+
+        function addMap(map) {
+
+            var map = L.map('editRelationshipMap');
+
+            L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+                attribution: '',
+                id: 'spatialdev.map-rpljvvub',
+                zoomControl: true,
+                accessToken: 'pk.eyJ1Ijoic3BhdGlhbGRldiIsImEiOiJKRGYyYUlRIn0.PuYcbpuC38WO6D1r7xdMdA#3/0.00/0.00'
+            }).addTo(map);
+
+            var featureGroup = L.featureGroup().addTo(map);
+
+            var editIcon = L.icon({
+                iconUrl: '/images/orange_marker.png',
+                iconSize: [30, 30]
+            });
+
+            var options = {
+                draw: {
+                    polyline: {
+                        shapeOptions: {
+                            "color": "#88D40E",
+                            "stroke": "#88D40E",
+                            "stroke-width": 1,
+                            "fill-opacity":.7,
+                            "stroke-opacity":.8
+                        }
+                    },
+                    polygon: {
+                        shapeOptions: {
+                            "color": "#88D40E",
+                            "stroke": "#88D40E",
+                            "stroke-width": 1,
+                            "fill-opacity":.7,
+                            "stroke-opacity":.8
+                        }
+                    },
+                    circle: false,
+                    rectangle: {
+                        shapeOptions: {
+                            "color": "#88D40E",
+                            "stroke": "#88D40E",
+                            "stroke-width": 1,
+                            "fill-opacity":.7,
+                            "stroke-opacity":.8
+                        }
+                    },
+                    marker: {
+                        icon : editIcon
+                    }
+                },
+                edit: {
+                    featureGroup: featureGroup
+                }
+            };
+
+            var drawControl = new L.Control.Draw(options).addTo(map);
+
+            //when a new parcel is added, save the layer to a feature group
+            map.on('draw:created', function (e) {
+
+                featureGroup.addLayer(e.layer);
+                $scope.layer = e.layer;
+            });
+
+            //only allow one parcel to be drawn at a time
+            map.on('draw:drawstart', function (e) {
+                featureGroup.clearLayers();
+
+            });
+
+
+            var parcelStyle = {
+                "color": "#e54573",
+                "stroke": "#e54573",
+                "stroke-width": 1,
+                "fill-opacity":.8,
+                "stroke-opacity":.8,
+            };
+
+            var relationshipStyle = {
+                "color": "#FF8000",
+                "stroke": "#FF8000",
+                "stroke-width": 1,
+                "fill-opacity":.8,
+                "stroke-opacity":.8,
+            };
+
+            //add parcel extent to the map
+            //if (relationshipParcelLayer) {
+            //    var parcelLayer = L.geoJson(relationshipParcelLayer, {style: parcelStyle}).addTo(map);
+            //    map.fitBounds(parcelLayer.getBounds());
+            //}
+
+            //add relationship extent to the map
+
+            //prepopulate fields to update with existing data
+            $scope.relationship.party.id = $scope.relationship.properties.gov_pin;
+
+
+        }
+
+        function getLayer() {
+            return $scope.layer;
+        }
+
+        //modal for adding a relationship
+        $scope.updateRelationshipModal = function (ev) {
+            $mdDialog.show({
+                templateUrl: '/project-dashboard/src/partials/edit_relationship.html',
+                controller: updateRelationshipCtrl,
+                parent: angular.element(document.body),
+                clickOutsideToClose: false,
+                onComplete: addMap,
+                locals: {cadastaProject: cadastaProject, relationship:$scope.relationship}
+            })
+        };
+
+
+        function updateRelationshipCtrl($scope, $mdDialog, $stateParams, cadastaProject, relationship) {
+            $scope.hide = function () {
+                $mdDialog.hide();
+            };
+            $scope.cancel = function () {
+                $mdDialog.cancel();
+            };
+
+            $scope.cadastaProjectId = cadastaProject.id;
+            $scope.relationship = relationship;
+
+
+            var promise = partyService.getProjectParties(cadastaProject.id);
+
+            promise.then(function (response) {
+                $scope.parties = response;
+
+            }, function (err) {
+                $scope.parties = "Server Error";
+            });
+
+
+
+            $scope.updateRelationship = function (projectId) {
+            //
+            //    var layer = getLayer();
+            //
+            //    if (layer === undefined) {
+            //        layer = null;
+            //    } else {
+            //        layer = layer.toGeoJSON();
+            //    }
+            //    var updateExistingParcel = parcelService.updateProjectParcel(cadastaProject.id, $stateParams.id, layer, $scope.parcel);
+            //
+            //    updateExistingParcel.then(function (response) {
+            //        if (response.cadata_parcel_history_id){
+            //
+            //            $scope.parcelCreated = 'parcel successfully updated';
+            //
+            //            $rootScope.$broadcast('updated-parcel');
+            //
+            //            getParcelDetails();
+            //
+            //            var timeoutID = window.setTimeout(function() {
+            //                $scope.cancel();
+            //            }, 300);
+            //        }
+            //    }).catch(function(err){
+            //
+            //        $scope.parcelCreated ='unable to update parcel';
+            //    });
+            //
+            }
+
+            $scope.tenure_types = [
+                {
+                    type: 'own',
+                    label: 'Own'
+                },
+                {
+                    type: 'lease',
+                    label: 'Lease'
+                },
+                {
+                    type: 'occupy',
+                    label: 'Occupy'
+                },
+                {
+                    type: 'informal occupy',
+                    label: 'Informally Occupy'
+                }
+            ];
+        }
+
 
 
 
