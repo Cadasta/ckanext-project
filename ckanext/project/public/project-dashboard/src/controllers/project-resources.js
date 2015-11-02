@@ -91,9 +91,17 @@ app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService'
 
         $scope.uploader = new FileUploader({
             alias: 'filedata',
-            ////todo - add in dynamic resource upload, this endpoint needs to be updated
-            url: ENV.apiCadastaRoot + '/projects/'+ cadastaProject.id + '/project/' + cadastaProject.id + '/resources'
+            url: ENV.apiCKANRoot + '/cadasta_upload_project_resources'
         });
+
+        $scope.uploader.onBeforeUploadItem = function (item) {
+            // upload required path params
+            item.formData.push({
+                project_id: cadastaProject.id,
+                resource_type: "project",
+                resource_type_id: cadastaProject.id
+            });
+        };
 
 
         $scope.uploader.onProgressItem = function (item, progress) {
@@ -102,13 +110,29 @@ app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService'
 
         // triggered when FileItem is has completed .upload()
         $scope.uploader.onCompleteItem = function (fileItem, response, status, headers) {
-            if (response.message == "Success"){
+            //
+            // ckan api wrappers return a 'result' key for successful calls
+            // and an 'error' key for unsuccessful calls
+            //
+            if (response.result && response.result.message == "Success"){
                 $scope.response = 'File Successfully uploaded.';
                 $scope.error = ''; // clear error
                 $scope.uploader.clearQueue();
 
                 getResources(false); // get resources, do not cache
                 $rootScope.$broadcast('new-resource'); // broadcast new resources to the app
+            }
+            else if(response.error){
+
+                if (response.error.type && response.error.type.pop && response.error.type.pop() === "duplicate") {
+                    $scope.error = 'This resource already exists. Rename resource to complete upload.';
+                }
+                else if(response.error.message) {
+                    $scope.error = response.error.message;
+                }
+                else {
+                    $scope.error = response.error;
+                }
             }
         };
 
@@ -120,7 +144,7 @@ app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService'
         };
 
         $scope.uploader.onErrorItem = function (item, response, status, headers) {
-            if(response.type == "duplicate"){
+            if(response.error.type == "duplicate"){
                 $scope.error = 'This resource already exists. Rename resource to complete upload.'
             } else {
                 $scope.error = response.error;
