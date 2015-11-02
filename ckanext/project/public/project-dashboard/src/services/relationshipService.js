@@ -73,13 +73,11 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            var tenure_type = null;
             var acquired_date = null;
             var how_acquired = null;
             var description = null;
             var parcel_id = parseInt(parcelId);
 
-            if (relationship.tenure_type) { tenure_type = relationship.tenure_type;}
             if (relationship.acquisition_date) { acquired_date = relationship.acquisition_date;}
             if (relationship.acquired_type) { how_acquired = relationship.acquired_type;}
             if (relationship.description) { description = relationship.description;}
@@ -94,7 +92,7 @@ var app = angular.module("app")
                     ckan_user_id: null,
                     party_id: relationship.party.properties.id,
                     geom_id: null,
-                    tenure_type: tenure_type,
+                    tenure_type: relationship.tenure_type,
                     acquired_date: acquired_date,
                     how_acquired: how_acquired,
                     description: description
