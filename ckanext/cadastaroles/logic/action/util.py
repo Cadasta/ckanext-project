@@ -68,7 +68,7 @@ def cadasta_post_api(endpoint, data, _=None, **kwargs):
     return call_api(endpoint, requests.post, json=data, **kwargs)
 
 def cadasta_patch_api(endpoint, data, _=None, **kwargs):
-    return call_api(endpoint, requests.patch, data=data, **kwargs)
+    return call_api(endpoint, requests.patch, json=data, **kwargs)
 
 def cadasta_post_files_api(endpoint, data, upload_field, **kwargs):
     requests_data = data.copy()
