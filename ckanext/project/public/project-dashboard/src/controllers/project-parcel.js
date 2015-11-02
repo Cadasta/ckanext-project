@@ -403,7 +403,11 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
 
                 if ($scope.relationship.party == undefined) {
                     $scope.relationshipCreated = "party required";
-                } else {
+                }
+                else if ($scope.relationship.tenure_type == undefined) {
+                    $scope.relationshipCreated = "tenure required";
+                }
+                else if (($scope.relationship.party != undefined) && ($scope.relationship.tenure_type != undefined)  ) {
 
                     var createRelationship = relationshipService.createProjectRelationship(cadastaProject.id, $stateParams.id, layer, $scope.relationship);
 
