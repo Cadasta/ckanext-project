@@ -108,8 +108,7 @@ def cadasta_post_files_api(endpoint, data, upload_field, **kwargs):
     for field_name in upload_field:
         field = requests_data.pop(field_name,None)
         if field:
-            files[field_name] = field.get('file',None)
-            requests_data['filename'] = field.get('filename','')
-
+            # the tuple indicates ( filename, file binary )
+            files[field_name] = ( field.get('filename',''), field.get('file',None) )
     return call_api(endpoint, requests.post, data=requests_data, files=files,
                     **kwargs)
