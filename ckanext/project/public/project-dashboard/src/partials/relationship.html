@@ -51,9 +51,13 @@
             <table class="parcel-history">
                 <thead>
                 <tr>
-                    <th>Event</th>
-                    <th>Date</th>
-                    <th>Image</th>
+                    <th>Version</th>
+                    <th>Date Created</th>
+                    <th>Tenure Type</th>
+                    <th>Area</th>
+                    <th>Length</th>
+                    <th>How Acquired</th>
+
                 </tr>
                 </thead>
             </table>
@@ -61,9 +65,12 @@
                 <table>
                     <tbody>
                     <tr ng-repeat="rh in relationship_history">
-                        <td>{{rh.properties.description}}</td>
-                        <td>{{rh.properties.time_created}}</td>
-                        <td>View Map</td>
+                        <td>{{rh.properties.version}}</td>
+                        <td>{{rh.properties.time_updated | emptyString}}</td>
+                        <td>{{rh.properties.relationship_type}}</td>
+                        <td>{{rh.properties.area | emptyString}}</td>
+                        <td>{{rh.properties.length | emptyString}}</td>
+                        <td>{{rh.properties.how_acquired | emptyString}}</td>
                     </tr>
                     </tbody>
                 </table>

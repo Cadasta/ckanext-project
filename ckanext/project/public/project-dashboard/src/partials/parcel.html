@@ -71,7 +71,8 @@
                 <table class="parcel-history">
                     <thead>
                     <tr>
-                        <th>Time Created</th>
+                        <th>Version</th>
+                        <th>Date Created</th>
                         <th>Gov Pin</th>
                         <th>Land Use</th>
                         <th>Area</th>
@@ -84,6 +85,7 @@
                 <table>
                     <tbody>
                     <tr ng-repeat="ph in parcel_history">
+                        <td>{{ph.properties.version | emptyString}}</td>
                         <td>{{ph.properties.time_created | emptyString}}</td>
                         <td>{{ph.properties.gov_pin | emptyString}}</td>
                         <td>{{ph.properties.land_use | emptyString}}</td>
