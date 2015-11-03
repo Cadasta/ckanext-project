@@ -54,9 +54,9 @@ def convert_package_name_or_id_to_id_for_type_project(package_name_or_id, contex
 
 def slugify_title_to_name(key, data, errors, context):
     if not data[key]:
-        data[key] = slugify(data['title', ])
+        data[key] = slugify(data['title', ],separator='_')
     else:
-        data[key] = slugify(data[key])
+        data[key] = slugify(data[key],separator='_')
 
 
 def project_name_validator(key, data, errors, context):
@@ -87,8 +87,7 @@ def project_name_validator(key, data, errors, context):
         )
 
 def project_title_blacklist_char_validator(key, data, errors, context):
-    BLACKLIST_CHARS_PATTERN = re.compile(r'[-_\s!&$%^&*()\\\/]+')
-
+    BLACKLIST_CHARS_PATTERN = re.compile(r'[-\s!#&\$@%^*()\\\/]+')
     value = data[key]
     has_bad_char = BLACKLIST_CHARS_PATTERN.search(value)
     if has_bad_char:

@@ -35,7 +35,8 @@ def project_create_schema():
     schema = default_create_package_schema()
     schema.update({
         'id': [if_empty_generate_uuid],
-        'title': [not_missing, unicode, project_title_blacklist_char_validator],
+        'title': [not_missing, unicode,
+                  project_title_blacklist_char_validator],
         'name': [ignore_missing, unicode,
                  slugify_title_to_name,
                  project_name_validator],
