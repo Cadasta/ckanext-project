@@ -1,5 +1,4 @@
-#ckanext-project
-##Extends core CKAN for Cadasta application
+#ckanext-project: extends CKAN for Cadasta
 
 This CKAN extension modifies and extends the core CKAN code-base to provide the additional permissions, API, features and user interface required by the Cadasta application.
 
