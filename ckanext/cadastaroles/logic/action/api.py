@@ -34,6 +34,8 @@ class CadastaEndpoint(object):
 
     def convert_argument(self, argument_name, value):
         try:
+            if value is None:
+                return None
             converter = self.argument_types.get(argument_name, str)
             return converter(value)
         except ValueError:
@@ -71,6 +73,13 @@ get_api_map = {
     'cadasta_get_all_projects': CadastaEndpoint('/projects'),
 
     'cadasta_get_project_resources': CadastaEndpoint('/projects/{project_id}/resources'),
+
+    'cadasta_get_project_details': CadastaEndpoint(
+        '/projects/{project_id}',
+        argument_types={
+            'returnGeometry': str,
+        }
+    ),
 }
 
 post_api_map = {
@@ -78,7 +87,7 @@ post_api_map = {
         '/projects',
         argument_types={
             'cadasta_organization_id': int,
-            'ona_api_key': lambda v: None if v is None else v,
+            #'ona_api_key': lambda v: None if v is None else v,
         }
     ),
     'cadasta_create_organization': CadastaEndpoint('/organizations'),
@@ -90,7 +99,7 @@ patch_api_map = {
     'cadasta_update_project': CadastaEndpoint(
         '/projects/{cadasta_project_id}',
         argument_types={
-            'ona_api_key': lambda v: None if v is None else v,
+            #'ona_api_key': lambda v: None if v is None else v,
         }
     ),
     'cadasta_delete_project': CadastaEndpoint('/projects/{cadasta_project_id}/archive'),
