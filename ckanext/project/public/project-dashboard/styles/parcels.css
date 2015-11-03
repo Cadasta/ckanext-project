@@ -291,6 +291,7 @@
     width:auto;
 }
 
+
 .add-relationship .small-heading {
     padding-left:0;
 }
@@ -360,7 +361,6 @@ md-content.add-parcel-extra-fields md-input-container.notes textarea * {
 
 .add-parcel-extra-fields md-input-container.landuse md-select {
     padding-left: 0px;
-    margin-top: -25px;
     width: 346px;
 }
 
@@ -369,4 +369,8 @@ md-input-container label {
     font-family: 'Open Sans', sans-serif;
     color: rgba(0,0,0,0.87);
     font-weight: 500;
+}
+
+.cadasta-round-button.right.parcel-page-layout {
+    margin: -5px 0 0 575px;
 }

@@ -21,8 +21,8 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
 
 
         var relationshipStyle = {
-            "color": "#88D40E",
-            "stroke": "#88D40E",
+            "color": "#FF8000",
+            "stroke": "#FF8000",
             "opacity":.8,
             "fillOpacity":.5,
             "weight" : 1
@@ -58,7 +58,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
             accessToken: 'pk.eyJ1Ijoic3BhdGlhbGRldiIsImEiOiJKRGYyYUlRIn0.PuYcbpuC38WO6D1r7xdMdA#3/0.00/0.00'
         }).addTo(map);
 
-        $scope.parcel = null;
+        $scope.parcel = {};
 
         $scope.toggleDropdownDetails = function (obj) {
             obj.showDropDownDetails = !obj.showDropDownDetails;
@@ -173,19 +173,6 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
         $scope.progress = 0;
 
 
-
-        //modal for adding a parcel
-        $scope.updateParcelModal = function (ev) {
-            $mdDialog.show({
-                templateUrl: '/project-dashboard/src/partials/edit_parcel.html',
-                controller: updateParcelCtrl,
-                parent: angular.element(document.body),
-                clickOutsideToClose: false,
-                onComplete: addMap,
-                locals: {cadastaProject: cadastaProject}
-            })
-        };
-
         function addMap(map) {
 
             var map = L.map('editParcelMap');
@@ -212,8 +199,8 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
                 draw: {
                     polyline: {
                         shapeOptions: {
-                            "color": "#FF8000",
-                            "stroke": "#FF8000",
+                            "color": "#88D40E",
+                            "stroke": "#88D40E",
                             "stroke-width": 1,
                             "fill-opacity":.7,
                             "stroke-opacity":.8
@@ -221,8 +208,8 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
                     },
                     polygon: {
                         shapeOptions: {
-                            "color": "#FF8000",
-                            "stroke": "#FF8000",
+                            "color": "#88D40E",
+                            "stroke": "#88D40E",
                             "stroke-width": 1,
                             "fill-opacity":.7,
                             "stroke-opacity":.8
@@ -231,8 +218,8 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
                     circle: false,
                     rectangle: {
                         shapeOptions: {
-                            "color": "#FF8000",
-                            "stroke": "#FF8000",
+                            "color": "#88D40E",
+                            "stroke": "#88D40E",
                             "stroke-width": 1,
                             "fill-opacity":.7,
                             "stroke-opacity":.8
@@ -268,7 +255,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
 
             promise.then(function(response) {
                 // If there is a project geom load map and zoom to it; else zoom to parcels
-                console.log(response);
+
                 var layer;
 
                 var extentStyle = {
@@ -304,14 +291,31 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
 
             map.fitBounds(parcelLayer.getBounds());
 
+
+            //prepopulate fields to update with existing data
+            $scope.parcel.pinid = $scope.parcelObject.properties.gov_pin;
+            $scope.parcel.landuse = $scope.parcelObject.properties.land_use;
+
+
         }
 
         function getLayer() {
             return $scope.layer;
         }
 
+        //modal for adding a parcel
+        $scope.updateParcelModal = function (ev) {
+            $mdDialog.show({
+                templateUrl: '/project-dashboard/src/partials/edit_parcel.html',
+                controller: updateParcelCtrl,
+                parent: angular.element(document.body),
+                clickOutsideToClose: false,
+                onComplete: addMap,
+                locals: {cadastaProject: cadastaProject, parcel:$scope.parcel}
+            })
+        };
 
-        function updateParcelCtrl($scope, $mdDialog, $stateParams) {
+        function updateParcelCtrl($scope, $mdDialog, $stateParams, parcel, cadastaProject) {
             $scope.hide = function () {
                 $mdDialog.hide();
             };
@@ -320,7 +324,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
             };
 
             $scope.cadastaProjectId = cadastaProject.id;
-            $scope.showSaveParcel = false;
+            $scope.parcel = parcel;
 
             $scope.updateParcel = function (projectId) {
 
@@ -354,9 +358,6 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
             }
         }
 
-        function getLayer() {
-            return $scope.layer;
-        }
 
         //modal for adding a relationship
         $scope.addRelationshipModal = function (ev) {
@@ -533,21 +534,6 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
             }
         ];
 
-        $scope.acquire_types = [
-
-            {
-                type: 'inheritance'
-            },
-            {
-                type: 'lease'
-            },
-            {
-                type: 'freehold'
-            },
-            {
-                type: 'other'
-            }
-        ];
 
         $scope.myDate = new Date();
 

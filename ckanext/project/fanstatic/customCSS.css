@@ -609,6 +609,7 @@ a {
     text-transform: uppercase;
     letter-spacing: 1px;
     cursor: pointer;
+    font-weight: 600;
 }
 
 .cadasta-button:hover {
@@ -1618,7 +1619,7 @@ label {
     background-color: #256c97;
     color: #fff;
     padding: 3px 15px;
-    border-radius: 15px;
+    /*border-radius: 15px;*/
     font-weight: 600;
     position: relative;
     top: 12px;

@@ -45,7 +45,7 @@
                                 <div class="caption">Date Added</div>
                                 <div>{{r.properties.time_created}}</div>
                                 <div class="caption">Status</div>
-                                <div>{{r.properties.active}} <a href="">change</a></div>
+                                <div>{{r.properties.active}}</div>
                             </div>
                         </div>
                     </div>
@@ -53,7 +53,7 @@
             </div>
             <div class="section-map">
                 <div id="parcelDetailsMap"></div>
-                <div class='cadasta-button float-right' ng-click="updateParcelModal()"> Update Parcel Geometry </div>
+                <div class='cadasta-button float-right' ng-click="updateParcelModal()"> Update Parcel Details </div>
             </div>
 
         </div>
@@ -71,7 +71,8 @@
                 <table class="parcel-history">
                     <thead>
                     <tr>
-                        <th>Time Created</th>
+                        <th>Version</th>
+                        <th>Date Created</th>
                         <th>Gov Pin</th>
                         <th>Land Use</th>
                         <th>Area</th>
@@ -84,6 +85,7 @@
                 <table>
                     <tbody>
                     <tr ng-repeat="ph in parcel_history">
+                        <td>{{ph.properties.version | emptyString}}</td>
                         <td>{{ph.properties.time_created | emptyString}}</td>
                         <td>{{ph.properties.gov_pin | emptyString}}</td>
                         <td>{{ph.properties.land_use | emptyString}}</td>
@@ -98,70 +100,16 @@
         </div>
     </div>
 
-    <!-- Relationship history-->
-    <!--<div class="history-container">-->
-        <!--<div class="parcel-history">-->
-            <!--<div class="small-table-container">-->
-                <!--<div class="small-heading">-->
-                    <!--Relationship History-->
-                <!--</div>-->
-                <!--&lt;!&ndash;todo this needs to be updated with relationship history data as opposed to current data&ndash;&gt;-->
-
-                <!--<table class="parcel-history">-->
-                    <!--<thead>-->
-                    <!--<tr>-->
-                        <!--<th>Name</th>-->
-                        <!--<th>Type</th>-->
-                        <!--<th>Date</th>-->
-                        <!--<th>Image</th>-->
-                    <!--</tr>-->
-                    <!--</thead>-->
-                <!--</table>-->
-                <!--<div class="parcel-history-data">-->
-                    <!--<table>-->
-                        <!--<tbody>-->
-                        <!--<tr ng-repeat="ph in relationships">-->
-                            <!--<td>{{ph.properties.first_name}} {{ph.properties.last_name}}</td>-->
-                            <!--<td>{{ph.relationship_type}}</td>-->
-                            <!--<td>{{ph.properties.time_created}}</td>-->
-                            <!--<td>View Map</td>-->
-                        <!--</tr>-->
-                        <!--</tbody>-->
-                    <!--</table>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-
     <!-- Parcel resources-->
     <div class="history-container">
         <div class="parcel-history">
             <div class="small-table-container">
                 <div class="small-heading">
                     Parcel Resources
+                    <div class="cadasta-round-button right parcel-page-layout" ng-click="showAddResourceModal($event)"> Add Resource</div>
                 </div>
                 <md-button class="md-icon-button right parcel-page-layout" aria-label="More">
-                    <div class="md-menu-demo">
-                        <div class="menu-demo-container" layout-align="center center" layout$="column">
-                            <div class="menus" layout-wrap layout="row" layout-align="space-between center">
-                                <div layout="column" flex="33" flex-sm="100" layout-align="center center">
-                                    <md-menu md-offset="0 -7">
-                                        <md-button aria-label="Open resource menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                                            <i class="material-icons">more_vert</i>
-                                        </md-button>
-                                        <md-menu-content width="2">
-                                            <md-menu-item>
-                                                <md-button ng-click="showAddResourceModal($event)"> Add Resource </md-button>
-                                            </md-menu-item>
-                                            <md-menu-item>
-                                                <md-button ng-click="ctrl.announceClick($index)"> Download Resources </md-button>
-                                            </md-menu-item>
-                                        </md-menu-content>
-                                    </md-menu>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                 </md-button>
 
                 <table class="parcel-history">
