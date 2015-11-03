@@ -66,6 +66,7 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
 
         //add layer for adding parcels
         var relationshipGroup = L.featureGroup().addTo(map);
+        relationshipGroup.bringToFront();
 
         getRelationship();
         getRelationshipResources();
@@ -125,6 +126,12 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
                     $scope.error = err;
                 })
         }
+
+
+        /**
+         * Functions related to the project-level resource modal
+         * @returns {*}
+         */
 
         $scope.showAddResourceModal = function (ev) {
 
@@ -186,6 +193,87 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
             };
 
         }
+
+        /**
+         * Functions related to the update relationship modal
+         * @returns {*}
+         */
+
+
+        function updateRelationshipCtrl($scope, $mdDialog, $stateParams, cadastaProject, relationship) {
+            $scope.hide = function () {
+                $mdDialog.hide();
+            };
+            $scope.cancel = function () {
+                $mdDialog.cancel();
+            };
+
+            $scope.cadastaProjectId = cadastaProject.id;
+            $scope.relationship = relationship;
+
+
+            var promise = partyService.getProjectParties(cadastaProject.id);
+
+            promise.then(function (response) {
+                $scope.parties = response;
+
+            }, function (err) {
+                $scope.parties = "Server Error";
+            });
+
+
+
+            $scope.updateRelationship = function (projectId) {
+
+                var layer = getLayer();
+
+                if (layer === undefined) {
+                    layer = null;
+                } else {
+                    layer = layer.toGeoJSON();
+                }
+                var updateExistingRelationship = relationshipService.updateProjectRelationship(cadastaProject.id, $stateParams.id, layer, $scope.relationship);
+
+                updateExistingRelationship.then(function (response) {
+                    if (response.cadata_relationship_history_id){
+
+                        $scope.relationshipCreated = 'relationship successfully updated';
+
+                        $rootScope.$broadcast('updated-relationship');
+
+                        getParcelDetails();
+
+                        var timeoutID = window.setTimeout(function() {
+                            $scope.cancel();
+                        }, 300);
+                    }
+                }).catch(function(err){
+
+                    $scope.relationshipCreated ='unable to update relationship';
+                });
+
+            }
+
+            $scope.tenure_types = [
+                {
+                    type: 'own',
+                    label: 'Own'
+                },
+                {
+                    type: 'lease',
+                    label: 'Lease'
+                },
+                {
+                    type: 'occupy',
+                    label: 'Occupy'
+                },
+                {
+                    type: 'informal occupy',
+                    label: 'Informally Occupy'
+                }
+            ];
+        }
+
 
 
         function addMap(map) {
@@ -289,16 +377,17 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
             };
 
 
+
             //add parcel data to the map
-                var promise = parcelService.getProjectParcel(cadastaProject.id, $scope.relationship.properties.parcel_id);
+            var promise = parcelService.getProjectParcel(cadastaProject.id, $scope.relationship.properties.parcel_id);
 
-                promise.then(function(response){
+            promise.then(function(response){
 
-                        if(response.geometry !== null){
-                            var layer = L.geoJson(response, {style: parcelStyle}).addTo(map);
-                            map.fitBounds(layer.getBounds());
-                        }
-                    });
+                    if(response.geometry !== null){
+                        var layer = L.geoJson(response, {style: parcelStyle}).addTo(map);
+                        map.fitBounds(layer.getBounds());
+                    }
+                });
 
 
             //add relationship extent to the map
@@ -309,10 +398,11 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
                 if (response.geometry) {
                     var layer = L.geoJson(response, {style: relationshipStyle}).addTo(map);
                     map.fitBounds(layer.getBounds());
-                } else {
+                }
+                else {
                     map.setView([lat, lng], zoom);
                 }
-            }
+            });
 
             //prepopulate fields to update with existing data
             $scope.relationship.tenure_type = $scope.relationship.properties.tenure_type;
@@ -339,79 +429,6 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
         };
 
 
-        function updateRelationshipCtrl($scope, $mdDialog, $stateParams, cadastaProject, relationship) {
-            $scope.hide = function () {
-                $mdDialog.hide();
-            };
-            $scope.cancel = function () {
-                $mdDialog.cancel();
-            };
-
-            $scope.cadastaProjectId = cadastaProject.id;
-            $scope.relationship = relationship;
-
-
-            var promise = partyService.getProjectParties(cadastaProject.id);
-
-            promise.then(function (response) {
-                $scope.parties = response;
-
-            }, function (err) {
-                $scope.parties = "Server Error";
-            });
-
-
-
-            $scope.updateRelationship = function (projectId) {
-
-                var layer = getLayer();
-
-                if (layer === undefined) {
-                    layer = null;
-                } else {
-                    layer = layer.toGeoJSON();
-                }
-                var updateExistingRelationship = relationshipService.updateProjectRelationship(cadastaProject.id, $stateParams.id, layer, $scope.relationship);
-
-                updateExistingRelationship.then(function (response) {
-                    if (response.cadata_relationship_history_id){
-
-                        $scope.relationshipCreated = 'relationship successfully updated';
-
-                        $rootScope.$broadcast('updated-relationship');
-
-                        getParcelDetails();
-
-                        var timeoutID = window.setTimeout(function() {
-                            $scope.cancel();
-                        }, 300);
-                    }
-                }).catch(function(err){
-
-                    $scope.relationshipCreated ='unable to update relationship';
-                });
-
-            }
-
-            $scope.tenure_types = [
-                {
-                    type: 'own',
-                    label: 'Own'
-                },
-                {
-                    type: 'lease',
-                    label: 'Lease'
-                },
-                {
-                    type: 'occupy',
-                    label: 'Occupy'
-                },
-                {
-                    type: 'informal occupy',
-                    label: 'Informally Occupy'
-                }
-            ];
-        }
 
 
 

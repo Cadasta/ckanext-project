@@ -1,0 +1,75 @@
+<md-dialog aria-label="Add Relationship" class="cadasta-modal resources">
+
+    <form>
+        <md-dialog-content>
+            <div class="form_upload_content add-relationship">
+                <div class="cadasta-modal-header">
+                    <div class="small-heading">
+                        Add Relationship
+                    </div>
+                    <div class="right">
+                        <md-button class="md-icon-button" ng-click="cancel()">
+                            <i class="material-icons right">clear</i>
+                        </md-button>
+                    </div>
+                </div>
+                <div class="modal-content">
+                    <md-content layout-padding>
+                        <form name="userForm">
+                            <div layout layout-sm="column">
+                            </div>
+                            <p>1. Enter relationship details.</p>
+
+                            <md-input-container class="add-relationship-format">
+                                <label>Tenure Type</label>
+                                <md-select ng-model="relationship.tenure_type">
+                                    <md-option ng-repeat="t in tenure_types" value="{{t.type}}">
+                                        {{t.label}}
+                                    </md-option>
+                                </md-select>
+                            </md-input-container>
+
+
+                            <md-input-container md-no-float class="md-block add-relationship-format">
+                                <input ng-model="relationship.acquired_type" placeholder="How was the parcel acquired?">
+                            </md-input-container>
+
+
+                            <md-datepicker class="md-block add-relationship-format" ng-model="relationship.acquisition_date" md-placeholder="Date of acquisition"></md-datepicker>
+                            <br><br>
+
+                            <md-input-container md-no-float flex class="relationship-notes md-block">
+                                <textarea ng-model="relationship.description" columns="1" md-maxlength="150" placeholder="Notes"></textarea>
+                            </md-input-container>
+
+                        </form>
+                    </md-content>
+
+                    <p>2. Select a parcel and draw the relationship geometry using the tools on the left.</p>
+                    <br><br>
+
+                    <div id="editParcelMap"></div>
+
+                    <!--map legend-->
+                    <div id='legend'>
+
+                        <nav class='legend clearfix'>
+                            <span class='legend-key' style='background:#256c97;'></span>
+                            <span class="legend-label">Project Extent</span>
+                            <span class='legend-key' style='background:#e54573;'></span>
+                            <span class="legend-label">Parcel Geometry</span>
+                            <span class='legend-key' style='background:#88D40E;'></span>
+                            <span class="legend-label">New Relationship Geometry</span>
+                        </nav>
+                    </div>
+                </div>
+
+                <div class="resource-upload-error">
+                    {{relationshipCreated}}
+                </div>
+                <span>Parcel Selected: {{relationship.parcel_id}}</span>
+                <div class="cadasta-button right parcel-save" ng-click="saveNewRelationship(cadastaProjectId, layer, relationship)">Save Relationship</div>
+            </div>
+        </md-dialog-content>
+    </form>
+</md-dialog>
