@@ -6,6 +6,7 @@ import logging
 import json
 import uuid
 from slugify import slugify
+import re
 
 
 log = logging.getLogger(__name__)
@@ -85,6 +86,15 @@ def project_name_validator(key, data, errors, context):
             _('Name "%s" length is more than maximum %s') % (value, PACKAGE_NAME_MAX_LENGTH)
         )
 
+def project_title_blacklist_char_validator(key, data, errors, context):
+    BLACKLIST_CHARS_PATTERN = re.compile(r'[-_\s!&$%^&*()\\\/]+')
+
+    value = data[key]
+    has_bad_char = BLACKLIST_CHARS_PATTERN.search(value)
+    if has_bad_char:
+        errors['title', ].append(
+            _('Title cannot contain the character "%s"') % (value, has_bad_char.group())
+        )
 
 def organization_name_validator(key, data, errors, context):
     model = context['model']

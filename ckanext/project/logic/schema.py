@@ -10,7 +10,7 @@ from ckanext.project.logic.validators import (
     slugify_title_to_name,
     create_cadasta_project,
     update_cadasta_project,
-    archive_cadasta_project)
+    archive_cadasta_project, project_title_blacklist_char_validator)
 
 
 convert_to_extras = toolkit.get_validator('convert_to_extras')
@@ -35,8 +35,9 @@ def project_create_schema():
     schema = default_create_package_schema()
     schema.update({
         'id': [if_empty_generate_uuid],
-        'title': [not_missing, unicode],
-        'name': [ignore_missing, unicode, slugify_title_to_name,
+        'title': [not_missing, unicode, project_title_blacklist_char_validator],
+        'name': [ignore_missing, unicode,
+                 slugify_title_to_name,
                  project_name_validator],
         'ona_api_key': [ignore_missing, unicode],
 
