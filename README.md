@@ -6,7 +6,9 @@ This CKAN extension modifies and extends the core CKAN code-base to provide the 
 This extension includes three plugins:   
 
 **cadastaroles:** extended permissions/roles and the "pass-through" api
-**organization:** create/edit/delete organization workflow  
+
+**organization:** create/edit/delete organization workflow
+
 **project:** create/edit/delete project workflow
 
 It also includes static resources for the Angular.js applications used for the more complicated project and organization dashboards.
