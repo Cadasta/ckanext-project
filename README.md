@@ -13,7 +13,7 @@ This extension includes three plugins:
 
 It also includes static resources for the Angular.js applications used for the more complicated project and organization dashboards.
 
-##Installation
+##Extenstion Installation
 
 ###Linux OS
 Assuming you have already installed core CKAN, clone the extension repo:
