@@ -1,5 +1,5 @@
-app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','$rootScope','paramService', 'utilityService', 'uploadResourceService', '$mdDialog', 'ckanId', 'cadastaProject', 'FileUploader', 'ENV',
-    function($scope, $state, $stateParams, partyService,$rootScope,paramService, utilityService, uploadResourceService, $mdDialog, ckanId, cadastaProject, FileUploader, ENV){
+app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','$rootScope','paramService', 'utilityService', 'uploadResourceService', '$mdDialog', 'ckanId', 'cadastaProject', 'FileUploader', 'ENV', 'dataService', 'relationshipService', 'parcelService',
+    function($scope, $state, $stateParams, partyService,$rootScope,paramService, utilityService, uploadResourceService, $mdDialog, ckanId, cadastaProject, FileUploader, ENV, dataService, relationshipService, parcelService){
 
 
         $rootScope.$broadcast('tab-change', {tab: 'Parties'}); // notify breadcrumbs of tab on page load
@@ -148,6 +148,12 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
 
         }
 
+
+        /**
+         * Functions related to add resource modal
+         * @returns {*}
+         */
+
         $scope.showAddResourceModal = function (ev) {
 
             $mdDialog.show({
@@ -208,6 +214,249 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
                 $scope.uploader.clearQueue();
             };
 
+        }
+
+
+
+        /**
+         * Functions related to add relationship modal
+         * @returns {*}
+         */
+
+            //modal for adding a relationship
+        $scope.addRelationshipModal = function (ev) {
+            $mdDialog.show({
+                templateUrl: '/project-dashboard/src/partials/add_relationship_from_party.html',
+                controller: addRelationshipCtrl,
+                parent: angular.element(document.body),
+                clickOutsideToClose: false,
+                onComplete: addMap,
+                locals: {cadastaProject: cadastaProject}
+            })
+        };
+
+
+        function getLayer() {
+            return $scope.layer;
+        }
+
+
+        function addRelationshipCtrl($scope, $mdDialog, $stateParams) {
+            $scope.hide = function () {
+                $mdDialog.hide();
+            };
+            $scope.cancel = function () {
+                $mdDialog.cancel();
+            };
+
+            $scope.cadastaProjectId = cadastaProject.id;
+            $scope.relationship = {};
+
+
+
+            $scope.relationship.party = {};
+            $scope.relationship.party.id = $stateParams.id;
+
+
+            $scope.saveNewRelationship = function () {
+
+                var layer = getLayer();
+
+                if (layer) {
+                    layer = layer.toGeoJSON().geometry;
+                }
+
+                if ($scope.relationship.parcel_id == undefined) {
+                    $scope.relationshipCreated = "parcel required";
+                }
+                else if ($scope.relationship.tenure_type == undefined) {
+                    $scope.relationshipCreated = "tenure required";
+                }
+                else if (($scope.relationship.parcel_id != undefined) && ($scope.relationship.tenure_type != undefined)  ) {
+
+                    var createRelationship = relationshipService.createProjectRelationship(cadastaProject.id, $scope.relationship.parcel_id, layer, $scope.relationship);
+
+                    createRelationship.then(function (response) {
+                        if (response.cadasta_relationship_id){
+
+
+                            $rootScope.$broadcast('new-relationship');
+                            getParcelDetails();
+
+                            var timeoutID = window.setTimeout(function() {
+                                $scope.cancel();
+                            }, 300);
+                        }
+                    }).catch(function(err){
+
+                        $scope.parcelCreated ='unable to create parcel';
+                    });
+
+                }
+            }
+
+            $scope.tenure_types = [
+                {
+                    type: 'own',
+                    label: 'Own'
+                },
+                {
+                    type: 'lease',
+                    label: 'Lease'
+                },
+                {
+                    type: 'occupy',
+                    label: 'Occupy'
+                },
+                {
+                    type: 'informal occupy',
+                    label: 'Informally Occupy'
+                }
+            ];
+        }
+
+
+        function addMap(map) {
+
+            var map = L.map('editParcelMap');
+
+            L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+                attribution: '',
+                id: 'spatialdev.map-rpljvvub',
+                zoomControl: true,
+                accessToken: 'pk.eyJ1Ijoic3BhdGlhbGRldiIsImEiOiJKRGYyYUlRIn0.PuYcbpuC38WO6D1r7xdMdA#3/0.00/0.00'
+            }).addTo(map);
+
+
+            var featureGroup = L.featureGroup().addTo(map);
+            var parcelGroup = L.featureGroup().addTo(map);
+
+
+            var editIcon = L.icon({
+                iconUrl: '/images/orange_marker.png',
+                iconSize: [30, 30]
+
+            });
+
+            var options = {
+                draw: {
+                    polyline: {
+                        shapeOptions: {
+                            "color": "#88D40E",
+                            "stroke": "#88D40E",
+                            "stroke-width": 1,
+                            "fill-opacity":.7,
+                            "stroke-opacity":.8
+                        }
+                    },
+                    polygon: {
+                        shapeOptions: {
+                            "color": "#88D40E",
+                            "stroke": "#88D40E",
+                            "stroke-width": 1,
+                            "fill-opacity":.7,
+                            "stroke-opacity":.8
+                        }
+                    },
+                    circle: false,
+                    rectangle: {
+                        shapeOptions: {
+                            "color": "#88D40E",
+                            "stroke": "#88D40E",
+                            "stroke-width": 1,
+                            "fill-opacity":.7,
+                            "stroke-opacity":.8
+                        }
+                    },
+                    marker: {
+                        icon : editIcon
+                    }
+                },
+                edit: {
+                    featureGroup: featureGroup
+                }
+            };
+
+            var drawControl = new L.Control.Draw(options).addTo(map);
+
+            //when a new parcel is added, save the layer to a feature group
+            map.on('draw:created', function (e) {
+
+                featureGroup.addLayer(e.layer);
+                $scope.layer = e.layer;
+            });
+
+            //only allow one parcel to be drawn at a time
+            map.on('draw:drawstart', function (e) {
+                featureGroup.clearLayers();
+            });
+
+
+            var extentStyle = {
+                "color": "#256c97",
+                "stroke": "#256c97",
+                "stroke-width": 1,
+                "fill-opacity":.1,
+                "stroke-opacity":.7
+            };
+
+            var parcelStyle = {
+                "color": "#e54573",
+                "stroke": "#e54573",
+                "stroke-width": 1,
+                "fill-opacity":.8,
+                "stroke-opacity":.8,
+                "marker-color":"#e54573"
+            };
+
+            var selectParcel = function(parcelId) {
+                $scope.relationship.parcel_id = parcelId;
+            }
+
+
+            $('#editParcelMap').on('click', '.popup', function() {
+                alert('Hello from Toronto!' );
+            });
+
+
+            //add all parcels to the map
+            var promise = dataService.getCadastaMapData(cadastaProject.id);
+
+            promise.then(function (response) {
+
+                // If there is a project extent add it to the map
+                projectLayer = L.geoJson(response.project.features, {style: extentStyle});
+                projectLayer.addTo(map);
+
+                response.parcels.features.forEach(function (parcel) {
+                    var popup_content = '<div id="parcelSelectPopup" class="popup">Select Parcel <span id="parcelToSelect">'+ parcel.properties.id +'</span></div>';
+                    var parcelToAdd = L.geoJson(parcel, {style: parcelStyle});
+                    parcelToAdd.bindPopup(popup_content);
+                    parcelToAdd.addTo(parcelGroup);
+                });
+
+                //zoom to project extent
+                if(response.project.features[0].geometry !== null){
+                    map.fitBounds(projectLayer.getBounds());
+                } else if (response.parcels.features.length > 0) {
+                    console.log(response.parcels.features.length)
+                    map.fitBounds(parcelGroup.getBounds());
+                } else {
+                    map.setView([lat, lng], zoom);
+                }
+
+            }, function (err) {
+                console.error(err);
+            });
+
+
+
+            //parcelLayer.addTo(map);
+            //map.fitBounds(parcelLayer.getBounds());
+            //
+            ////prepopulate fields to update with existing data
+            //$scope.parcel.pinid = $scope.parcelObject.properties.gov_pin;
+            //$scope.parcel.landuse = $scope.parcelObject.properties.land_use;
         }
 
     }]);

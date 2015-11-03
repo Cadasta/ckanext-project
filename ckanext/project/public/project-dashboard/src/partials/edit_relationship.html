@@ -22,7 +22,7 @@
 
 
                             <md-input-container md-no-float class="md-block add-relationship-format">
-                                <input ng-model="searchText" placeholder="Begin typing to search for a Party">
+                                <input ng-model="searchText" placeholder="{{relationship.properties.first_name}} {{relationship.properties.last_name}}">
                             </md-input-container>
 
 
@@ -65,6 +65,10 @@
 
                             <md-datepicker class="md-block add-relationship-format" ng-model="relationship.acquisition_date" md-placeholder="Date of acquisition"></md-datepicker>
                             <br><br>
+
+                            <md-input-container md-no-float flex class="relationship-notes md-block">
+                                <textarea ng-model="relationship.description" columns="1" md-maxlength="150" placeholder="Notes"></textarea>
+                            </md-input-container>
                         </form>
                     </md-content>
 

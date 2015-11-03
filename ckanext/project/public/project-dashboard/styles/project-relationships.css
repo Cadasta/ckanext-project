@@ -41,8 +41,8 @@
 }
 
 .add-relationship md-input-container.add-relationship-format {
-    width:300px;
-    padding-right:25px;
+    width: 368px;
+    padding-right: 18px;
  }
 
 .add-relationship md-input-container.add-relationship-format input {
@@ -71,7 +71,8 @@ md-datepicker.add-relationship-format .md-datepicker-input {
 
 #editRelationshipMap {
     width: 780px;
-    height: 300px;
+    height: 315px;
+    margin-top: -35px;
 }
 
 .cadasta-round-button.right.relationship {
@@ -80,4 +81,22 @@ md-datepicker.add-relationship-format .md-datepicker-input {
 
 .cadasta-round-button.right.relationship-page-layout {
     margin: -5px 20px 0 0;
+}
+
+
+md-input-container.relationship-notes textarea {
+    height: 80px!important;
+    width: 758px;
+    margin-left: -5px;
+    margin-top: -15px;
+    border: 1px solid #dcdfe1;
+    box-shadow: none;
+}
+
+.md-datepicker-input-container {
+    width: 312px;
+    margin-left: 12px;
+    height: 26px;
+    margin-bottom: 35px;
+    margin-top: 23px;
 }

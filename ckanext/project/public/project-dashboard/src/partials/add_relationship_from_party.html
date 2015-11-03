@@ -18,35 +18,7 @@
                         <form name="userForm">
                             <div layout layout-sm="column">
                             </div>
-                            <p>1. Select a party and enter relationship details.</p>
-
-
-                            <md-input-container md-no-float class="md-block add-relationship-format">
-                                <input ng-model="searchText" placeholder="Begin typing to search for a Party">
-                            </md-input-container>
-
-
-                            <div ng-show="relationship.party" flex-initial>
-                                     <span class="title">Selected User</span>: <span class="md-checked">
-                                        <span ng-show="relationship.party.properties.first_name">{{relationship.party.properties.first_name}} {{relationship.party.properties.last_name}}</span>
-                                        <span ng-show="relationship.party.properties.group_name">{{relationship.party.properties.group_name}}</span>
-                                        <span>, Party Id: {{relationship.party.properties.id}}</span>
-                                    </span>
-                            </div>
-                            <br>
-                            <md-radio-group ng-model="relationship.party" ng-show="searchText.length > 0" >
-                                <div ng-repeat='party in parties | filter:searchText' class="row">
-                                    <div>
-                                        <md-radio-button flex
-                                                         ng-value="party"
-                                                         class="md-primary" >
-                                            <span ng-show="party.properties.first_name">{{party.properties.first_name}} {{party.properties.last_name}}</span>
-                                            <span ng-show="party.properties.group_name">{{party.properties.group_name}}</span>
-                                        </md-radio-button>
-                                    </div>
-                                </div>
-                            </md-radio-group>
-
+                            <p>1. Enter relationship details.</p>
 
                             <md-input-container class="add-relationship-format">
                                 <label>Tenure Type</label>
@@ -73,7 +45,7 @@
                         </form>
                     </md-content>
 
-                    <p>2. Draw the relationship geometry using the tools on the left.</p>
+                    <p>2. Select a parcel and draw the relationship geometry using the tools on the left.</p>
                     <br><br>
 
                     <div id="editParcelMap"></div>
@@ -95,7 +67,7 @@
                 <div class="resource-upload-error">
                     {{relationshipCreated}}
                 </div>
-
+                <span>Parcel Selected: {{relationship.parcel_id}}</span>
                 <div class="cadasta-button right parcel-save" ng-click="saveNewRelationship(cadastaProjectId, layer, relationship)">Save Relationship</div>
             </div>
         </md-dialog-content>
