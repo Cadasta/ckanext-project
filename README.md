@@ -1,15 +1,19 @@
-#ckanext-project: Extends core CKAN for Cadasta application
+#ckanext-project: extends CKAN for Cadasta
 
 This CKAN extension modifies and extends the core CKAN code-base to provide the additional permissions, API, features and user interface required by the Cadasta application.
 
 ## Plugins
 This extension includes three plugins:   
 
-**cadastaroles:**   
-**organization:**  
-**project:**.
+**cadastaroles:** extended permissions/roles and the "pass-through" api
 
-##Installation
+**organization:** create/edit/delete organization workflow
+
+**project:** create/edit/delete project workflow
+
+It also includes static resources for the Angular.js applications used for the more complicated project and organization dashboards.
+
+##Extenstion Installation
 
 ###Linux OS
 Assuming you have already installed core CKAN, clone the extension repo:
@@ -63,7 +67,7 @@ At ckan-chef repository root:
 # make synced_folders directory if it doesn't already exist
 > mkdir synced_folders
 
-cd synced_folders
+> cd synced_folders
 
 # Clone the extension
 > git clone https://github.com/Cadasta/ckanext-project.git
