@@ -67,7 +67,7 @@ At ckan-chef repository root:
 # make synced_folders directory if it doesn't already exist
 > mkdir synced_folders
 
-cd synced_folders
+> cd synced_folders
 
 # Clone the extension
 > git clone https://github.com/Cadasta/ckanext-project.git
