@@ -14,6 +14,7 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
             $rootScope.$broadcast('clear-inner-relationship-tab');
         };
 
+
         //parse map query param
         var mapArr = mapStr.substring(1,mapStr.length-1).split(',');
 
@@ -31,8 +32,8 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
         };
 
         var relationshipStyle = {
-            "color": "#88D40E",
-            "stroke": "#88D40E",
+            "color": "#FF8000",
+            "stroke": "#FF8000",
             "opacity":.8,
             "fillOpacity":.5,
             "weight" : 1
@@ -65,7 +66,6 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
 
         //add layer for adding parcels
         var relationshipGroup = L.featureGroup().addTo(map);
-        var relationshipParcelLayer = null;
 
         getRelationship();
         getRelationshipResources();
@@ -79,8 +79,6 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
                     if(response.geometry !== null){
                         var layer = L.geoJson(response, {style: parcelStyle}).addTo(relationshipGroup);
                         map.fitBounds(layer.getBounds());
-
-                        relationshipParcelLayer = layer;
                     }
 
                 })
@@ -192,6 +190,16 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
 
         function addMap(map) {
 
+
+            var mapStr = $stateParams.map;
+
+            //parse map query param
+            var mapArr = mapStr.substring(1,mapStr.length-1).split(',');
+
+            var lat = mapArr[0];
+            var lng = mapArr[1];
+            var zoom = mapArr[2];
+
             var map = L.map('editRelationshipMap');
 
             L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
@@ -200,6 +208,8 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
                 zoomControl: true,
                 accessToken: 'pk.eyJ1Ijoic3BhdGlhbGRldiIsImEiOiJKRGYyYUlRIn0.PuYcbpuC38WO6D1r7xdMdA#3/0.00/0.00'
             }).addTo(map);
+
+            map.setView([lat, lng], zoom);
 
             var featureGroup = L.featureGroup().addTo(map);
 
@@ -259,7 +269,6 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
             //only allow one parcel to be drawn at a time
             map.on('draw:drawstart', function (e) {
                 featureGroup.clearLayers();
-
             });
 
 
@@ -268,7 +277,7 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
                 "stroke": "#e54573",
                 "stroke-width": 1,
                 "fill-opacity":.8,
-                "stroke-opacity":.8,
+                "stroke-opacity":.8
             };
 
             var relationshipStyle = {
@@ -276,19 +285,39 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
                 "stroke": "#FF8000",
                 "stroke-width": 1,
                 "fill-opacity":.8,
-                "stroke-opacity":.8,
+                "stroke-opacity":.8
             };
 
-            //add parcel extent to the map
-            //if (relationshipParcelLayer) {
-            //    var parcelLayer = L.geoJson(relationshipParcelLayer, {style: parcelStyle}).addTo(map);
-            //    map.fitBounds(parcelLayer.getBounds());
-            //}
+
+            //add parcel data to the map
+                var promise = parcelService.getProjectParcel(cadastaProject.id, $scope.relationship.properties.parcel_id);
+
+                promise.then(function(response){
+
+                        if(response.geometry !== null){
+                            var layer = L.geoJson(response, {style: parcelStyle}).addTo(map);
+                            map.fitBounds(layer.getBounds());
+                        }
+                    });
+
 
             //add relationship extent to the map
+            var promise = relationshipService.getProjectRelationship(cadastaProject.id, $stateParams.id);
+
+            promise.then(function(response) {
+
+                if (response.geometry) {
+                    var layer = L.geoJson(response, {style: relationshipStyle}).addTo(map);
+                    map.fitBounds(layer.getBounds());
+                } else {
+                    map.setView([lat, lng], zoom);
+                }
+            }
 
             //prepopulate fields to update with existing data
-            $scope.relationship.party.id = $scope.relationship.properties.gov_pin;
+            $scope.relationship.tenure_type = $scope.relationship.properties.tenure_type;
+            $scope.relationship.how_acquired = $scope.relationship.properties.how_acquired;
+            $scope.relationship.acquired_date = $scope.relationship.properties.acquired_date;
 
 
         }
@@ -334,34 +363,34 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
 
 
             $scope.updateRelationship = function (projectId) {
-            //
-            //    var layer = getLayer();
-            //
-            //    if (layer === undefined) {
-            //        layer = null;
-            //    } else {
-            //        layer = layer.toGeoJSON();
-            //    }
-            //    var updateExistingParcel = parcelService.updateProjectParcel(cadastaProject.id, $stateParams.id, layer, $scope.parcel);
-            //
-            //    updateExistingParcel.then(function (response) {
-            //        if (response.cadata_parcel_history_id){
-            //
-            //            $scope.parcelCreated = 'parcel successfully updated';
-            //
-            //            $rootScope.$broadcast('updated-parcel');
-            //
-            //            getParcelDetails();
-            //
-            //            var timeoutID = window.setTimeout(function() {
-            //                $scope.cancel();
-            //            }, 300);
-            //        }
-            //    }).catch(function(err){
-            //
-            //        $scope.parcelCreated ='unable to update parcel';
-            //    });
-            //
+
+                var layer = getLayer();
+
+                if (layer === undefined) {
+                    layer = null;
+                } else {
+                    layer = layer.toGeoJSON();
+                }
+                var updateExistingRelationship = relationshipService.updateProjectRelationship(cadastaProject.id, $stateParams.id, layer, $scope.relationship);
+
+                updateExistingRelationship.then(function (response) {
+                    if (response.cadata_relationship_history_id){
+
+                        $scope.relationshipCreated = 'relationship successfully updated';
+
+                        $rootScope.$broadcast('updated-relationship');
+
+                        getParcelDetails();
+
+                        var timeoutID = window.setTimeout(function() {
+                            $scope.cancel();
+                        }, 300);
+                    }
+                }).catch(function(err){
+
+                    $scope.relationshipCreated ='unable to update relationship';
+                });
+
             }
 
             $scope.tenure_types = [

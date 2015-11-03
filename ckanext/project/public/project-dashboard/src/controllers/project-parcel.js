@@ -172,7 +172,6 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
         $scope.error = '';
         $scope.progress = 0;
 
-
         function addMap(map) {
 
             var map = L.map('editParcelMap');
@@ -299,9 +298,6 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
 
         }
 
-        function getLayer() {
-            return $scope.layer;
-        }
 
         //modal for adding a parcel
         $scope.updateParcelModal = function (ev) {
@@ -314,6 +310,10 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
                 locals: {cadastaProject: cadastaProject, parcel:$scope.parcel}
             })
         };
+
+        function getLayer() {
+            return $scope.layer;
+        }
 
         function updateParcelCtrl($scope, $mdDialog, $stateParams, parcel, cadastaProject) {
             $scope.hide = function () {
@@ -401,6 +401,10 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
             $scope.saveNewRelationship = function () {
 
                 var layer = getLayer();
+
+                if (layer) {
+                    layer = layer.toGeoJSON().geometry;
+                }
 
                 if ($scope.relationship.party == undefined) {
                     $scope.relationshipCreated = "party required";
