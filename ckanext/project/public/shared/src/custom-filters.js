@@ -6,8 +6,14 @@ angular.module('app.filters', [])
             return input == null ? '-' : input;
         }
     })
+    .
+    filter('capitalize', function() {
+        return function(input, all) {
+            var reg = (all) ? /([^\W_]+[^\s-]*) */g : /([^\W_]+[^\s-]*)/;
+            return (!!input) ? input.replace(reg, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();}) : '';
+        }
+    })
 
-// custom tenure type filter
     .filter('resourceType', function () {
         return function (inputs, filter_type) {
             var output = [];
@@ -169,7 +175,7 @@ angular.module('app.filters', [])
                             name2 = b.properties.group_name
                         }
 
-                        return name2 > name1 ? -1 : 1;
+                        return name2.toLowerCase() > name1.toLowerCase() ? -1 : 1;
                     });
                     return arr;
                     break;
