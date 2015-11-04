@@ -22,6 +22,17 @@
                         <span class="caption">Type</span>
                         <span>{{party.type}}</span>
                         <br>
+                        <span class="caption">National ID</span>
+                        <span>{{party.national_id}}</span>
+                        <br>
+                        <div ng-show="party.type === 'individual'">
+                            <span class="caption">Gender</span>
+                            <span>{{party.gender}}</span>
+                            <br>
+                            <span class="caption">Date of Birth</span>
+                            <span>{{party.dob}}</span>
+                            <br>
+                        </div>
                     </div>
 
                     <div class="relationship-container">

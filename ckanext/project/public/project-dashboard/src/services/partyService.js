@@ -91,15 +91,17 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            var first_name = null;
-            var last_name = null;
-            var group_name = null;
-            var party_type = null;
+            var first_name = null, last_name = null, group_name = null, party_type = null,
+            national_id = null, dob = null, gender = null, description = null; 
 
             if (party.first_name) { first_name = party.first_name }
             if (party.last_name) { last_name = party.last_name }
             if (party.group_name) { group_name = party.group_name }
             if (party.party_type) { party_type = party.party_type }
+            if (party.national_id) { national_id = party.national_id }
+            if (party.dob) { dob = party.dob }
+            if (party.gender) { gender = party.gender }
+            if (party.description) { description = party.description }
 
 
             if (first_name || group_name) {
@@ -110,7 +112,11 @@ var app = angular.module("app")
                         first_name: first_name,
                         last_name: last_name,
                         group_name: group_name,
-                        party_type: party_type
+                        party_type: party_type,
+                        national_id: national_id,
+                        dob: dob,
+                        gender: gender,
+                        notes: description
                     }),
                     headers: {
                         'Content-type': 'application/json'
