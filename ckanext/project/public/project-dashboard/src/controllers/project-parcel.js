@@ -12,11 +12,12 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
 
         var parcelStyle = {
             "color": "#e54573",
-            "stroke": "#e54573",
-            "weight": 1,
-            "fillOpacity": .5,
+            "stroke": true,
+            "weight": 3,
+            "fillOpacity": .1,
             "opacity": .8,
-            "marker-color": "#e54573"
+            "marker-color": "#e54573",
+            "clickable" : false
         };
 
 
@@ -124,7 +125,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
                         name = v.properties.group_name;
                     }
 
-                    var popup_content = '<h3>Relationship ' + v.properties.id + '</h3><p>' + v.properties.tenure_type + ' by ' + name + '</p><a ui-sref="tabs.relationships{id: ' + v.properties.id + '}"> See Full Details<i class="material-icons arrow-forward">arrow_forward</i></a>';
+                    var popup_content = '<h3>Relationship ' + v.properties.id + '</h3><p class="popup-text">Tenure Type:' + v.properties.tenure_type + ' </p><p class="popup-text">Party: ' + name + '</p><a href="#/relationships/' + v.properties.id + '"> See Full Details<i class="material-icons arrow-forward">arrow_forward</i></a>';
 
 
                     if(v.geometry !== null){
@@ -437,7 +438,8 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
                     "stroke": "#256c97",
                     "stroke-width": 1,
                     "fill-opacity":.1,
-                    "stroke-opacity":.7
+                    "stroke-opacity":.7,
+                    "clickable":false
                 };
 
 
@@ -446,16 +448,17 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
                     var layer = L.geoJson(response.features[0], {style: extentStyle});
                     layer.addTo(parcelGroup);
                 }
-
             });
+
 
             var parcelStyle = {
                 "color": "#e54573",
-                "stroke": "#e54573",
-                "stroke-width": 1,
-                "fill-opacity":.8,
-                "stroke-opacity":.8,
-                "marker-color":"#e54573"
+                "stroke": true,
+                "weight": 3,
+                "fillOpacity": .1,
+                "opacity": .8,
+                "marker-color": "#e54573",
+                "clickable" : false
             };
 
             //add parcel extent to the map

@@ -24,11 +24,12 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
 
         var parcelStyle = {
             "color": "#e54573",
-            "stroke": "#e54573",
-            "weight": 1,
-            "fillOpacity": .5,
+            "stroke": true,
+            "weight": 3,
+            "fillOpacity": .1,
             "opacity": .8,
-            "marker-color": "#e54573"
+            "marker-color": "#e54573",
+            "clickable": false
         };
 
         var relationshipStyle = {
@@ -36,7 +37,8 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
             "stroke": "#FF8000",
             "opacity":.8,
             "fillOpacity":.5,
-            "weight" : 1
+            "weight" : 1,
+            "clickable" : false
         };
 
         // setup map
@@ -318,7 +320,7 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
                     polyline: {
                         shapeOptions: {
                             "color": "#88D40E",
-                            "stroke": "#88D40E",
+                            "stroke": true,
                             "stroke-width": 1,
                             "fill-opacity":.7,
                             "stroke-opacity":.8
@@ -327,7 +329,7 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
                     polygon: {
                         shapeOptions: {
                             "color": "#88D40E",
-                            "stroke": "#88D40E",
+                            "stroke": true,
                             "stroke-width": 1,
                             "fill-opacity":.7,
                             "stroke-opacity":.8
@@ -337,7 +339,7 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
                     rectangle: {
                         shapeOptions: {
                             "color": "#88D40E",
-                            "stroke": "#88D40E",
+                            "stroke": true,
                             "stroke-width": 1,
                             "fill-opacity":.7,
                             "stroke-opacity":.8
@@ -371,16 +373,18 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
                 "color": "#e54573",
                 "stroke": "#e54573",
                 "stroke-width": 1,
-                "fill-opacity":.8,
-                "stroke-opacity":.8
+                "fill-opacity":.1,
+                "stroke-opacity":.8,
+                "clickable" : false
             };
 
             var relationshipStyle = {
                 "color": "#FF8000",
                 "stroke": "#FF8000",
                 "stroke-width": 1,
-                "fill-opacity":.8,
-                "stroke-opacity":.8
+                "fill-opacity":.5,
+                "stroke-opacity":.8,
+                "clickable" : false
             };
 
 
