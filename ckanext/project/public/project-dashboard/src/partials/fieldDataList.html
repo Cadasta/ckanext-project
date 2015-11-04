@@ -1,0 +1,50 @@
+<div id="parcelFilter" class="filter">
+    <div layout="row">
+
+
+
+        <md-button class='cadasta-round-button right' ng-click="addParcelModal()"> Add Parcel </md-button>
+        <div id="project-header">
+
+        <h3>Upload XLS form</h3>
+
+        <input type="file" nv-file-select uploader="uploader"/><br/>
+
+        <li ng-repeat="item in uploader.queue">
+        Name: <span ng-bind="item.file.name"></span><br/>
+        <button ng-click="item.upload()">upload</button>
+        </li>
+
+        <div ng-show="progress>0">progres: {{progress}}</div>
+        <div>status: {{response}}</div>
+        </div>
+
+
+    </div>
+</div>
+<table id="parcel-table-header">
+    <thead>
+    <tr>
+        <th>Field Data ID</th>
+        <th>Name</th>
+        <th>ONA ID</th>
+        <th>Date Created</th>
+    </tr>
+    </thead>
+</table>
+
+<!--<div id="parcelList">-->
+    <!--<table>-->
+        <!--<tbody>-->
+        <!--<tr class="row-link" ng-show="parcelsList.length ==0 " ng-repeat="parcel in parcels | customFilter: TenureTypeModel"-->
+            <!--ng-class="{'last-table-element':$index == parcels.length-1}" ui-sref="^.parcel({id: parcel.properties.id})">-->
+            <!--<td>{{parcel.properties.id}}</td>-->
+            <!--<td>{{parcel.properties.area | number:0 | emptyString}}</td>-->
+            <!--<td>{{parcel.properties.length | number:0 | emptyString}}</td>-->
+            <!--<td>{{parcel.properties.tenure_type.length}}</td>-->
+            <!--<td>{{parcel.properties.time_created}}</td>-->
+        <!--</tr>-->
+        <!--</tbody>-->
+    <!--</table>-->
+<!--</div>-->
+

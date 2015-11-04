@@ -8,7 +8,7 @@ module.exports = function(grunt) {
 		ngconstant: {
 			// Options for all targets
 			options: {
-				name: 'env.config',
+				name: 'env.config'
 			},
 			// Environment targets
 			development: {
@@ -127,6 +127,8 @@ module.exports = function(grunt) {
 						"ckanext/project/public/project-dashboard/src/controllers/project-relationship.js",
 						"ckanext/project/public/project-dashboard/src/controllers/project-relationships.js",
 						"ckanext/project/public/project-dashboard/src/controllers/project-party.js",
+						"ckanext/project/public/project-dashboard/src/controllers/project-fieldDatum.js",
+						"ckanext/project/public/project-dashboard/src/controllers/project-fieldData.js",
 						"ckanext/project/public/project-dashboard/src/controllers/project-parties.js",
 						"ckanext/project/public/project-dashboard/src/controllers/project-resources.js",
 						"ckanext/project/public/project-dashboard/src/controllers/project-activity_list.js",
@@ -183,6 +185,7 @@ module.exports = function(grunt) {
 						"ckanext/project/public/shared/styles/ckanext_project.css",
 						"ckanext/project/public/shared/styles/material-design-icons.css",
 						"ckanext/project/public/shared/styles/tabs.css",
+						"ckanext/project/public/project-dashboard/styles/theme-blue.css",
 						"ckanext/project/public/project-dashboard/styles/parcels.css",
 						"ckanext/project/public/project-dashboard/styles/project_overview.css",
 						"ckanext/project/public/project-dashboard/styles/project-relationships.css",

@@ -281,10 +281,8 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
                     createRelationship.then(function (response) {
                         if (response.cadasta_relationship_id){
 
-
                             $rootScope.$broadcast('new-relationship');
                             getPartyDetails ();
-
 
                             var timeoutID = window.setTimeout(function() {
                                 $scope.cancel();
@@ -294,7 +292,6 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
 
                         $scope.parcelCreated ='unable to create parcel';
                     });
-
                 }
             }
 

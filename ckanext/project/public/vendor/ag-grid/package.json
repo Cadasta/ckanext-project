@@ -1,0 +1,93 @@
+{
+  "_args": [
+    [
+      "ag-grid",
+      "/Users/sarahbindman/PycharmProjects/ckan-chef/synced_folders/ckanext-project"
+    ]
+  ],
+  "_from": "ag-grid@*",
+  "_id": "ag-grid@2.3.5",
+  "_inCache": true,
+  "_location": "/ag-grid",
+  "_nodeVersion": "4.1.2",
+  "_npmUser": {
+    "email": "niall.crosby@gmail.com",
+    "name": "ceolter"
+  },
+  "_npmVersion": "2.14.4",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "ag-grid",
+    "raw": "ag-grid",
+    "rawSpec": "",
+    "scope": null,
+    "spec": "*",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/ag-grid/-/ag-grid-2.3.5.tgz",
+  "_shasum": "35d368300929b71ec6b8d34ed77dbbb30dfb9b8c",
+  "_shrinkwrap": null,
+  "_spec": "ag-grid",
+  "_where": "/Users/sarahbindman/PycharmProjects/ckan-chef/synced_folders/ckanext-project",
+  "author": {
+    "email": "info@angulargrid.com",
+    "name": "Niall Crosby"
+  },
+  "bugs": {
+    "url": "https://github.com/ceolter/ag-grid/issues"
+  },
+  "dependencies": {},
+  "description": "Advanced Framework Agnostic Javascript Datagrid.",
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-foreach": "^0.1.0",
+    "gulp-header": "^1.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "1.5.2",
+    "gulp-stylus": "^2.0.1",
+    "gulp-tsd": "0.0.4",
+    "gulp-typescript": "^2.5.0",
+    "gulp-uglify": "^1.2.0",
+    "merge2": "0.3.6",
+    "nib": "^1.1.0",
+    "stylus": "^0.50.0",
+    "typescript": "1.6.2",
+    "vinyl-buffer": "^1.0.0"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "35d368300929b71ec6b8d34ed77dbbb30dfb9b8c",
+    "tarball": "http://registry.npmjs.org/ag-grid/-/ag-grid-2.3.5.tgz"
+  },
+  "gitHead": "f467864d9efd4e42c4893cdef4a03235d4c9b884",
+  "homepage": "http://www.ag-grid.com/",
+  "installable": true,
+  "keywords": [
+    "angular",
+    "data",
+    "grid",
+    "table",
+    "web-components"
+  ],
+  "license": "MIT",
+  "main": "dist/ag-grid.min.js",
+  "maintainers": [
+    {
+      "name": "ceolter",
+      "email": "niall.crosby@gmail.com"
+    }
+  ],
+  "name": "ag-grid",
+  "optionalDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ceolter/ag-grid.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "2.3.5"
+}
