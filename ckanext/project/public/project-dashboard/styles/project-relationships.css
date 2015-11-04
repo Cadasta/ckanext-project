@@ -7,6 +7,7 @@
 .add-party md-input-container.pin-id {
     width: auto;
     margin-right: 25px;
+    padding:0;
 }
 
 .add-party md-input-container.pin-id.group-name {
@@ -56,6 +57,10 @@ md-datepicker.add-relationship-format {
 
 md-datepicker.add-relationship-format .md-datepicker-input-container {
     border: 1px solid #dcdfe1;
+}
+
+md-datepicker.add-relationship-format.party .md-datepicker-input-container {
+    width:307px;
 }
 
 

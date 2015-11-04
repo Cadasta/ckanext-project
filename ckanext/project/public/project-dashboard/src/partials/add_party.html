@@ -34,6 +34,8 @@
                                     <label>Last Name</label>
                                     <input ng-model="party.last_name">
                                 </md-input-container>
+                                <br><br><br>
+                                <div></div>
 
                                 <md-input-container md-no-float flex class="pin-id group-name" ng-show="(party.party_type === 'group')">
                                     <label>Name</label>
@@ -41,6 +43,40 @@
                                 </md-input-container>
                             </div>
                         </md-content>
+
+                        <md-content class="layout-padding left add-parcel-extra-fields" >
+                            <div layout layout-sm="column">
+
+
+                                <md-input-container md-no-float flex class="pin-id" >
+                                    <label>National ID</label>
+                                    <input ng-model="party.national_id">
+                                </md-input-container>
+
+                                <md-input-container md-no-float flex class="pin-id" ng-show="(party.party_type === 'individual')">
+                                    <label>Gender</label>
+                                    <input ng-model="party.gender">
+                                </md-input-container>
+
+
+                            </div>
+                        </md-content>
+
+                        <md-content class="layout-padding left add-parcel-extra-fields" >
+                            <div layout layout-sm="column">
+                                <md-datepicker  ng-show="(party.party_type === 'individual')" class="md-block add-relationship-format party" ng-model="party.dob" md-placeholder="Date of birth"></md-datepicker>
+                            </div>
+                        </md-content>
+
+                        <md-content class="layout-padding left add-parcel-extra-fields" >
+                            <div layout layout-sm="column">
+                                <md-input-container md-no-float flex class="relationship-notes md-block">
+                                    <textarea ng-model="party.description" columns="1" md-maxlength="150" placeholder="Notes"></textarea>
+                                </md-input-container>
+
+                            </div>
+                        </md-content>
+
                     </div>
                 </div>
                 <div class="cadasta-button right parcel-save" ng-click="saveNewParty(cadastaProjectId, party)">Save Party</div>
