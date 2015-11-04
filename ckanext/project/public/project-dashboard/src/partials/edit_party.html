@@ -5,7 +5,7 @@
             <div class="form_upload_content add-party">
                 <div class="cadasta-modal-header">
                     <div class="small-heading">
-                        Add Party
+                        Edit Party
                     </div>
                     <div class="right">
                         <md-button class="md-icon-button" ng-click="cancel()">
@@ -15,8 +15,7 @@
                 </div>
                 <div class="modal-content">
                     <div>
-
-                        <md-radio-group ng-model="party.party_type" ng-init="party.party_type='individual'" >
+                        <md-radio-group ng-model="party.party_type" ng-init="party.party_type=party.type" >
                             <label class="party-type">Party Type</label>
                             <md-radio-button value="individual" class="md-primary">Individual</md-radio-button>
                             <md-radio-button value="group">Group</md-radio-button>
@@ -57,7 +56,6 @@
                                     <label>Gender</label>
                                     <input ng-model="party.gender">
                                 </md-input-container>
-
 
                             </div>
                         </md-content>
