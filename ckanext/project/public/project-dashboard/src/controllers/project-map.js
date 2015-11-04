@@ -25,6 +25,7 @@ app.controller("projectMapCtrl", ['$scope', '$state', '$stateParams', '$location
 
         // setup map
         var map = L.map('projectBigMap', {scrollWheelZoom: false});
+        $scope.map = map; //expose map for testing
 
         // After each pan or zoom
         map.on('moveend', function () {
