@@ -224,5 +224,13 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('default', []);
 
-	grunt.registerTask('build', ['ngconstant:' + env,'uglify:projectDashboard','uglify:organizationDashboard', 'cssmin:projectDashboard','cssmin:organizationDashboard', 'cachebreaker:projectDashboard', 'cachebreaker:organizationDashboard']);
+	grunt.registerTask('build', [
+		'ngconstant:' + env,
+		'uglify:projectDashboard',
+		'uglify:organizationDashboard',
+		'cssmin:projectDashboard',
+		'cssmin:organizationDashboard',
+		'cachebreaker:projectDashboard',
+		'cachebreaker:organizationDashboard'
+	]);
 };
