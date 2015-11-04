@@ -14,4 +14,4 @@ This extension includes three plugins:
 It also includes static resources for the Angular.js applications used for the more complicated project and organization dashboards.
 
 
-####[Installation Details](docs/extenstion-installation.md)
+####[Installation Details](https://github.com/Cadasta/ckanext-project/blob/master/docs/extension-installation.md)
