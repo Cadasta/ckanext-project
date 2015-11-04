@@ -534,6 +534,8 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
 
         }
 
+        // TODO move to config or service
+        // TODO create endpoint that grabs project specific tenure types
         $scope.tenure_types = [
 
             {

@@ -215,9 +215,10 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
                 $mdDialog.cancel();
             };
 
+            relationship.properties.acquired_date = new Date(relationship.properties.acquired_date.replace(/-/g,'/'));
+
             $scope.cadastaProjectId = cadastaProject.id;
             $scope.relationship = relationship;
-
 
             var promise = partyService.getProjectParties(cadastaProject.id);
 
@@ -229,6 +230,13 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
             });
 
 
+            // set date picker's max date to today
+            $scope.myDate = new Date();
+
+            $scope.maxDate = new Date(
+                $scope.myDate.getFullYear(),
+                $scope.myDate.getMonth(),
+                $scope.myDate.getDate());
 
             $scope.updateRelationship = function (projectId) {
 
@@ -242,13 +250,11 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
                 var updateExistingRelationship = relationshipService.updateProjectRelationship(cadastaProject.id, $stateParams.id, layer, $scope.relationship);
 
                 updateExistingRelationship.then(function (response) {
-                    if (response.cadata_relationship_history_id){
-
-                        $scope.relationshipCreated = 'relationship successfully updated';
+                    if (response.cadasta_relationship_history_id){
 
                         $rootScope.$broadcast('updated-relationship');
 
-                        getParcelDetails();
+                        getRelationship();
 
                         var timeoutID = window.setTimeout(function() {
                             $scope.cancel();

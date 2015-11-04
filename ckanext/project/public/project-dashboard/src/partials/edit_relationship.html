@@ -16,37 +16,7 @@
                 <div class="modal-content">
                     <md-content layout-padding>
                         <form name="userForm">
-                            <div layout layout-sm="column">
-                            </div>
-                            <p>1. Select a party and enter relationship details.</p>
-
-
-                            <md-input-container md-no-float class="md-block add-relationship-format">
-                                <input ng-model="searchText" placeholder="{{relationship.properties.first_name}} {{relationship.properties.last_name}}">
-                            </md-input-container>
-
-
-                            <div ng-show="relationship.party" flex-initial>
-                                <span class="title">Selected User</span>: <span class="md-checked">
-                                        <span ng-show="relationship.party.properties.first_name">{{relationship.party.properties.first_name}} {{relationship.party.properties.last_name}}</span>
-                                        <span ng-show="relationship.party.properties.group_name">{{relationship.party.properties.group_name}}</span>
-                                        <span>, Party Id: {{relationship.party.properties.id}}</span>
-                                    </span>
-                            </div>
-                            <br>
-                            <md-radio-group ng-model="relationship.party" ng-show="searchText.length > 0" >
-                                <div ng-repeat='party in parties | filter:searchText' class="row">
-                                    <div>
-                                        <md-radio-button flex
-                                                         ng-value="party"
-                                                         class="md-primary" >
-                                            <span ng-show="party.properties.first_name">{{party.properties.first_name}} {{party.properties.last_name}}</span>
-                                            <span ng-show="party.properties.group_name">{{party.properties.group_name}}</span>
-                                        </md-radio-button>
-                                    </div>
-                                </div>
-                            </md-radio-group>
-
+                            <div layout="row">
 
                             <md-input-container class="add-relationship-format">
                                 <label>Tenure Type</label>
@@ -57,17 +27,21 @@
                                 </md-select>
                             </md-input-container>
 
+                             <md-input-container class="md-block add-relationship-format">
+                                    <label>How acquired</label>
+                                    <input ng-model="relationship.how_acquired"
+                                           placeholder="{{relationship.properties.how_acquired}}">
+                                </md-input-container>
+                            </div>
 
-                            <md-input-container md-no-float class="md-block add-relationship-format">
-                                <input ng-model="relationship.acquired_type" placeholder="How was the parcel acquired?">
-                            </md-input-container>
+                            <md-datepicker md-max-date="maxDate"
+                                           ng-model="relationship.acquired_date"
+                                           md-placeholder="Acquisition Date"></md-datepicker>
 
-
-                            <md-datepicker class="md-block add-relationship-format" ng-model="relationship.acquisition_date" md-placeholder="Date of acquisition"></md-datepicker>
-                            <br><br>
 
                             <md-input-container md-no-float flex class="relationship-notes md-block">
-                                <textarea ng-model="relationship.description" columns="1" md-maxlength="150" placeholder="Notes"></textarea>
+                                <textarea ng-model="relationship.description" columns="1" md-maxlength="150"
+                                          placeholder="{{relationship.properties.relationship_history[0].properties.description || 'History Description'}}"></textarea>
                             </md-input-container>
                         </form>
                     </md-content>
@@ -95,7 +69,10 @@
                     {{relationshipCreated}}
                 </div>
 
-                <div class="cadasta-button right parcel-save" ng-click="updateRelationship(cadastaProjectId, relationshipId, layer, relationship)">Update Relationship</div>
+                <div class="cadasta-button right parcel-save"
+                     ng-click="updateRelationship(cadastaProjectId, relationshipId, layer, relationship)">Update
+                    Relationship
+                </div>
             </div>
         </md-dialog-content>
     </form>
