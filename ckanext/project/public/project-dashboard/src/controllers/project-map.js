@@ -13,7 +13,7 @@ app.controller("projectMapCtrl", ['$scope', '$state', '$stateParams', '$location
 
         //TODO create project parcels ALL endpoint
         $scope.$on('new-parcel',function(){
-            getmapData();
+            getMapData();
         });
 
         // parse map query param
