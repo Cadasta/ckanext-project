@@ -14,6 +14,8 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
             obj.showDropDownDetails = !obj.showDropDownDetails;
         };
 
+        $scope.relationshipParcelId = null;
+
         var mapStr = $stateParams.map;
 
         // parse map query param
@@ -30,8 +32,8 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
         };
 
         var relationshipStyle = {
-            "color": "#88D40E",
-            "stroke": "#88D40E",
+            "color": "#FF8000",
+            "stroke": "#FF8000",
             "opacity":.8,
             "fillOpacity":.5,
             "weight" : 1
@@ -172,9 +174,6 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
             $scope.cancel = function () {
                 $mdDialog.cancel();
             };
-            $scope.answer = function (answer) {
-                $mdDialog.hide(answer);
-            };
 
             $scope.uploader = new FileUploader({
                 alias: 'filedata',
@@ -213,7 +212,6 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
 
                 $scope.uploader.clearQueue();
             };
-
         }
 
 
@@ -240,6 +238,10 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
             return $scope.layer;
         }
 
+        function getRelationshipParcelId() {
+            return $scope.relationshipParcelId;
+        }
+
 
         function addRelationshipCtrl($scope, $mdDialog, $stateParams) {
             $scope.hide = function () {
@@ -252,11 +254,9 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
             $scope.cadastaProjectId = cadastaProject.id;
             $scope.relationship = {};
 
-
-
             $scope.relationship.party = {};
-            $scope.relationship.party.id = $stateParams.id;
-
+            $scope.relationship.party.properties = {};
+            $scope.relationship.party.properties.id = $stateParams.id;
 
             $scope.saveNewRelationship = function () {
 
@@ -266,22 +266,25 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
                     layer = layer.toGeoJSON().geometry;
                 }
 
-                if ($scope.relationship.parcel_id == undefined) {
+                var relationshipParcelId = getRelationshipParcelId();
+
+                if (relationshipParcelId == undefined) {
                     $scope.relationshipCreated = "parcel required";
                 }
                 else if ($scope.relationship.tenure_type == undefined) {
                     $scope.relationshipCreated = "tenure required";
                 }
-                else if (($scope.relationship.parcel_id != undefined) && ($scope.relationship.tenure_type != undefined)  ) {
+                else if ((relationshipParcelId != undefined) && ($scope.relationship.tenure_type != undefined)  ) {
 
-                    var createRelationship = relationshipService.createProjectRelationship(cadastaProject.id, $scope.relationship.parcel_id, layer, $scope.relationship);
+                    var createRelationship = relationshipService.createProjectRelationship(cadastaProject.id, relationshipParcelId, layer, $scope.relationship);
 
                     createRelationship.then(function (response) {
                         if (response.cadasta_relationship_id){
 
 
                             $rootScope.$broadcast('new-relationship');
-                            getParcelDetails();
+                            getPartyDetails ();
+
 
                             var timeoutID = window.setTimeout(function() {
                                 $scope.cancel();
@@ -391,7 +394,6 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
                 featureGroup.clearLayers();
             });
 
-
             var extentStyle = {
                 "color": "#256c97",
                 "stroke": "#256c97",
@@ -409,14 +411,18 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
                 "marker-color":"#e54573"
             };
 
+            var selectStyle = {
+                "color": "#88D40E",
+                "stroke": "#e54573",
+                "stroke-width": 1,
+                "fill-opacity":.8,
+                "stroke-opacity":.8,
+                "marker-color":"#e54573"
+            };
+
             var selectParcel = function(parcelId) {
                 $scope.relationship.parcel_id = parcelId;
             }
-
-
-            $('#editParcelMap').on('click', '.popup', function() {
-                alert('Hello from Toronto!' );
-            });
 
 
             //add all parcels to the map
@@ -429,17 +435,15 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
                 projectLayer.addTo(map);
 
                 response.parcels.features.forEach(function (parcel) {
-                    var popup_content = '<div id="parcelSelectPopup" class="popup">Select Parcel <span id="parcelToSelect">'+ parcel.properties.id +'</span></div>';
                     var parcelToAdd = L.geoJson(parcel, {style: parcelStyle});
-                    parcelToAdd.bindPopup(popup_content);
                     parcelToAdd.addTo(parcelGroup);
                 });
+
 
                 //zoom to project extent
                 if(response.project.features[0].geometry !== null){
                     map.fitBounds(projectLayer.getBounds());
                 } else if (response.parcels.features.length > 0) {
-                    console.log(response.parcels.features.length)
                     map.fitBounds(parcelGroup.getBounds());
                 } else {
                     map.setView([lat, lng], zoom);
@@ -449,14 +453,12 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
                 console.error(err);
             });
 
+            parcelGroup.on('click', function(e) {
+                parcelGroup.setStyle(selectStyle);
+                e.layer.setStyle(extentStyle);
+                $scope.relationshipParcelId = e.layer.feature.properties.id;
+            });
 
-
-            //parcelLayer.addTo(map);
-            //map.fitBounds(parcelLayer.getBounds());
-            //
-            ////prepopulate fields to update with existing data
-            //$scope.parcel.pinid = $scope.parcelObject.properties.gov_pin;
-            //$scope.parcel.landuse = $scope.parcelObject.properties.land_use;
         }
 
     }]);

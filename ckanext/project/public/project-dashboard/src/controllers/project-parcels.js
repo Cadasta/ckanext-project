@@ -81,6 +81,7 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
         function addMap() {
 
             var map = L.map('addParcelMap');
+            $scope.map = map; // expose the map so we access it in the console for testing
 
             L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
                 attribution: '',

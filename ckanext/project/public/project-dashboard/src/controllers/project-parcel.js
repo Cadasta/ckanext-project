@@ -117,7 +117,14 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
                 //update values for UI
                 $scope.relationships.forEach(function (v, i) {
 
-                    var popup_content = '<h3>Relationship ' + v.properties.id + '</h3><a ui-sref="tabs.relationships{id: ' + v.properties.id + '}"> See Full Details<i class="material-icons arrow-forward">arrow_forward</i></a>';
+                    var name = null;
+                    if (v.properties.first_name) {
+                        name = v.properties.first_name + ' ' + v.properties.last_name;
+                    } else {
+                        name = v.properties.group_name;
+                    }
+
+                    var popup_content = '<h3>Relationship ' + v.properties.id + '</h3><p>' + v.properties.tenure_type + ' by ' + name + '</p><a ui-sref="tabs.relationships{id: ' + v.properties.id + '}"> See Full Details<i class="material-icons arrow-forward">arrow_forward</i></a>';
 
 
                     if(v.geometry !== null){
