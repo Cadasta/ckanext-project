@@ -51,14 +51,7 @@ def convert_field_storage(value):
 
 get_api_map = {
     'cadasta_get_activity': CadastaEndpoint('/show_activity'),
-    # 'cadasta_show_relationships': CadastaEndpoint('/show_relationships'),
-    # 'cadasta_show_relationships': CadastaEndpoint('/show_relationships/{id}'),
-
-    # 'cadasta_get_organizations': CadastaEndpoint('/organizations'),
-    # 'cadasta_get_organization': CadastaEndpoint('/organizations/{id}'),
-
     'cadasta_get_resources': CadastaEndpoint('/resources'),
-    'cadasta_get_parcels_list': CadastaEndpoint('/projects/{id}/parcels_list'),
     'cadasta_get_project_parcel': CadastaEndpoint(
         '/projects/{id}/parcels/{parcel_id}'),
     'cadasta_get_project_overview': CadastaEndpoint('/projects/{id}/overview'),
@@ -78,7 +71,16 @@ get_api_map = {
 
     'cadasta_get_project_mapdata': CadastaEndpoint('/projects/{project_id}/map-data'),
 
+    'cadasta_get_project_parcel_list': CadastaEndpoint('/projects/{project_id}/parcels_list'),
+
     'cadasta_get_project_details': CadastaEndpoint(
+        '/projects/{project_id}',
+        argument_types={
+            'returnGeometry': str,
+        }
+    ),
+
+    'cadasta_get_project': CadastaEndpoint(
         '/projects/{project_id}',
         argument_types={
             'returnGeometry': str,

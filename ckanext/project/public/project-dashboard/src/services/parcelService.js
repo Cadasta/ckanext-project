@@ -13,9 +13,12 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot + '/projects/' + projectId + '/parcels_list', {cache: false}).
+            $http.get(ENV.apiCKANRoot + '/cadasta_get_project_parcel_list?project_id=' + projectId, {cache: false}).
                 then(function (response) {
-                    deferred.resolve(response.data.features);
+                    if(response.data && response.data.error){
+                        deferred.reject(response.data.error);
+                    }
+                    deferred.resolve(response.data.result.features);
                 }, function (response) {
                     deferred.reject(response);
                 });
