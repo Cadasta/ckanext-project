@@ -56,6 +56,14 @@
                         parcel {{ activity.properties.parcel_id }}</a></span>
                     was created on {{ activity.properties.time_created }}
                 </li>
+
+                <li ng-if="activity.properties.activity_type === 'relationship_history'"
+                    ng-class="{'remove-bottom-border': $index == overviewData.activityList.length-1}"
+                    class="activity-block block">
+                    <span class="bold"><a href="#/relationships/{{ activity.properties.id }}">
+                        Relationship {{ activity.properties.id }}</a></span>
+                    was updated at {{ activity.properties.time_created }}
+                </li>
             </div>
         </div>
 

@@ -74,6 +74,10 @@ get_api_map = {
 
     'cadasta_get_project_resources': CadastaEndpoint('/projects/{project_id}/resources'),
 
+    'cadasta_get_project_activities': CadastaEndpoint('/projects/{project_id}/activity'),
+
+    'cadasta_get_project_mapdata': CadastaEndpoint('/projects/{project_id}/map-data'),
+
     'cadasta_get_project_details': CadastaEndpoint(
         '/projects/{project_id}',
         argument_types={

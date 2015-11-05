@@ -12,11 +12,12 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
 
         var parcelStyle = {
             "color": "#e54573",
-            "stroke": "#e54573",
-            "weight": 1,
-            "fillOpacity": .5,
+            "stroke": true,
+            "weight": 3,
+            "fillOpacity": .1,
             "opacity": .8,
-            "marker-color": "#e54573"
+            "marker-color": "#e54573",
+            "clickable" : false
         };
 
 
@@ -117,7 +118,14 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
                 //update values for UI
                 $scope.relationships.forEach(function (v, i) {
 
-                    var popup_content = '<h3>Relationship ' + v.properties.id + '</h3><a ui-sref="tabs.relationships{id: ' + v.properties.id + '}"> See Full Details<i class="material-icons arrow-forward">arrow_forward</i></a>';
+                    var name = null;
+                    if (v.properties.first_name) {
+                        name = v.properties.first_name + ' ' + v.properties.last_name;
+                    } else {
+                        name = v.properties.group_name;
+                    }
+
+                    var popup_content = '<h3>Relationship ' + v.properties.id + '</h3><p class="popup-text">Tenure Type:' + v.properties.tenure_type + ' </p><p class="popup-text">Party: ' + name + '</p><a href="#/relationships/' + v.properties.id + '"> See Full Details<i class="material-icons arrow-forward">arrow_forward</i></a>';
 
 
                     if(v.geometry !== null){
@@ -172,6 +180,173 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
         $scope.error = '';
         $scope.progress = 0;
 
+
+        /**
+         * Functions related to the update parcel modal
+         * @returns {*}
+         */
+
+            //modal for adding a parcel
+        $scope.updateParcelModal = function (ev) {
+            $mdDialog.show({
+                templateUrl: '/project-dashboard/src/partials/edit_parcel.html',
+                controller: updateParcelCtrl,
+                parent: angular.element(document.body),
+                clickOutsideToClose: false,
+                onComplete: addMap,
+                locals: {cadastaProject: cadastaProject, parcel:$scope.parcel}
+            })
+        };
+
+        function getLayer() {
+            return $scope.layer;
+        }
+
+        function updateParcelCtrl($scope, $mdDialog, $stateParams, parcel, cadastaProject) {
+            $scope.hide = function () {
+                $mdDialog.hide();
+            };
+            $scope.cancel = function () {
+                $mdDialog.cancel();
+            };
+
+            $scope.cadastaProjectId = cadastaProject.id;
+            $scope.parcel = parcel;
+
+            $scope.updateParcel = function (projectId) {
+
+                var layer = getLayer();
+
+                if (layer === undefined) {
+                    layer = null;
+                } else {
+                    layer = layer.toGeoJSON();
+                }
+                var updateExistingParcel = parcelService.updateProjectParcel(cadastaProject.id, $stateParams.id, layer, $scope.parcel);
+
+                updateExistingParcel.then(function (response) {
+                    if (response.cadata_parcel_history_id){
+
+                        $scope.parcelCreated = 'parcel successfully updated';
+
+                        $rootScope.$broadcast('updated-parcel');
+
+                        getParcelDetails();
+
+                        var timeoutID = window.setTimeout(function() {
+                            $scope.cancel();
+                        }, 300);
+                    }
+                }).catch(function(err){
+
+                    $scope.parcelCreated ='unable to update parcel';
+                });
+
+            }
+        }
+
+
+
+        /**
+         * Functions related to add relationship modal
+         * @returns {*}
+         */
+
+        //modal for adding a relationship
+        $scope.addRelationshipModal = function (ev) {
+            $mdDialog.show({
+                templateUrl: '/project-dashboard/src/partials/add_relationship.html',
+                controller: addRelationshipCtrl,
+                parent: angular.element(document.body),
+                clickOutsideToClose: false,
+                onComplete: addMap,
+                locals: {cadastaProject: cadastaProject}
+            })
+        };
+
+
+        function addRelationshipCtrl($scope, $mdDialog, $stateParams) {
+            $scope.hide = function () {
+                $mdDialog.hide();
+            };
+            $scope.cancel = function () {
+                $mdDialog.cancel();
+            };
+
+            $scope.cadastaProjectId = cadastaProject.id;
+            $scope.relationship = {};
+
+            $scope.selectParty = function(party) {
+                $scope.relationship.party = party;
+            }
+
+
+            var promise = partyService.getProjectParties(cadastaProject.id);
+
+            promise.then(function (response) {
+                $scope.parties = response;
+
+            }, function (err) {
+                $scope.parties = "Server Error";
+            });
+
+
+            $scope.saveNewRelationship = function () {
+
+                var layer = getLayer();
+
+                if (layer) {
+                    layer = layer.toGeoJSON().geometry;
+                }
+
+                if ($scope.relationship.party == undefined) {
+                    $scope.relationshipCreated = "party required";
+                }
+                else if ($scope.relationship.tenure_type == undefined) {
+                    $scope.relationshipCreated = "tenure required";
+                }
+                else if (($scope.relationship.party != undefined) && ($scope.relationship.tenure_type != undefined)  ) {
+
+                    var createRelationship = relationshipService.createProjectRelationship(cadastaProject.id, $stateParams.id, layer, $scope.relationship);
+
+                    createRelationship.then(function (response) {
+                        if (response.cadasta_relationship_id){
+
+
+                            $rootScope.$broadcast('new-relationship');
+                            getParcelDetails();
+
+                            var timeoutID = window.setTimeout(function() {
+                                $scope.cancel();
+                            }, 300);
+                        }
+                    }).catch(function(err){
+
+                        $scope.parcelCreated ='unable to create parcel';
+                    });
+
+                }
+            }
+
+            $scope.tenure_types = [
+                {
+                    type: 'own',
+                    label: 'Own'
+                },
+                {
+                    type: 'lease',
+                    label: 'Lease'
+                },
+                {
+                    type: 'occupy',
+                    label: 'Occupy'
+                },
+                {
+                    type: 'informal occupy',
+                    label: 'Informally Occupy'
+                }
+            ];
+        }
 
         function addMap(map) {
 
@@ -263,7 +438,8 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
                     "stroke": "#256c97",
                     "stroke-width": 1,
                     "fill-opacity":.1,
-                    "stroke-opacity":.7
+                    "stroke-opacity":.7,
+                    "clickable":false
                 };
 
 
@@ -272,16 +448,17 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
                     var layer = L.geoJson(response.features[0], {style: extentStyle});
                     layer.addTo(parcelGroup);
                 }
-
             });
+
 
             var parcelStyle = {
                 "color": "#e54573",
-                "stroke": "#e54573",
-                "stroke-width": 1,
-                "fill-opacity":.8,
-                "stroke-opacity":.8,
-                "marker-color":"#e54573"
+                "stroke": true,
+                "weight": 3,
+                "fillOpacity": .1,
+                "opacity": .8,
+                "marker-color": "#e54573",
+                "clickable" : false
             };
 
             //add parcel extent to the map
@@ -299,158 +476,11 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
 
         }
 
-        function getLayer() {
-            return $scope.layer;
-        }
 
-        //modal for adding a parcel
-        $scope.updateParcelModal = function (ev) {
-            $mdDialog.show({
-                templateUrl: '/project-dashboard/src/partials/edit_parcel.html',
-                controller: updateParcelCtrl,
-                parent: angular.element(document.body),
-                clickOutsideToClose: false,
-                onComplete: addMap,
-                locals: {cadastaProject: cadastaProject, parcel:$scope.parcel}
-            })
-        };
-
-        function updateParcelCtrl($scope, $mdDialog, $stateParams, parcel, cadastaProject) {
-            $scope.hide = function () {
-                $mdDialog.hide();
-            };
-            $scope.cancel = function () {
-                $mdDialog.cancel();
-            };
-
-            $scope.cadastaProjectId = cadastaProject.id;
-            $scope.parcel = parcel;
-
-            $scope.updateParcel = function (projectId) {
-
-                var layer = getLayer();
-
-                if (layer === undefined) {
-                    layer = null;
-                } else {
-                    layer = layer.toGeoJSON();
-                }
-                var updateExistingParcel = parcelService.updateProjectParcel(cadastaProject.id, $stateParams.id, layer, $scope.parcel);
-
-                updateExistingParcel.then(function (response) {
-                    if (response.cadata_parcel_history_id){
-
-                        $scope.parcelCreated = 'parcel successfully updated';
-
-                        $rootScope.$broadcast('updated-parcel');
-
-                        getParcelDetails();
-
-                        var timeoutID = window.setTimeout(function() {
-                            $scope.cancel();
-                        }, 300);
-                    }
-                }).catch(function(err){
-
-                    $scope.parcelCreated ='unable to update parcel';
-                });
-
-            }
-        }
-
-
-        //modal for adding a relationship
-        $scope.addRelationshipModal = function (ev) {
-            $mdDialog.show({
-                templateUrl: '/project-dashboard/src/partials/add_relationship.html',
-                controller: addRelationshipCtrl,
-                parent: angular.element(document.body),
-                clickOutsideToClose: false,
-                onComplete: addMap,
-                locals: {cadastaProject: cadastaProject}
-            })
-        };
-
-
-        function addRelationshipCtrl($scope, $mdDialog, $stateParams) {
-            $scope.hide = function () {
-                $mdDialog.hide();
-            };
-            $scope.cancel = function () {
-                $mdDialog.cancel();
-            };
-
-            $scope.cadastaProjectId = cadastaProject.id;
-            $scope.relationship = {};
-
-            $scope.selectParty = function(party) {
-                $scope.relationship.party = party;
-            }
-
-
-            var promise = partyService.getProjectParties(cadastaProject.id);
-
-            promise.then(function (response) {
-                $scope.parties = response;
-
-            }, function (err) {
-                $scope.parties = "Server Error";
-            });
-
-
-            $scope.saveNewRelationship = function () {
-
-                var layer = getLayer();
-
-                if ($scope.relationship.party == undefined) {
-                    $scope.relationshipCreated = "party required";
-                }
-                else if ($scope.relationship.tenure_type == undefined) {
-                    $scope.relationshipCreated = "tenure required";
-                }
-                else if (($scope.relationship.party != undefined) && ($scope.relationship.tenure_type != undefined)  ) {
-
-                    var createRelationship = relationshipService.createProjectRelationship(cadastaProject.id, $stateParams.id, layer, $scope.relationship);
-
-                    createRelationship.then(function (response) {
-                        if (response.cadasta_relationship_id){
-
-
-                            $rootScope.$broadcast('new-relationship');
-                            getParcelDetails();
-
-                            var timeoutID = window.setTimeout(function() {
-                                $scope.cancel();
-                            }, 300);
-                        }
-                    }).catch(function(err){
-
-                        $scope.parcelCreated ='unable to create parcel';
-                    });
-
-                }
-            }
-
-            $scope.tenure_types = [
-                {
-                    type: 'own',
-                    label: 'Own'
-                },
-                {
-                    type: 'lease',
-                    label: 'Lease'
-                },
-                {
-                    type: 'occupy',
-                    label: 'Occupy'
-                },
-                {
-                    type: 'informal occupy',
-                    label: 'Informally Occupy'
-                }
-            ];
-        }
-
+        /**
+         * Functions related to add parcel resources modal
+         * @returns {*}
+         */
 
         $scope.showAddResourceModal = function (ev) {
 
@@ -514,6 +544,8 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
 
         }
 
+        // TODO move to config or service
+        // TODO create endpoint that grabs project specific tenure types
         $scope.tenure_types = [
 
             {
