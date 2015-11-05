@@ -97,8 +97,12 @@ class projectPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
                      _redirect_code='301 Moved Permanently')
         map.redirect('/projects', '/project',
                       _redirect_code='301 Moved Permanently')
-
-
+        map.redirect('/tag', '/project',
+                      _redirect_code='301 Moved Permanently')
+        map.redirect('/stats', '/project',
+                      _redirect_code='301 Moved Permanently')
+        map.redirect('/revision', '/project',
+                      _redirect_code='301 Moved Permanently')
 
         # remap login function to projects page rather than activity log
         # done for demo 10/14
@@ -128,7 +132,7 @@ class projectPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
 
 
         #big map
-        map.connect('project_map', '/project/{id}/map', controller=map_controller, action='show_map')
+        #map.connect('project_map', '/project/{id}/map', controller=map_controller, action='show_map')
         map.connect('edit_project_map', '/project/{id}/edit_map', controller=map_controller, action='edit_map')
         map.connect('show_parcel_map', '/project/{id}/parcel/{parcel_id}/map', controller=map_controller, action='show_parcel_map')
         map.connect('edit_parcel_map', '/project/{id}/edit_parcel/{parcel_id}/map', controller=map_controller, action='edit_parcel_map')
