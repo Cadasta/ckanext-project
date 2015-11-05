@@ -305,17 +305,6 @@ var app = angular.module("app",
       sticky: true
     });
 
-    //// Child State for activity list
-    //states.push({
-    //  name: 'tabs.fieldData',
-    //  url: 'fieldData',
-    //  views: {
-    //    'fielddatatab': { controller:'fieldDataCtrl', templateUrl: '/project-dashboard/src/partials/fieldData.html' }
-    //  },
-    //  deepStateRedirect: dsrCb,
-    //  sticky: true
-    //});
-
 
     // Child State
     states.push({
@@ -333,7 +322,7 @@ var app = angular.module("app",
       name: 'tabs.fieldData.fielddatalist',
       url: '/list',
       views: {
-        'fieldDatalist': {
+        'fielddatalist': {
           controller: 'fieldDataCtrl',
           templateUrl: '/project-dashboard/src/partials/fieldDataList.html'}
       },
@@ -347,7 +336,7 @@ var app = angular.module("app",
       name: 'tabs.fieldData.fielddatum',
       url: '/:id',
       views: {
-        'fieldDatumlist': {
+        'fielddatum': {
           controller: 'fieldDatumCtrl',
           templateUrl: '/project-dashboard/src/partials/fieldDatum.html'}
       },

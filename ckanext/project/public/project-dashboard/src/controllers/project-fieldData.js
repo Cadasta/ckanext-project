@@ -8,6 +8,27 @@ app.controller("fieldDataCtrl", ['$scope', '$rootScope', '$state', '$stateParams
         $scope.progress = 0;
         $scope.formObj = {};
 
+
+
+        var columnDefs = [
+            {headerName: "Make", field: "make"},
+            {headerName: "Model", field: "model"},
+            {headerName: "Price", field: "price"}
+        ];
+
+        var rowData = [
+            {make: "Toyota", model: "Celica", price: 35000},
+            {make: "Ford", model: "Mondeo", price: 32000},
+            {make: "Porsche", model: "Boxter", price: 72000}
+        ];
+
+        $scope.gridOptions = {
+            columnDefs: columnDefs,
+            rowData: rowData
+        };
+
+
+
         // validate xls file
         $scope.uploader = new FileUploader({
             alias: 'xls_file',

@@ -4,6 +4,13 @@ var app = angular.module("app");
 app.controller("fieldDatumCtrl", ['$scope', '$rootScope', '$state', '$stateParams', '$location', 'dataService', 'paramService', 'FileUploader', 'ENV', 'fieldDataService', 'cadastaProject',
     function ($scope, $rootScope, $state, $stateParams, $location, dataService, paramService, FileUploader, ENV, fieldDataService, cadastaProject) {
 
+        $rootScope.$broadcast('tab-change', {tab: 'FieldData'}); // notify breadcrumbs of tab on page load
+
+
+        $scope.clearFieldDatumBreadCrumb = function () {
+            $rootScope.$broadcast('clear-field-data-tabs');
+        };
+
         var columnDefs = [
             {headerName: "Make", field: "make"},
             {headerName: "Model", field: "model"},
