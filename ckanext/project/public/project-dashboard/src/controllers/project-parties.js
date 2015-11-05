@@ -58,6 +58,10 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
             $scope.cadastaProjectId = cadastaProject.id;
 
             $scope.saveNewParty = function(projectId, party){
+                
+                if(party.dob){
+                    party.dob = utilityService.formatDate(party.dob).replace(/-/g,'/');
+                }
 
                 var createParty = partyService.createProjectParty(projectId, party);
 
