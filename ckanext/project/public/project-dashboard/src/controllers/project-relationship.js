@@ -24,11 +24,12 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
 
         var parcelStyle = {
             "color": "#e54573",
-            "stroke": "#e54573",
-            "weight": 1,
-            "fillOpacity": .5,
+            "stroke": true,
+            "weight": 3,
+            "fillOpacity": .1,
             "opacity": .8,
-            "marker-color": "#e54573"
+            "marker-color": "#e54573",
+            "clickable": false
         };
 
         var relationshipStyle = {
@@ -36,7 +37,8 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
             "stroke": "#FF8000",
             "opacity":.8,
             "fillOpacity":.5,
-            "weight" : 1
+            "weight" : 1,
+            "clickable" : false
         };
 
         // setup map
@@ -215,9 +217,10 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
                 $mdDialog.cancel();
             };
 
+            relationship.properties.acquired_date = new Date(relationship.properties.acquired_date.replace(/-/g,'/'));
+
             $scope.cadastaProjectId = cadastaProject.id;
             $scope.relationship = relationship;
-
 
             var promise = partyService.getProjectParties(cadastaProject.id);
 
@@ -229,6 +232,13 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
             });
 
 
+            // set date picker's max date to today
+            $scope.myDate = new Date();
+
+            $scope.maxDate = new Date(
+                $scope.myDate.getFullYear(),
+                $scope.myDate.getMonth(),
+                $scope.myDate.getDate());
 
             $scope.updateRelationship = function (projectId) {
 
@@ -242,13 +252,11 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
                 var updateExistingRelationship = relationshipService.updateProjectRelationship(cadastaProject.id, $stateParams.id, layer, $scope.relationship);
 
                 updateExistingRelationship.then(function (response) {
-                    if (response.cadata_relationship_history_id){
-
-                        $scope.relationshipCreated = 'relationship successfully updated';
+                    if (response.cadasta_relationship_history_id){
 
                         $rootScope.$broadcast('updated-relationship');
 
-                        getParcelDetails();
+                        getRelationship();
 
                         var timeoutID = window.setTimeout(function() {
                             $scope.cancel();
@@ -318,7 +326,7 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
                     polyline: {
                         shapeOptions: {
                             "color": "#88D40E",
-                            "stroke": "#88D40E",
+                            "stroke": true,
                             "stroke-width": 1,
                             "fill-opacity":.7,
                             "stroke-opacity":.8
@@ -327,7 +335,7 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
                     polygon: {
                         shapeOptions: {
                             "color": "#88D40E",
-                            "stroke": "#88D40E",
+                            "stroke": true,
                             "stroke-width": 1,
                             "fill-opacity":.7,
                             "stroke-opacity":.8
@@ -337,7 +345,7 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
                     rectangle: {
                         shapeOptions: {
                             "color": "#88D40E",
-                            "stroke": "#88D40E",
+                            "stroke": true,
                             "stroke-width": 1,
                             "fill-opacity":.7,
                             "stroke-opacity":.8
@@ -371,16 +379,18 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
                 "color": "#e54573",
                 "stroke": "#e54573",
                 "stroke-width": 1,
-                "fill-opacity":.8,
-                "stroke-opacity":.8
+                "fill-opacity":.1,
+                "stroke-opacity":.8,
+                "clickable" : false
             };
 
             var relationshipStyle = {
                 "color": "#FF8000",
                 "stroke": "#FF8000",
                 "stroke-width": 1,
-                "fill-opacity":.8,
-                "stroke-opacity":.8
+                "fill-opacity":.5,
+                "stroke-opacity":.8,
+                "clickable" : false
             };
 
 

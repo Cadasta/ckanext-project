@@ -24,17 +24,18 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
 
         var parcelStyle = {
             "color": "#e54573",
-            "stroke": "#e54573",
-            "weight": 1,
-            "fillOpacity": .5,
+            "stroke": true,
+            "weight": 3,
+            "fillOpacity": .1,
             "opacity": .8,
-            "marker-color": "#e54573"
+            "marker-color": "#e54573",
+            "clickable":false
         };
 
         var relationshipStyle = {
             "color": "#FF8000",
-            "stroke": "#FF8000",
-            "opacity":.8,
+            "stroke": true,
+            "opacity":.5,
             "fillOpacity":.5,
             "weight" : 1
         };
@@ -100,14 +101,26 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
                         val.properties.time_created = utilityService.formatDate(val.properties.time_created);
                         val.properties.time_updated = utilityService.formatDate(val.properties.time_updated);
 
+                        //create popup for relationship
+                        var name = null;
+                        if (val.properties.first_name) {
+                            name = val.properties.first_name + ' ' + val.properties.last_name;
+                        } else {
+                            name = val.properties.group_name;
+                        }
+                        var popup_content = '<h3>Relationship ' + val.properties.id + '</h3><p class="popup-text">Tenure Type:' + val.properties.tenure_type + ' </p><p class="popup-text">Party: ' + name + '</p><a href="#/relationships/' + val.properties.id + '"> See Full Details<i class="material-icons arrow-forward">arrow_forward</i></a>';
+
+
                         // add relationship geometries to map
                         if(val.geometry !== null){
                             layer = L.geoJson(val, {style: relationshipStyle});
+                            layer.bindPopup(popup_content);
                             layer.addTo(parcelGroup);
                             map.fitBounds(parcelGroup.getBounds());
                         }
                     })
                 }
+
 
                 var parcels = response.properties.parcels;
 
@@ -335,7 +348,6 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
             var editIcon = L.icon({
                 iconUrl: '/images/orange_marker.png',
                 iconSize: [30, 30]
-
             });
 
             var options = {
@@ -343,7 +355,7 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
                     polyline: {
                         shapeOptions: {
                             "color": "#88D40E",
-                            "stroke": "#88D40E",
+                            "stroke": true,
                             "stroke-width": 1,
                             "fill-opacity":.7,
                             "stroke-opacity":.8
@@ -352,7 +364,7 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
                     polygon: {
                         shapeOptions: {
                             "color": "#88D40E",
-                            "stroke": "#88D40E",
+                            "stroke": true,
                             "stroke-width": 1,
                             "fill-opacity":.7,
                             "stroke-opacity":.8
@@ -362,7 +374,7 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
                     rectangle: {
                         shapeOptions: {
                             "color": "#88D40E",
-                            "stroke": "#88D40E",
+                            "stroke": true,
                             "stroke-width": 1,
                             "fill-opacity":.7,
                             "stroke-opacity":.8
@@ -393,26 +405,27 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
 
             var extentStyle = {
                 "color": "#256c97",
-                "stroke": "#256c97",
+                "stroke": true,
                 "stroke-width": 1,
                 "fill-opacity":.1,
-                "stroke-opacity":.7
+                "stroke-opacity":.7,
+                "clickable" : false
             };
 
             var parcelStyle = {
                 "color": "#e54573",
                 "stroke": "#e54573",
-                "stroke-width": 1,
-                "fill-opacity":.8,
+                "stroke-width": 3,
+                "fill-opacity":.1,
                 "stroke-opacity":.8,
                 "marker-color":"#e54573"
             };
 
             var selectStyle = {
-                "color": "#88D40E",
-                "stroke": "#e54573",
-                "stroke-width": 1,
-                "fill-opacity":.8,
+                "color": "#6324C3",
+                "stroke": true,
+                "stroke-width": 3,
+                "fill-opacity":.1,
                 "stroke-opacity":.8,
                 "marker-color":"#e54573"
             };
@@ -451,11 +464,68 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
             });
 
             parcelGroup.on('click', function(e) {
-                parcelGroup.setStyle(selectStyle);
-                e.layer.setStyle(extentStyle);
+                parcelGroup.setStyle(parcelStyle);
+                e.layer.setStyle(selectStyle);
                 $scope.relationshipParcelId = e.layer.feature.properties.id;
             });
 
+        }
+
+        /**
+         * Functions related to the update party modal
+         * @returns {*}
+         */
+
+            //modal for adding a parcel
+        $scope.updatePartylModal = function (ev) {
+            $mdDialog.show({
+                templateUrl: '/project-dashboard/src/partials/edit_party.html',
+                controller: updatePartyCtrl,
+                parent: angular.element(document.body),
+                clickOutsideToClose: false,
+                locals: {cadastaProject: cadastaProject, party:$scope.party}
+            })
+        };
+
+
+
+        function updatePartyCtrl($scope, $mdDialog, $stateParams, party, cadastaProject) {
+            $scope.hide = function () {
+                $mdDialog.hide();
+            };
+            $scope.cancel = function () {
+                $mdDialog.cancel();
+            };
+
+            $scope.cadastaProjectId = cadastaProject.id;
+            $scope.party = party;
+
+            $scope.updateParty = function (projectId) {
+
+                $scope.updateParty = function(projectId, party){
+
+                    //var createParty = partyService.createProjectParty(projectId, party);
+                    //
+                    //createParty.then(function (response) {
+                    //    if (response.cadasta_party_id){
+                    //
+                    //        $scope.partyCreated = 'party successfully added';
+                    //
+                    //        $rootScope.$broadcast('new-party');
+                    //        getParties();
+                    //
+                    //        var timeoutID = window.setTimeout(function() {
+                    //            $scope.cancel();
+                    //            $state.go("tabs.parties.party", {id:response.cadasta_party_id})
+                    //        }, 300);
+                    //    }
+                    //}).catch(function(err){
+                    //
+                    //    $scope.partyCreated ='unable to create party';
+                    //});
+                }
+
+            }
         }
 
     }]);

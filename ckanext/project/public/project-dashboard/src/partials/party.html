@@ -10,8 +10,8 @@
             </div>
             <div class="section">
                 <div class="container">
-                    <div class="title" ng-show="party.first_name">{{party.first_name}} {{party.last_name}}</div>
-                    <div class="title" ng-show="party.group_name">{{party.group_name}} </div>
+                    <div class="title" ng-show="party.first_name">{{party.first_name | capitalize}} {{party.last_name | capitalize}}</div>
+                    <div class="title" ng-show="party.group_name">{{party.group_name | capitalize}} </div>
 
                     <div class="cadasta-round-button float-right" ng-click="addRelationshipModal()"> Add Relationship </div>
 
@@ -22,6 +22,17 @@
                         <span class="caption">Type</span>
                         <span>{{party.type}}</span>
                         <br>
+                        <span class="caption">National ID</span>
+                        <span>{{party.national_id | emptyString}}</span>
+                        <br>
+                        <div ng-show="party.type === 'individual'">
+                            <span class="caption">Gender</span>
+                            <span>{{party.gender | emptyString}}</span>
+                            <br>
+                            <span class="caption">Date of Birth</span>
+                            <span>{{party.dob | emptyString}}</span>
+                            <br>
+                        </div>
                     </div>
 
                     <div class="relationship-container">
@@ -57,6 +68,8 @@
             </div>
             <div class="section-map">
                 <div id="partyDetailsMap"></div>
+                <div class='cadasta-button float-right' ng-click="updatePartylModal()"> Update Party Details </div>
+
             </div>
         </div>
     </div>

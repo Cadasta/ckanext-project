@@ -11,7 +11,7 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot + '/projects/' + projectId + '/relationships/' + relationshipId + '/details?returnGeometry=true', {cache: true}).
+            $http.get(ENV.apiCadastaRoot + '/projects/' + projectId + '/relationships/' + relationshipId + '/details?returnGeometry=true', {cache: false}).
                 then(function (response) {
                     deferred.resolve(response.data.features[0]);
                 }, function (response) {
@@ -122,22 +122,18 @@ var app = angular.module("app")
             var how_acquired = null;
             var description = null;
             var geom = null;
-            var parcel_id = parseInt(parcelId);
 
-
-            if (relationship.acquisition_date) { acquired_date = relationship.acquisition_date;}
-            if (relationship.acquired_type) { how_acquired = relationship.acquired_type;}
+            if (relationship.acquired_date) { acquired_date = relationship.acquired_date;}
+            if (relationship.tenure_type) { tenure_type = relationship.tenure_type;}
             if (relationship.description) { description = relationship.description;}
-            if (layer) { geom = layer;}
+            if (relationship.how_acquired) { how_acquired = relationship.how_acquired;}
+            if (layer) { geom = layer.geometry;}
 
 
             $http({
                 method: "patch",
                 url: ENV.apiCadastaRoot + '/projects/' + projectId + '/relationships/' + relationshipId,
                 data: JSON.stringify({
-                    parcel_id: parcel_id,
-                    ckan_user_id: null,
-                    party_id: relationship.party.properties.id,
                     geojson: geom,
                     tenure_type: relationship.tenure_type,
                     acquired_date: acquired_date,

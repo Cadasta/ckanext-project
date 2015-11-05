@@ -106,3 +106,15 @@ md-dialog > form {
 md-dialog {
     max-height: 95%;
 }
+
+p.popup-text {
+    font-size:12px;
+}
+
+.font-red {
+    color:red;
+}
+
+.md-select-menu-container.md-active md-select-menu {
+    width:200px;
+}

@@ -1,11 +1,11 @@
 <md-dialog aria-label="Add Relationship" class="cadasta-modal resources">
 
-    <form name="addParty">
+    <form name="editParty">
         <md-dialog-content>
             <div class="form_upload_content add-party">
                 <div class="cadasta-modal-header">
                     <div class="small-heading">
-                        Add Party
+                        Edit Party
                     </div>
                     <div class="right">
                         <md-button class="md-icon-button" ng-click="cancel()">
@@ -15,8 +15,7 @@
                 </div>
                 <div class="modal-content">
                     <div>
-
-                        <md-radio-group ng-model="party.party_type" ng-init="party.party_type='individual'" >
+                        <md-radio-group ng-model="party.party_type" ng-init="party.party_type=party.type" >
                             <label class="party-type">Party Type</label>
                             <md-radio-button value="individual" class="md-primary">Individual</md-radio-button>
                             <md-radio-button value="group">Group</md-radio-button>
@@ -29,7 +28,7 @@
                                     <label>First Name</label>
                                     <input ng-model="party.first_name">
 
-                                    <div ng-messages="newParty.party.first_name.$error">
+                                    <div ng-messages="editParty.party.first_name.$error">
                                         <div ng-message="required" class="font-red">Party name is required.</div>
                                         <br>
                                     </div>
@@ -39,29 +38,28 @@
                                     <label>Last Name</label>
                                     <input ng-model="party.last_name">
 
-                                    <div ng-messages="newParty.party.last_name.$error">
+                                    <div ng-messages="editParty.party.last_name.$error">
                                         <div ng-message="required" class="font-red">Party name is required.</div>
                                         <br>
                                     </div>
                                 </md-input-container>
                                 <br><br><br>
-                                <div></div>
 
                                 <md-input-container md-no-float flex class="pin-id group-name" ng-show="(party.party_type === 'group')">
                                     <label>Name</label>
                                     <input ng-model="party.group_name">
 
-                                    <div ng-messages="newParty.party.group_name.$error">
+                                    <div ng-messages="editParty.party.group_name.$error">
                                         <div ng-message="required" class="font-red">Party name is required.</div>
                                         <br>
                                     </div>
-
                                 </md-input-container>
-                            </div>
+                                </div>
                         </md-content>
 
                         <md-content class="layout-padding left add-parcel-extra-fields" >
                             <div layout layout-sm="column">
+
 
                                 <md-input-container md-no-float flex class="pin-id" >
                                     <label>National ID</label>
