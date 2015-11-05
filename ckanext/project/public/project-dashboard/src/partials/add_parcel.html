@@ -1,6 +1,6 @@
 <md-dialog aria-label="Add Relationship" class="cadasta-modal resources">
 
-    <form>
+    <form name="addParcel">
         <md-dialog-content>
             <div class="form_upload_content add-relationship">
                 <div class="cadasta-modal-header">
@@ -16,6 +16,9 @@
                 <div class="modal-content">
                     <div>
                         <p>1. Draw the geometry of a new parcel using the tools on the left.</p>
+                        <div ng-messages="newRelationshipForm.layer.$error">
+                            <div ng-message="required" class="font-red">Parcel Geometry is required.</div>
+                        </div>
                         <br><br>
 
                         <div id="addParcelMap"></div>
@@ -51,11 +54,6 @@
                                 <textarea ng-model="parcel.notes" columns="1" md-maxlength="150" placeholder="Notes"></textarea>
                             </md-input-container>
                         </md-content>
-
-                        <div class="resource-upload-error">
-                            {{parcelCreated}}
-                        </div>
-
 
                         <div class="cadasta-button right parcel-save" ng-click="saveNewParcel()">Save Parcel</div>
 

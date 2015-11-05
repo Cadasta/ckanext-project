@@ -42,7 +42,7 @@
 }
 
 .add-relationship md-input-container.add-relationship-format {
-    width: 368px;
+    width: 351px;
     padding-right: 18px;
  }
 
@@ -60,7 +60,7 @@ md-datepicker.add-relationship-format .md-datepicker-input-container {
 }
 
 md-datepicker.add-relationship-format.party .md-datepicker-input-container {
-    width:307px;
+    width:273px;
 }
 
 
@@ -74,7 +74,7 @@ md-datepicker.add-relationship-format .md-datepicker-input {
 
 
 #editRelationshipMap {
-    width: 780px;
+    width: 737px;
     height: 315px;
     margin-top: -35px;
 }
@@ -90,7 +90,7 @@ md-datepicker.add-relationship-format .md-datepicker-input {
 
 md-input-container.relationship-notes textarea {
     height: 80px!important;
-    width: 758px;
+    width: 719px;
     margin-left: -5px;
     margin-top: -15px;
     border: 1px solid #dcdfe1;
@@ -98,9 +98,8 @@ md-input-container.relationship-notes textarea {
 }
 
 .md-datepicker-input-container {
-    width: 312px;
+    width: 276px;
     margin-left: 12px;
     height: 26px;
     margin-bottom: 35px;
-    margin-top: 23px;
 }

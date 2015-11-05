@@ -351,7 +351,6 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
             var editIcon = L.icon({
                 iconUrl: '/images/orange_marker.png',
                 iconSize: [30, 30]
-
             });
 
             var options = {

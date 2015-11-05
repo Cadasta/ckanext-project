@@ -11,9 +11,8 @@ app.controller("projectMapCtrl", ['$scope', '$state', '$stateParams', '$location
             getMapData();
         });
 
-        //TODO create project parcels ALL endpoint
         $scope.$on('new-parcel',function(){
-            getmapData();
+            getMapData();
         });
 
         // parse map query param
@@ -79,6 +78,8 @@ app.controller("projectMapCtrl", ['$scope', '$state', '$stateParams', '$location
 
             promise.then(function (response) {
 
+                console.log(response);
+
                 //clear layers
                 if(projectLayer) {
                     projectLayer.removeLayer();
@@ -103,7 +104,6 @@ app.controller("projectMapCtrl", ['$scope', '$state', '$stateParams', '$location
                     console.log(response.parcels.features.length)
                     map.fitBounds(parcelGroup.getBounds());
                 } else {
-                    console.log("is this really happening?")
                     map.setView([lat, lng], zoom);
                 }
 
