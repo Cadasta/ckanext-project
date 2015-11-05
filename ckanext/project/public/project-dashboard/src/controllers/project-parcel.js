@@ -86,7 +86,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
             var promise = parcelService.getProjectParcel(cadastaProject.id, $stateParams.id);
 
             promise.then(function (response) {
-
+                console.log("[ getParcelDetails ]: ", response);
                 $rootScope.$broadcast('parcel-details', {id: $stateParams.id});
 
                 $scope.parcel = response.properties;
@@ -506,8 +506,18 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
 
             $scope.uploader = new FileUploader({
                 alias: 'filedata',
-                url: ENV.apiCadastaRoot + '/projects/' + cadastaProject.id + '/parcel/' + $stateParams.id + '/resources'
+                url: ENV.apiCKANRoot + '/cadasta_upload_project_resources'
             });
+
+            $scope.uploader.onBeforeUploadItem = function (item) {
+                // upload required path params for CKAN to proxy
+                item.formData.push({
+                    project_id: cadastaProject.id,
+                    resource_type: "parcel",
+                    resource_type_id: $stateParams.id
+                });
+            };
+
 
             $scope.uploader.onProgressItem = function (item, progress) {
                 $scope.progress = progress;
@@ -515,13 +525,30 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
 
             // triggered when FileItem is has completed .upload()
             $scope.uploader.onCompleteItem = function (fileItem, response, status, headers) {
-                if (response.message == "Success") {
+
+                //
+                // ckan api wrappers return a 'result' key for successful calls
+                // and an 'error' key for unsuccessful calls
+                //
+                if (response.result && response.result.message == "Success"){
                     $scope.response = 'File Successfully uploaded.';
                     $scope.error = ''; // clear error
                     $scope.uploader.clearQueue();
 
                     getParcelResources();
                     $rootScope.$broadcast('new-resource'); // broadcast new resources to the app
+                }
+                else if(response.error){
+
+                    if (response.error.type && response.error.type.pop && response.error.type.pop() === "duplicate") {
+                        $scope.error = 'This resource already exists. Rename resource to complete upload.';
+                    }
+                    else if(response.error.message) {
+                        $scope.error = response.error.message;
+                    }
+                    else {
+                        $scope.error = response.error;
+                    }
                 }
             };
 

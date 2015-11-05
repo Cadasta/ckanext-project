@@ -9,7 +9,7 @@ from ckanext.cadastaroles.logic.action.util import (
 from functools import wraps
 import string
 import re
-
+import json
 from pylons import config
 import logging
 log = logging.getLogger(__name__)
@@ -52,15 +52,7 @@ def convert_field_storage(value):
 get_api_map = {
     'cadasta_get_activity': CadastaEndpoint('/show_activity'),
     'cadasta_get_resources': CadastaEndpoint('/resources'),
-    'cadasta_get_project_parcel': CadastaEndpoint(
-        '/projects/{id}/parcels/{parcel_id}'),
     'cadasta_get_project_overview': CadastaEndpoint('/projects/{id}/overview'),
-    'cadasta_get_project_parcel_detail':
-        CadastaEndpoint('/projects/{id}/parcels/{parcel_id}/details'),
-    'cadasta_get_project_parcel_history':
-        CadastaEndpoint('projects/{id}/parcels/{parcel_id}/history'),
-    'cadasta_get_project_parcel_relationship_history': CadastaEndpoint(
-        '/projects/{id}/parcels/{parcel_id}/show_relationship_history'),
 
     # get params are carried through request
     'cadasta_get_all_projects': CadastaEndpoint('/projects'),
@@ -72,6 +64,14 @@ get_api_map = {
     'cadasta_get_project_mapdata': CadastaEndpoint('/projects/{project_id}/map-data'),
 
     'cadasta_get_project_parcel_list': CadastaEndpoint('/projects/{project_id}/parcels_list'),
+
+    'cadasta_get_project_parcel': CadastaEndpoint('/projects/{project_id}/parcels/{parcel_id}'),
+
+    'cadasta_get_project_parcel_details': CadastaEndpoint('/projects/{project_id}/parcels/{parcel_id}/details'),
+
+    'cadasta_get_project_parcel_relationship_history': CadastaEndpoint('/projects/{project_id}/parcels/{parcel_id}/show_relationship_history'),
+
+    'cadasta_get_project_parcel_resources': CadastaEndpoint('/projects/{project_id}/parcels/{parcel_id}/resources'),
 
     'cadasta_get_project_details': CadastaEndpoint(
         '/projects/{project_id}',
@@ -97,6 +97,14 @@ post_api_map = {
         }
     ),
     'cadasta_create_organization': CadastaEndpoint('/organizations'),
+    'cadasta_create_project_parcel': CadastaEndpoint(
+        '/projects/{project_id}/parcels',
+        argument_types={
+            'project_id': int,
+            'geojson': dict, # basically, don't stringify it, leave it
+        },
+        keep_param_key=True
+    ),
 }
 
 patch_api_map = {
@@ -109,6 +117,12 @@ patch_api_map = {
         }
     ),
     'cadasta_delete_project': CadastaEndpoint('/projects/{cadasta_project_id}/archive'),
+    'cadasta_update_project_parcel': CadastaEndpoint(
+        '/projects/{project_id}/parcels/{parcel_id}',
+        argument_types={
+            'geojson': dict, # basically, don't stringify it, leave it
+        },
+    ),
 }
 
 post_files_api_map = {

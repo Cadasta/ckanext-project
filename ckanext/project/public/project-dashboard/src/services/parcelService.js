@@ -35,9 +35,12 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot + '/projects/' + projectId + '/parcels/' + parcelId + '/details', {cache: false}).
+            $http.get(ENV.apiCKANRoot + '/cadasta_get_project_parcel_details?project_id=' + projectId + '&parcel_id=' + parcelId, {cache: false}).
                 then(function (response) {
-                    deferred.resolve(response.data.features[0]);
+                    if(response.data && response.data.error){
+                        deferred.reject(response.data.error);
+                    }
+                    deferred.resolve(response.data.result.features[0]);
                 }, function (response) {
                     deferred.reject(response);
                 });
@@ -55,9 +58,12 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot + '/projects/' + projectId + '/parcels/' + parcelId + '/show_relationship_history', {cache: false}).
+            $http.get(ENV.apiCKANRoot + '/cadasta_get_project_parcel_relationship_history?project_id=' + projectId + '&parcel_id=' + parcelId, {cache: false}).
                 then(function (response) {
-                    deferred.resolve(response.data.features);
+                    if(response.data && response.data.error){
+                        deferred.reject(response.data.error);
+                    }
+                    deferred.resolve(response.data.result.features);
                 }, function (response) {
                     deferred.reject(response);
                 });
@@ -75,9 +81,12 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot + '/projects/' + projectId + '/parcels/' + parcelId + '/resources', {cache: false})
+            $http.get(ENV.apiCKANRoot + '/cadasta_get_project_parcel_resources?project_id=' + projectId + '&parcel_id=' + parcelId, {cache: false})
                 .then(function (response) {
-                    deferred.resolve(response.data);
+                    if(response.data && response.data.error){
+                        deferred.reject(response.data.error);
+                    }
+                    deferred.resolve(response.data.result);
                 }, function (response) {
                     deferred.reject(response);
                 });
@@ -114,7 +123,7 @@ var app = angular.module("app")
 
             $http({
                 method: "post",
-                url: ENV.apiCadastaRoot + '/projects/' + projectId + '/parcels',
+                url: ENV.apiCKANRoot + '/cadasta_create_project_parcel',
                 data: JSON.stringify({
                     project_id: projectId,
                     spatial_source: "digitized",
@@ -127,7 +136,10 @@ var app = angular.module("app")
                     'Content-type': 'application/json'
                 }
             }).then(function (response) {
-                deferred.resolve(response.data);
+                if(response.data && response.data.error){
+                    deferred.reject(response.data.error);
+                }
+                deferred.resolve(response.data.result);
             }, function (response) {
                 deferred.reject(response);
             });
@@ -167,9 +179,11 @@ var app = angular.module("app")
 
 
             $http({
-                method: "patch",
-                url: ENV.apiCadastaRoot + '/projects/' + projectId + '/parcels/' + parcelId,
+                method: "post",
+                url: ENV.apiCKANRoot + '/cadasta_update_project_parcel',
                 data: JSON.stringify({
+                    project_id: projectId, // required for CKAN to proxy
+                    parcel_id: parcelId, // required for CKAN to proxy
                     spatial_source: "digitized",
                     geojson: parcel_geoJSON,
                     description: description,
@@ -180,7 +194,10 @@ var app = angular.module("app")
                     'Content-type': 'application/json'
                 }
             }).then(function (response) {
-                deferred.resolve(response.data);
+                if(response.data && response.data.error){
+                    deferred.reject(response.data.error);
+                }
+                deferred.resolve(response.data.result);
             }, function (response) {
                 deferred.reject(response);
             });
