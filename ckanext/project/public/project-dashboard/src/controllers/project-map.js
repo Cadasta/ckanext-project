@@ -67,7 +67,8 @@ app.controller("projectMapCtrl", ['$scope', '$state', '$stateParams', '$location
             "stroke": "#256c97",
             "stroke-width": 1,
             "fill-opacity": .1,
-            "stroke-opacity": .7
+            "stroke-opacity": .7,
+            "clickable":false
         };
 
 
