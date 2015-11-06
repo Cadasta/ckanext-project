@@ -19,13 +19,15 @@ def transform_and_raise_api_errors(result):
     :return:
     '''
 
-    if isinstance(result,dict) is False and hasattr(result,'error') is False:
-        # no errors
+    if isinstance(result,dict) is False:
         return
 
-    error_dict = result.get('error')
+    if hasattr(result,'error') is False:
+        return # no errors
+
+    error_dict = result.get('error',{})
     if isinstance(error_dict,dict) is False:
-        log.error('[ CADASTA API ERROR ]: api response has a key "error" which is not a hash')
+        log.error('[ CADASTA API ERROR ]: api response has a key "error" which is not a hash\n {}'.format(error_dict))
         return
 
     #
