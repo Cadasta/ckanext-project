@@ -10,8 +10,7 @@ from ckanext.project.logic.validators import (
     slugify_title_to_name,
     create_cadasta_project,
     update_cadasta_project,
-    archive_cadasta_project,
-)
+    archive_cadasta_project, project_title_blacklist_char_validator)
 
 
 convert_to_extras = toolkit.get_validator('convert_to_extras')
@@ -28,6 +27,7 @@ def project_schema():
         'country': [ignore_missing, unicode, convert_to_extras],
         'province_state': [ignore_missing, unicode, convert_to_extras],
         'district_county': [ignore_missing, unicode, convert_to_extras],
+        'ona_api_key': [ignore_missing, unicode, convert_to_extras],
     }
 
 
@@ -35,9 +35,13 @@ def project_create_schema():
     schema = default_create_package_schema()
     schema.update({
         'id': [if_empty_generate_uuid],
-        'title': [not_missing, unicode],
-        'name': [ignore_missing, unicode, slugify_title_to_name,
+        'title': [not_missing, unicode,
+                  project_title_blacklist_char_validator],
+        'name': [ignore_missing, unicode,
+                 slugify_title_to_name,
                  project_name_validator],
+        'ona_api_key': [ignore_missing, unicode],
+
         '__after': [create_cadasta_project],
     })
     schema.update(project_schema())
@@ -60,6 +64,7 @@ def project_show_schema():
         'province_state': [convert_from_extras, ignore_missing, unicode],
         'district_county': [convert_from_extras, ignore_missing, unicode],
         'cadasta_id': [convert_from_extras, ignore_missing, unicode],
+        'ona_api_key': [convert_from_extras, ignore_missing, unicode],
     })
 
     return schema

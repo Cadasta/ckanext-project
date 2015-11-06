@@ -12,6 +12,9 @@ def user_role_show(context, data_dict):
     session = context['session']
     user = model.User.get(context['user'])
 
+    if user is None:
+        return [] # empty result
+
     members = session.query(model.Member)\
         .filter(model.Member.table_name == 'user')\
         .filter(model.Member.table_id == user.id)\

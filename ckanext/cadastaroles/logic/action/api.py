@@ -23,9 +23,10 @@ default_converter_types = {
 
 
 class CadastaEndpoint(object):
-    def __init__(self, url, argument_types=None, upload_fields=None):
+    def __init__(self, url, argument_types=None, upload_fields=None, keep_param_key=False):
         self.url = url
         self.upload_fields = upload_fields
+        self.keep_param_key = keep_param_key
         if argument_types is None:
             self.argument_types = default_converter_types
         else:
@@ -41,7 +42,7 @@ class CadastaEndpoint(object):
 
 def convert_field_storage(value):
     try:
-        return value.file
+        return { 'file': value.file, 'filename': value.filename }
     except AttributeError:
         raise ValueError('Not a FieldStorage value')
 
@@ -65,18 +66,37 @@ get_api_map = {
         CadastaEndpoint('projects/{id}/parcels/{parcel_id}/history'),
     'cadasta_get_project_parcel_relationship_history': CadastaEndpoint(
         '/projects/{id}/parcels/{parcel_id}/show_relationship_history'),
+
+    # get params are carried through request
+    'cadasta_get_all_projects': CadastaEndpoint('/projects'),
+
+    'cadasta_get_project_resources': CadastaEndpoint('/projects/{project_id}/resources'),
+
+    'cadasta_get_project_activities': CadastaEndpoint('/projects/{project_id}/activity'),
+
+    'cadasta_get_project_mapdata': CadastaEndpoint('/projects/{project_id}/map-data'),
 }
 
 post_api_map = {
     'cadasta_create_project': CadastaEndpoint(
-        '/projects', {'cadasta_organization_id': int}),
+        '/projects',
+        argument_types={
+            'cadasta_organization_id': int,
+            'ona_api_key': lambda v: None if v is None else v,
+        }
+    ),
     'cadasta_create_organization': CadastaEndpoint('/organizations'),
 }
 
 patch_api_map = {
     'cadasta_update_organization': CadastaEndpoint('/organizations/{cadasta_organization_id}'),
     'cadasta_delete_organization': CadastaEndpoint('/organizations/{cadasta_organization_id}/archive'),
-    'cadasta_update_project': CadastaEndpoint('/projects/{cadasta_project_id}'),
+    'cadasta_update_project': CadastaEndpoint(
+        '/projects/{cadasta_project_id}',
+        argument_types={
+            'ona_api_key': lambda v: None if v is None else v,
+        }
+    ),
     'cadasta_delete_project': CadastaEndpoint('/projects/{cadasta_project_id}/archive'),
 }
 
@@ -85,7 +105,12 @@ post_files_api_map = {
         '/resources/{project_id}/{resource_type}/{resource_type_id}',
         argument_types={'filedata': convert_field_storage},
         upload_fields=['filedata']
-    )
+    ),
+    'cadasta_upload_project_resources': CadastaEndpoint(
+        '/projects/{project_id}/{resource_type}/{resource_type_id}/resources',
+        argument_types={'filedata': convert_field_storage},
+        upload_fields=['filedata']
+    ),
 }
 
 
@@ -113,8 +138,12 @@ def make_cadasta_action(action, cadasta_endpoint, decorator, cadasta_api_func):
             if arg not in data_dict.keys() or not data_dict.get(arg):
                 error_dict[arg] = ['Missing value']
             else:
-                arg_value = cadasta_dict.pop(arg, '')
-                arg_value = re.sub('[^0-9a-zA-Z]+', '', arg_value)
+                arg_value = ''
+                if cadasta_endpoint.keep_param_key is True:
+                    arg_value = cadasta_dict.get(arg, '')
+                else:
+                    arg_value = cadasta_dict.pop(arg, '')
+                arg_value = re.sub('[^0-9a-zA-Z]+', '', str(arg_value))
                 endpoint_arg = ''.join(['{', arg, '}'])
                 endpoint = endpoint.replace(endpoint_arg, arg_value)
         if error_dict:

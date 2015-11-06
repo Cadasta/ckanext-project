@@ -109,7 +109,7 @@
     text-transform: uppercase;
     color: #858c92;
     font-weight: bold;
-    width: 100px;
+    width: 120px;
     float: left;
 }
 
@@ -291,6 +291,7 @@
     width:auto;
 }
 
+
 .add-relationship .small-heading {
     padding-left:0;
 }
@@ -318,9 +319,10 @@ md-input-container.notes textarea {
  width:310px;
 }
 
-.cadasta-button.right.parcel-save {
-    margin-top:147px;
-}
+
+/*.cadasta-button.right.parcel-save {*/
+    /*margin-top:147px;*/
+/*}*/
 
 .caption{
     text-transform: uppercase;
@@ -328,4 +330,53 @@ md-input-container.notes textarea {
     font-weight: bold;
     width: 100px;
     float: left;
+}
+
+
+
+
+.add-parcel-extra-fields md-input-container.pin-id input {
+    width: 325px;
+    border: 1px solid #dcdfe1;
+}
+
+md-content.add-parcel-extra-fields md-input-container.notes {
+    height: auto;
+    width:auto;
+}
+
+
+md-content.add-parcel-extra-fields md-input-container.notes textarea {
+    height: 80px !important;
+    width: 723px;
+    margin-left: -5px;
+    margin-top: -15px;
+    border: 1px solid #dcdfe1;
+    box-shadow:none;
+}
+
+md-content.add-parcel-extra-fields md-input-container.notes textarea * {
+    color: black;
+}
+
+.add-parcel-extra-fields md-input-container.landuse md-select {
+    padding-left: 0;
+    width: 348px;
+    margin:-24px;
+}
+
+
+md-input-container label {
+    font-family: 'Open Sans', sans-serif;
+    color: rgba(0,0,0,0.87);
+    font-weight: 500;
+}
+
+.cadasta-round-button.right.parcel-page-layout {
+    margin: -5px 0 0 575px;
+}
+
+.add-parcel-extra-fields md-input-container.update.landuse md-select{
+    padding-left: 0;
+    margin-top:5px;
 }

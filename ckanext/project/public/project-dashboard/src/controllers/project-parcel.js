@@ -1,5 +1,5 @@
-app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService', '$rootScope', 'paramService', 'utilityService', 'uploadResourceService', 'dataService', '$mdDialog', 'ckanId', 'cadastaProject', 'FileUploader', 'ENV',
-    function ($scope, $state, $stateParams, parcelService, $rootScope, paramService, utilityService, uploadResourceService, dataService, $mdDialog, ckanId, cadastaProject, FileUploader, ENV) {
+app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService', '$rootScope', 'paramService', 'utilityService', 'uploadResourceService', 'dataService', '$mdDialog', 'ckanId', 'cadastaProject', 'FileUploader', 'ENV', 'partyService', 'relationshipService',
+    function ($scope, $state, $stateParams, parcelService, $rootScope, paramService, utilityService, uploadResourceService, dataService, $mdDialog, ckanId, cadastaProject, FileUploader, ENV, partyService, relationshipService) {
 
 
         var mapStr = $stateParams.map;
@@ -9,7 +9,27 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
         // parse map query param
         var mapArr = mapStr.substring(1, mapStr.length - 1).split(',');
 
-        getParcelResources(false);
+
+        var parcelStyle = {
+            "color": "#e54573",
+            "stroke": true,
+            "weight": 3,
+            "fillOpacity": .1,
+            "opacity": .8,
+            "marker-color": "#e54573",
+            "clickable" : false
+        };
+
+
+        var relationshipStyle = {
+            "color": "#FF8000",
+            "stroke": "#FF8000",
+            "opacity":.8,
+            "fillOpacity":.5,
+            "weight" : 1
+        };
+
+        getParcelResources();
 
         var lat = mapArr[0];
         var lng = mapArr[1];
@@ -39,7 +59,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
             accessToken: 'pk.eyJ1Ijoic3BhdGlhbGRldiIsImEiOiJKRGYyYUlRIn0.PuYcbpuC38WO6D1r7xdMdA#3/0.00/0.00'
         }).addTo(map);
 
-        $scope.parcel = null;
+        $scope.parcel = {};
 
         $scope.toggleDropdownDetails = function (obj) {
             obj.showDropDownDetails = !obj.showDropDownDetails;
@@ -49,13 +69,19 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
             $rootScope.$broadcast('clear-inner-tabs');
         };
 
-         //add layer for adding parcels
-        var parcelGroup = L.featureGroup().addTo(map);        
+        //add layer for adding parcels
+        var parcelGroup = L.featureGroup().addTo(map);
 
-	    getParcelDetails();
+        //layer for adding relationships
+        var relationshipGroup = L.featureGroup().addTo(map);
+
+
+        getParcelDetails();
+
 
         function getParcelDetails() {
 
+            var layer;
 
             var promise = parcelService.getProjectParcel(cadastaProject.id, $stateParams.id);
 
@@ -86,33 +112,55 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
 
                 $scope.relationships = response.properties.relationships;
 
+                relationshipGroup.clearLayers();
+                parcelGroup.clearLayers();
+
                 //update values for UI
                 $scope.relationships.forEach(function (v, i) {
-                    if (i === 0) {
-                        v.showDropDownDetails = true;
+
+                    var name = null;
+                    if (v.properties.first_name) {
+                        name = v.properties.first_name + ' ' + v.properties.last_name;
                     } else {
-                        v.showDropDownDetails = false;
+                        name = v.properties.group_name;
+                    }
+
+                    var popup_content = '<h3>Relationship ' + v.properties.id + '</h3><p class="popup-text">Tenure Type:' + v.properties.tenure_type + ' </p><p class="popup-text">Party: ' + name + '</p><a href="#/relationships/' + v.properties.id + '"> See Full Details<i class="material-icons arrow-forward">arrow_forward</i></a>';
+
+
+                    var editIcon = L.icon({
+                        iconUrl: '/images/orange_marker.png',
+                        iconSize: [30, 30]
+
+                    });
+
+
+                    if(v.geometry !== null){
+
+                        //check if it is a marker
+                        //if (v.geometry.type === 'Point'){
+                        //    layer = L.marker(v);
+                        //    layer.setIcon(editIcon);
+                        //    layer.addTo(relationshipGroup);
+                        //}
+
+                        layer = L.geoJson(v, {style: relationshipStyle});
+                        layer.bindPopup(popup_content);
+                        layer.addTo(relationshipGroup);
+                        map.fitBounds(layer.getBounds());
                     }
 
 
+                    v.showDropDownDetails = (i === 0);
+
                     v.properties.active = v.properties.active ? 'Active' : 'Inactive';
                     v.properties.relationship_type = 'own' ? 'Owner' : v.properties.relationship_type;
+
                 });
-
-                var parcelStyle = {
-                    "color": "#e54573",
-                    "stroke": "#e54573",
-                    "stroke-width": 1,
-                    "fill-opacity": .8,
-                    "stroke-opacity": .8
-                };
-
-                //clear layers
-                parcelGroup.clearLayers();
 
                 // If there are any parcels, load the map and zoom to parcel
                 if (response.geometry) {
-                    var layer = L.geoJson(response, {style: parcelStyle}).addTo(parcelGroup);
+                    layer = L.geoJson(response, {style: parcelStyle}).addTo(parcelGroup);
                     map.fitBounds(layer.getBounds());
                 } else {
                     map.setView([lat, lng], zoom);
@@ -125,8 +173,8 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
             });
         }
 
-        function getParcelResources(cache) {
-            var resource_promise = parcelService.getProjectParcelResources(cadastaProject.id, $stateParams.id, cache);
+        function getParcelResources() {
+            var resource_promise = parcelService.getProjectParcelResources(cadastaProject.id, $stateParams.id);
 
             resource_promise.then(function (response) {
 
@@ -148,8 +196,12 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
         $scope.progress = 0;
 
 
+        /**
+         * Functions related to the update parcel modal
+         * @returns {*}
+         */
 
-        //modal for adding a parcel
+            //modal for adding a parcel
         $scope.updateParcelModal = function (ev) {
             $mdDialog.show({
                 templateUrl: '/project-dashboard/src/partials/edit_parcel.html',
@@ -157,11 +209,161 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
                 parent: angular.element(document.body),
                 clickOutsideToClose: false,
                 onComplete: addMap,
+                locals: {cadastaProject: cadastaProject, parcel:$scope.parcel}
+            })
+        };
+
+        function getLayer() {
+            return $scope.layer;
+        }
+
+        function updateParcelCtrl($scope, $mdDialog, $stateParams, parcel, cadastaProject) {
+            $scope.hide = function () {
+                $mdDialog.hide();
+            };
+            $scope.cancel = function () {
+                $mdDialog.cancel();
+            };
+
+            $scope.cadastaProjectId = cadastaProject.id;
+            $scope.parcel = parcel;
+
+            $scope.updateParcel = function (projectId) {
+
+                var layer = getLayer();
+
+                if (layer === undefined) {
+                    layer = null;
+                } else {
+                    layer = layer.toGeoJSON();
+                }
+                var updateExistingParcel = parcelService.updateProjectParcel(cadastaProject.id, $stateParams.id, layer, $scope.parcel);
+
+                updateExistingParcel.then(function (response) {
+                    if (response.cadata_parcel_history_id){
+
+                        $scope.parcelCreated = 'parcel successfully updated';
+
+                        $rootScope.$broadcast('updated-parcel');
+
+                        getParcelDetails();
+
+                        var timeoutID = window.setTimeout(function() {
+                            $scope.cancel();
+                        }, 300);
+                    }
+                }).catch(function(err){
+
+                    $scope.parcelCreated ='unable to update parcel';
+                });
+
+            }
+        }
+
+
+
+        /**
+         * Functions related to add relationship modal
+         * @returns {*}
+         */
+
+        //modal for adding a relationship
+        $scope.addRelationshipModal = function (ev) {
+            $mdDialog.show({
+                templateUrl: '/project-dashboard/src/partials/add_relationship.html',
+                controller: addRelationshipCtrl,
+                parent: angular.element(document.body),
+                clickOutsideToClose: false,
+                onComplete: addMap,
                 locals: {cadastaProject: cadastaProject}
             })
         };
 
-        function addMap() {
+
+        function addRelationshipCtrl($scope, $mdDialog, $stateParams) {
+            $scope.hide = function () {
+                $mdDialog.hide();
+            };
+            $scope.cancel = function () {
+                $mdDialog.cancel();
+            };
+
+            $scope.cadastaProjectId = cadastaProject.id;
+            $scope.relationship = {};
+
+            $scope.selectParty = function(party) {
+                $scope.relationship.party = party;
+            }
+
+
+            var promise = partyService.getProjectParties(cadastaProject.id);
+
+            promise.then(function (response) {
+                $scope.parties = response;
+
+            }, function (err) {
+                $scope.parties = "Server Error";
+            });
+
+
+            $scope.saveNewRelationship = function () {
+
+                var layer = getLayer();
+
+                if (layer) {
+                    layer = layer.toGeoJSON().geometry;
+                }
+
+                if ($scope.relationship.party == undefined) {
+                    $scope.relationshipCreated = "party required";
+                }
+                else if ($scope.relationship.tenure_type == undefined) {
+                    $scope.relationshipCreated = "tenure required";
+                }
+                else if (($scope.relationship.party != undefined) && ($scope.relationship.tenure_type != undefined)  ) {
+
+                    var createRelationship = relationshipService.createProjectRelationship(cadastaProject.id, $stateParams.id, layer, $scope.relationship);
+
+                    createRelationship.then(function (response) {
+                        if (response.cadasta_relationship_id){
+
+
+                            $rootScope.$broadcast('new-relationship');
+                            getParcelDetails();
+
+                            var timeoutID = window.setTimeout(function() {
+                                $scope.cancel();
+                            }, 300);
+                        }
+                    }).catch(function(err){
+
+                        $scope.parcelCreated ='unable to create parcel';
+                    });
+
+                }
+            }
+
+            $scope.tenure_types = [
+                {
+                    type: 'own',
+                    label: 'Own'
+                },
+                {
+                    type: 'lease',
+                    label: 'Lease'
+                },
+                {
+                    type: 'occupy',
+                    label: 'Occupy'
+                },
+                {
+                    type: 'informal occupy',
+                    label: 'Informally Occupy'
+                }
+            ];
+        }
+
+        function addMap(map) {
 
             var map = L.map('editParcelMap');
 
@@ -187,8 +389,8 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
                 draw: {
                     polyline: {
                         shapeOptions: {
-                            "color": "#FF8000",
-                            "stroke": "#FF8000",
+                            "color": "#88D40E",
+                            "stroke": "#88D40E",
                             "stroke-width": 1,
                             "fill-opacity":.7,
                             "stroke-opacity":.8
@@ -196,8 +398,8 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
                     },
                     polygon: {
                         shapeOptions: {
-                            "color": "#FF8000",
-                            "stroke": "#FF8000",
+                            "color": "#88D40E",
+                            "stroke": "#88D40E",
                             "stroke-width": 1,
                             "fill-opacity":.7,
                             "stroke-opacity":.8
@@ -206,8 +408,8 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
                     circle: false,
                     rectangle: {
                         shapeOptions: {
-                            "color": "#FF8000",
-                            "stroke": "#FF8000",
+                            "color": "#88D40E",
+                            "stroke": "#88D40E",
                             "stroke-width": 1,
                             "fill-opacity":.7,
                             "stroke-opacity":.8
@@ -243,7 +445,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
 
             promise.then(function(response) {
                 // If there is a project geom load map and zoom to it; else zoom to parcels
-                console.log(response);
+
                 var layer;
 
                 var extentStyle = {
@@ -251,7 +453,8 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
                     "stroke": "#256c97",
                     "stroke-width": 1,
                     "fill-opacity":.1,
-                    "stroke-opacity":.7
+                    "stroke-opacity":.7,
+                    "clickable":false
                 };
 
 
@@ -260,16 +463,17 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
                     var layer = L.geoJson(response.features[0], {style: extentStyle});
                     layer.addTo(parcelGroup);
                 }
-
             });
+
 
             var parcelStyle = {
                 "color": "#e54573",
-                "stroke": "#e54573",
-                "stroke-width": 1,
-                "fill-opacity":.8,
-                "stroke-opacity":.8,
-                "marker-color":"#e54573"
+                "stroke": true,
+                "weight": 3,
+                "fillOpacity": .1,
+                "opacity": .8,
+                "marker-color": "#e54573",
+                "clickable" : false
             };
 
             //add parcel extent to the map
@@ -279,56 +483,19 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
 
             map.fitBounds(parcelLayer.getBounds());
 
+
+            //prepopulate fields to update with existing data
+            $scope.parcel.pinid = $scope.parcelObject.properties.gov_pin;
+            $scope.parcel.landuse = $scope.parcelObject.properties.land_use;
+
+
         }
 
-        function getLayer() {
-            return $scope.layer;
-        }
 
-
-        function updateParcelCtrl($scope, $mdDialog, $stateParams) {
-            $scope.hide = function () {
-                $mdDialog.hide();
-            };
-            $scope.cancel = function () {
-                $mdDialog.cancel();
-            };
-
-            $scope.cadastaProjectId = cadastaProject.id;
-            $scope.showSaveParcel = false;
-
-            $scope.updateParcel = function () {
-
-                var layer = getLayer();
-
-                if (layer === undefined) {
-                    layer = null;
-                } else {
-                    layer = layer.toGeoJSON();
-                }
-                var updateExistingParcel = parcelService.updateProjectParcel(cadastaProject.id, $stateParams.id, layer, $scope.parcel);
-
-                updateExistingParcel.then(function (response) {
-                    if (response.cadata_parcel_history_id){
-
-                        $scope.parcelCreated = 'parcel successfully updated';
-
-                        $rootScope.$broadcast('updated-parcel');
-
-                        getParcelDetails();
-
-                        var timeoutID = window.setTimeout(function() {
-                            $scope.cancel();
-                        }, 300);
-                    }
-                }).catch(function(err){
-
-                    $scope.parcelCreated ='unable to update parcel';
-                });
-
-            }
-        }
-
+        /**
+         * Functions related to add parcel resources modal
+         * @returns {*}
+         */
 
         $scope.showAddResourceModal = function (ev) {
 
@@ -368,7 +535,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
                     $scope.error = ''; // clear error
                     $scope.uploader.clearQueue();
 
-                    getParcelResources(false);
+                    getParcelResources();
                     $rootScope.$broadcast('new-resource'); // broadcast new resources to the app
                 }
             };
@@ -392,6 +559,8 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
 
         }
 
+        // TODO move to config or service
+        // TODO create endpoint that grabs project specific tenure types
         $scope.tenure_types = [
 
             {
@@ -412,21 +581,6 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
             }
         ];
 
-        $scope.acquire_types = [
-
-            {
-                type: 'inheritance'
-            },
-            {
-                type: 'lease'
-            },
-            {
-                type: 'freehold'
-            },
-            {
-                type: 'other'
-            }
-        ];
 
         $scope.myDate = new Date();
 
@@ -439,4 +593,3 @@ app.filter('emptyString', function () {
         return input == null ? '- -' : input;
     }
 });
-

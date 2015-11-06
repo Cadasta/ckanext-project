@@ -6,6 +6,7 @@ app.controller("breadcrumbsCtrl", ['$scope', '$state', '$stateParams','$location
 
     $scope.tab = '';
     $scope.tab_parcel = '';
+    $scope.tab_relationship = '';
     $scope.ckanId = ckanId;
     $scope.cadastaProject = cadastaProject;
     $scope.ENV = ENV;
@@ -15,6 +16,9 @@ app.controller("breadcrumbsCtrl", ['$scope', '$state', '$stateParams','$location
         $scope.tab = data.tab;
         if(!data.parcel){
             $scope.tab_parcel = '';
+        }
+        if(!data.relationship){
+            $scope.tab_relationship = '';
         }
     });
 
@@ -26,7 +30,18 @@ app.controller("breadcrumbsCtrl", ['$scope', '$state', '$stateParams','$location
     $scope.$on('parcel-details',function(evt,params){
         if(params){
             $scope.tab_parcel = params.id;
-            console.log('breadcrumbs update');
+        }
+    });
+
+
+    // clear inner tab parcel on 'Back to Parcel List click'
+    $scope.$on('clear-inner-relationship-tab',function(evt,data){
+        $scope.tab_relationship = '';
+    });
+
+    $scope.$on('relationship-details',function(evt,params){
+        if(params){
+            $scope.tab_relationship = params.id;
         }
     });
 

@@ -6,6 +6,7 @@ import logging
 import json
 import uuid
 from slugify import slugify
+import re
 
 
 log = logging.getLogger(__name__)
@@ -53,9 +54,9 @@ def convert_package_name_or_id_to_id_for_type_project(package_name_or_id, contex
 
 def slugify_title_to_name(key, data, errors, context):
     if not data[key]:
-        data[key] = slugify(data['title', ])
+        data[key] = slugify(data['title', ],separator='_')
     else:
-        data[key] = slugify(data[key])
+        data[key] = slugify(data[key],separator='_')
 
 
 def project_name_validator(key, data, errors, context):
@@ -85,6 +86,14 @@ def project_name_validator(key, data, errors, context):
             _('Name "%s" length is more than maximum %s') % (value, PACKAGE_NAME_MAX_LENGTH)
         )
 
+def project_title_blacklist_char_validator(key, data, errors, context):
+    BLACKLIST_CHARS_PATTERN = re.compile(r'[-\s!#&\$@%^*()\\\/]+')
+    value = data[key]
+    has_bad_char = BLACKLIST_CHARS_PATTERN.search(value)
+    if has_bad_char:
+        errors['title', ].append(
+            _('Title cannot contain the character "%s"') % (value, has_bad_char.group())
+        )
 
 def organization_name_validator(key, data, errors, context):
     model = context['model']
@@ -155,6 +164,7 @@ def create_cadasta_project(key, data, errors, context):
         'ckan_id': data['name', ],
         'ckan_name': data['name', ],
         'title': data['title', ],
+        'ona_api_key': data['ona_api_key',] or None,
         'description': data.get('description',''),
     }
     request_context = {
@@ -198,6 +208,8 @@ def update_cadasta_project(key, data, errors, context):
         'ckan_name': data['name', ],
         'title': data['title', ],
         'description': data.get('description',''),
+        'ona_api_key': data['ona_api_key',] or None,
+
     }
     request_context = {
         'model': context['model'],

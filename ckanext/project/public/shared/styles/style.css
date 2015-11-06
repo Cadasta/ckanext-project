@@ -86,7 +86,6 @@ div.tabcontent {
     background-color: #256c97;
     color: white;
     padding: 3px 15px;
-    border-radius: 15px;
     font-weight: 600;
     max-height:28px;
     cursor: pointer;
@@ -106,4 +105,16 @@ md-dialog > form {
 
 md-dialog {
     max-height: 95%;
+}
+
+p.popup-text {
+    font-size:12px;
+}
+
+.font-red {
+    color:red;
+}
+
+.md-select-menu-container.md-active md-select-menu {
+    width:200px;
 }

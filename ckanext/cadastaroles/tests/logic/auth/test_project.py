@@ -89,3 +89,16 @@ class TestProject(TestProjectBase):
                                          [None, 'surveyor', 'admin', 'editor'],
                                          self.project['id'], 'id')
 
+    def test_cadasta_upload_project_resource_success(self):
+        self.assert_authorization_passes('cadasta_upload_resource',
+                                         ['surveyor', 'admin', 'editor'],
+                                         self.project['id'],
+                                         'project_id',
+                                         **{'resource_type':'project','resource_type_id':'1'})
+
+    def test_cadasta_upload_project_resource_fails(self):
+        self.assert_authorization_fails('cadasta_upload_resource',
+                                         [None,],
+                                         self.project['id'],
+                                         'project_id',
+                                         **{'resource_type':'project','resource_type_id':'1'})

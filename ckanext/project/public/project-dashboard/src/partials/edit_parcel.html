@@ -5,7 +5,7 @@
             <div class="form_upload_content add-relationship">
                 <div class="cadasta-modal-header">
                     <div class="small-heading">
-                        Update Parcel Geometry
+                        Update Parcel Details
                     </div>
                     <div class="right">
                         <md-button class="md-icon-button" ng-click="cancel()">
@@ -28,19 +28,19 @@
                                 <span class="legend-label">Project Extent</span>
                                 <span class='legend-key' style='background:#e54573;'></span>
                                 <span class="legend-label">Current Parcel Geometry</span>
-                                <span class='legend-key' style='background:#FF8000;'></span>
+                                <span class='legend-key' style='background:#88D40E;'></span>
                                 <span class="legend-label">New Parcel Geometry</span>
                             </nav>
                         </div>
 
-                        <md-content class="layout-padding left" >
-                            <p>2. Add additional (optional) data to the parcel.</p>
+                        <md-content class="layout-padding left add-parcel-extra-fields" >
+                            <p>2. Add parcel details.</p>
                             <div layout layout-sm="column">
-                                <md-input-container flex class="pin-id">
+                                <md-input-container md-no-float flex class="pin-id">
                                     <label>Government Pin Id</label>
                                     <input ng-model="parcel.pinid">
                                 </md-input-container>
-                                <md-input-container flex>
+                                <md-input-container flex class="landuse update">
                                     <label>Landuse</label>
                                     <md-select ng-model="parcel.landuse">
                                         <md-option>Commercial</md-option>
@@ -48,7 +48,7 @@
                                     </md-select>
                                 </md-input-container>
                             </div>
-                            <md-input-container flex class="notes">
+                            <md-input-container md-no-float flex class="notes">
                                 <label>Notes</label>
                                 <textarea ng-model="parcel.notes" columns="1" md-maxlength="150"></textarea>
                             </md-input-container>

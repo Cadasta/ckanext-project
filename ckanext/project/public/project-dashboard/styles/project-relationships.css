@@ -1,0 +1,105 @@
+#relationshipDetailsMap {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.add-party md-input-container.pin-id {
+    width: auto;
+    margin-right: 25px;
+    padding:0;
+}
+
+.add-party md-input-container.pin-id.group-name {
+    display: block;
+    width: 772px;
+}
+
+
+
+.add-party md-radio-group .party-type{
+    padding-left:15px;
+    font-size:12px;
+    font-weight: 600;
+}
+
+.add-party .cadasta-modal-header .small-heading {
+    padding-left:14px;
+}
+
+#partyDetailsMap {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+
+#addRelationshipMap {
+    width: 780px;
+    height: 300px;
+    position: relative;
+    margin-top: -40px;
+}
+
+.add-relationship md-input-container.add-relationship-format {
+    width: 351px;
+    padding-right: 18px;
+ }
+
+.add-relationship md-input-container.add-relationship-format input {
+    width: 100%;
+    border: 1px solid #dcdfe1;
+}
+
+md-datepicker.add-relationship-format {
+    margin-left: -15px;
+}
+
+md-datepicker.add-relationship-format .md-datepicker-input-container {
+    border: 1px solid #dcdfe1;
+}
+
+md-datepicker.add-relationship-format.party .md-datepicker-input-container {
+    width:273px;
+}
+
+
+md-datepicker.add-relationship-format .md-datepicker-input {
+    width: 241px;
+}
+
+.add-relationship .resource-upload-error {
+    margin-top: 60px;
+}
+
+
+#editRelationshipMap {
+    width: 737px;
+    height: 315px;
+    margin-top: -35px;
+}
+
+.cadasta-round-button.right.relationship {
+    left: 430px !important;
+}
+
+.cadasta-round-button.right.relationship-page-layout {
+    margin: -5px 20px 0 0;
+}
+
+
+md-input-container.relationship-notes textarea {
+    height: 80px!important;
+    width: 719px;
+    margin-left: -5px;
+    margin-top: -15px;
+    border: 1px solid #dcdfe1;
+    box-shadow: none;
+}
+
+.md-datepicker-input-container {
+    width: 276px;
+    margin-left: 12px;
+    height: 26px;
+    margin-bottom: 35px;
+}

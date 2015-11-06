@@ -18,8 +18,6 @@
 
             {{ form.input("orgURL", id="field-orgURL", label=_("URL"), placeholder=_("www.myorganization.com"), value=data.orgURL, error=errors.orgURL, classes=["control-medium", "cadasta-org-input"]) }}
 
-            {{ form.input("ona_api_token", id="field-ona_api_token", label=_("ONA API Token"), placeholder=_("..."), value=data.ona_api_token, error=errors.ona_api_token, classes=["control-medium", "cadasta-org-input"]) }}
-
             {% set is_upload = data.image_url and not data.image_url.startswith('http') %}
             {% set is_url = data.image_url and data.image_url.startswith('http') %}
 
@@ -36,10 +34,13 @@
     <!-- add back in to indicate required fields-->
 
         <div class="save-new org">
+            {#
             <!--{% if h.check_access('organization_delete', {'id': data.id})  %}-->
             {% set locale = h.dump_json({'content': _('Are you sure you want to delete this Organization? This will delete all the public and private datasets belonging to this organization.')}) %}
             <a class="cadasta-button-simple" href="{% url_for controller='organization', action='delete', id=data.id %}" data-module="confirm-action" data-module-i18n="{{ locale }}">{% block delete_button_text %}{{ _('Delete') }}{% endblock %}</a>
             <!--{% endif %}-->
+            #}
             <button class="cadasta-button" name="save" type="submit">{% block save_text %}{{ _('Save Organization') }}{% endblock %}</button>
         </div>
 </form>
+{% snippet "organization/snippets/uuid_javascript.html" %}

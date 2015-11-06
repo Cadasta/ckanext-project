@@ -35,7 +35,7 @@
 <div id="parcelList">
     <table>
         <tbody>
-        <tr class="row-link" ng-show="parcelsList.length ==0 " ng-repeat="parcel in parcels | tenureType: TenureTypeModel"
+        <tr class="row-link" ng-show="parcelsList.length ==0 " ng-repeat="parcel in parcels | customFilter: TenureTypeModel"
             ng-class="{'last-table-element':$index == parcels.length-1}" ui-sref="^.parcel({id: parcel.properties.id})">
             <td>{{parcel.properties.id}}</td>
             <td>{{parcel.properties.area | number:0 | emptyString}}</td>

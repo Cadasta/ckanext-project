@@ -8,12 +8,11 @@ app.controller("projectMapCtrl", ['$scope', '$state', '$stateParams', '$location
         $rootScope.$broadcast('tab-change', {tab: 'Map'}); // notify breadcrumbs of tab on page load
 
         $scope.$on('updated-parcel',function(){
-            getOverviewData();
+            getMapData();
         });
 
-        //TODO create project parcels ALL endpoint
         $scope.$on('new-parcel',function(){
-            getOverviewData();
+            getMapData();
         });
 
         // parse map query param
@@ -25,6 +24,7 @@ app.controller("projectMapCtrl", ['$scope', '$state', '$stateParams', '$location
 
         // setup map
         var map = L.map('projectBigMap', {scrollWheelZoom: false});
+        $scope.map = map; //expose map for testing
 
         // After each pan or zoom
         map.on('moveend', function () {
@@ -51,70 +51,66 @@ app.controller("projectMapCtrl", ['$scope', '$state', '$stateParams', '$location
 
         //add layer for adding parcels
         var parcelGroup = L.featureGroup().addTo(map);
+        var projectLayer;
 
-        getOverviewData();
+        var parcelStyle = {
+            "color": "#e54573",
+            "stroke": "#e54573",
+            "stroke-width": 1,
+            "fill-opacity": .8,
+            "stroke-opacity": .8,
+            "marker-color": "#e54573"
+        };
 
-        function getOverviewData() {
+        var ExtentStyle = {
+            "color": "#256c97",
+            "stroke": "#256c97",
+            "stroke-width": 1,
+            "fill-opacity": .1,
+            "stroke-opacity": .7,
+            "clickable":false
+        };
+
+
+        getMapData();
+
+        function getMapData() {
             // Get overview data
-            var promise = dataService.getOverview(ckanId, cadastaProject.id);
+            var promise = dataService.getCadastaMapData(cadastaProject.id);
 
             promise.then(function (response) {
 
-                $scope.overviewData = response;
-
-                var layer;
-
-                var parcelStyle = {
-                    "color": "#e54573",
-                    "stroke": "#e54573",
-                    "stroke-width": 1,
-                    "fill-opacity": .8,
-                    "stroke-opacity": .8,
-                    "marker-color": "#e54573"
-                };
-
-                var ExtentStyle = {
-                    "color": "#256c97",
-                    "stroke": "#256c97",
-                    "stroke-width": 1,
-                    "fill-opacity": .1,
-                    "stroke-opacity": .7
-                };
+                console.log(response);
 
                 //clear layers
+                if(projectLayer) {
+                    projectLayer.removeLayer();
+                }
                 parcelGroup.clearLayers();
 
                 // If there is a project extent add it to the map
-                if ($scope.overviewData.features[0].geometry) {
+                projectLayer = L.geoJson(response.project.features, {style: ExtentStyle});
+                projectLayer.addTo(map);
 
-                    layer = L.geoJson($scope.overviewData.features[0], {style: ExtentStyle});
-                    layer.addTo(parcelGroup);
-
-                }
-
-                // If there are parcels add them to the map
-                if ($scope.overviewData.features[0].properties.parcels) {
-
-
-                    $scope.overviewData.features[0].properties.parcels.forEach(function (parcel) {
-                        var popup_content = '<h3>Parcel ' + parcel.properties.id + '</h3><a href="#/parcels/' + parcel.properties.id + '"> See Full Details<i class="material-icons arrow-forward">arrow_forward</i></a>';
-                        var parcelToAdd = L.geoJson(parcel.geometry, {style: parcelStyle});
-                        parcelToAdd.bindPopup(popup_content);
-                        parcelToAdd.addTo(parcelGroup);
-                    });
-
-                }
+                response.parcels.features.forEach(function (parcel) {
+                    var popup_content = '<h3>Parcel ' + parcel.properties.id + '</h3><a href="#/parcels/' + parcel.properties.id + '"> See Full Details<i class="material-icons arrow-forward">arrow_forward</i></a>';
+                    var parcelToAdd = L.geoJson(parcel, {style: parcelStyle});
+                    parcelToAdd.bindPopup(popup_content);
+                    parcelToAdd.addTo(parcelGroup);
+                });
 
                 //zoom to project extent
-                if (layer === undefined) {
-                    map.setView([lat, lng], zoom);
+                if(response.project.features[0].geometry !== null){
+                    map.fitBounds(projectLayer.getBounds());
+                } else if (response.parcels.features.length > 0) {
+                    console.log(response.parcels.features.length)
+                    map.fitBounds(parcelGroup.getBounds());
                 } else {
-                    map.fitBounds(layer.getBounds());
+                    map.setView([lat, lng], zoom);
                 }
 
-
             }, function (err) {
-                $scope.overviewData = "Server Error";
+                console.error(err);
             });
         }
 

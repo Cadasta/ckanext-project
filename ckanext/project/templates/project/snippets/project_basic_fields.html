@@ -7,8 +7,6 @@
       {{ form.hidden('name', value=data.name) }}
     {% endblock %}
 
-    {% block package_basic_fields_custom %}{% endblock %}
-
     {% block package_basic_fields_description %}
     {{ form.markdown('notes', id='field-notes', label=_('Description'), placeholder=_('eg. Some useful notes about the data'), value=data.notes, error=errors.notes) }}
     {% endblock %}
@@ -61,7 +59,7 @@
             <label for="field-private" class="control-label">{{ _('Visibility') }}</label>
             <div class="controls">
                 <select id="field-private" name="private">
-                    {% for option in [('True', _('Private')), ('False', _('Public'))] %}
+                    {% for option in [('False', _('Public')), ('True', _('Private'))] %}
                     <option value="{{ option[0] }}" {% if option[0] == data.private|trim %}selected="selected"{% endif %}>{{ option[1] }}</option>
                     {% endfor %}
                 </select>
@@ -73,6 +71,11 @@
         {% if show_organizations_selector and show_visibility_selector %}
     </div>
     {% endif %}
+
+
+    {% block package_basic_fields_custom %}
+    {{ form.input("ona_api_key", id="field-ona_api_key", label=_("ONA API Token"), placeholder=_("..."), value=data.ona_api_key, error=errors.ona_api_key, classes=["control-medium", "cadasta-project-input"]) }}
+    {% endblock %}
 
 
     {% if data.id and h.check_access('package_delete', {'id': data.id}) and data.state != 'active' %}

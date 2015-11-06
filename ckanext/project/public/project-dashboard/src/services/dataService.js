@@ -8,15 +8,14 @@ var app = angular.module("app")
             var deferred = $q.defer();
 
             // Cadasta API
-            $http.get(ENV.apiCadastaRoot + '/projects?outputFormat=JSON&ckan_id=' + ckanProjectId, { cache: true })
+            $http.get(ENV.apiCKANRoot + '/cadasta_get_all_projects?outputFormat=JSON&ckan_id=' + ckanProjectId, { cache: true })
                 .then(function(response) {
-                    deferred.resolve(response.data[0]);
+                    deferred.resolve(response.data.result[0]);
                 }, function(err) {
                     deferred.reject(err);
                 });
 
             // CKAN API for project description
-
             return deferred.promise;
         };
 
@@ -75,13 +74,33 @@ var app = angular.module("app")
             return deferred.promise;
         };
 
+        service.getCadastaMapData = function(cadastaProjectId){
+            var deferred = $q.defer();
+
+            // Cadasta API
+            $http.get(ENV.apiCKANRoot + '/cadasta_get_project_mapdata?project_id=' + cadastaProjectId, { cache: false })
+                .then(function(response) {
+                    if( response.data && response.data.error ){
+                        deferred.reject(response.data.error);
+                    }
+                    deferred.resolve(response.data.result);
+                }, function(response) {
+                    deferred.reject(response);
+                });
+
+            return deferred.promise;
+        };
+
         service.getProjectResources = function(cadastaProjectId){
             var deferred = $q.defer();
 
             // Cadasta API
-            $http.get(ENV.apiCadastaRoot + '/projects/' + cadastaProjectId + '/resources', { cache: false })
+            $http.get(ENV.apiCKANRoot + '/cadasta_get_project_resources?project_id=' + cadastaProjectId, { cache: false })
                 .then(function(response) {
-                    deferred.resolve(response.data);
+                    if( response.data && response.data.error ){
+                        deferred.reject(response.data.error);
+                    }
+                    deferred.resolve(response.data.result);
                 }, function(response) {
                     deferred.reject(response);
                 });
@@ -114,9 +133,12 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot + '/projects/' + cadastaProjectId + '/activity', { cache: false })
+            $http.get(ENV.apiCKANRoot + '/cadasta_get_project_activities?project_id=' + cadastaProjectId, { cache: false })
                 .then(function(response) {
-                    deferred.resolve(response.data);
+                    if(response.data && response.data.error){
+                        deferred.reject(response.data.error);
+                    }
+                    deferred.resolve(response.data.result);
                 }, function(response) {
                     deferred.reject(response);
                 });
@@ -124,24 +146,6 @@ var app = angular.module("app")
             return deferred.promise;
         };
 
-
-        /**
-         * Get all resources associated with a project
-         * @returns {*}
-         */
-        service.getProjectResources = function(cadastaProjectId, cache){
-
-            var deferred = $q.defer();
-
-            $http.get(ENV.apiCadastaRoot + '/projects/' + cadastaProjectId +'/resources', {cache: false})
-                .then(function(response) {
-                    deferred.resolve(response.data);
-                }, function(response) {
-                    deferred.reject(response);
-                });
-
-            return deferred.promise;
-        };
 
         //todo pass in project_id as a parameter
         service.getProjectParcels = function(id){
