@@ -111,14 +111,13 @@ p.popup-text {
     font-size:12px;
 }
 
-<<<<<<< Updated upstream
 .font-red {
     color:red;
 }
 
 .md-select-menu-container.md-active md-select-menu {
-    width:200px;
-=======
+    width: 200px;
+}
 
 #ag-table {
     height: 300px;
@@ -180,5 +179,4 @@ p.popup-text {
     text-align: center;
     padding: 8px;
     line-height: 20px;
->>>>>>> Stashed changes
 }
