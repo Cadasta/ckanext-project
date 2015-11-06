@@ -22,7 +22,7 @@ The above directories constitute the "source" files for the Angular portions of 
 ####Dependencies
 [Node.js](https://nodejs.org/en/) >= 0.12.0  
 [Bower](http://bower.io/)  
-[Grunt](http://gruntjs.com/)
+[Grunt-CLI](https://github.com/gruntjs/grunt-cli)
 
 Once the above dependencies are installed, update packages and libraries:
 
