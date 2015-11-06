@@ -135,7 +135,7 @@ var app = angular.module("app")
         /**
          * Updates a parcel via a patch request
          * @returns {*}
-         * todo pass in a project and parcel id
+         *
          */
         service.updateProjectParcel = function (projectId, parcelId, geoJSON, parcelProperties) {
 

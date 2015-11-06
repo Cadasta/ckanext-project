@@ -32,7 +32,7 @@
 
                             <div ng-show="relationship.party" flex-initial>
                                      <span class="title">Selected User</span>: <span class="md-checked">
-                                        <span ng-show="relationship.party.properties.first_name">{{relationship.party.properties.first_name}} {{relationship.party.properties.last_name}}</span>
+                                        <span ng-show="relationship.party.properties.first_name">{{relationship.party.properties.first_name}}</span>
                                         <span ng-show="relationship.party.properties.group_name">{{relationship.party.properties.group_name}}</span>
                                         <span>, Party Id: {{relationship.party.properties.id}}</span>
                                     </span>
@@ -73,7 +73,9 @@
                             </md-input-container>
 
 
-                            <md-datepicker class="md-block add-relationship-format" ng-model="relationship.acquisition_date" md-placeholder="Date of acquisition"></md-datepicker>
+                            <md-datepicker class="md-block add-relationship-format" ng-model="relationship.acquisition_date" md-placeholder="Date of acquisition - DD/MM/YYYY"></md-datepicker>
+                            <div class="validation-messages" ng-messages="newRelationshipForm.relationship.acquisition_date.$error"></div>
+
                             <br><br>
 
                             <md-input-container md-no-float flex class="relationship-notes md-block">

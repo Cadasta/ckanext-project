@@ -68,6 +68,22 @@ app.controller("activityCtrl", ['$scope', '$state', '$stateParams','dataService'
         getActivities();
     });
 
+    // listen for updated parties to get activity
+    $scope.$on('updated-party', function(e){
+        getActivities();
+    });
+
+
+    // listen for new parties to get activity
+    $scope.$on('new-relationship', function(e){
+        getActivities();
+    });
+
+    // listen for new parties to get activity
+    $scope.$on('updated-relationship', function(e){
+        getActivities();
+    });
+
 
 
 
