@@ -313,6 +313,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
                 if (layer) {
                     layer = layer.toGeoJSON().geometry;
                 }
+                
 
                 if ($scope.relationship.party == undefined) {
                     $scope.relationshipCreated = "party required";

@@ -17,6 +17,15 @@ var app = angular.module("app")
             return date_object_formatted;
         };
 
+        service.checkDateFormat = function (year, month, day) {
+            if (year && month && day) {
+
+
+            }
+            else {
+                return false;
+            }
+        }
 
         return service;
     });

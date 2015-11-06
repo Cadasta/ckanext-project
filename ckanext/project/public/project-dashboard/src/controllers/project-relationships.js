@@ -110,6 +110,33 @@ app.controller("relationshipsCtrl", ['$scope', '$state', '$stateParams', 'relati
             });
 
 
+            //$scope.relationship.acquisition_date = utilityService.checkDateFormat($scope.year, $scope.month, $scope.day);
+
+
+            $('#addParty').formValidation({
+                fields: {
+                    startDate: {
+                        validators: {
+                            date: {
+                                message: 'The start date is not valid',
+                                format: 'YYYY-MM-DD',
+                                max: 'endDate'
+                            }
+                        }
+                    },
+                    endDate: {
+                        validators: {
+                            date: {
+                                message: 'The end date is not valid',
+                                format: 'YYYY-MM-DD',
+                                min: 'startDate'
+                            }
+                        }
+                    }
+                }
+            });
+
+
             $scope.tenure_types = [
                 {
                     type: 'own',

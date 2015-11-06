@@ -106,3 +106,10 @@ md-input-container.relationship-notes textarea {
     overflow-y: auto;
     width: 366px;
 }
+
+
+.add-relationship md-input-container.add-relationship-format input.datebox {
+    display: inline-block;
+    width: 33px;
+    margin: 0 10px 0 10px;
+}

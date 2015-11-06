@@ -68,13 +68,20 @@
                             </md-input-container>
 
 
-                            <md-input-container md-no-float class="md-block add-relationship-format">
-                                <input ng-model="relationship.acquired_type" placeholder="How was the parcel acquired?">
-                            </md-input-container>
+                            <!--<md-input-container md-no-float class="md-block add-relationship-format">-->
+                                <!--<input ng-model="relationship.acquired_type" placeholder="How was the parcel acquired?">-->
+                            <!--</md-input-container>-->
+
+
+                            <div class="md-block add-relationship-format">
+                                <input ng-model="day" placeholder="DD" class="datebox">/
+                                <input ng-model="month" placeholder="MM">/
+                                <input ng-model="year" placeholder="YYYY">
+                            </div>
 
 
                             <md-datepicker class="md-block add-relationship-format" ng-model="relationship.acquisition_date" md-placeholder="Date of acquisition - DD/MM/YYYY"></md-datepicker>
-                            <div class="validation-messages" ng-messages="newRelationshipForm.relationship.acquisition_date.$error"></div>
+                            <!--<div class="validation-messages" ng-messages="newRelationshipForm.relationship.acquisition_date.$error"></div>-->
 
                             <br><br>
 
@@ -105,9 +112,10 @@
                     </div>
                 </div>
 
-                <!--<div class="resource-upload-error">-->
-                    <!--{{relationshipCreated}}-->
-                <!--</div>-->
+                <div class="resource-upload-error">
+                    {{relationshipCreated}}
+                    {{ relationship.acquisition_date }}
+                </div>
 
                 <div class="cadasta-button right parcel-save" ng-click="saveNewRelationship(cadastaProjectId, layer, relationship)">Save Relationship</div>
             </div>

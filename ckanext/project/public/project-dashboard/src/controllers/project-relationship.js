@@ -109,8 +109,6 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
                     $scope.relationship  = response;
 
 
-                    //format relationship date
-                    response.properties.acquired_date = utilityService.formatDate(response.properties.acquired_date)
 
                     //reformat relationship history dates
                     response.properties.relationship_history.forEach(function (val) {
