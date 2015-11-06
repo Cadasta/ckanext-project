@@ -147,6 +147,7 @@ module.exports = function(grunt) {
 						"ckanext/project/public/project-dashboard/src/controllers/project-header.js",
 						"ckanext/project/public/project-dashboard/src/controllers/breadcrumbs.js",
 						"ckanext/project/public/project-dashboard/src/controllers/field-data.js",
+						"ckanext/project/public/project-dashboard/src/controllers/project-fieldDatum.js",
 						"ckanext/project/public/shared/src/directives/sticky-state.js",
 						"ckanext/project/public/shared/src/other_scripts/custom_jquery.js",
 						"ckanext/project/public/project-dashboard/src/other_scripts/custom_jquery.js"
