@@ -100,6 +100,46 @@
         </div>
     </div>
 
+
+    <!-- Relationship history-->
+    <div class="history-container">
+        <div class="parcel-history">
+            <div class="small-table-container">
+                <div class="small-heading">
+                    Relationship History
+                </div>
+
+                <table class="parcel-history">
+                    <thead>
+                    <tr>
+                        <th>Version</th>
+                        <th>Date updated</th>
+                        <th>Tenure Type</th>
+                        <th>Area</th>
+                        <th>Length</th>
+                        <th>How Acquired</th>
+
+                    </tr>
+                    </thead>
+                </table>
+                <div class="parcel-history-data relationship">
+                    <table>
+                        <tbody>
+                        <tr ng-repeat="rh in relationship_history">
+                            <td>{{rh.properties.version}}</td>
+                            <td>{{rh.properties.time_updated | emptyString}}</td>
+                            <td>{{rh.properties.relationship_type}}</td>
+                            <td>{{rh.properties.area | emptyString}}</td>
+                            <td>{{rh.properties.length | emptyString}}</td>
+                            <td>{{rh.properties.how_acquired | emptyString}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Parcel resources-->
     <div class="history-container">
         <div class="parcel-history">

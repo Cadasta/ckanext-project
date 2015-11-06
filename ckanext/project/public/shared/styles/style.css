@@ -30,12 +30,15 @@ div.tabcontent {
     overflow:  hidden;
 }
 
-
 .small-heading {
     color: #256c97;
     font-size:12px;
     font-weight:bold;
     display: inline-block;
+    text-transform: uppercase;
+}
+
+.project-overview-page .small-heading {
     padding: 0px 0px 10px 25px;
 }
 

@@ -132,7 +132,7 @@ md-content.md-default-theme {
 }
 
 .cadasta-modal-header .right {
-    margin-right:7px;
+    margin-right: 7px;
 }
 
 .cadasta-clear {
@@ -160,6 +160,7 @@ a.md-button:not([disabled]):hover, .md-button:not([disabled]):focus {
     position: relative;
     top: 23px;
     cursor: pointer;
+    border-radius:0;
 }
 
 
