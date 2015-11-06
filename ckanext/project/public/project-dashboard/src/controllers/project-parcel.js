@@ -128,7 +128,22 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
                     var popup_content = '<h3>Relationship ' + v.properties.id + '</h3><p class="popup-text">Tenure Type:' + v.properties.tenure_type + ' </p><p class="popup-text">Party: ' + name + '</p><a href="#/relationships/' + v.properties.id + '"> See Full Details<i class="material-icons arrow-forward">arrow_forward</i></a>';
 
 
+                    var editIcon = L.icon({
+                        iconUrl: '/images/orange_marker.png',
+                        iconSize: [30, 30]
+
+                    });
+
+
                     if(v.geometry !== null){
+
+                        //check if it is a marker
+                        //if (v.geometry.type === 'Point'){
+                        //    layer = L.marker(v);
+                        //    layer.setIcon(editIcon);
+                        //    layer.addTo(relationshipGroup);
+                        //}
+
                         layer = L.geoJson(v, {style: relationshipStyle});
                         layer.bindPopup(popup_content);
                         layer.addTo(relationshipGroup);

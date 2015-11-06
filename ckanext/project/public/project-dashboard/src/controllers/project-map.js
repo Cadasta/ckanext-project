@@ -11,7 +11,6 @@ app.controller("projectMapCtrl", ['$scope', '$state', '$stateParams', '$location
             getMapData();
         });
 
-        //TODO create project parcels ALL endpoint
         $scope.$on('new-parcel',function(){
             getMapData();
         });
@@ -68,7 +67,8 @@ app.controller("projectMapCtrl", ['$scope', '$state', '$stateParams', '$location
             "stroke": "#256c97",
             "stroke-width": 1,
             "fill-opacity": .1,
-            "stroke-opacity": .7
+            "stroke-opacity": .7,
+            "clickable":false
         };
 
 
@@ -79,6 +79,8 @@ app.controller("projectMapCtrl", ['$scope', '$state', '$stateParams', '$location
             var promise = dataService.getCadastaMapData(cadastaProject.id);
 
             promise.then(function (response) {
+
+                console.log(response);
 
                 //clear layers
                 if(projectLayer) {
@@ -104,7 +106,6 @@ app.controller("projectMapCtrl", ['$scope', '$state', '$stateParams', '$location
                     console.log(response.parcels.features.length)
                     map.fitBounds(parcelGroup.getBounds());
                 } else {
-                    console.log("is this really happening?")
                     map.setView([lat, lng], zoom);
                 }
 

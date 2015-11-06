@@ -23,14 +23,14 @@
                         <span>{{party.type}}</span>
                         <br>
                         <span class="caption">National ID</span>
-                        <span>{{party.national_id}}</span>
+                        <span>{{party.national_id | emptyString}}</span>
                         <br>
                         <div ng-show="party.type === 'individual'">
                             <span class="caption">Gender</span>
-                            <span>{{party.gender}}</span>
+                            <span>{{party.gender | emptyString}}</span>
                             <br>
                             <span class="caption">Date of Birth</span>
-                            <span>{{party.dob}}</span>
+                            <span>{{party.dob | emptyString}}</span>
                             <br>
                         </div>
                     </div>
