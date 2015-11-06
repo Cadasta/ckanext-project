@@ -10,6 +10,18 @@ module.exports = function(grunt) {
 			options: {
 				name: 'env.config',
 			},
+			unifiedVM : {
+				options: {
+					dest: 'ckanext/project/public/shared/src/env.config.js'
+				},
+				constants: {
+					ENV: {
+						name: 'unifiedVM',
+						apiCadastaRoot: 'http://localhost:3000',
+						apiCKANRoot: 'http://localhost:5000/api/3/action'
+					}
+				}
+			},
 			// Environment targets
 			development: {
 				options: {
