@@ -1,7 +1,7 @@
 
 
 var app = angular.module("app")
-    .service("fieldDataService", ['$http', '$q', 'ENV', function ($http, $q, ENV) {
+    .service("onaService", ['$http', '$q', 'ENV', function ($http, $q, ENV) {
 
         var service =  {};
 

@@ -124,6 +124,7 @@ module.exports = function(grunt) {
 						"ckanext/project/public/shared/src/modules/params-manager.js",
 						"ckanext/project/public/project-dashboard/src/project-dashboard-app.js",
 						"ckanext/project/public/project-dashboard/src/services/dataService.js",
+						"ckanext/project/public/project-dashboard/src/services/fieldDataService.js",
 						"ckanext/project/public/shared/src/services/userService.js",
 						"ckanext/project/public/project-dashboard/src/services/mapUtilityService.js",
 						"ckanext/project/public/project-dashboard/src/services/partyService.js",
