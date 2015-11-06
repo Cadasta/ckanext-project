@@ -29,9 +29,9 @@
         <div id="fieldDataList">
             <table>
                 <tbody>
-                <tr class="row-link" ng-repeat="fd in fieldDataList">
+                <tr class="row-link" ng-repeat="fd in fieldDataList" ui-sref="^.fieldDatum({id: fd.properties.id})">
                     <td>{{fd.properties.form_id}}</td>
-                    <td ui-sref="^.fieldDatum({id: fd.properties.id})">{{fd.properties.id_string}}</td>
+                    <td>{{fd.properties.id_string}}</td>
                     <td>{{fd.properties.num_submissions}}</td>
                     <td>{{fd.properties.time_created}}</td>
 
