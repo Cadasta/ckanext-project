@@ -79,3 +79,11 @@ def cadasta_upload_resource(context, data_dict):
     permission = 'upload_{0}_resource'.format(resource_type)
     return has_permission_for_project(context, data_dict, permission,
                                       'project_id')
+
+def cadasta_upload_project_resources(context, data_dict):
+    resource_type = toolkit.get_or_bust(data_dict, 'resource_type')
+    if resource_type not in ['parcel', 'party', 'relationship', 'project']:
+        raise toolkit.ValidationError(['Not a valid resource_type'])
+    permission = 'upload_{0}_resource'.format(resource_type)
+    return has_permission_for_project(context, data_dict, permission,
+                                      'project_id')
