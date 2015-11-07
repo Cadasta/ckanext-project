@@ -11,15 +11,6 @@ class TestProjectResource(TestProjectBase):
                                          ['surveyor', 'admin', 'editor'],
                                          self.project['id'], 'project_id')
 
-    def test_cadasta_delete_project_resource(self):
-        self.assert_authorization_fails('cadasta_delete_project_resource',
-                                        [None, 'surveyor'],
-                                        self.project['id'], 'project_id')
-
-        self.assert_authorization_passes('cadasta_delete_project_resource',
-                                         ['admin', 'editor'],
-                                         self.project['id'], 'project_id')
-
     def test_cadasta_upload_resource(self):
         self.assert_authorization_fails('cadasta_upload_resource',
                                         [None], self.project['id'],
@@ -27,6 +18,18 @@ class TestProjectResource(TestProjectBase):
                                         resource_type='project')
 
         self.assert_authorization_passes('cadasta_upload_resource',
+                                         ['surveyor', 'admin', 'editor'],
+                                         self.project['id'], 'project_id',
+                                         resource_type='project')
+
+
+    def test_cadasta_upload_project_resources(self):
+        self.assert_authorization_fails('cadasta_upload_project_resources',
+                                        [None], self.project['id'],
+                                        'project_id',
+                                        resource_type='project')
+
+        self.assert_authorization_passes('cadasta_upload_project_resources',
                                          ['surveyor', 'admin', 'editor'],
                                          self.project['id'], 'project_id',
                                          resource_type='project')

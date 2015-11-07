@@ -81,7 +81,7 @@ def is_cadasta_admin_decorator(method):
             return False
         if CadastaAdmin.is_user_cadasta_admin(model.Session, user_id):
             return True
-        return method(group_id, user_name, permission)
+        return method(str(group_id), user_name, permission)
     return decorate_has_user_permission_for_group_or_org
 
 

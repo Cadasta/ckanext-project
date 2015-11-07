@@ -7,6 +7,56 @@ from functools import partial
 _ = toolkit._
 
 
+#
+#  GET
+#
+def cadasta_get_project_overview(context, data_dict):
+    data_dict.update({'id':data_dict['project_id']})
+    return {
+        'success': toolkit.check_access('package_show', context, data_dict)
+    }
+
+
+def cadasta_get_all_projects(context, data_dict):
+    data_dict.update({'id':data_dict['ckan_id']})
+    return {
+        'success': toolkit.check_access('package_show', context, data_dict)
+    }
+
+def cadasta_get_project_resources(context, data_dict):
+    data_dict.update({'id':data_dict['project_id']})
+    return {
+        'success': toolkit.check_access('package_show', context, data_dict)
+    }
+
+def cadasta_get_project_activities(context, data_dict):
+    data_dict.update({'id':data_dict['project_id']})
+    return {
+        'success': toolkit.check_access('package_show', context, data_dict)
+    }
+
+def cadasta_get_project_mapdata(context, data_dict):
+    data_dict.update({'id':data_dict['project_id']})
+    return {
+        'success': toolkit.check_access('package_show', context, data_dict)
+    }
+
+def cadasta_get_project_details(context, data_dict):
+    data_dict.update({'id':data_dict['project_id']})
+    return {
+        'success': toolkit.check_access('package_show', context, data_dict)
+    }
+
+def cadasta_get_project(context, data_dict):
+    data_dict.update({'id':data_dict['project_id']})
+    return {
+        'success': toolkit.check_access('package_show', context, data_dict)
+    }
+
+
+#
+#  CREATE AND UPDATE
+#
 def cadasta_create_project(context, data_dict):
     return {
         'success': toolkit.check_access('package_create', context, data_dict={
@@ -34,17 +84,11 @@ def cadasta_delete_project(context, data_dict):
     }
 
 
-def cadasta_get_project_overview(context, data_dict):
-    return {
-        'success': toolkit.check_access('package_show', context, data_dict)
-    }
-
-
 def has_permission_for_project(context, data_dict, permission,
                                project_id_parameter):
     try:
         project = get_package_object(context,
-                                     {'id': data_dict[project_id_parameter]})
+                                     {'id': str(data_dict[project_id_parameter])})
     except KeyError:
         raise toolkit.ValidationError(
             {project_id_parameter: 'missing parameter'}
@@ -65,12 +109,6 @@ cadasta_upload_project_resource = partial(
     permission='upload_project_resource',
     project_id_parameter='project_id'
 )
-cadasta_delete_project_resource = partial(
-    has_permission_for_project,
-    permission='delete_project_resource',
-    project_id_parameter='project_id'
-)
-
 
 def cadasta_upload_resource(context, data_dict):
     resource_type = toolkit.get_or_bust(data_dict, 'resource_type')
@@ -79,6 +117,12 @@ def cadasta_upload_resource(context, data_dict):
     permission = 'upload_{0}_resource'.format(resource_type)
     return has_permission_for_project(context, data_dict, permission,
                                       'project_id')
+
+# cadasta_upload_project_resources = partial(
+#     has_permission_for_project,
+#     permission='cadasta_upload_project_resources',
+#     project_id_parameter='project_id'
+# )
 
 def cadasta_upload_project_resources(context, data_dict):
     resource_type = toolkit.get_or_bust(data_dict, 'resource_type')

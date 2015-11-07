@@ -50,8 +50,10 @@ def convert_field_storage(value):
 
 
 get_api_map = {
-    'cadasta_get_activity': CadastaEndpoint('/show_activity'),
-    'cadasta_get_resources': CadastaEndpoint('/resources'),
+
+    #
+    # an example api with auth matching function and tests
+    #
     'cadasta_get_project_overview': CadastaEndpoint('/projects/{id}/overview'),
 
     # get params are carried through request
