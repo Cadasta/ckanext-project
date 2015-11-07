@@ -90,7 +90,7 @@ class TestProject(TestProjectBase):
     def test_cadasta_get_project_overview(self):
         self.assert_authorization_passes('cadasta_get_project_overview',
                                          [None, 'surveyor', 'admin', 'editor'],
-                                         self.project['id'], 'id')
+                                         self.project['id'], 'project_id')
 
     def test_cadasta_upload_project_resource_success(self):
         self.assert_authorization_passes('cadasta_upload_resource',

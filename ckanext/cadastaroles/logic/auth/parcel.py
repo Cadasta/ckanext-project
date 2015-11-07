@@ -73,20 +73,15 @@ def cadasta_get_project_parcel_relationship_history(context, data_dict):
 #
 #  CREATE AND UPDATE
 #
-# cadasta_create_project_parcel = partial(
-#     has_permission_for_project,
-#     permission='cadasta_create_project_parcel',
-#     project_id_parameter='project_id'
-# )
-
-def cadasta_create_project_parcel(context, data_dict):
-    permission = 'cadasta_create_project_parcel'
-    return has_permission_for_project(context, data_dict, permission,
-                                      'project_id')
+cadasta_create_project_parcel = partial(
+    has_permission_for_project,
+    permission='create_parcel',
+    project_id_parameter='project_id'
+)
 
 cadasta_update_project_parcel = partial(
     has_permission_for_project,
-    permission='cadasta_update_project_parcel',
+    permission='update_parcel',
     project_id_parameter='project_id'
 )
 

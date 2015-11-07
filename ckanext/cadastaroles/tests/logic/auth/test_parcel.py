@@ -48,27 +48,57 @@ class TestProjectParcel(TestProjectBase):
     def test_cadasta_get_project_parcel_list(self):
         self.assert_authorization_passes('cadasta_get_parcels_list',
                                          [None, 'surveyor', 'admin', 'editor'],
-                                         self.project['id'], 'id')
+                                         self.project['id'], 'project_id')
 
     def test_cadasta_get_project_parcel(self):
         self.assert_authorization_passes('cadasta_get_project_parcel',
                                          [None, 'surveyor', 'admin', 'editor'],
-                                         self.project['id'], 'id')
+                                         self.project['id'], 'project_id')
 
     def test_cadasta_get_project_parcel_detail(self):
         self.assert_authorization_passes('cadasta_get_project_parcel_detail',
                                          [None, 'surveyor', 'admin', 'editor'],
-                                         self.project['id'], 'id')
+                                         self.project['id'], 'project_id')
 
     def test_cadasta_get_project_parcel_history(self):
         self.assert_authorization_passes('cadasta_get_project_parcel_history',
                                          [None, 'surveyor', 'admin', 'editor'],
-                                         self.project['id'], 'id')
+                                         self.project['id'], 'project_id')
 
     def test_cadasta_get_project_parcel_relationship_history(self):
         self.assert_authorization_passes(
             'cadasta_get_project_parcel_relationship_history',
             [None, 'surveyor', 'admin', 'editor'],
             self.project['id'],
-            'id'
+            'project_id'
+        )
+
+    def test_cadasta_create_project_parcel(self):
+        self.assert_authorization_passes(
+            'cadasta_create_project_parcel',
+            ['surveyor', 'admin', 'editor'],
+            self.project['id'],
+            'project_id'
+        )
+
+        self.assert_authorization_fails(
+            'cadasta_create_project_parcel',
+            [None,],
+            self.project['id'],
+            'project_id'
+        )
+
+    def test_cadasta_update_project_parcel(self):
+        self.assert_authorization_passes(
+            'cadasta_create_project_parcel',
+            ['surveyor', 'admin', 'editor'],
+            self.project['id'],
+            'project_id'
+        )
+
+        self.assert_authorization_fails(
+            'cadasta_create_project_parcel',
+            [None,],
+            self.project['id'],
+            'project_id'
         )
