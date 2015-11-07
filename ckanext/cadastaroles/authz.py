@@ -43,8 +43,6 @@ authz.ROLE_PERMISSIONS = OrderedDict([
                     'cadasta_upload_project_resources',
                     # parcel
                     'read_parcel',
-                    'create_parcel',
-                    'update_parcel',
                     'upload_parcel_resource',
                     'delete_parcel_resource',
                     # party

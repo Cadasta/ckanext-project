@@ -76,14 +76,14 @@ class TestProjectParcel(TestProjectBase):
     def test_cadasta_create_project_parcel(self):
         self.assert_authorization_passes(
             'cadasta_create_project_parcel',
-            ['surveyor', 'admin', 'editor'],
+            ['admin', 'editor'],
             self.project['id'],
             'project_id'
         )
 
         self.assert_authorization_fails(
             'cadasta_create_project_parcel',
-            [None,],
+            [None,'surveyor'],
             self.project['id'],
             'project_id'
         )
@@ -91,14 +91,14 @@ class TestProjectParcel(TestProjectBase):
     def test_cadasta_update_project_parcel(self):
         self.assert_authorization_passes(
             'cadasta_create_project_parcel',
-            ['surveyor', 'admin', 'editor'],
+            ['admin', 'editor'],
             self.project['id'],
             'project_id'
         )
 
         self.assert_authorization_fails(
             'cadasta_create_project_parcel',
-            [None,],
+            [None,'surveyor'],
             self.project['id'],
             'project_id'
         )
