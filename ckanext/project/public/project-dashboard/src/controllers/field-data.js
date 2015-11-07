@@ -21,7 +21,7 @@ app.controller("fieldDataCtrl", ['$scope', '$rootScope', '$state', '$stateParams
         // validate xls file
         $scope.uploader = new FileUploader({
             alias: 'xls_file',
-            url: 'http://54.69.121.180:3000' +'/providers/ona/load-form/' + cadastaProject.id
+            url: ENV.apiCadastaRoot +'/providers/ona/load-form/' + cadastaProject.id
         });
 
         $scope.uploader.onProgressItem = function (item, progress) {
@@ -32,6 +32,7 @@ app.controller("fieldDataCtrl", ['$scope', '$rootScope', '$state', '$stateParams
         $scope.uploader.onCompleteItem = function (fileItem, response, status, headers) {
 
             $scope.response = response;
+            getFieldData(); // get new field data
 
         };
 
