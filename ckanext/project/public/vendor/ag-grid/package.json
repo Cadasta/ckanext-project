@@ -1,0 +1,53 @@
+{
+  "name": "ag-grid",
+  "version": "2.3.5",
+  "description": "Advanced Framework Agnostic Javascript Datagrid.",
+  "main": "dist/ag-grid.min.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ceolter/ag-grid.git"
+  },
+  "keywords": [
+    "web-components",
+    "grid",
+    "data",
+    "table",
+    "angular"
+  ],
+  "author": {
+    "name": "Niall Crosby",
+    "email": "info@angulargrid.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ceolter/ag-grid/issues"
+  },
+  "homepage": "http://www.ag-grid.com/",
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-foreach": "^0.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-stylus": "^2.0.1",
+    "gulp-uglify": "^1.2.0",
+    "gulp-typescript": "^2.5.0",
+    "gulp-sourcemaps": "1.5.2",
+    "gulp-header": "^1.0.0",
+    "gulp-tsd": "0.0.4",
+    "nib": "^1.1.0",
+    "stylus": "^0.50.0",
+    "vinyl-buffer": "^1.0.0",
+    "typescript": "1.6.2",
+    "merge2": "0.3.6"
+  },
+  "readme": "\r\nag-Grid\r\n==============\r\n\r\n\"ag\" stands for AGnostic\r\n\r\n#### Install with Bower\r\n```sh\r\n$ bower install ag-grid\r\n```\r\n\r\n#### Install with Npm\r\n```sh\r\n$ npm install ag-grid\r\n```\r\n\r\nSee the [www.ag-grid.com](http://www.ag-grid.com) for overview and documentation.\r\n\r\n\r\nBuilding\r\n==============\r\n\r\nTo build:\r\n- `npm install`\r\n- `npm install gulp -g`\r\n- `bower install`\r\n- `gulp` or `gulp release`\r\n\r\nDefault gulp task is for development. It includes source maps, does not include minification, and starts a watch.\r\n\r\n'release' gulp task does minification and no source maps. This is for releasing.\r\n\r\nIf you are doing a Pull Request:\r\n- Make your code changes in `src/` files only, don't update dist files\r\n- Make your doc changes in `docs/`, a feature is not complete unless it's documented\r\n- Do manual end to end testing off all examples in documentation\r\n- Discard all changes to `dist/`\r\n- Create Pull Request\r\n\r\nAsking Questions\r\n==============\r\n\r\nPlease do not use GitHub issues to ask questions. Ask questions on the\r\n[website forum](http://www.ag-grid.com/forum).\r\n\r\n\r\nContributing\r\n==============\r\n\r\nag-Grid is not looking for contributors for the project. If you have ideas, feel free to\r\nget in touch and let me know. Or if you want to suggest something, feel free to\r\ncreate a pull request with your ideas.\r\n\r\nIf you would like to help, then please provide me with guidance and advice.\r\nI don't claim to know everything, so welcome others opinions on the direction\r\nof the project.\r\n",
+  "readmeFilename": "README.md",
+  "_id": "ag-grid@2.3.5",
+  "dist": {
+    "shasum": "470d7b61d2bcf697a08f3ab1487f4b762df8ad94"
+  },
+  "_from": "ag-grid@",
+  "_resolved": "https://registry.npmjs.org/ag-grid/-/ag-grid-2.3.5.tgz"
+}
