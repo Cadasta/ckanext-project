@@ -54,7 +54,7 @@ get_api_map = {
     #
     # an example api with auth matching function and tests
     #
-    'cadasta_get_project_overview': CadastaEndpoint('/projects/{id}/overview'),
+    'cadasta_get_project_overview': CadastaEndpoint('/projects/{project_id}/overview'),
 
     # get params are carried through request
     'cadasta_get_all_projects': CadastaEndpoint('/projects'),
