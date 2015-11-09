@@ -108,10 +108,15 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
 
                     $scope.relationship  = response;
 
-                    //reformat relationship dates
+
+                    response.properties.acquired_date = utilityService.formatDate(response.properties.acquired_date);
+
+
+                    //reformat relationship history dates
                     response.properties.relationship_history.forEach(function (val) {
                         val.properties.time_created = utilityService.formatDate(val.properties.time_created);
                         val.properties.time_updated = utilityService.formatDate(val.properties.time_updated);
+                        val.properties.acquired_date = utilityService.formatDate(val.properties.acquired_date);
                     });
 
                     $scope.relationship_history = response.properties.relationship_history;
@@ -216,6 +221,7 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
             $scope.cancel = function () {
                 $mdDialog.cancel();
             };
+
 
             relationship.properties.acquired_date = new Date(relationship.properties.acquired_date.replace(/-/g,'/'));
 

@@ -32,7 +32,7 @@
 
                             <div ng-show="relationship.party" flex-initial>
                                      <span class="title">Selected User</span>: <span class="md-checked">
-                                        <span ng-show="relationship.party.properties.first_name">{{relationship.party.properties.first_name}} {{relationship.party.properties.last_name}}</span>
+                                        <span ng-show="relationship.party.properties.first_name">{{relationship.party.properties.first_name}}</span>
                                         <span ng-show="relationship.party.properties.group_name">{{relationship.party.properties.group_name}}</span>
                                         <span>, Party Id: {{relationship.party.properties.id}}</span>
                                     </span>
@@ -74,6 +74,8 @@
 
 
                             <md-datepicker class="md-block add-relationship-format" ng-model="relationship.acquisition_date" md-placeholder="Date of acquisition"></md-datepicker>
+                            <div class="validation-messages" ng-messages="newRelationshipForm.relationship.acquisition_date.$error"></div>
+
                             <br><br>
 
                             <md-input-container md-no-float flex class="relationship-notes md-block">
@@ -103,9 +105,10 @@
                     </div>
                 </div>
 
-                <!--<div class="resource-upload-error">-->
-                    <!--{{relationshipCreated}}-->
-                <!--</div>-->
+                <div class="resource-upload-error">
+                    {{relationshipCreated}}
+                    {{ relationship.acquisition_date }}
+                </div>
 
                 <div class="cadasta-button right parcel-save" ng-click="saveNewRelationship(cadastaProjectId, layer, relationship)">Save Relationship</div>
             </div>

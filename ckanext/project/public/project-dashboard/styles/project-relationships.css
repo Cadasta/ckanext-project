@@ -55,10 +55,6 @@ md-datepicker.add-relationship-format {
     margin-left: -15px;
 }
 
-md-datepicker.add-relationship-format .md-datepicker-input-container {
-    border: 1px solid #dcdfe1;
-}
-
 md-datepicker.add-relationship-format.party .md-datepicker-input-container {
     width:273px;
 }
@@ -102,4 +98,18 @@ md-input-container.relationship-notes textarea {
     margin-left: 12px;
     height: 26px;
     margin-bottom: 35px;
+}
+
+
+#parcelDetails.party .section .relationship-container {
+    height: 141px;
+    overflow-y: auto;
+    width: 366px;
+}
+
+
+.add-relationship md-input-container.add-relationship-format input.datebox {
+    display: inline-block;
+    width: 33px;
+    margin: 0 10px 0 10px;
 }

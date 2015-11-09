@@ -128,7 +128,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
 
                     var name = null;
                     if (v.properties.first_name) {
-                        name = v.properties.first_name + ' ' + v.properties.last_name;
+                        name = v.properties.first_name;
                     } else {
                         name = v.properties.group_name;
                     }
@@ -321,6 +321,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
                 if (layer) {
                     layer = layer.toGeoJSON().geometry;
                 }
+                
 
                 if ($scope.relationship.party == undefined) {
                     $scope.relationshipCreated = "party required";

@@ -27,6 +27,7 @@ var app = angular.module("app",
     return toStateParamsAllUndefined && !redirectStateParamsAllUndefined;
   };
 
+
   app.config(function ($stateProvider, $urlRouterProvider) {
 
     var states = [];
@@ -367,4 +368,6 @@ var app = angular.module("app",
     });
 
   });
+
+
 
