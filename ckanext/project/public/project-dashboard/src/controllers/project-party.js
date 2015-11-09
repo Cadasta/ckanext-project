@@ -503,31 +503,29 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
             $scope.cadastaProjectId = cadastaProject.id;
             $scope.party = party;
 
-            $scope.updateParty = function (projectId) {
 
-                $scope.updateParty = function(projectId, party){
+            $scope.updateParty = function(projectId, party){
 
-                    var updateParty = partyService.updateProjectParty(projectId, $stateParams.id, party);
+                var updateParty = partyService.updateProjectParty(projectId, $stateParams.id, party);
 
-                    updateParty.then(function (response) {
-                        if (response.cadasta_party_id){
+                updateParty.then(function (response) {
+                    if (response.cadasta_party_id){
 
-                            $scope.partyCreated = 'party successfully updated';
+                        $scope.partyCreated = 'party successfully updated';
 
-                            $rootScope.$broadcast('updated-party');
-                            getPartyDetails ();
+                        $rootScope.$broadcast('updated-party');
+                        getPartyDetails ();
 
-                            var timeoutID = window.setTimeout(function() {
-                                $scope.cancel();
-                            }, 300);
-                        }
-                    }).catch(function(err){
+                        var timeoutID = window.setTimeout(function() {
+                            $scope.cancel();
+                        }, 300);
+                    }
+                }).catch(function(err){
 
-                        $scope.partyCreated ='unable to update party';
-                    });
-                }
-
+                    $scope.partyCreated ='unable to update party';
+                });
             }
+
         }
 
     }]);
