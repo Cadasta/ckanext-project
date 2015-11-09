@@ -10,7 +10,7 @@ Assuming you have already installed core CKAN, clone the extension repo:
     > git clone https://github.com/Cadasta/ckanext-project.git
     
     # Activiate Python virtual environment
-    > ./usr/lib/ckan/default/bin/activate
+    > . /usr/lib/ckan/default/bin/activate
     
     # Move into extension directory
     > cd ckanext-project
