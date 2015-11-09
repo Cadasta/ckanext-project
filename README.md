@@ -20,3 +20,5 @@ You'll first need an out-of-the-box CKAN application installed.  See CKAN [docs]
 [Instructions](https://github.com/Cadasta/ckanext-project/blob/master/docs/extension-installation.md) for adding this extension to an out-of-the-box CKAN application.
 ####Angular Application Build
 [Instructions](https://github.com/Cadasta/ckanext-project/blob/master/docs/cadasta-angular-readme.md) for developing and deploying the Angular.js code served by this CKAN extension.
+####Cadasta API and Database
+This extension leverages an additional API and database to store Cadasta specific data (parcels, relationships, survey responses, geometries).  See the [Cadasta API](https://github.com/Cadasta/cadasta-api/blob/master/README.md) repository for installation instructions.
