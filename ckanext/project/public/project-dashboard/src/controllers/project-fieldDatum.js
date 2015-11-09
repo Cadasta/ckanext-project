@@ -11,7 +11,7 @@ app.controller("fieldDatumCtrl", ['$scope', '$rootScope', '$state', '$stateParam
         getFieldDataResponses();
 
         function getFieldDataResponses() {
-            var promise = fieldDataService.getResponses(1,1);
+            var promise = fieldDataService.getResponses(cadastaProject.id,$stateParams.id);
 
             /**
              * Initialize ag-grid table

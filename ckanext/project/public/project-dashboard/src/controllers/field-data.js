@@ -32,6 +32,7 @@ app.controller("fieldDataCtrl", ['$scope', '$rootScope', '$state', '$stateParams
         $scope.uploader.onCompleteItem = function (fileItem, response, status, headers) {
 
             $scope.response = response;
+            getFieldData(); // get new field data
 
         };
 

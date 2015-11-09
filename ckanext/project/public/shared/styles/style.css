@@ -183,3 +183,10 @@ p.popup-text {
     padding: 8px;
     line-height: 20px;
 }
+
+.back-link {
+    font-weight: 700;
+    margin: -5px 0 0 35px;
+    line-height: 45px;
+    font-size: 12px;
+}
