@@ -2,6 +2,9 @@
 
 This CKAN extension modifies and extends the core CKAN code-base to provide the additional permissions, API, features and user interface required by the Cadasta application.
 
+###Solution Diagram
+![image](https://github.com/Cadasta/cadasta-app-docs/blob/master/solution-diagram.png)
+
 ## Plugins
 This extension includes three plugins:   
 
@@ -15,7 +18,7 @@ It also includes static resources for the Angular.js applications used for the m
 
 
 ####CKAN Source Installation
-You'll first need an out-of-the-box CKAN application installed.  See CKAN [docs](http://docs.ckan.org/en/latest/maintaining/installing/install-from-source.html).
+You'll first need an out-of-the-box CKAN application installed.  See CKAN [docs](http://docs.ckan.org/en/latest/maintaining/installing/install-from-source.html) and or [ckan-chef instructions](https://github.com/Cadasta/ckanext-project/blob/master/ckan-chef-installation.md).
 ####Extenstion Installation
 [Instructions](https://github.com/Cadasta/ckanext-project/blob/master/docs/extension-installation.md) for adding this extension to an out-of-the-box CKAN application.
 ####Angular Application Build
