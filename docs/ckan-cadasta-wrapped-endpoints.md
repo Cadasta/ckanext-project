@@ -5,14 +5,23 @@ The Angular views in this application retrieve data from the [cadasta-api](https
 To handle authorization around API CRUD endpoints all calls are proxied through CKAN so the user's role can be validated.
 
 What follows below is a brief description of the CKAN endpoints and where the authentication functions are located.
-If you are interested to see a breakdown of API calls per view per and per user permission, then refer to the 
-[cadasta-view-endpoints-and-permissions document](https://github.com/Cadasta/ckanext-project/). For a high-level description
+If you are interested to see a breakdown of API calls per view per and per user permission, then refer to the `/docs/CadastaRelatedViewsEndpointsandPermissions.docx.pdf`. For a high-level description
 about where these pieces are and how to update them refer to the [endpoint README](https://github.com/Cadasta/ckanext-project/blob/master/ckanext/cadastaroles/logic/action/README.md)
 
 ## Endpoints Description 
 The following endpoints are the RPC action names in `http://{ckan_hostname}/api/3/action/{action_name}`
 
 ### GET(s)
+
+<a name="user_role_show"></a>
+#### user_role_show
+
+Get a bundle of information about the user and their organization membership to be used in show/hide logic
+
+* [Endpoint](https://github.com/Cadasta/ckanext-project/blob/master/ckanext/cadastaroles/logic/action/get.py#L8-L40)
+* Does Not Wrap Cadasta
+* No Auth Required
+
 
 <a name="cadasta_get_project_overview"></a>
 #### cadasta_get_project_overview
