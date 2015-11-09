@@ -235,10 +235,26 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
             // set date picker's max date to today
             $scope.myDate = new Date();
 
-            $scope.maxDate = new Date(
-                $scope.myDate.getFullYear(),
-                $scope.myDate.getMonth(),
-                $scope.myDate.getDate());
+            $scope.relationship.acquisition_date = $scope.relationship.properties.acquisition_date;
+
+
+
+            $scope.open = function($event) {
+                $scope.status.opened = true;
+            };
+
+            $scope.setDate = function(year, month, day) {
+                $scope.dt = new Date(year, month, day);
+            };
+
+
+            $scope.format = 'd/M/yyyy';
+
+            $scope.status = {
+                opened: false
+            };
+
+
 
             $scope.updateRelationship = function (projectId) {
 

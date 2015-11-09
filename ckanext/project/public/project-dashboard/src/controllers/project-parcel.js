@@ -314,6 +314,32 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
             });
 
 
+
+
+
+
+
+            $scope.open = function($event) {
+                $scope.status.opened = true;
+            };
+
+            $scope.setDate = function(year, month, day) {
+                $scope.dt = new Date(year, month, day);
+            };
+
+
+            $scope.format = 'd/M/yyyy';
+
+            $scope.status = {
+                opened: false
+            };
+
+
+
+
+
+
+
             $scope.saveNewRelationship = function () {
 
                 var layer = getLayer();
