@@ -87,10 +87,14 @@
             <table class="parcel-history">
                 <thead>
                 <tr>
+                    <th>Relationship ID</th>
                     <th>Version</th>
-                    <th>Parcel Id</th>
-                    <th>Description</th>
+                    <th>Date updated</th>
                     <th>Tenure Type</th>
+                    <th>Area (meters)</th>
+                    <th>Length (meters)</th>
+                    <th>Description</th>
+
                 </tr>
                 </thead>
             </table>
@@ -98,9 +102,13 @@
                 <table>
                     <tbody>
                     <tr ng-repeat="rh in relationship_history">
-                        <td>{{rh.properties.description}}</td>
-                        <td>{{rh.properties.time_created}}</td>
-                        <td>View Map</td>
+                        <td>{{rh.properties.relationship_id}}</td>
+                        <td>{{rh.properties.version}}</td>
+                        <td>{{rh.properties.time_updated | emptyString}}</td>
+                        <td>{{rh.properties.relationship_type}}</td>
+                        <td>{{rh.properties.area | number:2 | emptyString}}</td>
+                        <td>{{rh.properties.length | number:2 | emptyString}}</td>
+                        <td>{{rh.properties.description | emptyString}}</td>
                     </tr>
                     </tbody>
                 </table>

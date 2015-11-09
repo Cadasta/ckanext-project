@@ -95,6 +95,13 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
                 $scope.party.time_created = utilityService.formatDate($scope.party.time_created);
                 $scope.party.time_updated = utilityService.formatDate($scope.party.time_created);
 
+                if (response.properties.relationship_history.length > 0){
+                        
+                        response.properties.relationship_history.forEach(function(val){
+                                val.properties.time_created = utilityService.formatDate(val.properties.time_created);
+                                val.properties.time_updated = utilityService.formatDate(val.properties.time_updated);                        })
+                }
+
                 if (response.properties.relationships.length > 0){
                     response.properties.relationships.forEach(function (val) {
                         ////reformat relationship dates
@@ -503,32 +510,31 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
             $scope.cadastaProjectId = cadastaProject.id;
             $scope.party = party;
 
-            $scope.updateParty = function (projectId) {
 
-                $scope.updateParty = function(projectId, party){
+                 //$scope.updateParty = function(projectId, party){
+                 //
+                 //    var createParty = partyService.createProjectParty(projectId, party);
+                 //
+                 //    createParty.then(function (response) {
+                 //       if (response.cadasta_party_id){
+                 //
+                 //           $scope.partyCreated = 'party successfully added';
+                 //
+                 //           $rootScope.$broadcast('new-party');
+                 //           getParties();
+                 //
+                 //           var timeoutID = window.setTimeout(function() {
+                 //               $scope.cancel();
+                 //               $state.go("tabs.parties.party", {id:response.cadasta_party_id})
+                 //           }, 300);
+                 //       }
+                 //    }).catch(function(err){
+                 //
+                 //       $scope.partyCreated ='unable to create party';
+                 //    });
+                 //}
 
-                    //var createParty = partyService.createProjectParty(projectId, party);
-                    //
-                    //createParty.then(function (response) {
-                    //    if (response.cadasta_party_id){
-                    //
-                    //        $scope.partyCreated = 'party successfully added';
-                    //
-                    //        $rootScope.$broadcast('new-party');
-                    //        getParties();
-                    //
-                    //        var timeoutID = window.setTimeout(function() {
-                    //            $scope.cancel();
-                    //            $state.go("tabs.parties.party", {id:response.cadasta_party_id})
-                    //        }, 300);
-                    //    }
-                    //}).catch(function(err){
-                    //
-                    //    $scope.partyCreated ='unable to create party';
-                    //});
-                }
 
-            }
         }
 
     }]);
