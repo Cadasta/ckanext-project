@@ -3,7 +3,7 @@
 This CKAN extension modifies and extends the core CKAN code-base to provide the additional permissions, API, features and user interface required by the Cadasta application.
 
 ###Solution Diagram
-![image](https://github.com/Cadasta/cadasta-app-docs/blob/master/solution-diagram.png)
+![image](https://github.com/Cadasta/ckanext-project/blob/master/solution-diagram.png)
 
 ## Plugins
 This extension includes three plugins:   
