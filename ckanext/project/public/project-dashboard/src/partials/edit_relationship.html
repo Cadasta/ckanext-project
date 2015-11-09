@@ -34,9 +34,12 @@
                                 </md-input-container>
                             </div>
 
-                            <md-datepicker md-max-date="maxDate"
-                                           ng-model="relationship.acquired_date"
-                                           md-placeholder="Acquisition Date"></md-datepicker>
+                            <md-input-container>
+                                <label>Date Acquired</label>
+                                <md-datepicker md-max-date="maxDate"
+                                               ng-model="relationship.acquired_date"
+                                               md-placeholder="{{relationship.properties.acquired_date | date : format : 'M/d/yyyy'}}"></md-datepicker>
+                            </md-input-container>
 
 
                             <md-input-container md-no-float flex class="relationship-notes md-block">

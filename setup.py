@@ -5,7 +5,7 @@ from os import path
 here = path.abspath(path.dirname(__file__))
 
 # Get the long description from the relevant file
-with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
+with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
@@ -16,15 +16,15 @@ setup(
     # https://packaging.python.org/en/latest/distributing.html#version
     version='1.0.0b1',
 
-    description='''A ckan extension to project datasets in use''',
+    description='''A ckan extension to modify for the Cadasta platform''',
     long_description=long_description,
 
     # The project's main homepage.
-    url='https://github.com/ckan/ckanext-project',
+    url='https://github.com/Cadasta/ckanext-project',
 
     # Author details
-    author='''Brook Elgie''',
-    author_email='''brook.elgie@okfn.org''',
+    author='''Spatial Development International''',
+    author_email='''info@spatialdev.com''',
 
     # Choose your license
     license='AGPL',

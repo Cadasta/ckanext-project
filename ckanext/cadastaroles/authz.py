@@ -16,30 +16,20 @@ authz.ROLE_PERMISSIONS = OrderedDict([
                 'delete_dataset',
                 'create_dataset',
                 'update_dataset',
-                # cadasta resources
-                'upload_project_resource',
-                'delete_project_resource',
-                'archive_project_resource',
+                # resources
+                'upload_project_resource', # the old API auth
+                'cadasta_upload_project_resources',
                 # parcel
                 'read_parcel',
                 'create_parcel',
                 'update_parcel',
                 'delete_parcel',
                 'create_parcel_relationship',
-                # parcel resources
-                'upload_parcel_resource',
-                'delete_parcel_resource',
-                'archive_parcel_resource',
                 # party
                 'read_party',
                 'create_party',
                 'update_party',
                 'delete_party',
-                'create_parcel_relationship',
-                # party resources
-                'upload_party_resource',
-                'delete_party_resource',
-                'archive_party_resource',
                 'create_parcel_relationship',
                 # relationship
                 'read_relationship',
@@ -48,20 +38,24 @@ authz.ROLE_PERMISSIONS = OrderedDict([
                 'delete_relationship',
                 ]),
     ('surveyor', ['read',
-                  # project resource
-                  'upload_project_resource',
-
-                  # parcel
-                  'read_parcel',
-                  # parcel resource
-                  'upload_parcel_resource',
-                  'delete_parcel_resource',
-
-                  # party
-                  'read_party',
-                  # parcel resource
-                  'read_party_resource',
-                  'read_party_resource',
+                    # resources
+                    'upload_project_resource', # the old API auth
+                    'cadasta_upload_project_resources',
+                    # parcel
+                    'read_parcel',
+                    'upload_parcel_resource',
+                    'delete_parcel_resource',
+                    # party
+                    'read_party',
+                    'create_party',
+                    'update_party',
+                    'delete_party',
+                    'create_parcel_relationship',
+                    # relationship
+                    'read_relationship',
+                    'create_relationship',
+                    'update_relationship',
+                    'delete_relationship',
                   ]),
 ])
 
@@ -81,7 +75,7 @@ def is_cadasta_admin_decorator(method):
             return False
         if CadastaAdmin.is_user_cadasta_admin(model.Session, user_id):
             return True
-        return method(group_id, user_name, permission)
+        return method(str(group_id), user_name, permission)
     return decorate_has_user_permission_for_group_or_org
 
 

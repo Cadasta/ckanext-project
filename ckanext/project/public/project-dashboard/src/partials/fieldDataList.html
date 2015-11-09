@@ -1,0 +1,49 @@
+<div class="clearfix overview-background resources">
+    <div id="project-header">
+
+        <h3>Upload XLS form</h3>
+
+        <input type="file" nv-file-select uploader="uploader"/><br/>
+
+        <li ng-repeat="item in uploader.queue">
+            Name: <span ng-bind="item.file.name"></span><br/>
+            <button ng-click="item.upload()">upload</button>
+        </li>
+
+        <div ng-show="progress>0">progres: {{progress}}</div>
+        <div>status: {{response}}</div>
+
+
+
+        <table id="fieldData-table-header">
+            <thead>
+            <tr>
+                <th>ONA formId</th>
+                <th>Id String</th>
+                <th># of Responses</th>
+                <th>Time Created</th>
+            </tr>
+            </thead>
+        </table>
+
+        <div id="fieldDataList">
+            <table>
+                <tbody>
+                <tr class="row-link" ng-repeat="fd in fieldDataList" ui-sref="^.fieldDatum({id: fd.properties.id})">
+                    <td>{{fd.properties.form_id}}</td>
+                    <td>{{fd.properties.id_string}}</td>
+                    <td>{{fd.properties.num_submissions}}</td>
+                    <td>{{fd.properties.time_created}}</td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id=" ag-grid">
+            <div ag-grid="gridOptions" class="ag-blue" style="height: 100%;"></div>
+            </tr>
+        </div>
+    </div>
+</div>
+

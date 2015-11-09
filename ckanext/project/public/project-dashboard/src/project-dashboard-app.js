@@ -1,6 +1,6 @@
 
 var app = angular.module("app",
-    [ 'ct.ui.router.extras', 'params.manager', 'app.config', 'env.config', 'app.filters','ngMaterial', 'angularFileUpload']);
+    [ 'ct.ui.router.extras', 'params.manager', 'app.config', 'env.config', 'app.filters','ngMaterial', 'angularFileUpload', 'agGrid']);
 
   var dsrCb = function ($dsr$, paramService) {
 
@@ -264,7 +264,7 @@ var app = angular.module("app",
       name: 'tabs.parties.partylist',
       url: '/list',
       views: {
-        'relationshiplist': {
+        'partylist': {
           controller: 'partiesCtrl',
           templateUrl: '/project-dashboard/src/partials/partyList.html'}
       },
@@ -324,10 +324,36 @@ var app = angular.module("app",
       views: {
         'fieldDatatab': { controller:'fieldDataCtrl', templateUrl: '/project-dashboard/src/partials/fieldData.html' }
       },
-      deepStateRedirect: dsrCb,
+      deepStateRedirect: { default: "tabs.fieldData.fieldDataList" },
       sticky: true
     });
 
+    // Grandchild State
+    states.push({
+      name: 'tabs.fieldData.fieldDataList',
+      url: '/list',
+      views: {
+        'fielddatalist': {
+          controller: 'fieldDataCtrl',
+          templateUrl: '/project-dashboard/src/partials/fieldDataList.html'}
+      },
+      sticky:true,
+      deepStateRedirect: true
+    });
+
+
+    // Grandchild State
+    states.push({
+      name: 'tabs.fieldData.fieldDatum',
+      url: '/:id',
+      views: {
+        'fielddatum': {
+          controller: 'fieldDatumCtrl',
+          templateUrl: '/project-dashboard/src/partials/fieldDatum.html'}
+      },
+      sticky:true,
+      deepStateRedirect: true
+    });
 
 
 

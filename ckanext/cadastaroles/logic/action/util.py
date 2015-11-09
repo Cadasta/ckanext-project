@@ -19,13 +19,15 @@ def transform_and_raise_api_errors(result):
     :return:
     '''
 
-    if isinstance(result,dict) is False and hasattr(result,'error') is False:
-        # no errors
+    if isinstance(result,dict) is False:
         return
 
-    error_dict = result.get('error')
+    if result.get('error',False) is False:
+        return # no errors
+
+    error_dict = result.get('error',{})
     if isinstance(error_dict,dict) is False:
-        log.error('[ CADASTA API ERROR ]: api response has a key "error" which is not a hash')
+        log.error('[ CADASTA API ERROR ]: api response has a key "error" which is not a hash\n {}'.format(error_dict))
         return
 
     #
@@ -42,7 +44,7 @@ def transform_and_raise_api_errors(result):
 
     #
     # this api error transformation has to accommodate
-    # ckan view error rendering
+    # ckan server-side view error rendering
     # as well as the angular view error rendering
     # unfortunately, the ckan view rendering expects a certain structure
     # https://github.com/ckan/ckan/blob/master/ckan/logic/__init__.py#L75-L107
