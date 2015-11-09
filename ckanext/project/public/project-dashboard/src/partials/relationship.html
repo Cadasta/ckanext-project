@@ -20,8 +20,10 @@
                     </div>
                     <div class="caption">Tenure Type</div>
                     <div>{{relationship.properties.tenure_type }} </div>
+                    <div class="caption">How Acquired</div>
+                    <div>{{relationship.properties.how_acquired }} </div>
                     <div class="caption">Date Acquired</div>
-                    <div>{{relationship.properties.acquired_date | emptyString}}</div>
+                    <div>{{relationship.properties.acquired_date | date : format : 'M/d/yyyy' | emptyString}}</div>
                     <div class="caption">Parcel ID</div>
                     <div>
                         <a ui-sref="tabs.parcels.parcel({id: relationship.properties.parcel_id})">{{relationship.properties.parcel_id}}</a></div>
@@ -54,9 +56,9 @@
                     <th>Version</th>
                     <th>Date updated</th>
                     <th>Tenure Type</th>
-                    <th>Area</th>
-                    <th>Length</th>
-                    <th>How Acquired</th>
+                    <th>Area (meters)</th>
+                    <th>Length (meters)</th>
+                    <th>Description</th>
 
                 </tr>
                 </thead>
@@ -68,9 +70,9 @@
                         <td>{{rh.properties.version}}</td>
                         <td>{{rh.properties.time_updated | emptyString}}</td>
                         <td>{{rh.properties.relationship_type}}</td>
-                        <td>{{rh.properties.area | emptyString}}</td>
-                        <td>{{rh.properties.length | emptyString}}</td>
-                        <td>{{rh.properties.how_acquired | emptyString}}</td>
+                        <td>{{rh.properties.area | number:2 | emptyString}}</td>
+                        <td>{{rh.properties.length | number:2 | emptyString}}</td>
+                        <td>{{rh.properties.description | emptyString}}</td>
                     </tr>
                     </tbody>
                 </table>

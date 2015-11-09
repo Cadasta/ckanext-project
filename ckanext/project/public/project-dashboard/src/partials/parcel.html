@@ -75,8 +75,8 @@
                         <th>Date Created</th>
                         <th>Gov Pin</th>
                         <th>Land Use</th>
-                        <th>Area</th>
-                        <th>Length</th>
+                        <th>Area (meters)</th>
+                        <th>Length (meters)</th>
                         <th>Spatial Source</th>
                     </tr>
                     </thead>
@@ -89,8 +89,8 @@
                         <td>{{ph.properties.time_created | emptyString}}</td>
                         <td>{{ph.properties.gov_pin | emptyString}}</td>
                         <td>{{ph.properties.land_use | emptyString}}</td>
-                        <td>{{ph.properties.area | emptyString}}</td>
-                        <td>{{ph.properties.length | emptyString}}</td>
+                        <td>{{ph.properties.area | number:2 | emptyString}}</td>
+                        <td>{{ph.properties.length | number:2 | emptyString}}</td>
                         <td>{{ph.properties.spatial_source | emptyString}}</td>
                     </tr>
                     </tbody>
@@ -112,12 +112,14 @@
                 <table class="parcel-history">
                     <thead>
                     <tr>
+                        <th>Relationship Id</th>
+                        <th>Name</th>
                         <th>Version</th>
                         <th>Date updated</th>
                         <th>Tenure Type</th>
                         <th>Area</th>
                         <th>Length</th>
-                        <th>How Acquired</th>
+                        <th>Description</th>
 
                     </tr>
                     </thead>
@@ -126,12 +128,15 @@
                     <table>
                         <tbody>
                         <tr ng-repeat="rh in relationship_history">
+                            <td>{{rh.properties.relationship_id}}</td>
+                            <td  ng-show="rh.properties.first_name">{{rh.properties.first_name}}</td>
+                            <td  ng-show="rh.properties.group_name">{{rh.properties.group_name}} </td>
                             <td>{{rh.properties.version}}</td>
                             <td>{{rh.properties.time_updated | emptyString}}</td>
                             <td>{{rh.properties.relationship_type}}</td>
-                            <td>{{rh.properties.area | emptyString}}</td>
-                            <td>{{rh.properties.length | emptyString}}</td>
-                            <td>{{rh.properties.how_acquired | emptyString}}</td>
+                            <td>{{rh.properties.area | number:2| emptyString}}</td>
+                            <td>{{rh.properties.length | number:2 | emptyString}}</td>
+                            <td>{{rh.properties.description | emptyString}}</td>
                         </tr>
                         </tbody>
                     </table>

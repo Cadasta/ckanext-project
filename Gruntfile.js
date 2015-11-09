@@ -10,6 +10,18 @@ module.exports = function(grunt) {
 			options: {
 				name: 'env.config',
 			},
+			unifiedVM : {
+				options: {
+					dest: 'ckanext/project/public/shared/src/env.config.js'
+				},
+				constants: {
+					ENV: {
+						name: 'unifiedVM',
+						apiCadastaRoot: 'http://localhost:3000',
+						apiCKANRoot: 'http://localhost:5000/api/3/action'
+					}
+				}
+			},
 			// Environment targets
 			development: {
 				options: {
@@ -112,6 +124,7 @@ module.exports = function(grunt) {
 						"ckanext/project/public/shared/src/modules/params-manager.js",
 						"ckanext/project/public/project-dashboard/src/project-dashboard-app.js",
 						"ckanext/project/public/project-dashboard/src/services/dataService.js",
+						"ckanext/project/public/project-dashboard/src/services/fieldDataService.js",
 						"ckanext/project/public/shared/src/services/userService.js",
 						"ckanext/project/public/project-dashboard/src/services/mapUtilityService.js",
 						"ckanext/project/public/project-dashboard/src/services/partyService.js",
@@ -134,6 +147,7 @@ module.exports = function(grunt) {
 						"ckanext/project/public/project-dashboard/src/controllers/project-header.js",
 						"ckanext/project/public/project-dashboard/src/controllers/breadcrumbs.js",
 						"ckanext/project/public/project-dashboard/src/controllers/field-data.js",
+						"ckanext/project/public/project-dashboard/src/controllers/project-fieldDatum.js",
 						"ckanext/project/public/shared/src/directives/sticky-state.js",
 						"ckanext/project/public/shared/src/other_scripts/custom_jquery.js",
 						"ckanext/project/public/project-dashboard/src/other_scripts/custom_jquery.js"
@@ -230,5 +244,13 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('default', []);
 
-	grunt.registerTask('build', ['ngconstant:' + env,'uglify:projectDashboard','uglify:organizationDashboard', 'cssmin:projectDashboard','cssmin:organizationDashboard', 'cachebreaker:projectDashboard', 'cachebreaker:organizationDashboard']);
+	grunt.registerTask('build', [
+		'ngconstant:' + env,
+		'uglify:projectDashboard',
+		'uglify:organizationDashboard',
+		'cssmin:projectDashboard',
+		'cssmin:organizationDashboard',
+		'cachebreaker:projectDashboard',
+		'cachebreaker:organizationDashboard'
+	]);
 };

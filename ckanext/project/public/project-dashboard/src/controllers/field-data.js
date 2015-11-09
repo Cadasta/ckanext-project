@@ -1,17 +1,27 @@
 var app = angular.module("app");
 
 
-app.controller("fieldDataCtrl", ['$scope', '$rootScope', '$state', '$stateParams', '$location', 'dataService', 'paramService', 'FileUploader', 'ENV', 'fieldDataService', 'cadastaProject',
-    function ($scope, $rootScope, $state, $stateParams, $location, dataService, paramService, FileUploader, ENV, fieldDataService, cadastaProject) {
+app.controller("fieldDataCtrl", ['$scope', '$rootScope', '$state', '$stateParams', '$location', 'dataService', 'paramService', 'FileUploader', 'ENV', 'onaService', 'cadastaProject', 'fieldDataService',
+    function ($scope, $rootScope, $state, $stateParams, $location, dataService, paramService, FileUploader, ENV, onaService, cadastaProject, fieldDataService) {
 
         $scope.response = '';
         $scope.progress = 0;
         $scope.formObj = {};
 
+        getFieldData();
+
+        function getFieldData(){
+            var promise = fieldDataService.getFieldData(cadastaProject.id);
+
+            promise.then(function(response){
+                $scope.fieldDataList = response.features;
+            })
+        }
+
         // validate xls file
         $scope.uploader = new FileUploader({
             alias: 'xls_file',
-            url: 'http://54.69.121.180:3456/providers/ona/load-form/' + cadastaProject.id
+            url: ENV.apiCadastaRoot +'/providers/ona/load-form/' + cadastaProject.id
         });
 
         $scope.uploader.onProgressItem = function (item, progress) {
