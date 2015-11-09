@@ -108,9 +108,17 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
                     val.properties.time_updated = utilityService.formatDate(val.properties.time_updated);
                 });
 
+                //reformat relationship history dates
+                response.properties.relationship_history.forEach(function (val) {
+                    val.properties.time_created = utilityService.formatDate(val.properties.time_created);
+                    val.properties.time_updated = utilityService.formatDate(val.properties.time_updated);
+                });
+
                 $scope.parcel_history = response.properties.parcel_history;
 
                 $scope.relationships = response.properties.relationships;
+
+                $scope.relationship_history = response.properties.relationship_history;
 
                 relationshipGroup.clearLayers();
                 parcelGroup.clearLayers();

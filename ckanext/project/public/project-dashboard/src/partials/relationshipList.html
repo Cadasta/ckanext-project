@@ -39,8 +39,8 @@
             <td><span ng-show="relationship.properties.first_name">{{relationship.properties.first_name}} {{relationship.properties.last_name}}</span>
                 <span ng-show="relationship.properties.group_name">{{relationship.properties.group_name}}</span></td>
             <td>{{relationship.properties.tenure_type}}</td>
-            <td>{{relationship.properties.how_acquired}}</td>
-            <td>{{relationship.properties.acquired_date}}</td>
+            <td>{{relationship.properties.how_acquired | emptyString}}</td>
+            <td>{{relationship.properties.acquired_date| date : format : 'M/d/yyyy' | emptyString}}</td>
         </tr>
         </tbody>
     </table>

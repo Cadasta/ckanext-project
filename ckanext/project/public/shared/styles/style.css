@@ -30,12 +30,15 @@ div.tabcontent {
     overflow:  hidden;
 }
 
-
 .small-heading {
     color: #256c97;
     font-size:12px;
     font-weight:bold;
     display: inline-block;
+    text-transform: uppercase;
+}
+
+.project-overview-page .small-heading {
     padding: 0px 0px 10px 25px;
 }
 
@@ -116,5 +119,74 @@ p.popup-text {
 }
 
 .md-select-menu-container.md-active md-select-menu {
-    width:200px;
+    width: 200px;
+}
+
+#ag-table {
+    height: 300px;
+}
+
+
+#fieldDataList{
+    font-size: 12px;
+    width: 100%;
+    max-height: 400px;
+    overflow: auto;
+}
+
+#fieldDataList tbody tr {
+    border-bottom: 1px solid #dcdfe1;
+    height: 50px;
+}
+
+#fieldDataList .last-table-element {
+    border-bottom: none;
+}
+
+#fieldDataList tbody {
+    height:200px;
+    overflow-y: auto;
+}
+
+#fieldDataList .row-link{
+    cursor: pointer;
+}
+
+#fieldDataList .row-link:hover {
+    background-color:#f8f9f9
+}
+
+#fieldDataList table{
+    text-align: center;
+    width: 100%;
+    margin: auto;
+    background-color: white;
+}
+
+#fieldDataList th {
+    height: 30px;
+}
+
+#fieldData-table-header {
+    text-align: center;
+    width: 100%;
+    margin: auto;
+    background-color: white;
+}
+
+#fieldData-table-header th {
+    font-size: 12px;
+    color: white;
+    background-color: #51617A;
+    font-weight: 400;
+    text-align: center;
+    padding: 8px;
+    line-height: 20px;
+}
+
+.back-link {
+    font-weight: 700;
+    margin: -5px 0 0 35px;
+    line-height: 45px;
+    font-size: 12px;
 }

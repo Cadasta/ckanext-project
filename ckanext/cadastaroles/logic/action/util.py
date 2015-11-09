@@ -22,7 +22,7 @@ def transform_and_raise_api_errors(result):
     if isinstance(result,dict) is False:
         return
 
-    if hasattr(result,'error') is False:
+    if result.get('error',False) is False:
         return # no errors
 
     error_dict = result.get('error',{})
@@ -44,7 +44,7 @@ def transform_and_raise_api_errors(result):
 
     #
     # this api error transformation has to accommodate
-    # ckan view error rendering
+    # ckan server-side view error rendering
     # as well as the angular view error rendering
     # unfortunately, the ckan view rendering expects a certain structure
     # https://github.com/ckan/ckan/blob/master/ckan/logic/__init__.py#L75-L107

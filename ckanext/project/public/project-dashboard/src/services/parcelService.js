@@ -75,7 +75,7 @@ var app = angular.module("app")
         /**
          * Get all resources associated with a parcel
          * @returns {*}
-         * todo pass in a project and parcel id
+         *
          */
         service.getProjectParcelResources = function (projectId, parcelId) {
 
