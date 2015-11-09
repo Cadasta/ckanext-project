@@ -13,5 +13,10 @@ This extension includes three plugins:
 
 It also includes static resources for the Angular.js applications used for the more complicated project and organization dashboards.
 
-####[Installation Details](https://github.com/Cadasta/ckanext-project/blob/master/docs/extension-installation.md)
-####[Angular application details](https://github.com/Cadasta/ckanext-project/blob/master/docs/cadasta-angular-readme.md)
+
+####CKAN Source Installation
+You'll first need an out-of-the-box CKAN application installed.  See CKAN [docs](http://docs.ckan.org/en/latest/maintaining/installing/install-from-source.html).
+####Extenstion Installation
+[Instructions](https://github.com/Cadasta/ckanext-project/blob/master/docs/extension-installation.md) for adding this extension to an out-of-the-box CKAN application.
+####Angular Application Build
+[Instructions](https://github.com/Cadasta/ckanext-project/blob/master/docs/cadasta-angular-readme.md) for developing and deploying the Angular.js code served by this CKAN extension.
