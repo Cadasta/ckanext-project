@@ -9,7 +9,7 @@ from .cadastaadmin import (
     cadasta_admin_list,
 )
 
-from .cadastaorganization import (
-    cadasta_get_organization,
-)
+# from .cadastaorganization import (
+#     cadasta_get_organization,
+# )
 
