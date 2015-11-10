@@ -5,6 +5,8 @@ from ckanext.cadastaroles.logic import schema
 from ckanext.cadastaroles.logic.action.util import cadasta_get_api
 
 
+
+
 # @toolkit.side_effect_free
 # @validate(schema.cadasta_get_parcels_schema)
 # def cadasta_show_parcel(context, data_dict):

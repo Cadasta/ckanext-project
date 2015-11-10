@@ -4,6 +4,8 @@ from ckanext.cadastaroles.logic import schema
 from ckanext.cadastaroles.logic.action.util import cadasta_get_api
 
 
+
+
 # @toolkit.side_effect_free
 # @validate(schema.cadasta_show_relationship_schema)
 # def cadasta_show_relationship(context, data_dict):
