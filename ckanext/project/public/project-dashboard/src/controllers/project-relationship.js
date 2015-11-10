@@ -108,10 +108,15 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
 
                     $scope.relationship  = response;
 
-                    //reformat relationship dates
+
+                    response.properties.acquired_date = utilityService.formatDate(response.properties.acquired_date);
+
+
+                    //reformat relationship history dates
                     response.properties.relationship_history.forEach(function (val) {
                         val.properties.time_created = utilityService.formatDate(val.properties.time_created);
                         val.properties.time_updated = utilityService.formatDate(val.properties.time_updated);
+                        val.properties.acquired_date = utilityService.formatDate(val.properties.acquired_date);
                     });
 
                     $scope.relationship_history = response.properties.relationship_history;
@@ -217,6 +222,7 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
                 $mdDialog.cancel();
             };
 
+
             relationship.properties.acquired_date = new Date(relationship.properties.acquired_date.replace(/-/g,'/'));
 
             $scope.cadastaProjectId = cadastaProject.id;
@@ -235,14 +241,33 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
             // set date picker's max date to today
             $scope.myDate = new Date();
 
-            $scope.maxDate = new Date(
-                $scope.myDate.getFullYear(),
-                $scope.myDate.getMonth(),
-                $scope.myDate.getDate());
+            $scope.relationship.acquisition_date = $scope.relationship.properties.acquisition_date;
+
+
+
+            $scope.open = function($event) {
+                $scope.status.opened = true;
+            };
+
+            $scope.setDate = function(year, month, day) {
+                $scope.dt = new Date(year, month, day);
+            };
+
+
+            $scope.format = 'd/M/yyyy';
+
+            $scope.status = {
+                opened: false
+            };
+
+            $scope.maxDate = new Date();
+            $scope.format = 'dd/MM/yyyy';
 
             $scope.updateRelationship = function (projectId) {
 
                 var layer = getLayer();
+
+                $scope.relationship.acquired_date = $scope.dt.getMonth()+1 + '/' +  $scope.dt.getDate() + '/' + $scope.dt.getFullYear();
 
                 if (layer === undefined) {
                     layer = null;

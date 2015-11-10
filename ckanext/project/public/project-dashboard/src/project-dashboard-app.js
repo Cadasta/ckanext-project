@@ -1,6 +1,6 @@
 
 var app = angular.module("app",
-    [ 'ct.ui.router.extras', 'params.manager', 'app.config', 'env.config', 'app.filters','ngMaterial', 'angularFileUpload', 'agGrid']);
+    [ 'ct.ui.router.extras', 'params.manager', 'app.config', 'env.config', 'app.filters','ngMaterial', 'angularFileUpload', 'agGrid', 'ngAnimate', 'ui.bootstrap']);
 
   var dsrCb = function ($dsr$, paramService) {
 
@@ -26,6 +26,7 @@ var app = angular.module("app",
 
     return toStateParamsAllUndefined && !redirectStateParamsAllUndefined;
   };
+
 
   app.config(function ($stateProvider, $urlRouterProvider) {
 
@@ -367,4 +368,6 @@ var app = angular.module("app",
     });
 
   });
+
+
 

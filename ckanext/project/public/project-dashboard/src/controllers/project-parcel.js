@@ -128,7 +128,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
 
                     var name = null;
                     if (v.properties.first_name) {
-                        name = v.properties.first_name + ' ' + v.properties.last_name;
+                        name = v.properties.first_name;
                     } else {
                         name = v.properties.group_name;
                     }
@@ -314,6 +314,11 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
             });
 
 
+            $scope.maxDate = new Date();
+
+            $scope.format = 'dd/MM/yyyy';
+
+
             $scope.saveNewRelationship = function () {
 
                 var layer = getLayer();
@@ -321,6 +326,9 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
                 if (layer) {
                     layer = layer.toGeoJSON().geometry;
                 }
+                
+
+                $scope.relationship.acquisition_date = $scope.dt.getMonth()+1 + '/' +  $scope.dt.getDate() + '/' + $scope.dt.getFullYear();
 
                 if ($scope.relationship.party == undefined) {
                     $scope.relationshipCreated = "party required";

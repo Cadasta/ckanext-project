@@ -174,6 +174,22 @@ app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location',
             getOverviewData();
         });
 
+        // listen for new parties to update geom and activity
+        $scope.$on('updated-party', function(e){
+            getOverviewData();
+        });
+
+
+        // listen for new relationships to update geom and activity
+        $scope.$on('new-relationship', function(e){
+            getOverviewData();
+        });
+
+        // listen for new relationships to update geom and activity
+        $scope.$on('updated-relationship', function(e){
+            getOverviewData();
+        });
+
     }]);
 
 

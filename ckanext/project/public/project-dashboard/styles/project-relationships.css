@@ -55,10 +55,6 @@ md-datepicker.add-relationship-format {
     margin-left: -15px;
 }
 
-md-datepicker.add-relationship-format .md-datepicker-input-container {
-    border: 1px solid #dcdfe1;
-}
-
 md-datepicker.add-relationship-format.party .md-datepicker-input-container {
     width:273px;
 }
@@ -102,4 +98,52 @@ md-input-container.relationship-notes textarea {
     margin-left: 12px;
     height: 26px;
     margin-bottom: 35px;
+}
+
+
+#parcelDetails.party .section .relationship-container {
+    height: 141px;
+    overflow-y: auto;
+    overflow-x:hidden;
+    width: 366px;
+}
+
+
+.add-relationship md-input-container.add-relationship-format input.datebox {
+    display: inline-block;
+    width: 33px;
+    margin: 0 10px 0 10px;
+}
+
+#custom-date-picker .btn-sm, .btn-group-sm>.btn {
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+
+#custom-date-picker .btn-default {
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}
+
+#custom-date-picker .btn {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }

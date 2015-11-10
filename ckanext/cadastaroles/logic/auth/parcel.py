@@ -5,64 +5,70 @@ from .project import has_permission_for_project
 #
 #  GET
 #
+@toolkit.auth_allow_anonymous_access
 def cadasta_get_parcels_list(context, data_dict):
     data_dict.update({'id':data_dict['project_id']})
     return {
         'success': toolkit.check_access('package_show', context, data_dict)
     }
 
+@toolkit.auth_allow_anonymous_access
 def cadasta_get_project_parcel_list(context, data_dict):
     data_dict.update({'id':data_dict['project_id']})
     return {
         'success': toolkit.check_access('package_show', context, data_dict)
     }
 
+@toolkit.auth_allow_anonymous_access
 def cadasta_get_project_parcel(context, data_dict):
     data_dict.update({'id':data_dict['project_id']})
     return {
         'success': toolkit.check_access('package_show', context, data_dict)
     }
 
+@toolkit.auth_allow_anonymous_access
 def cadasta_get_project_parcel_details(context, data_dict):
     data_dict.update({'id':data_dict['project_id']})
     return {
         'success': toolkit.check_access('package_show', context, data_dict)
     }
 
+@toolkit.auth_allow_anonymous_access
 def cadasta_get_project_parcel_relationship_history(context, data_dict):
     data_dict.update({'id':data_dict['project_id']})
     return {
         'success': toolkit.check_access('package_show', context, data_dict)
     }
 
-
+@toolkit.auth_allow_anonymous_access
 def cadasta_get_project_parcel_resources(context, data_dict):
     data_dict.update({'id':data_dict['project_id']})
     return {
         'success': toolkit.check_access('package_show', context, data_dict)
     }
 
+@toolkit.auth_allow_anonymous_access
 def cadasta_get_project_parcel(context, data_dict):
     data_dict.update({'id':data_dict['project_id']})
     return {
         'success': toolkit.check_access('package_show', context, data_dict)
     }
 
-
+@toolkit.auth_allow_anonymous_access
 def cadasta_get_project_parcel_detail(context, data_dict):
     data_dict.update({'id':data_dict['project_id']})
     return {
         'success': toolkit.check_access('package_show', context, data_dict)
     }
 
-
+@toolkit.auth_allow_anonymous_access
 def cadasta_get_project_parcel_history(context, data_dict):
     data_dict.update({'id':data_dict['project_id']})
     return {
         'success': toolkit.check_access('package_show', context, data_dict)
     }
 
-
+@toolkit.auth_allow_anonymous_access
 def cadasta_get_project_parcel_relationship_history(context, data_dict):
     data_dict.update({'id':data_dict['project_id']})
     return {

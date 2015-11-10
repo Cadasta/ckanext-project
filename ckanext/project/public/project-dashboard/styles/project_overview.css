@@ -28,7 +28,7 @@
 }
 
 #project-desc .small-heading {
-    margin: 8px 0px 0px 0px;
+    margin: 8px 0px 0px 25px;
 }
 
 #project-desc table {
@@ -126,7 +126,8 @@
 
 li.activity-block {
     position: relative;
-    padding: 14px 0px 15px 25px;
+    padding: 14px 25px 15px 25px;
+    width: 467px;
 }
 
 .remove-bottom-border {
@@ -141,6 +142,19 @@ li.activity-block {
     display: block;
     width: 95%;
     border-bottom: 1px solid #e3e3e3;
+}
+
+.resource-activity-block {
+    display: block;
+    width: 95%;
+    border-bottom: 1px solid #e3e3e3;
+}
+
+
+li.resource-activity-block {
+    position: relative;
+    padding: 14px 25px 15px 25px;
+    width: 277px;
 }
 
 .project-block {

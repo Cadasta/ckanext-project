@@ -38,6 +38,10 @@ div.tabcontent {
     text-transform: uppercase;
 }
 
+.organization-overview-page .small-heading {
+    padding: 0px 0px 10px 25px;
+}
+
 .project-overview-page .small-heading {
     padding: 0px 0px 10px 25px;
 }
@@ -189,4 +193,15 @@ p.popup-text {
     margin: -5px 0 0 35px;
     line-height: 45px;
     font-size: 12px;
+}
+
+.full button span {
+    background-color: limegreen;
+    border-radius: 32px;
+    color: black;
+}
+.partially button span {
+    background-color: orange;
+    border-radius: 32px;
+    color: black;
 }

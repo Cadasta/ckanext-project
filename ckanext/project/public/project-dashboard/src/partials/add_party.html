@@ -26,7 +26,7 @@
                             <div layout layout-sm="column">
 
                                 <md-input-container md-no-float flex class="pin-id" ng-show="(party.party_type === 'individual')">
-                                    <label>First Name</label>
+                                    <label>Full Name</label>
                                     <input ng-model="party.first_name">
 
                                     <div ng-messages="newParty.party.first_name.$error">
@@ -35,15 +35,15 @@
                                     </div>
                                 </md-input-container>
 
-                                <md-input-container md-no-float flex class="pin-id" ng-show="(party.party_type === 'individual')">
-                                    <label>Last Name</label>
-                                    <input ng-model="party.last_name">
+                                <!--<md-input-container md-no-float flex class="pin-id" ng-show="(party.party_type === 'individual')">-->
+                                    <!--<label>Last Name</label>-->
+                                    <!--<input ng-model="party.last_name">-->
 
-                                    <div ng-messages="newParty.party.last_name.$error">
-                                        <div ng-message="required" class="font-red">Party name is required.</div>
-                                        <br>
-                                    </div>
-                                </md-input-container>
+                                    <!--<div ng-messages="newParty.party.last_name.$error">-->
+                                        <!--<div ng-message="required" class="font-red">Party name is required.</div>-->
+                                        <!--<br>-->
+                                    <!--</div>-->
+                                <!--</md-input-container>-->
                                 <br><br><br>
                                 <div></div>
 
@@ -77,9 +77,18 @@
                         </md-content>
 
                         <md-content class="layout-padding left add-parcel-extra-fields" >
-                            <div layout layout-sm="column">
-                                <md-datepicker  ng-show="(party.party_type === 'individual')" class="md-block add-relationship-format party" ng-model="party.dob" md-placeholder="Date of birth"></md-datepicker>
+                            <div ng-show="(party.party_type === 'individual')" layout layout-sm="column">
+                                <div id="custom-date-picker">
+                                    <pre>Selected date is: <em>{{dt | date:format:'dd/MM/yyyy' }}</em></pre>
+
+                                    <div style="display:inline-block">
+                                        <uib-datepicker ng-model="dt" format-day="dd" format-month="MM" format-year="yyyy"
+                                                        max-date="maxDate" show-weeks="true"
+                                                        class="well well-sm"></uib-datepicker>
+                                    </div>
+                                </div>
                             </div>
+
                         </md-content>
 
                         <md-content class="layout-padding left add-parcel-extra-fields" >

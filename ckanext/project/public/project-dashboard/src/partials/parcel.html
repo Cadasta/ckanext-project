@@ -28,7 +28,8 @@
                              ng-class="{'remove-bottom-border': $index < relationships.length-1 && relationships.length > 0}">
                             <div ng-click="toggleDropdownDetails(r)" class="name">
                                 <a ui-sref="tabs.parties.party({id:r.properties.party_id})">
-                                    {{r.properties.first_name}} {{r.properties.last_name}}
+                                    <span ng-show="r.properties.first_name">{{r.properties.first_name}}</span>
+                                    <span ng-show="r.properties.group_name">{{r.properties.group_name}}</span>
                                 </a>
                                 <i ng_show="!r.showDropDownDetails" class="material-icons right">expand_more</i>
                                 <i ng_show="r.showDropDownDetails" class="material-icons right">expand_less</i>

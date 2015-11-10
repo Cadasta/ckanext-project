@@ -4,13 +4,11 @@ var OrganizationDashboardApp = angular.module("OrganizationDashboardApp");
 OrganizationDashboardApp.controller("orgOverviewCtrl", ['$scope', '$rootScope', '$state', '$stateParams', '$location', 'paramService', 'dataService', 'ckanOrgId', function ($scope, $rootScope, $state, $stateParams, $location, paramService, dataService, ckanOrgId) {
 
 
-    //button routing todo - couldn't get this to work at the moment
     $scope.route_add_project = function(){
         $location.path('project/new');
     };
 
     $scope.orgName = ckanOrgId;
-
 
 
     //Get CKAN data
@@ -27,10 +25,7 @@ OrganizationDashboardApp.controller("orgOverviewCtrl", ['$scope', '$rootScope', 
         });
 
         $scope.orgUsers = response.result.users;
-
-
-    })
-
+    });
 
     //Get CKAN activity data
     var CKAN_activity_promise = dataService.getCKANOrgActivities(ckanOrgId);
@@ -42,9 +37,6 @@ OrganizationDashboardApp.controller("orgOverviewCtrl", ['$scope', '$rootScope', 
         $scope.CKANorgActivities.forEach(function(activity) {
         activity.timestamp = dataService.formatDate(activity.timestamp);
         });
-
     })
-
-
 
 }]);

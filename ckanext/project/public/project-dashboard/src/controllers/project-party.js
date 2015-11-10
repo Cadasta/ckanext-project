@@ -1,5 +1,5 @@
-app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','$rootScope','paramService', 'utilityService', 'uploadResourceService', '$mdDialog', 'ckanId', 'cadastaProject', 'FileUploader', 'ENV', 'dataService', 'relationshipService', 'parcelService',
-    function($scope, $state, $stateParams, partyService,$rootScope,paramService, utilityService, uploadResourceService, $mdDialog, ckanId, cadastaProject, FileUploader, ENV, dataService, relationshipService, parcelService){
+app.controller("partyCtrl", ['$scope', '$state', '$stateParams', 'partyService', '$rootScope', 'paramService', 'utilityService', 'uploadResourceService', '$mdDialog', 'ckanId', 'cadastaProject', 'FileUploader', 'ENV', 'dataService', 'relationshipService', 'parcelService',
+    function ($scope, $state, $stateParams, partyService, $rootScope, paramService, utilityService, uploadResourceService, $mdDialog, ckanId, cadastaProject, FileUploader, ENV, dataService, relationshipService, parcelService) {
 
 
         $rootScope.$broadcast('tab-change', {tab: 'Parties'}); // notify breadcrumbs of tab on page load
@@ -29,15 +29,15 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
             "fillOpacity": .1,
             "opacity": .8,
             "marker-color": "#e54573",
-            "clickable":false
+            "clickable": false
         };
 
         var relationshipStyle = {
             "color": "#FF8000",
             "stroke": true,
-            "opacity":.5,
-            "fillOpacity":.5,
-            "weight" : 1
+            "opacity": .5,
+            "fillOpacity": .5,
+            "weight": 1
         };
 
         var lat = mapArr[0];
@@ -73,10 +73,10 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
         var relationshipGroup = L.featureGroup().addTo(map);
 
 
-        getPartyDetails ();
+        getPartyDetails();
         getPartyResources();
 
-        function getPartyDetails () {
+        function getPartyDetails() {
 
             var layer;
 
@@ -94,8 +94,17 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
                 //// format dates
                 $scope.party.time_created = utilityService.formatDate($scope.party.time_created);
                 $scope.party.time_updated = utilityService.formatDate($scope.party.time_created);
+                $scope.party.dob = utilityService.formatDate($scope.party.dob);
 
-                if (response.properties.relationships.length > 0){
+                if (response.properties.relationship_history.length > 0) {
+
+                    response.properties.relationship_history.forEach(function (val) {
+                        val.properties.time_created = utilityService.formatDate(val.properties.time_created);
+                        val.properties.time_updated = utilityService.formatDate(val.properties.time_updated);
+                    })
+                }
+
+                if (response.properties.relationships.length > 0) {
                     response.properties.relationships.forEach(function (val) {
                         ////reformat relationship dates
                         val.properties.time_created = utilityService.formatDate(val.properties.time_created);
@@ -104,7 +113,7 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
                         //create popup for relationship
                         var name = null;
                         if (val.properties.first_name) {
-                            name = val.properties.first_name + ' ' + val.properties.last_name;
+                            name = val.properties.first_name;
                         } else {
                             name = val.properties.group_name;
                         }
@@ -112,7 +121,7 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
 
 
                         // add relationship geometries to map
-                        if(val.geometry !== null){
+                        if (val.geometry !== null) {
                             layer = L.geoJson(val, {style: relationshipStyle});
                             layer.bindPopup(popup_content);
                             layer.addTo(parcelGroup);
@@ -125,9 +134,9 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
                 var parcels = response.properties.parcels;
 
                 // add parcel geometries to map
-                if(parcels.length>0){
-                    parcels.forEach(function(p){
-                        if (p.geometry !== null){
+                if (parcels.length > 0) {
+                    parcels.forEach(function (p) {
+                        if (p.geometry !== null) {
                             layer = L.geoJson(p, {style: parcelStyle});
                             layer.addTo(parcelGroup);
                             map.fitBounds(parcelGroup.getBounds());
@@ -228,7 +237,6 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
         }
 
 
-
         /**
          * Functions related to add relationship modal
          * @returns {*}
@@ -287,25 +295,25 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
                 else if ($scope.relationship.tenure_type == undefined) {
                     $scope.relationshipCreated = "tenure required";
                 }
-                else if ((relationshipParcelId != undefined) && ($scope.relationship.tenure_type != undefined)  ) {
+                else if ((relationshipParcelId != undefined) && ($scope.relationship.tenure_type != undefined)) {
 
                     var createRelationship = relationshipService.createProjectRelationship(cadastaProject.id, relationshipParcelId, layer, $scope.relationship);
 
                     createRelationship.then(function (response) {
-                        if (response.cadasta_relationship_id){
+                        if (response.cadasta_relationship_id) {
 
 
                             $rootScope.$broadcast('new-relationship');
-                            getPartyDetails ();
+                            getPartyDetails();
 
 
-                            var timeoutID = window.setTimeout(function() {
+                            var timeoutID = window.setTimeout(function () {
                                 $scope.cancel();
                             }, 300);
                         }
-                    }).catch(function(err){
+                    }).catch(function (err) {
 
-                        $scope.parcelCreated ='unable to create parcel';
+                        $scope.parcelCreated = 'unable to create parcel';
                     });
 
                 }
@@ -360,8 +368,8 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
                             "color": "#88D40E",
                             "stroke": true,
                             "stroke-width": 1,
-                            "fill-opacity":.7,
-                            "stroke-opacity":.8
+                            "fill-opacity": .7,
+                            "stroke-opacity": .8
                         }
                     },
                     polygon: {
@@ -369,8 +377,8 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
                             "color": "#88D40E",
                             "stroke": true,
                             "stroke-width": 1,
-                            "fill-opacity":.7,
-                            "stroke-opacity":.8
+                            "fill-opacity": .7,
+                            "stroke-opacity": .8
                         }
                     },
                     circle: false,
@@ -379,12 +387,12 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
                             "color": "#88D40E",
                             "stroke": true,
                             "stroke-width": 1,
-                            "fill-opacity":.7,
-                            "stroke-opacity":.8
+                            "fill-opacity": .7,
+                            "stroke-opacity": .8
                         }
                     },
                     marker: {
-                        icon : editIcon
+                        icon: editIcon
                     }
                 },
                 edit: {
@@ -410,30 +418,30 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
                 "color": "#256c97",
                 "stroke": true,
                 "stroke-width": 1,
-                "fill-opacity":.1,
-                "stroke-opacity":.7,
-                "clickable" : false
+                "fill-opacity": .1,
+                "stroke-opacity": .7,
+                "clickable": false
             };
 
             var parcelStyle = {
                 "color": "#e54573",
                 "stroke": "#e54573",
                 "stroke-width": 3,
-                "fill-opacity":.1,
-                "stroke-opacity":.8,
-                "marker-color":"#e54573"
+                "fill-opacity": .1,
+                "stroke-opacity": .8,
+                "marker-color": "#e54573"
             };
 
             var selectStyle = {
                 "color": "#6324C3",
                 "stroke": true,
                 "stroke-width": 3,
-                "fill-opacity":.1,
-                "stroke-opacity":.8,
-                "marker-color":"#e54573"
+                "fill-opacity": .1,
+                "stroke-opacity": .8,
+                "marker-color": "#e54573"
             };
 
-            var selectParcel = function(parcelId) {
+            var selectParcel = function (parcelId) {
                 $scope.relationship.parcel_id = parcelId;
             }
 
@@ -454,7 +462,7 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
 
 
                 //zoom to project extent
-                if(response.project.features[0].geometry !== null){
+                if (response.project.features[0].geometry !== null) {
                     map.fitBounds(projectLayer.getBounds());
                 } else if (response.parcels.features.length > 0) {
                     map.fitBounds(parcelGroup.getBounds());
@@ -466,7 +474,7 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
                 console.error(err);
             });
 
-            parcelGroup.on('click', function(e) {
+            parcelGroup.on('click', function (e) {
                 parcelGroup.setStyle(parcelStyle);
                 e.layer.setStyle(selectStyle);
                 $scope.relationshipParcelId = e.layer.feature.properties.id;
@@ -486,11 +494,12 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
                 controller: updatePartyCtrl,
                 parent: angular.element(document.body),
                 clickOutsideToClose: false,
-                locals: {cadastaProject: cadastaProject, party:$scope.party}
+                locals: {cadastaProject: cadastaProject, party: $scope.party}
             })
         };
 
-
+        $scope.maxDate = new Date();
+        $scope.format = 'dd/MM/yyyy';
 
         function updatePartyCtrl($scope, $mdDialog, $stateParams, party, cadastaProject) {
             $scope.hide = function () {
@@ -500,36 +509,46 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
                 $mdDialog.cancel();
             };
 
+            $scope.maxDate = new Date();
+            $scope.format = 'dd/MM/yyyy';
+
             $scope.cadastaProjectId = cadastaProject.id;
             $scope.party = party;
 
-            $scope.updateParty = function (projectId) {
 
-                $scope.updateParty = function(projectId, party){
+            $scope.updateParty = function (projectId, party) {
 
-                    //var createParty = partyService.createProjectParty(projectId, party);
-                    //
-                    //createParty.then(function (response) {
-                    //    if (response.cadasta_party_id){
-                    //
-                    //        $scope.partyCreated = 'party successfully added';
-                    //
-                    //        $rootScope.$broadcast('new-party');
-                    //        getParties();
-                    //
-                    //        var timeoutID = window.setTimeout(function() {
-                    //            $scope.cancel();
-                    //            $state.go("tabs.parties.party", {id:response.cadasta_party_id})
-                    //        }, 300);
-                    //    }
-                    //}).catch(function(err){
-                    //
-                    //    $scope.partyCreated ='unable to create party';
-                    //});
+                if($scope.dt){
+                    party.dob = $scope.dt.getMonth()+1 + '/' +  $scope.dt.getDate() + '/' + $scope.dt.getFullYear();
                 }
 
+                var updateParty = partyService.updateProjectParty(projectId, $stateParams.id, party);
+
+                updateParty.then(function (response) {
+                    if (response.cadasta_party_id) {
+
+                        $scope.partyCreated = 'party successfully updated';
+
+                        $rootScope.$broadcast('updated-party');
+                        getPartyDetails();
+
+                        var timeoutID = window.setTimeout(function () {
+                            $scope.cancel();
+                        }, 300);
+                    }
+                }).catch(function (err) {
+                    $scope.partyCreated = 'unable to update party';
+
+                });
+
+
             }
+
         }
+
+
+
+
 
     }]);
 

@@ -4,7 +4,7 @@ var app = angular.module("app")
         var service =  {};
 
         /**
-         * This function formats a timestamp and returns it into a simple date mm/dd/yyyy
+         * This function formats a timestamp and returns it into a simple date dd/mm/yyyy
          * @returns {*}
          */
         service.formatDate = function(date){
@@ -12,11 +12,10 @@ var app = angular.module("app")
             var month = date_object.getMonth() + 1;
             var day = date_object.getDate();
             var year = date_object.getFullYear();
-            var date_object_formatted = month + "/" + day + "/" + year;
+            var date_object_formatted = day + "/" + month + "/" + year;
 
             return date_object_formatted;
         };
-
 
         return service;
     });
