@@ -47,6 +47,7 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
         };
 
 
+
         function addPartyCtrl($scope, $mdDialog, $stateParams) {
             $scope.hide = function () {
                 $mdDialog.hide();
@@ -54,13 +55,15 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
             $scope.cancel = function () {
                 $mdDialog.cancel();
             };
-
             $scope.cadastaProjectId = cadastaProject.id;
 
+            $scope.maxDate = new Date();
+            $scope.format = 'dd/MM/yyyy';
+
             $scope.saveNewParty = function(projectId, party){
-                
-                if(party.dob){
-                    party.dob = utilityService.formatDate(party.dob).replace(/-/g,'/');
+
+                if($scope.dt){
+                    party.dob = $scope.dt.getMonth()+1 + '/' +  $scope.dt.getDate() + '/' + $scope.dt.getFullYear();
                 }
 
                 var createParty = partyService.createProjectParty(projectId, party);

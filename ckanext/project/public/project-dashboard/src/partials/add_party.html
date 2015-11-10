@@ -77,8 +77,16 @@
                         </md-content>
 
                         <md-content class="layout-padding left add-parcel-extra-fields" >
-                            <div layout layout-sm="column">
-                                <md-datepicker  ng-show="(party.party_type === 'individual')" class="md-block add-relationship-format party" ng-model="party.dob" md-placeholder="Date of birth"></md-datepicker>
+                            <div ng-show="(party.party_type === 'individual')" layout layout-sm="column">
+                                <div id="custom-date-picker">
+                                    <pre>Selected date is: <em>{{dt | date:format:'dd/MM/yyyy' }}</em></pre>
+
+                                    <div style="display:inline-block">
+                                        <uib-datepicker ng-model="dt" format-day="dd" format-month="MM" format-year="yyyy"
+                                                        max-date="maxDate" show-weeks="true"
+                                                        class="well well-sm"></uib-datepicker>
+                                    </div>
+                                </div>
                             </div>
 
                         </md-content>

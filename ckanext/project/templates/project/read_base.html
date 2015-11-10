@@ -2,12 +2,12 @@
 
 
 {% block main_content %}
-<div ng-app="app" >
-    <div ui-view="breadcrumbs"></div>
-    <div ui-view="projectHeader"></div>
-    <div ui-view="tabs"></div>
-</div>
-</div>
+        <div ng-app="app" >
+            <div ui-view="breadcrumbs"></div>
+            <div ui-view="projectHeader"></div>
+            <div ui-view="tabs"></div>
+        </div>
+    </div>
 <!--extra tags are needed to keep footer separate from main body (mismatch in page.html todo)-->
 </div>
 {% endblock %}
@@ -27,7 +27,11 @@
 <script type="text/javascript" src="../vendor/ag-grid/dist/ag-grid.min.js"></script>
 
 
-<script type="text/javascript" src="../../build/project-dashboard-app.min.js?rel=1447114095633"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.js"></script>
+<script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.14.3.js"></script>
+
+
+<script type="text/javascript" src="../../build/project-dashboard-app.min.js?rel=1447116762355"></script>
 
 {% endblock %}
 
@@ -37,7 +41,7 @@
 <link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.2/leaflet.draw.css' rel='stylesheet' />
 <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.2/leaflet.draw.css' rel='stylesheet' />
 <link href='../vendor/angular-material/angular-material.css' rel='stylesheet' />
-<link href='../build/project-dashboard-app.min.css?rel=1447114095633' rel='stylesheet' />
+<link href='../build/project-dashboard-app.min.css?rel=1447116762355' rel='stylesheet' />
 <link href='../vendor/ag-grid/dist/ag-grid.min.css' rel='stylesheet' />
 <link href='../vendor/ag-grid/dist/theme-blue.min.css' rel='stylesheet' />
 
