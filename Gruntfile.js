@@ -10,18 +10,6 @@ module.exports = function(grunt) {
 			options: {
 				name: 'env.config',
 			},
-			unifiedVM : {
-				options: {
-					dest: 'ckanext/project/public/shared/src/env.config.js'
-				},
-				constants: {
-					ENV: {
-						name: 'unifiedVM',
-						apiCadastaRoot: 'http://localhost:3000',
-						apiCKANRoot: 'http://localhost:5000/api/3/action'
-					}
-				}
-			},
 			// Environment targets
 			development: {
 				options: {
@@ -35,7 +23,7 @@ module.exports = function(grunt) {
 					}
 				}
 			},
-			staging: {
+			local_staging: {
 				options: {
 					dest: 'ckanext/project/public/shared/src/env.config.js'
 				},
@@ -47,15 +35,15 @@ module.exports = function(grunt) {
 					}
 				}
 			},
-			local_staging: {
+			staging: {
 				options: {
 					dest: 'ckanext/project/public/shared/src/env.config.js'
 				},
 				constants: {
 					ENV: {
 						name: 'staging',
-						apiCadastaRoot: 'http://54.69.121.180:3000',
-						apiCKANRoot: 'http://localhost:5000/api/3/action'
+						apiCadastaRoot: 'http://cadasta-staging.spatialdevmo.com:3000',
+						apiCKANRoot: 'http://cadasta-staging.spatialdevmo.com/api/3/action'
 					}
 				}
 			},
@@ -68,18 +56,6 @@ module.exports = function(grunt) {
 						name: 'demo',
 						apiCadastaRoot: 'http://cadasta-demo.spatialdevmo.com:3000',
 						apiCKANRoot: 'http://cadasta-demo.spatialdevmo.com/api/3/action'
-					}
-				}
-			},
-			production: {
-				options: {
-					dest: 'ckanext/project/public/shared/src/env.config.js'
-				},
-				constants: {
-					ENV: {
-						name: 'production',
-						apiCadastaRoot: 'http://54.69.121.180:3000',
-						apiCKANRoot: 'http://cadasta-staging.spatialdevmo.com/api/3/action'
 					}
 				}
 			}
