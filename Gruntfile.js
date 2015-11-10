@@ -35,6 +35,18 @@ module.exports = function(grunt) {
 					}
 				}
 			},
+			testing: {
+				options: {
+					dest: 'ckanext/project/public/shared/src/env.config.js'
+				},
+				constants: {
+					ENV: {
+						name: 'staging',
+						apiCadastaRoot: 'http://cadasta-testing.spatialdevmo.com:3000',
+						apiCKANRoot: 'http://cadasta-testing.spatialdevmo.com/api/3/action'
+					}
+				}
+			},
 			staging: {
 				options: {
 					dest: 'ckanext/project/public/shared/src/env.config.js'
