@@ -94,6 +94,7 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
                 //// format dates
                 $scope.party.time_created = utilityService.formatDate($scope.party.time_created);
                 $scope.party.time_updated = utilityService.formatDate($scope.party.time_created);
+                $scope.party.dob = utilityService.formatDate($scope.party.dob);
 
                 if (response.properties.relationship_history.length > 0){
                         
