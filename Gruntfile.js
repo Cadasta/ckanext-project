@@ -66,7 +66,7 @@ module.exports = function(grunt) {
 				constants: {
 					ENV: {
 						name: 'demo',
-						apiCadastaRoot: 'http://54.69.121.180:3001',
+						apiCadastaRoot: 'http://cadasta-demo.spatialdevmo.com:3000',
 						apiCKANRoot: 'http://cadasta-demo.spatialdevmo.com/api/3/action'
 					}
 				}
