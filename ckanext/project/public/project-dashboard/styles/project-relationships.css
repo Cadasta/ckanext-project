@@ -104,6 +104,7 @@ md-input-container.relationship-notes textarea {
 #parcelDetails.party .section .relationship-container {
     height: 141px;
     overflow-y: auto;
+    overflow-x:hidden;
     width: 366px;
 }
 

@@ -38,6 +38,10 @@ div.tabcontent {
     text-transform: uppercase;
 }
 
+.organization-overview-page .small-heading {
+    padding: 0px 0px 10px 25px;
+}
+
 .project-overview-page .small-heading {
     padding: 0px 0px 10px 25px;
 }
