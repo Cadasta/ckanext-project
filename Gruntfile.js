@@ -194,6 +194,7 @@ module.exports = function(grunt) {
 					'ckanext/project/public/build/project-dashboard-app.min.css': [
 						"ckanext/project/public/shared/styles/style.css",
 						"ckanext/project/public/shared/styles/breadcrumbs.css",
+						"ckanext/project/public/shared/styles/glyphs.css",
 						"ckanext/project/public/shared/styles/ckanext_project.css",
 						"ckanext/project/public/shared/styles/material-design-icons.css",
 						"ckanext/project/public/shared/styles/tabs.css",

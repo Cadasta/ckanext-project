@@ -490,7 +490,8 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams','partyService','
             })
         };
 
-
+        $scope.maxDate = new Date();
+        $scope.format = 'dd/MM/yyyy';
 
         function updatePartyCtrl($scope, $mdDialog, $stateParams, party, cadastaProject) {
             $scope.hide = function () {

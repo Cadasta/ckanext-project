@@ -254,11 +254,14 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
                 opened: false
             };
 
-
+            $scope.maxDate = new Date();
+            $scope.format = 'dd/MM/yyyy';
 
             $scope.updateRelationship = function (projectId) {
 
                 var layer = getLayer();
+
+                $scope.relationship.acquired_date = $scope.dt.getMonth()+1 + '/' +  $scope.dt.getDate() + '/' + $scope.dt.getFullYear();
 
                 if (layer === undefined) {
                     layer = null;

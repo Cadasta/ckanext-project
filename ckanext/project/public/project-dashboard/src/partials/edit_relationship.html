@@ -42,20 +42,25 @@
                             <!--</md-input-container>-->
 
 
+
                             When was the parcel acquired?
-                            <p class="input-group">
-                                <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="relationship.acquisition_date" is-open="status.opened" close-text="Close" showButtonBar="false" />
-                                  <span class="input-group-btn">
-                                    <button type="button" class="cadasta-button" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-                                  </span>
-                            </p>
-                            <br><br><br>
+
+                            <div id="custom-date-picker">
+                                <pre>Selected date is: <em>{{dt | date:format:'dd/MM/yyyy' }}</em></pre>
+
+                                <div style="display:inline-block">
+                                    <uib-datepicker ng-model="dt" format-day="dd" format-month="MM" format-year="yyyy"
+                                                    max-date="maxDate" show-weeks="true"
+                                                    class="well well-sm"></uib-datepicker>
+                                </div>
+                            </div>
 
 
                             <md-input-container md-no-float flex class="relationship-notes md-block">
                                 <textarea ng-model="relationship.description" columns="1" md-maxlength="150"
                                           placeholder="{{relationship.properties.relationship_history[0].properties.description || 'History Description'}}"></textarea>
                             </md-input-container>
+
                         </form>
                     </md-content>
 

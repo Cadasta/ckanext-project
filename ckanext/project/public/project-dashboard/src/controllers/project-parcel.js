@@ -314,30 +314,9 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
             });
 
 
+            $scope.maxDate = new Date();
 
-
-
-
-
-            $scope.open = function($event) {
-                $scope.status.opened = true;
-            };
-
-            $scope.setDate = function(year, month, day) {
-                $scope.dt = new Date(year, month, day);
-            };
-
-
-            $scope.format = 'd/M/yyyy';
-
-            $scope.status = {
-                opened: false
-            };
-
-
-
-
-
+            $scope.format = 'dd/MM/yyyy';
 
 
             $scope.saveNewRelationship = function () {
@@ -347,6 +326,8 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
                 if (layer) {
                     layer = layer.toGeoJSON().geometry;
                 }
+
+                $scope.relationship.acquisition_date = $scope.dt.getMonth()+1 + '/' +  $scope.dt.getDate() + '/' + $scope.dt.getFullYear();
 
                 if ($scope.relationship.party == undefined) {
                     $scope.relationshipCreated = "party required";
