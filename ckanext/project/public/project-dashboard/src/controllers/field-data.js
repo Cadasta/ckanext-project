@@ -1,8 +1,8 @@
 var app = angular.module("app");
 
 
-app.controller("fieldDataCtrl", ['$scope', '$rootScope', '$state', '$stateParams', '$location', 'dataService', 'paramService', 'FileUploader', 'ENV', 'onaService', 'cadastaProject', 'fieldDataService',
-    function ($scope, $rootScope, $state, $stateParams, $location, dataService, paramService, FileUploader, ENV, onaService, cadastaProject, fieldDataService) {
+app.controller("fieldDataCtrl", ['$scope', '$rootScope', '$state', '$stateParams', '$location', 'dataService', 'paramService', 'FileUploader', 'ENV', 'onaService', 'cadastaProject', 'fieldDataService', 'utilityService',
+    function ($scope, $rootScope, $state, $stateParams, $location, dataService, paramService, FileUploader, ENV, onaService, cadastaProject, fieldDataService, utilityService) {
 
         $scope.response = '';
         $scope.progress = 0;
@@ -14,7 +14,13 @@ app.controller("fieldDataCtrl", ['$scope', '$rootScope', '$state', '$stateParams
             var promise = fieldDataService.getFieldData(cadastaProject.id);
 
             promise.then(function(response){
+
+                response.features.forEach(function (fieldDatum) {
+                    fieldDatum.properties.time_created = utilityService.formatDate(fieldDatum.properties.time_created);
+                });
+
                 $scope.fieldDataList = response.features;
+
             })
         }
 
