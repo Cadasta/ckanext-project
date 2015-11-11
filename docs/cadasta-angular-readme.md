@@ -20,7 +20,7 @@ The above directories constitute the "source" files for the Angular portions of 
 
 ##Install and build
 ####Dependencies
-[Node.js](https://nodejs.org/en/) >= 0.12.0  
+[Node.js](https://nodejs.org/en/) >= 0.10.24  
 [Bower](http://bower.io/)  
 [Grunt-CLI](https://github.com/gruntjs/grunt-cli)
 
@@ -33,7 +33,9 @@ Once the above dependencies are installed, update packages and libraries:
     # Make sure third party libraries are up-to-date
     > bower install
     
-    # Build angular apps from source, provide valid environment inorder to connect to correct CKAN API (see environment-settings.js)
+    
+Build angular apps from source; provide valid environment inorder to connect to correct CKAN API (see [environment-settings.js(https://github.com/Cadasta/ckanext-project/blob/master/environment-settings.js))
+
     > grunt build --env <environment>
     
 The Grunt "build" combines a number of tasks:  
