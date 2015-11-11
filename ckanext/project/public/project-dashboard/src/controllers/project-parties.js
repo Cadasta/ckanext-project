@@ -26,8 +26,16 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
         $scope.partyGridOptions = {
             columnDefs: columnDefs,
             rowData: [],
-            enableSorting: true
+            enableSorting: true,
+            rowSelection: 'single',
+            onRowSelected: rowSelectedFunc
+
         };
+
+
+        function rowSelectedFunc(event) {
+            $state.go("tabs.parties.party", {id:event.node.data.id})
+        }
 
 
         getParties();
@@ -62,6 +70,7 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
 
                 // add data to column rows
                 $scope.partyGridOptions.api.setRowData(partyData);
+                $scope.partyGridOptions.api.sizeColumnsToFit();
 
 
 

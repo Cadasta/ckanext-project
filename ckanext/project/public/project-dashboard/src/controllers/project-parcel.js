@@ -299,10 +299,6 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
             $scope.cadastaProjectId = cadastaProject.id;
             $scope.relationship = {};
 
-            $scope.selectParty = function(party) {
-                $scope.relationship.party = party;
-            }
-
 
             var columnDefs = [
                 {headerName: "Party ID", field: "id"},
@@ -315,8 +311,16 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
             $scope.selectPartyGridOptions = {
                 columnDefs: columnDefs,
                 rowData: [],
-                enableSorting: true
+                enableSorting: true,
+                rowSelection: 'single',
+                onRowSelected: rowSelectedFunc
             };
+
+
+            function rowSelectedFunc(event) {
+                $scope.relationship.party = {};
+                $scope.relationship.party.id = event.node.data.id;
+            }
 
 
             var promise = partyService.getProjectParties(cadastaProject.id);
@@ -342,6 +346,8 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
 
                 // add data to column rows
                 $scope.selectPartyGridOptions.api.setRowData(partyData);
+                $scope.selectPartyGridOptions.api.sizeColumnsToFit();
+
 
 
 
@@ -363,8 +369,9 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
                     layer = layer.toGeoJSON().geometry;
                 }
                 
-
-                $scope.relationship.acquisition_date = $scope.dt.getMonth()+1 + '/' +  $scope.dt.getDate() + '/' + $scope.dt.getFullYear();
+                if ($scope.dt) {
+                    $scope.relationship.acquisition_date = $scope.dt.getMonth() + 1 + '/' + $scope.dt.getDate() + '/' + $scope.dt.getFullYear();
+                }
 
                 if ($scope.relationship.party == undefined) {
                     $scope.relationshipCreated = "party required";

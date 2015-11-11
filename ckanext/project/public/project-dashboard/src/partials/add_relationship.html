@@ -19,18 +19,19 @@
                             <div layout layout-sm="column">
                             </div>
                             <p>1. Select a party and enter relationship details.</p>
+                            <div ng-messages="newRelationshipForm.relationship.party.$error">
+                                <div ng-message="required">Party is required.</div>
+                            </div>
 
                             <div id="ag-table">
                                 <input placeholder="Search" type="text" ng-model="selectPartyGridOptions.quickFilterText"/>
-                                <div ag-grid="selectPartyGridOptions" class="ag-blue" style="height: 100%;"></div>
+                                <div ag-grid="selectPartyGridOptions" class="ag-blue" id="selectPartyGrid" style="height: 100%;"></div>
                             </div>
 
                             <!--<md-input-container md-no-float class="md-block add-relationship-format">-->
                                 <!--<input ng-model="searchText" placeholder="Begin typing to search for a Party">-->
 
-                                <!--<div ng-messages="newRelationshipForm.relationship.party.$error">-->
-                                    <!--<div ng-message="required">Party is required.</div>-->
-                                <!--</div>-->
+
                             <!--</md-input-container>-->
 
 

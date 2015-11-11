@@ -88,7 +88,7 @@ var app = angular.module("app")
                 data: JSON.stringify({
                     parcel_id: parcel_id,
                     ckan_user_id: null,
-                    party_id: relationship.party.properties.id,
+                    party_id: relationship.party.id,
                     geojson: geom,
                     tenure_type: relationship.tenure_type,
                     acquired_date: acquired_date,

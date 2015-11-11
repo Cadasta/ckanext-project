@@ -8,19 +8,35 @@ app.controller("fieldDatumCtrl", ['$scope', '$rootScope', '$state', '$stateParam
         $scope.progress = 0;
         $scope.formObj = {};
 
+
+        /**
+         * Initialize ag-grid table
+         */
+        $scope.gridOptions = {
+            columnDefs: [
+                {cellRenderer: {
+                    checkbox:true
+                    }
+                }
+            ],
+            rowData: [],
+            enableSorting: true,
+            enableColResize:true,
+            rowSelection: 'multiple',
+            onRowSelected: rowSelectedFunc,
+            checkboxSelection:true,
+            suppressRowClickSelection: true,
+        };
+
+        function rowSelectedFunc(event) {
+            console.log(event.node.data);
+        }
+
         getFieldDataResponses();
 
         function getFieldDataResponses() {
             var promise = fieldDataService.getResponses(cadastaProject.id,$stateParams.id);
 
-            /**
-             * Initialize ag-grid table
-             */
-            $scope.gridOptions = {
-                columnDefs: [],
-                rowData: [],
-                enableSorting: true
-            };
 
             promise.then(function (response) {
                 var columnDefs = [];
@@ -31,10 +47,10 @@ app.controller("fieldDatumCtrl", ['$scope', '$rootScope', '$state', '$stateParam
                     columnDefs.push({headerName: v.properties.label, field: v.properties.question_id})
                 });
 
-                // sort by label
-                columnDefs.sort(function(a,b){
-                    return a.headerName.toLowerCase() > b.headerName.toLowerCase();
-                })
+                //// sort by label
+                //columnDefs.sort(function(a,b){
+                //    return a.headerName.toLowerCase() > b.headerName.toLowerCase();
+                //})
 
                 // set table columns
                 $scope.gridOptions.api.setColumnDefs(columnDefs);
@@ -50,6 +66,7 @@ app.controller("fieldDatumCtrl", ['$scope', '$rootScope', '$state', '$stateParam
 
                 // add data to column rows
                 $scope.gridOptions.api.setRowData(rowData);
+                $scope.gridOptions.api.sizeColumnsToFit();
 
             })
         }
