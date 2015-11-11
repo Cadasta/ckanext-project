@@ -34,7 +34,7 @@ Once the above dependencies are installed, update packages and libraries:
     > bower install
     
     
-Build angular apps from source; provide valid environment inorder to connect to correct CKAN API (see [environment-settings.js(https://github.com/Cadasta/ckanext-project/blob/master/environment-settings.js))
+Build angular apps from source; provide valid [environment](https://github.com/Cadasta/ckanext-project/blob/master/environment-settings.js) inorder to connect to correct CKAN API.
 
     > grunt build --env <environment>
     
