@@ -14,6 +14,30 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
         };
 
 
+        var columnDefs = [
+            {headerName: "Party ID", field: "id"},
+            {headerName: "Name", field: "party_name"},
+            {headerName: "Party Type", field: "type"},
+            {headerName: "Active Relationships", field: "num_relationships"},
+            {headerName: "Date Created", field: "time_created"}
+        ];
+
+
+        $scope.partyGridOptions = {
+            columnDefs: columnDefs,
+            rowData: [],
+            enableSorting: true,
+            rowSelection: 'single',
+            onRowSelected: rowSelectedFunc
+
+        };
+
+
+        function rowSelectedFunc(event) {
+            $state.go("tabs.parties.party", {id:event.node.data.id})
+        }
+
+
         getParties();
 
         function getParties() {
@@ -28,11 +52,33 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
 
                 $scope.parties = response;
 
+                var partyData = [];
+
+
+                //get row data
+                response.forEach(function (party) {
+                    if (party.properties.group_name){
+                        party.properties.party_name = party.properties.group_name;
+                    }
+                    else {
+                        party.properties.party_name = party.properties.first_name;
+                    }
+                    partyData.push(party.properties);
+                });
+
+
+
+                // add data to column rows
+                $scope.partyGridOptions.api.setRowData(partyData);
+                $scope.partyGridOptions.api.sizeColumnsToFit();
+
+
 
             }, function (err) {
                 $scope.parties = "Server Error";
             });
         }
+
 
 
         //modal for adding a parcel

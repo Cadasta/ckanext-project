@@ -26,10 +26,10 @@
                 <div class="profile-options-dropdown">
                     <div id="header-profile-options">
 
-                        <div id='about-button'><a class="active"
-                                                  href="{{ h.url_for(controller='home', action='action') }}">
-                            <div class="icon-icon_info"></div>
-                        </a></div>
+                        <!--<div id='about-button'><a class="active"-->
+                                                  <!--href="{{ h.url_for(controller='home', action='action') }}">-->
+                            <!--<div class="icon-icon_info"></div>-->
+                        <!--</a></div>-->
                         <div id='profile_options'>
                             <div class="icon-icon_profile"></div>
                         </div>
@@ -45,11 +45,12 @@
                                title="{{ _('Edit settings') }}">Cadasta Settings</a>
                         </div>
                         <div class="dropdown-item">
-                            Change Language
-                        </div>
-                        <div class="dropdown-item">
                             <a href="{{ h.url_for('/user/_logout') }}" title="{{ _('Log out') }}">Log out</a>
                         </div>
+                        <!--<div class="dropdown-item">-->
+                            <!--Change Language-->
+                        <!--</div>-->
+
                         {% else %}
                         <div class="dropdown-item">
                             <li>{% link_for _('Log in'), controller='user', action='login' %}</li>
