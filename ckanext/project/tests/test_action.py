@@ -35,8 +35,7 @@ class TestOrganizationCreate(object):
             description='descrption',
             name='test'
         )
-
-        assert_equal('1', result['cadasta_id'])
+        assert_equal('1', result['id'])
 
 
 class TestProjectCreate(object):
@@ -50,7 +49,7 @@ class TestProjectCreate(object):
         search.clear_all()
 
     @responses.activate
-    def test_create(self):
+    def test_create_success(self):
         responses.add(responses.POST, 'http://cadasta.api/projects',
                       body='{"cadasta_project_id": 2}',
                       content_type="application/json")
@@ -65,13 +64,53 @@ class TestProjectCreate(object):
             'model': model,
             'session': model.Session,
         }
+
         result = helpers.call_action(
             'package_create',
             context=context,
-            name='test',
-            title='test title',
+            name='ProjectName',
+            title='ProjectTitle',
+            ona_api_key='',
             type='project',
             owner_org=organization['name'],
         )
 
-        assert_equal('2', result['cadasta_id'])
+        assert_equal('2', result['id'])
+
+    @responses.activate
+    def test_create_fail_blacklist(self):
+        """
+        make sure the Project title validator throws
+        an error for empty strings in the title
+        :return:
+        """
+
+        responses.add(responses.POST, 'http://cadasta.api/projects',
+                      body='{"cadasta_project_id": 2}',
+                      content_type="application/json")
+        responses.add(responses.POST, 'http://cadasta.api/organizations',
+                      body='{"cadasta_organization_id": 1}',
+                      content_type="application/json")
+
+        user = factories.Sysadmin()
+        organization = factories.Organization()
+        context = {
+            'user': user['name'],
+            'model': model,
+            'session': model.Session,
+        }
+
+
+        assert_raises(
+            toolkit.ValidationError,
+            helpers.call_action,
+            *['package_create'],
+            **{
+                "context": context,
+                "name": 'Project Name',
+                "title": 'Project Title',
+                "ona_api_key": '',
+                "type": 'project',
+                "owner_org": organization['name'],
+            }
+        )

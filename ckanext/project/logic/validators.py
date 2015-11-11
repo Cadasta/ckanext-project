@@ -87,12 +87,13 @@ def project_name_validator(key, data, errors, context):
         )
 
 def project_title_blacklist_char_validator(key, data, errors, context):
+    print "[ DATA ]: {}".format(data)
     BLACKLIST_CHARS_PATTERN = re.compile(r'[-\s!#&\$@%^*()\\\/]+')
     value = data[key]
     has_bad_char = BLACKLIST_CHARS_PATTERN.search(value)
     if has_bad_char:
         errors['title', ].append(
-            _('Title cannot contain the character "%s"') % (value, has_bad_char.group())
+            _('Title cannot contain the character "%s"') % (has_bad_char.group())
         )
 
 def organization_name_validator(key, data, errors, context):
