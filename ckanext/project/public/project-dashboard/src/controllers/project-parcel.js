@@ -304,10 +304,46 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
             }
 
 
+            var columnDefs = [
+                {headerName: "Party ID", field: "id"},
+                {headerName: "Name", field: "party_name"},
+                {headerName: "Party Type", field: "type"},
+                {headerName: "Active Relationships", field: "num_relationships"}
+            ];
+
+
+            $scope.selectPartyGridOptions = {
+                columnDefs: columnDefs,
+                rowData: [],
+                enableSorting: true
+            };
+
+
             var promise = partyService.getProjectParties(cadastaProject.id);
 
             promise.then(function (response) {
                 $scope.parties = response;
+
+                var partyData = [];
+
+
+                //get row data
+                response.forEach(function (party) {
+                    if (party.properties.group_name){
+                        party.properties.party_name = party.properties.group_name;
+                    }
+                    else {
+                        party.properties.party_name = party.properties.first_name;
+                    }
+                    partyData.push(party.properties);
+                });
+
+
+
+                // add data to column rows
+                $scope.selectPartyGridOptions.api.setRowData(partyData);
+
+
 
             }, function (err) {
                 $scope.parties = "Server Error";

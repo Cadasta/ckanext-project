@@ -20,31 +20,38 @@
 
     </div>
 </div>
-<table id="parcel-table-header">
-    <thead>
-    <tr>
-        <th>Party ID</th>
-        <th>Name</th>
-        <th>Party Type</th>
-        <th>Active Relationships</th>
-        <th>Date Created</th>
-    </tr>
-    </thead>
-</table>
 
-<div id="parcelList">
-    <table>
-        <tbody>
-        <tr class="row-link" ng-show="partiesList.length ==0 " ng-repeat="party in parties | customFilter: PartyTypeModel"
-            ng-class="{'last-table-element':$index == parties.length-1}" ui-sref="^.party({id: party.properties.id})">
-            <td>{{party.properties.id}}</td>
-            <td><span ng-show="party.properties.first_name">{{party.properties.first_name | capitalize}}</span>
-                <span ng-show="party.properties.group_name">{{party.properties.group_name | capitalize}}</span></td>
-            <td>{{party.properties.type}}</td>
-            <td>{{party.properties.num_relationships}}</td>
-            <td>{{party.properties.time_created}}</td>
-        </tr>
-        </tbody>
-    </table>
+<div id="ag-table">
+    <input placeholder="Search" type="text" ng-model="partyGridOptions.quickFilterText"/>
+    <div ag-grid="partyGridOptions" class="ag-blue" style="height: 100%;"></div>
 </div>
+
+
+<!--<table id="parcel-table-header">-->
+    <!--<thead>-->
+    <!--<tr>-->
+        <!--<th>Party ID</th>-->
+        <!--<th>Name</th>-->
+        <!--<th>Party Type</th>-->
+        <!--<th>Active Relationships</th>-->
+        <!--<th>Date Created</th>-->
+    <!--</tr>-->
+    <!--</thead>-->
+<!--</table>-->
+
+<!--<div id="parcelList">-->
+    <!--<table>-->
+        <!--<tbody>-->
+        <!--<tr class="row-link" ng-show="partiesList.length ==0 " ng-repeat="party in parties | customFilter: PartyTypeModel"-->
+            <!--ng-class="{'last-table-element':$index == parties.length-1}" ui-sref="^.party({id: party.properties.id})">-->
+            <!--<td>{{party.properties.id}}</td>-->
+            <!--<td><span ng-show="party.properties.first_name">{{party.properties.first_name | capitalize}}</span>-->
+                <!--<span ng-show="party.properties.group_name">{{party.properties.group_name | capitalize}}</span></td>-->
+            <!--<td>{{party.properties.type}}</td>-->
+            <!--<td>{{party.properties.num_relationships}}</td>-->
+            <!--<td>{{party.properties.time_created}}</td>-->
+        <!--</tr>-->
+        <!--</tbody>-->
+    <!--</table>-->
+<!--</div>-->
 
