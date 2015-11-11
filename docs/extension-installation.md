@@ -33,6 +33,7 @@ Modify your .ini file (development.ini, production.ini, etc).
 1. Add `cadasta_organization`,  `cadastaroles`, and `project` to the list of ckan.plugins.  
 2. Add `ckanext.cadasta.api_url` and assign it the host:port of Cadasta Node API (ex., http:localhost:3000).  
 3. Add `ckanext.cadasta.enforce_permissions` set it to `true`.
+4. Make sure the `ckan.storage_path = /var/lib/ckan/default/storage` path is set. Make sure the directory exists and has ownership from `www-data`. `sudo chown -R www-data:www-data /var/lib/ckan/default/`
 
 Finally, restart your CKAN server (paster, apache, etc.)
 
