@@ -33,8 +33,8 @@ Once the above dependencies are installed, update packages and libraries:
     # Make sure third party libraries are up-to-date
     > bower install
     
-    # Build angular apps from source
-    > grunt build
+    # Build angular apps from source, provide valid environment inorder to connect to correct CKAN API (see environment-settings.js)
+    > grunt build --env <environment>
     
 The Grunt "build" combines a number of tasks:  
 
