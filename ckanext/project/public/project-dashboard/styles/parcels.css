@@ -187,7 +187,7 @@
 }
 
 #parcelList .row-link:hover {
-    background-color:#f8f9f9
+    background-color:#f8f9f9;
 }
 
 #parcelList table{
@@ -379,4 +379,18 @@ md-input-container label {
 .add-parcel-extra-fields md-input-container.update.landuse md-select{
     padding-left: 0;
     margin-top:5px;
+}
+
+#selectPartyGrid {
+    width: 730px;
+    border: 1px solid #dcdfe1;
+}
+
+#selectPartyGrid.ag-blue .ag-row-selected {
+    background-color: #c7c7c7;
+}
+
+
+.selectFieldDataGrid .ag-blue .ag-row-selected {
+    background-color: #c7c7c7;
 }

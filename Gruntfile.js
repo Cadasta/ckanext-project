@@ -1,6 +1,24 @@
+var environments = require('./environment-settings.js');
+
 module.exports = function(grunt) {
 
-	var env = grunt.option('env') || 'staging';
+	var env = grunt.option('env') || null;
+
+	if(!env) {
+		grunt.fail.fatal("\nPlease provide an environment setting, e.g., 'grunt build --env development'.\n", 1);
+		return;
+	}
+
+	var validEnvironments = Object.keys(environments).toString();
+
+	if(!environments.hasOwnProperty(env)) {
+
+		grunt.fail.fatal("\nThe --env value you provided is not found in the list of valid environments: "
+			+ validEnvironments.split(',').join(', '), 1);
+		return;
+	}
+
+	var envSettings = environments[env];
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
@@ -10,76 +28,16 @@ module.exports = function(grunt) {
 			options: {
 				name: 'env.config',
 			},
-			unifiedVM : {
-				options: {
-					dest: 'ckanext/project/public/shared/src/env.config.js'
-				},
-				constants: {
-					ENV: {
-						name: 'unifiedVM',
-						apiCadastaRoot: 'http://localhost:3000',
-						apiCKANRoot: 'http://localhost:5000/api/3/action'
-					}
-				}
-			},
 			// Environment targets
-			development: {
+			build: {
 				options: {
 					dest: 'ckanext/project/public/shared/src/env.config.js'
 				},
 				constants: {
 					ENV: {
-						name: 'development',
-						apiCadastaRoot: 'http://localhost:9000',
-						apiCKANRoot: 'http://localhost:5000/api/3/action'
-					}
-				}
-			},
-			staging: {
-				options: {
-					dest: 'ckanext/project/public/shared/src/env.config.js'
-				},
-				constants: {
-					ENV: {
-						name: 'staging',
-						apiCadastaRoot: 'http://54.69.121.180:3000',
-						apiCKANRoot: 'http://cadasta-staging.spatialdevmo.com/api/3/action'
-					}
-				}
-			},
-			local_staging: {
-				options: {
-					dest: 'ckanext/project/public/shared/src/env.config.js'
-				},
-				constants: {
-					ENV: {
-						name: 'staging',
-						apiCadastaRoot: 'http://54.69.121.180:3000',
-						apiCKANRoot: 'http://localhost:5000/api/3/action'
-					}
-				}
-			},
-			demo: {
-				options: {
-					dest: 'ckanext/project/public/shared/src/env.config.js'
-				},
-				constants: {
-					ENV: {
-						name: 'demo',
-						apiCadastaRoot: 'http://54.69.121.180:3001',
-						apiCKANRoot: 'http://cadasta-demo.spatialdevmo.com/api/3/action'
-					}
-				}
-			},
-			production: {
-				options: {
-					dest: 'ckanext/project/public/shared/src/env.config.js'
-				},
-				constants: {
-					ENV: {
-						name: 'production',
-						apiCadastaRoot: 'http://54.69.121.180:3000',
-						apiCKANRoot: 'http://cadasta-staging.spatialdevmo.com/api/3/action'
+						name: function(){ return env; },
+						apiCadastaRoot: envSettings.apiCadastaRoot,
+						apiCKANRoot: envSettings.apiCKANRoot
 					}
 				}
 			}
@@ -246,7 +204,7 @@ module.exports = function(grunt) {
 	grunt.registerTask('default', []);
 
 	grunt.registerTask('build', [
-		'ngconstant:' + env,
+		'ngconstant:build',
 		'uglify:projectDashboard',
 		'uglify:organizationDashboard',
 		'cssmin:projectDashboard',
