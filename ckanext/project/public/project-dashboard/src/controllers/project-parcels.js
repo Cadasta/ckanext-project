@@ -13,6 +13,7 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
             getParcels();
         });
 
+
         $scope.parcels = [];
         $scope.parcelsList = [];
 
@@ -160,6 +161,7 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
             return $scope.layer;
         }
 
+        $scope.parcelCreatedFeedback = 'Parcel Geometry is required.';
 
         function addParcelCtrl($scope, $mdDialog) {
 
@@ -177,7 +179,7 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
                 var layer = getLayer();
 
                 if (layer === undefined) {
-                    $scope.parcelCreated = "parcel geometry is required";
+                    $scope.parcelCreatedFeedback = "Parcel Geometry is required.";
                 } else {
 
                     var createParcel = parcelService.createProjectParcel(cadastaProject.id, layer.toGeoJSON(), $scope.parcel);
@@ -194,9 +196,9 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
                                     $state.go("tabs.parcels.parcel", {id:response.cadasta_parcel_id})
                                 }, 300);
                         }
-                    }).catch(function(err){
+                    }).catch(function(response){
 
-                        $scope.parcelCreated ='unable to create parcel';
+                        $scope.parcelCreatedFeedback ='Unable to create parcel: ' + response.data.error.message;
                     });
                 }
             }
