@@ -1,6 +1,11 @@
-app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relationshipService','$rootScope','paramService', 'utilityService', 'uploadResourceService', '$mdDialog', 'ckanId', 'cadastaProject', 'FileUploader', 'ENV','parcelService', 'partyService',
-    function($scope, $state, $stateParams, relationshipService,$rootScope,paramService, utilityService, uploadResourceService, $mdDialog, ckanId, cadastaProject, FileUploader, ENV, parcelService, partyService){
+app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relationshipService','$rootScope','paramService', 'utilityService', 'uploadResourceService', '$mdDialog', 'ckanId', 'cadastaProject', 'FileUploader', 'ENV','parcelService', 'partyService', 'USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole', 'PROJECT_RESOURCE_ROLES',
+    function($scope, $state, $stateParams, relationshipService,$rootScope,paramService, utilityService, uploadResourceService, $mdDialog, ckanId, cadastaProject, FileUploader, ENV, parcelService, partyService, USER_ROLES, PROJECT_CRUD_ROLES, userRole, PROJECT_RESOURCE_ROLES){
 
+        // Add user's role to the scope
+        $scope.showCRUDLink = PROJECT_CRUD_ROLES.indexOf(userRole) > -1;
+        $scope.showResourceLink = PROJECT_RESOURCE_ROLES.indexOf(userRole) > -1;
+
+        console.log(userRole);
 
         var mapStr = $stateParams.map;
 

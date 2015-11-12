@@ -33,7 +33,7 @@
             </div>
             <div class="section-map">
                 <div id="relationshipDetailsMap"></div>
-                <div class='cadasta-button float-right' ng-click="updateRelationshipModal()"> Update Relationship Details </div>
+                <div class='cadasta-button float-right' ng-click="updateRelationshipModal()" ng-show="showCRUDLink"> Update Relationship Details </div>
 
             </div>
 
@@ -88,7 +88,7 @@
             <div class="small-heading">
                 Relationship Resources
             </div>
-            <md-button class="md-icon-button right parcel-page-layout" aria-label="More">
+            <md-button class="md-icon-button right parcel-page-layout" aria-label="More" ng-show="showResourceLink">
                 <div class="md-menu-demo">
                     <div class="menu-demo-container" layout-align="center center" layout$="column">
                         <div class="menus" layout-wrap layout="row" layout-align="space-between center">

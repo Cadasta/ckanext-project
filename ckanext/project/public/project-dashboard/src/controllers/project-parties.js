@@ -1,7 +1,10 @@
 var app = angular.module("app");
 
-app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService', '$rootScope', 'utilityService', 'ckanId', 'cadastaProject', '$mdDialog','sortByParty',
-    function ($scope, $state, $stateParams, partyService, $rootScope, utilityService, ckanId, cadastaProject, $mdDialog, sortByParty) {
+app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService', '$rootScope', 'utilityService', 'ckanId', 'cadastaProject', '$mdDialog','sortByParty', 'USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole',
+    function ($scope, $state, $stateParams, partyService, $rootScope, utilityService, ckanId, cadastaProject, $mdDialog, sortByParty, USER_ROLES, PROJECT_CRUD_ROLES, userRole) {
+
+        // Add user's role to the scope
+        $scope.showCRUDLink = PROJECT_CRUD_ROLES.indexOf(userRole) > -1;
 
         $rootScope.$broadcast('tab-change', {tab: 'Parties'}); // notify breadcrumbs of tab on page load
 
