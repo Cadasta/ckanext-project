@@ -20,8 +20,9 @@
                             </div>
                             <p>1. Select a party and enter relationship details.</p>
                             <div ng-messages="newRelationshipForm.relationship.party.$error">
-                                <div ng-message="required">Party is required.</div>
+                                <div ng-message="required" class="font-red">Party is required.</div>
                             </div>
+                            <br><br>
 
                             <div id="ag-table">
                                 <input placeholder="Search" type="text" ng-model="selectPartyGridOptions.quickFilterText"/>
