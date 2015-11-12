@@ -59,10 +59,16 @@ angular.module('app.filters', [])
         return function (inputs, filter_type) {
             var output = [];
             switch (filter_type) {
-                case 'own':
-                case 'lease':
-                case 'occupy':
-                case 'informal occupy':
+                case 'concessionary rights':
+                case 'carbon rights':
+                case 'easement':
+                case 'equitable servitude':
+                case 'mineral rights':
+                case 'water rights':
+                case 'indigenous land rights':
+                case 'joint tenancy':
+                case 'tenancy in common':
+                case 'undivided co-ownership':
                     //check if array contains filter selection
                     inputs.forEach(function (input, i) {
                         if (input.properties.tenure_type.indexOf(filter_type) !== -1) {

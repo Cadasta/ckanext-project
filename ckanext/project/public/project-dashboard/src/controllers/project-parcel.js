@@ -1,5 +1,5 @@
-app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService', '$rootScope', 'paramService', 'utilityService', 'uploadResourceService', 'dataService', '$mdDialog', 'ckanId', 'cadastaProject', 'FileUploader', 'ENV', 'partyService', 'relationshipService','USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole', 'PROJECT_RESOURCE_ROLES',
-    function ($scope, $state, $stateParams, parcelService, $rootScope, paramService, utilityService, uploadResourceService, dataService, $mdDialog, ckanId, cadastaProject, FileUploader, ENV, partyService, relationshipService, USER_ROLES, PROJECT_CRUD_ROLES, userRole, PROJECT_RESOURCE_ROLES) {
+app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 'parcelService', '$rootScope', 'paramService', 'utilityService', 'uploadResourceService', 'dataService', '$mdDialog', 'ckanId', 'cadastaProject', 'FileUploader', 'ENV', 'partyService', 'relationshipService','USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole', 'PROJECT_RESOURCE_ROLES',
+    function (tenureTypes,$scope, $state, $stateParams, parcelService, $rootScope, paramService, utilityService, uploadResourceService, dataService, $mdDialog, ckanId, cadastaProject, FileUploader, ENV, partyService, relationshipService, USER_ROLES, PROJECT_CRUD_ROLES, userRole, PROJECT_RESOURCE_ROLES) {
 
         // Add user's role to the scope
         $scope.showCRUDLink = PROJECT_CRUD_ROLES.indexOf(userRole) > -1;
@@ -405,24 +405,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
                 }
             }
 
-            $scope.tenure_types = [
-                {
-                    type: 'own',
-                    label: 'Own'
-                },
-                {
-                    type: 'lease',
-                    label: 'Lease'
-                },
-                {
-                    type: 'occupy',
-                    label: 'Occupy'
-                },
-                {
-                    type: 'informal occupy',
-                    label: 'Informally Occupy'
-                }
-            ];
+            $scope.tenure_types = tenureTypes;
         }
 
         function addMap(map) {
