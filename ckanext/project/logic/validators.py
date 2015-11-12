@@ -87,7 +87,6 @@ def project_name_validator(key, data, errors, context):
         )
 
 def project_title_blacklist_char_validator(key, data, errors, context):
-    print "[ DATA ]: {}".format(data)
     BLACKLIST_CHARS_PATTERN = re.compile(r'[-\s!#&\$@%^*()\\\/]+')
     value = data[key]
     has_bad_char = BLACKLIST_CHARS_PATTERN.search(value)
