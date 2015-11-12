@@ -61,7 +61,7 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
                         party.properties.party_name = party.properties.group_name;
                     }
                     else {
-                        party.properties.party_name = party.properties.first_name;
+                        party.properties.party_name = party.properties.full_name;
                     }
                     partyData.push(party.properties);
                 });

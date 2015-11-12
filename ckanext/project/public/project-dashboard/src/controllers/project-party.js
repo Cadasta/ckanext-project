@@ -112,8 +112,8 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams', 'partyService',
 
                         //create popup for relationship
                         var name = null;
-                        if (val.properties.first_name) {
-                            name = val.properties.first_name;
+                        if (val.properties.full_name) {
+                            name = val.properties.full_name;
                         } else {
                             name = val.properties.group_name;
                         }

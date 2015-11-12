@@ -91,10 +91,10 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            var first_name = null, last_name = ' ', group_name = null, party_type = null,
+            var full_name = null, group_name = null, party_type = null,
                 national_id = null, dob = null, gender = null, description = null;
 
-            if (party.first_name) { first_name = party.first_name }
+            if (party.full_name) { full_name = party.full_name }
             if (party.group_name) { group_name = party.group_name }
             if (party.party_type) { party_type = party.party_type }
             if (party.national_id) { national_id = party.national_id }
@@ -103,13 +103,12 @@ var app = angular.module("app")
             if (party.description) { description = party.description }
 
 
-            if (first_name || group_name) {
+            if (full_name || group_name) {
                 $http({
                     method: "post",
                     url: ENV.apiCadastaRoot + '/projects/' + projectId + '/parties',
                     data: JSON.stringify({
-                        first_name: first_name,
-                        last_name: last_name,
+                        full_name: full_name,
                         group_name: group_name,
                         party_type: party_type,
                         national_id: national_id,
@@ -142,10 +141,10 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            var first_name = null, last_name = ' ', group_name = null, party_type = null,
+            var full_name = null, group_name = null, party_type = null,
                 national_id = null, dob = null, gender = null, description = null;
 
-            if (party.first_name) { first_name = party.first_name }
+            if (party.full_name) { full_name = party.full_name }
             if (party.group_name) { group_name = party.group_name }
             if (party.party_type) { party_type = party.party_type }
             if (party.national_id) { national_id = party.national_id }
@@ -154,13 +153,12 @@ var app = angular.module("app")
             if (party.description) { description = party.description }
 
 
-            if (first_name || group_name) {
+            if (full_name || group_name) {
                 $http({
                     method: "patch",
                     url: ENV.apiCadastaRoot + '/projects/' + projectId + '/parties/' + partyId,
                     data: JSON.stringify({
-                        first_name: first_name,
-                        last_name: last_name,
+                        full_name: full_name,
                         group_name: group_name,
                         party_type: party_type,
                         national_id: national_id,

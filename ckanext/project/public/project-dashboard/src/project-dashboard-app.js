@@ -306,12 +306,12 @@ var app = angular.module("app",
       sticky: true
     });
 
-    // Child State for activity list
+    // Child State for field data list
     states.push({
       name: 'tabs.fieldData',
       url: 'fieldData',
       views: {
-        'fieldDatatab': { controller:'fieldDataCtrl', templateUrl: '/project-dashboard/src/partials/fieldData.html' }
+        'fieldDatatab': {templateUrl: '/project-dashboard/src/partials/fieldData.html' }
       },
       deepStateRedirect: { default: "tabs.fieldData.fieldDataList" },
       sticky: true

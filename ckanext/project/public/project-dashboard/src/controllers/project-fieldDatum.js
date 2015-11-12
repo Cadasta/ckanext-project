@@ -55,13 +55,17 @@ app.controller("fieldDatumCtrl", ['$scope', '$rootScope', '$state', '$stateParam
                 // set table columns
                 $scope.gridOptions.api.setColumnDefs(columnDefs);
 
-                response.features[0].properties.responses.forEach(function (v) {
-                    var obj = {};
-                    // put row data together
-                    Object.keys(v.properties.response).forEach(function (r, i) {
-                        obj[r] = v.properties.response[r];
-                    });
-                    rowData.push(obj);
+                var dict = {};
+                var qaDict = {};
+                response.features[0].properties.responses.forEach(function (res) {
+
+
+                        qaDict[res.properties.question_id] = res.properties.text;
+                        dict[res.properties.respondent_id] = qaDict;
+                });
+
+                Object.keys(dict).forEach(function(v){
+                    rowData.push(dict[v])
                 });
 
                 // add data to column rows
