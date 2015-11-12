@@ -126,7 +126,7 @@ module.exports = function(grunt) {
 						"ckanext/project/public/shared/src/custom-filters.js",
 						"ckanext/project/public/organization-dashboard/src/modules/params-manager.js",
 						"ckanext/project/public/organization-dashboard/src/organization-dashboard-app.js",
-						//"ckanext/project/public/shared/src/services/userService.js",
+						"ckanext/project/public/organization-dashboard/src/services/userOrgService.js",
 						"ckanext/project/public/organization-dashboard/src/services/dataService.js",
 						"ckanext/project/public/organization-dashboard/src/controllers/tabs.js",
 						"ckanext/project/public/organization-dashboard/src/controllers/organization-header.js",
