@@ -21,8 +21,10 @@ app.controller("relationshipsCtrl", ['$scope', '$state', '$stateParams', 'relati
             //format dates
             response.forEach(function (val) {
                 val.properties.time_created = utilityService.formatDate(val.properties.time_created);
-                val.properties.acquired_date = utilityService.formatDate(val.properties.acquired_date);
-            })
+                if (val.properties.acquired_date) {
+                    val.properties.acquired_date = utilityService.formatDate(val.properties.acquired_date);
+                }
+            });
 
             $scope.relationships = response;
 
