@@ -1,13 +1,12 @@
 var app = angular.module("app");
 
-app.controller("relationshipsCtrl", ['$scope', '$state', '$stateParams', 'relationshipService', '$rootScope', 'utilityService', 'ckanId', 'cadastaProject', '$mdDialog','sortByRelationship', 'partyService', 'dataService',
-    function ($scope, $state, $stateParams, relationshipService, $rootScope, utilityService, ckanId, cadastaProject, $mdDialog, sortByRelationship, partyService, dataService) {
+app.controller("relationshipsCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 'relationshipService', '$rootScope', 'utilityService', 'ckanId', 'cadastaProject', '$mdDialog','sortByRelationship', 'partyService', 'dataService',
+    function (tenureTypes, $scope, $state, $stateParams, relationshipService, $rootScope, utilityService, ckanId, cadastaProject, $mdDialog, sortByRelationship, partyService, dataService) {
 
         $rootScope.$broadcast('tab-change', {tab: 'Relationships'}); // notify breadcrumbs of tab on page load
 
         $scope.relationships = [];
         $scope.relationshipsList = [];
-
 
         // update tenure type on selection
         $scope.setRelationshipFilter = function (type){
@@ -110,24 +109,7 @@ app.controller("relationshipsCtrl", ['$scope', '$state', '$stateParams', 'relati
             });
 
 
-            $scope.tenure_types = [
-                {
-                    type: 'own',
-                    label: 'Own'
-                },
-                {
-                    type: 'lease',
-                    label: 'Lease'
-                },
-                {
-                    type: 'occupy',
-                    label: 'Occupy'
-                },
-                {
-                    type: 'informal occupy',
-                    label: 'Informally Occupy'
-                }
-            ];
+            $scope.tenure_types = tenureTypes;
         }
 
 

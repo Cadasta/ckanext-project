@@ -1,7 +1,7 @@
 var app = angular.module("app");
 
-app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelService', 'dataService', '$rootScope', 'utilityService', 'ckanId', 'cadastaProject', '$mdDialog', '$location','sortByParcel','USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole',
-    function ($scope, $state, $stateParams, parcelService, dataService, $rootScope, utilityService, ckanId, cadastaProject, $mdDialog, $location,sortByParcel,USER_ROLES, PROJECT_CRUD_ROLES, userRole) {
+app.controller("parcelsCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 'parcelService', 'dataService', '$rootScope', 'utilityService', 'ckanId', 'cadastaProject', '$mdDialog', '$location','sortByParcel','USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole',
+    function (tenureTypes,$scope, $state, $stateParams, parcelService, dataService, $rootScope, utilityService, ckanId, cadastaProject, $mdDialog, $location,sortByParcel,USER_ROLES, PROJECT_CRUD_ROLES, userRole) {
 
         $rootScope.$broadcast('tab-change', {tab: 'Parcels'}); // notify breadcrumbs of tab on page load
 
@@ -23,28 +23,7 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
 
         $scope.sort_by = sortByParcel;
 
-        $scope.tenure_types = [
-            {
-                type: 'all',
-                label: 'All Types'
-            },
-            {
-                type: 'own',
-                label: 'Owned Parcels'
-            },
-            {
-                type: 'lease',
-                label: 'Leased Parcels'
-            },
-            {
-                type: 'occupy',
-                label: 'Occupied Parcels'
-            },
-            {
-                type: 'informal occupy',
-                label: 'Informally Occupied Parcels'
-            }
-        ];
+        $scope.tenure_types = tenureTypes;
 
         getParcels();
 
