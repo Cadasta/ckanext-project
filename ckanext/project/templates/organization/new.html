@@ -2,6 +2,11 @@
 
 {% block subtitle %}{% endblock %}
 
+{% block styles %}
+{{ super() }}
+  {% resource 'project/cadasta-custom-new-form.css' %}
+{% endblock %}
+
 {% block breadcrumb_link %}
 {{ h.nav_link(_('Create an Organization'), controller='organization', action='edit', id=c.organization.name) }}
 {% endblock %}
