@@ -1,6 +1,9 @@
-app.controller("partyCtrl", ['$scope', '$state', '$stateParams', 'partyService', '$rootScope', 'paramService', 'utilityService', 'uploadResourceService', '$mdDialog', 'ckanId', 'cadastaProject', 'FileUploader', 'ENV', 'dataService', 'relationshipService', 'parcelService',
-    function ($scope, $state, $stateParams, partyService, $rootScope, paramService, utilityService, uploadResourceService, $mdDialog, ckanId, cadastaProject, FileUploader, ENV, dataService, relationshipService, parcelService) {
+app.controller("partyCtrl", ['$scope', '$state', '$stateParams', 'partyService', '$rootScope', 'paramService', 'utilityService', 'uploadResourceService', '$mdDialog', 'ckanId', 'cadastaProject', 'FileUploader', 'ENV', 'dataService', 'relationshipService', 'parcelService', 'USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole', 'PROJECT_RESOURCE_ROLES',
+    function ($scope, $state, $stateParams, partyService, $rootScope, paramService, utilityService, uploadResourceService, $mdDialog, ckanId, cadastaProject, FileUploader, ENV, dataService, relationshipService, parcelService, USER_ROLES, PROJECT_CRUD_ROLES, userRole, PROJECT_RESOURCE_ROLES) {
 
+        // Add user's role to the scope
+        $scope.showCRUDLink = PROJECT_CRUD_ROLES.indexOf(userRole) > -1;
+        $scope.showResourceLink = PROJECT_RESOURCE_ROLES.indexOf(userRole) > -1;
 
         $rootScope.$broadcast('tab-change', {tab: 'Parties'}); // notify breadcrumbs of tab on page load
 

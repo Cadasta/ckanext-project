@@ -6,7 +6,8 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
         $rootScope.$broadcast('tab-change', {tab: 'Parcels'}); // notify breadcrumbs of tab on page load
 
         // Add user's role to the scope
-        $scope.showEditLink = PROJECT_CRUD_ROLES.indexOf(userRole) > -1;
+        $scope.showCRUDLink = PROJECT_CRUD_ROLES.indexOf(userRole) > -1;
+
 
         $scope.$on('updated-parcel', function(e){
             getParcels();

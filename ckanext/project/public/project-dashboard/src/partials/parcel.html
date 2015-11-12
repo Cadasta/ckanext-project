@@ -14,7 +14,7 @@
                 <div class="container">
                     <div class="title">Parcel {{parcel.id}} <span ng-show="parcel.gov_pin">({{parcel.gov_pin}})</span> </div>
 
-                    <div class="cadasta-round-button float-right" ng-click="addRelationshipModal()"> Add Relationship </div>
+                    <div class="cadasta-round-button float-right" ng-click="addRelationshipModal()" ng-show="showCRUDLink"> Add Relationship </div>
 
                     <div>
                         <span class="caption">Landuse</span>
@@ -54,7 +54,7 @@
             </div>
             <div class="section-map">
                 <div id="parcelDetailsMap"></div>
-                <div class='cadasta-button float-right' ng-click="updateParcelModal()"> Update Parcel Details </div>
+                <div class='cadasta-button float-right' ng-click="updateParcelModal()" ng-show="showCRUDLink"> Update Parcel Details </div>
             </div>
 
         </div>
@@ -152,7 +152,7 @@
             <div class="small-table-container">
                 <div class="small-heading">
                     Parcel Resources
-                    <div class="cadasta-round-button right parcel-page-layout" ng-click="showAddResourceModal($event)"> Add Resource</div>
+                    <div class="cadasta-round-button right parcel-page-layout" ng-click="showAddResourceModal($event)" ng-show="showResourceLink"> Add Resource</div>
                 </div>
                 <md-button class="md-icon-button right parcel-page-layout" aria-label="More">
 

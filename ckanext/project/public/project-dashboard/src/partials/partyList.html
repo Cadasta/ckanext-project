@@ -1,22 +1,22 @@
 
 <div id="parcelFilter" class="filter">
     <div layout="row">
-        <md-input-container>
-            <label>Filter by</label>
-            <md-select ng-model="PartyTypeModel">
-                <md-option ng-value="t.type" ng-repeat="t in party_types" ng-click="filterPartyType(t.type)">{{t.label}}</md-option>
-            </md-select>
-        </md-input-container>
+        <!--<md-input-container>-->
+            <!--<label>Filter by</label>-->
+            <!--<md-select ng-model="PartyTypeModel">-->
+                <!--<md-option ng-value="t.type" ng-repeat="t in party_types" ng-click="filterPartyType(t.type)">{{t.label}}</md-option>-->
+            <!--</md-select>-->
+        <!--</md-input-container>-->
 
-        <md-input-container>
-            <label>Sort by</label>
-            <md-select ng-model="PartyTypeModel">
-                <md-option ng-value="s.type" ng-repeat="s in sort_by" ng-click="filterPartyType(s.type)">{{s.label}}</md-option>
-            </md-select>
-        </md-input-container>
+        <!--<md-input-container>-->
+            <!--<label>Sort by</label>-->
+            <!--<md-select ng-model="PartyTypeModel">-->
+                <!--<md-option ng-value="s.type" ng-repeat="s in sort_by" ng-click="filterPartyType(s.type)">{{s.label}}</md-option>-->
+            <!--</md-select>-->
+        <!--</md-input-container>-->
 
 
-        <md-button class='cadasta-round-button right' ng-click="addPartyModal()"> Add Party </md-button>
+        <md-button class='cadasta-round-button right' ng-click="addPartyModal()" ng-show="showCRUDLink"> Add Party </md-button>
 
     </div>
 </div>
