@@ -11,7 +11,8 @@ app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location',
 
         $scope.$on('new-parcel',function(){
             getOverviewData();
-        });        
+        });
+
        // Add user's role to the scope
         $scope.showEditLink = PROJECT_CRUD_ROLES.indexOf(userRole) > -1;
 
