@@ -21,6 +21,7 @@
 <table id="parcel-table-header">
     <thead>
     <tr>
+        <th>Validated</th>
         <th>Relationship ID</th>
         <th>Name</th>
         <th>Tenure Type</th>
@@ -35,6 +36,7 @@
         <tbody>
         <tr class="row-link" ng-show="relationshipsList.length ==0 " ng-repeat="relationship in relationships | customFilter: relationshipFilter"
             ng-class="{'last-table-element':$index == relationships.length-1}" ui-sref="^.relationship({id: relationship.properties.id})">
+            <td>{{relationship.properties.validated}}</td>
             <td>{{relationship.properties.id}}</td>
             <td><span ng-show="relationship.properties.first_name">{{relationship.properties.first_name}}</span>
                 <span ng-show="relationship.properties.group_name">{{relationship.properties.group_name}}</span></td>

@@ -18,6 +18,7 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
 
 
         var columnDefs = [
+            {headerName:"Validated", field:"validated"},
             {headerName: "Party ID", field: "id"},
             {headerName: "Name", field: "party_name"},
             {headerName: "Party Type", field: "type"},

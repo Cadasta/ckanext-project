@@ -1,97 +1,110 @@
 var app = angular.module("app");
 
 
-app.controller("fieldDatumCtrl", ['$scope', '$rootScope', '$state', '$stateParams', '$location', 'dataService', 'paramService', 'FileUploader', 'ENV', 'onaService', 'cadastaProject', 'fieldDataService',
-    function ($scope, $rootScope, $state, $stateParams, $location, dataService, paramService, FileUploader, ENV, onaService, cadastaProject, fieldDataService) {
-
-        $scope.response = '';
-        $scope.progress = 0;
-        $scope.formObj = {};
-
-
-        /**
+app.controller("fieldDatumCtrl", ['$scope', '$rootScope', '$state', '$stateParams', '$location', 'dataService', 'paramService', 'FileUploader', 'ENV', 'onaService', 'cadastaProject', 'fieldDataService', 
+function($scope, $rootScope, $state, $stateParams, $location, dataService, paramService, FileUploader, ENV, onaService, cadastaProject, fieldDataService) {
+    
+    $scope.response = '';
+    $scope.progress = 0;
+    $scope.formObj = {};
+    
+    
+    /**
          * Initialize ag-grid table
          */
-        $scope.gridOptions = {
-            columnDefs: [
-                {cellRenderer: {
-                    checkbox:true
+    $scope.gridOptions = {
+        columnDefs: [
+        {
+            cellRenderer: {
+                checkbox: true
+            }
+        }
+        ],
+        rowData: [],
+        enableSorting: true,
+        enableColResize: true,
+        rowSelection: 'multiple',
+        onRowSelected: rowSelectedFunc,
+        checkboxSelection: true,
+        suppressRowClickSelection: true,
+    };
+    
+    function rowSelectedFunc(event) {
+        console.log(event.node.data);
+    }
+    
+    getFieldDataResponses();
+    
+    function getFieldDataResponses() {
+        var promise = fieldDataService.getResponses(cadastaProject.id, $stateParams.id);
+        
+        
+        promise.then(function(response) {
+            var columnDefs = [];
+            var rowData = [];
+            
+            // put colums definitions together
+            response.features[0].properties.questions.forEach(function(v) {
+                columnDefs.push({
+                    headerName: v.properties.label,
+                    field: v.properties.question_id
+                })
+            }
+            );
+            
+            //// sort by label
+            //columnDefs.sort(function(a,b){
+            //    return a.headerName.toLowerCase() > b.headerName.toLowerCase();
+            //})
+            
+            // set table columns    
+            $scope.gridOptions.api.setColumnDefs(columnDefs);
+            
+            var dict = {};
+            response.features[0].properties.responses.forEach(function(res) {
+                dict[res.properties.respondent_id] = {}
+            }
+            );
+            
+            Object.keys(dict).forEach(function(k) {
+                var qad = {};
+                response.features[0].properties.responses.forEach(function(res) {
+                    if (res.properties.respondent_id == k) {
+                        qad[res.properties.question_id] = res.properties.text;
+                        dict[k] = qad;
                     }
-                }
-            ],
-            rowData: [],
-            enableSorting: true,
-            enableColResize:true,
-            rowSelection: 'multiple',
-            onRowSelected: rowSelectedFunc,
-            checkboxSelection:true,
-            suppressRowClickSelection: true,
-        };
-
-        function rowSelectedFunc(event) {
-            console.log(event.node.data);
-        }
-
-        getFieldDataResponses();
-
-        function getFieldDataResponses() {
-            var promise = fieldDataService.getResponses(cadastaProject.id,$stateParams.id);
-
-
-            promise.then(function (response) {
-                var columnDefs = [];
-                var rowData = [];
-
-                // put colums definitions together
-                response.features[0].properties.questions.forEach(function (v) {
-                    columnDefs.push({headerName: v.properties.label, field: v.properties.question_id})
-                });
-
-                //// sort by label
-                //columnDefs.sort(function(a,b){
-                //    return a.headerName.toLowerCase() > b.headerName.toLowerCase();
-                //})
-
-                // set table columns
-                $scope.gridOptions.api.setColumnDefs(columnDefs);
-
-                var dict = {};
-                var qaDict = {};
-                response.features[0].properties.responses.forEach(function (res) {
-
-
-                        qaDict[res.properties.question_id] = res.properties.text;
-                        dict[res.properties.respondent_id] = qaDict;
-                });
-
-                Object.keys(dict).forEach(function(v){
-                    rowData.push(dict[v])
-                });
-
-                // add data to column rows
-                $scope.gridOptions.api.setRowData(rowData);
-                $scope.gridOptions.api.sizeColumnsToFit();
-
+                })
+                rowData.push(qad);
             })
+            
+            // add data to column rows
+            $scope.gridOptions.api.setRowData(rowData);
+            $scope.gridOptions.api.sizeColumnsToFit();
+        
         }
+        )
+    }
+    
+    // validate xls file
+    $scope.uploader = new FileUploader({
+        alias: 'xls_file',
+        url: ENV.apiCadastaRoot + '/providers/ona/load-form/' + cadastaProject.id
+    });
+    
+    $scope.uploader.onProgressItem = function(item, progress) {
+        $scope.progress = progress;
+    }
+    ;
+    
+    // triggered when FileItem is has completed .upload()
+    $scope.uploader.onCompleteItem = function(fileItem, response, status, headers) {
+        $scope.response = response;
+    }
+    ;
+    
+    $scope.uploader.onErrorItem = function(item, response, status, headers) {
+        $scope.response = response;
+    }
 
-        // validate xls file
-        $scope.uploader = new FileUploader({
-            alias: 'xls_file',
-            url: ENV.apiCadastaRoot +'/providers/ona/load-form/' + cadastaProject.id
-        });
-
-        $scope.uploader.onProgressItem = function (item, progress) {
-            $scope.progress = progress;
-        };
-
-        // triggered when FileItem is has completed .upload()
-        $scope.uploader.onCompleteItem = function (fileItem, response, status, headers) {
-            $scope.response = response;
-        };
-
-        $scope.uploader.onErrorItem = function (item, response, status, headers) {
-            $scope.response = response;
-        }
-
-    }]);
+}
+]);
