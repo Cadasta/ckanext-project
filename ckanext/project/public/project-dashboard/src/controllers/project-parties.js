@@ -32,9 +32,11 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
             rowData: [],
             enableSorting: true,
             rowSelection: 'single',
+            rowHeight:50,
             onRowSelected: rowSelectedFunc
 
         };
+
 
 
         function rowSelectedFunc(event) {

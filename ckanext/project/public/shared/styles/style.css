@@ -212,3 +212,13 @@ p.popup-text {
     padding:4px;
     height: 20px;
 }
+
+.font-green {
+    color:green;
+}
+
+#field-data-upload {
+    background-color: #dcdfe1;
+    margin-bottom: 20px;
+    padding: 15px;
+}

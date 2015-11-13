@@ -20,6 +20,7 @@
   border-top: 2px solid transparent;
   border-left: 2px solid transparent;
   border-bottom: 1px solid #dcdfe1;
+  padding-top:13px;
 }
 .ag-blue .ag-pinned-header {
   background-color: #51617A;
