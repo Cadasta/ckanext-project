@@ -14,17 +14,18 @@ app.controller("fieldDatumCtrl", ['$scope', '$rootScope', '$state', '$stateParam
          */
         $scope.gridOptions = {
             columnDefs: [
-                {cellRenderer: {
-                    checkbox:true
+                {
+                    cellRenderer: {
+                        checkbox: true
                     }
                 }
             ],
             rowData: [],
             enableSorting: true,
-            enableColResize:true,
+            enableColResize: true,
             rowSelection: 'multiple',
             //onRowSelected: rowSelectedFunc,
-            checkboxSelection:true,
+            checkboxSelection: true,
             suppressRowClickSelection: true,
             onCellClicked: cellClickedFunction
         };
@@ -36,17 +37,16 @@ app.controller("fieldDatumCtrl", ['$scope', '$rootScope', '$state', '$stateParam
         $scope.selectedCellText = '';
 
         function cellClickedFunction(event) {
-            $rootScope.$apply(function(){
+            $rootScope.$apply(function () {
                 console.log(event.value);
                 $scope.selectedCellText = event.value;
             })
-
         }
 
         getFieldDataResponses();
 
         function getFieldDataResponses() {
-            var promise = fieldDataService.getResponses(cadastaProject.id,$stateParams.id);
+            var promise = fieldDataService.getResponses(cadastaProject.id, $stateParams.id);
 
 
             promise.then(function (response) {
@@ -69,17 +69,23 @@ app.controller("fieldDatumCtrl", ['$scope', '$rootScope', '$state', '$stateParam
                 $scope.gridOptions.api.setColumnDefs(columnDefs);
 
                 var dict = {};
-                var qaDict = {};
+
                 response.features[0].properties.responses.forEach(function (res) {
+                        dict[res.properties.respondent_id] = {}
 
-                        qaDict['respondent_id'] = res.properties.respondent_id;
-                        qaDict[res.properties.question_id] = res.properties.text;
-                        dict[res.properties.respondent_id] = qaDict;
-                });
+                    }
+                );
 
-
-                Object.keys(dict).forEach(function(v){
-                    rowData.push(dict[v])
+                Object.keys(dict).forEach(function (k) {
+                    var qad = {};
+                    response.features[0].properties.responses.forEach(function (res) {
+                        if (res.properties.respondent_id == k) {
+                            qad[res.properties.question_id] = res.properties.text;
+                            qad['respondent_id'] = res.properties.respondent_id;
+                            dict[k] = qad;
+                        }
+                    })
+                    rowData.push(qad);
                 });
 
                 // add data to column rows
@@ -92,7 +98,7 @@ app.controller("fieldDatumCtrl", ['$scope', '$rootScope', '$state', '$stateParam
         // validate xls file
         $scope.uploader = new FileUploader({
             alias: 'xls_file',
-            url: ENV.apiCadastaRoot +'/providers/ona/load-form/' + cadastaProject.id
+            url: ENV.apiCadastaRoot + '/providers/ona/load-form/' + cadastaProject.id
         });
 
         $scope.uploader.onProgressItem = function (item, progress) {
@@ -108,4 +114,5 @@ app.controller("fieldDatumCtrl", ['$scope', '$rootScope', '$state', '$stateParam
             $scope.response = response;
         }
 
-    }]);
+    }
+]);
