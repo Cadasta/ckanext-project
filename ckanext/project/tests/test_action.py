@@ -70,6 +70,7 @@ class TestProjectCreate(object):
             context=context,
             name='ProjectName',
             title='ProjectTitle',
+            country='US',
             ona_api_key='',
             type='project',
             owner_org=organization['name'],

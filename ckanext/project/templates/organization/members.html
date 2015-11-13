@@ -18,7 +18,9 @@
 
 {% block page_primary_action %}
 <div id="org-members-add">
-    {% link_for _('Add Member'), controller='organization', action='member_new', id=c.group_dict.id, class_='cadasta-button right' %}
+    {% if h.check_access('group_member_create') %}
+        {% link_for _('Add Member'), controller='organization', action='member_new', id=c.group_dict.id, class_='cadasta-button right' %}
+    {% endif %}
 </div>
     {% endblock %}
 
@@ -61,10 +63,14 @@
         <td>
             {% set locale = h.dump_json({'content': _('Are you sure you want to delete this member?')}) %}
             <div class="">
+                {% if h.check_access('group_member_create') %}
                 <a class="manage-button" href="{% url_for controller='organization', action='member_new', id=c.group_dict.id, user=user_id %}" title="{{ _('Edit') }}">
                     Edit
                 </a>
+                {%  endif %}
+                {% if h.check_access('group_member_delete') %}
                 <a class="manage-button right red-button" href="{% url_for controller='organization', action='member_delete', id=c.group_dict.id, user=user_id %}" data-module="confirm-action" data-module-i18n="{{ locale }}" title="{{ _('Delete') }}">{% block delete_button_text %}Delete{% endblock %}</a>
+                {% endif %}
             </div>
         </td>
     </tr>

@@ -24,7 +24,7 @@ class TestProjectNameValidator(helpers.FunctionalTestBase):
         factories.Organization(id='my-id', title='organization',
                                name='organization')
         factories.Dataset(id='my-id', title='project',
-                          name='project', owner_org='organization', ona_api_key='')
+                          name='project', owner_org='organization', ona_api_key='', country='US')
         context = {'package_id': 'my-id',
                    'model': model,
                    'session': model.Session}
@@ -36,6 +36,7 @@ class TestProjectNameValidator(helpers.FunctionalTestBase):
             data={
                 ('name',): 'project',
                 ('title',): 'project',
+                ('country'): 'US',
                 ('ona_api_key'): '',
             },
             errors=errors,
@@ -117,6 +118,7 @@ class TestSlugifyValidator(object):
         data = {
             ('name',): 'existing name',
             ('title',): 'A long project title',
+
         }
         slugify_title_to_name(
             key=('name',),
