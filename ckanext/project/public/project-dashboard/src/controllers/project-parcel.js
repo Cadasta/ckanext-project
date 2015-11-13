@@ -259,9 +259,8 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
 
                         getParcelDetails();
 
-                        var timeoutID = window.setTimeout(function() {
-                            $scope.cancel();
-                        }, 300);
+                        $scope.cancel();
+
                     }
                 }).catch(function(err){
 
@@ -393,9 +392,8 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
                             $rootScope.$broadcast('new-relationship');
                             getParcelDetails();
 
-                            var timeoutID = window.setTimeout(function() {
-                                $scope.cancel();
-                            }, 300);
+                            $scope.cancel();
+
                         }
                     }).catch(function(err){
 

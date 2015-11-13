@@ -12,10 +12,18 @@
 
     <div id="project-header" >
 
+        <p class="selected-text" ng-show="selectedCellText"> {{selectedCellText}}</p>
 
         <div id="ag-table" class="selectFieldDataGrid">
-            <div ag-grid="gridOptions" class="ag-blue" style="height: 100%;"></div>
+            <div ag-grid="gridOptions" class="ag-fresh" style="height: 100%;"></div>
         </div>
+
+        <div class="font-green"> {{successMessage}}</div>
+        <div class="font-red"> {{errorMessage}}</div>
+
+        <div class="cadasta-button" ng-click="updateStatusRows(true)" >Validate Rows</div>
+
+        <div class="cadasta-button red" ng-click="updateStatusRows(false)">Invalidate Rows</div>
     </div>
 </div>
 

@@ -32,9 +32,11 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
             rowData: [],
             enableSorting: true,
             rowSelection: 'single',
+            rowHeight:50,
             onRowSelected: rowSelectedFunc
 
         };
+
 
 
         function rowSelectedFunc(event) {
@@ -126,10 +128,8 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
                         $rootScope.$broadcast('new-party');
                         getParties();
 
-                        var timeoutID = window.setTimeout(function() {
-                            $scope.cancel();
-                            $state.go("tabs.parties.party", {id:response.cadasta_party_id})
-                        }, 300);
+                        $scope.cancel();
+                        $state.go("tabs.parties.party", {id:response.cadasta_party_id});
                     }
                 }).catch(function(err){
 
