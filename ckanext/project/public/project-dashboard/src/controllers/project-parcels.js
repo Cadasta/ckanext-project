@@ -13,6 +13,14 @@ app.controller("parcelsCtrl", ['tenureTypes','$scope', '$state', '$stateParams',
             getParcels();
         });
 
+        $scope.$on('new-relationship', function(e){
+            getParcels();
+        });
+
+        $scope.$on('updated-relationship', function(e){
+            getParcels();
+        });
+
 
         $scope.parcels = [];
         $scope.parcelsList = [];
@@ -170,10 +178,8 @@ app.controller("parcelsCtrl", ['tenureTypes','$scope', '$state', '$stateParams',
                             $rootScope.$broadcast('new-parcel');
                             getParcels();
 
-                            var timeoutID = window.setTimeout(function() {
-                                    $scope.cancel();
-                                    $state.go("tabs.parcels.parcel", {id:response.cadasta_parcel_id})
-                                }, 300);
+                            $scope.cancel();
+                            $state.go("tabs.parcels.parcel", {id:response.cadasta_parcel_id});
                         }
                     }).catch(function(response){
 

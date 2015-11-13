@@ -23,13 +23,24 @@ app.controller("fieldDatumCtrl", ['$scope', '$rootScope', '$state', '$stateParam
             enableSorting: true,
             enableColResize:true,
             rowSelection: 'multiple',
-            onRowSelected: rowSelectedFunc,
+            //onRowSelected: rowSelectedFunc,
             checkboxSelection:true,
             suppressRowClickSelection: true,
+            onCellClicked: cellClickedFunction
         };
 
-        function rowSelectedFunc(event) {
-            console.log(event.node.data);
+        //function rowSelectedFunc(event) {
+        //    console.log(event.node.data);
+        //}
+
+        $scope.selectedCellText = '';
+
+        function cellClickedFunction(event) {
+            $rootScope.$apply(function(){
+                console.log(event.value);
+                $scope.selectedCellText = event.value;
+            })
+
         }
 
         getFieldDataResponses();
@@ -41,6 +52,8 @@ app.controller("fieldDatumCtrl", ['$scope', '$rootScope', '$state', '$stateParam
             promise.then(function (response) {
                 var columnDefs = [];
                 var rowData = [];
+
+                columnDefs.push({headerName: 'Respondent ID', field: 'respondent_id', checkboxSelection: true});
 
                 // put colums definitions together
                 response.features[0].properties.questions.forEach(function (v) {
@@ -59,10 +72,11 @@ app.controller("fieldDatumCtrl", ['$scope', '$rootScope', '$state', '$stateParam
                 var qaDict = {};
                 response.features[0].properties.responses.forEach(function (res) {
 
-
+                        qaDict['respondent_id'] = res.properties.respondent_id;
                         qaDict[res.properties.question_id] = res.properties.text;
                         dict[res.properties.respondent_id] = qaDict;
                 });
+
 
                 Object.keys(dict).forEach(function(v){
                     rowData.push(dict[v])

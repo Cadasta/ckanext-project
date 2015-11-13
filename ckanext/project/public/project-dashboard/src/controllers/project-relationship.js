@@ -286,9 +286,7 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
 
                         getRelationship();
 
-                        var timeoutID = window.setTimeout(function() {
-                            $scope.cancel();
-                        }, 300);
+                        $scope.cancel();
                     }
                 }).catch(function(err){
 

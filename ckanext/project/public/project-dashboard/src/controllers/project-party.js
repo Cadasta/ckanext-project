@@ -309,10 +309,7 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
                             $rootScope.$broadcast('new-relationship');
                             getPartyDetails();
 
-
-                            var timeoutID = window.setTimeout(function () {
-                                $scope.cancel();
-                            }, 300);
+                            $scope.cancel();
                         }
                     }).catch(function (err) {
 
@@ -518,9 +515,7 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
                         $rootScope.$broadcast('updated-party');
                         getPartyDetails();
 
-                        var timeoutID = window.setTimeout(function () {
-                            $scope.cancel();
-                        }, 300);
+                        $scope.cancel();
                     }
                 }).catch(function (err) {
                     $scope.partyCreated = 'unable to update party';

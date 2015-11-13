@@ -205,3 +205,10 @@ p.popup-text {
     border-radius: 32px;
     color: black;
 }
+
+
+.selected-text {
+    border: 1px solid #dcdfe1;
+    padding:4px;
+    height: 20px;
+}
