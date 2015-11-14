@@ -18,27 +18,46 @@ app.controller("fieldDatumCtrl", ['$scope', '$rootScope', '$state', '$stateParam
             enableSorting: true,
             enableColResize: true,
             rowSelection: 'multiple',
-            onRowSelected: rowSelectedFunc,
+            //onRowSelected: rowSelectedFunc,
             checkboxSelection: true,
             suppressRowClickSelection: true,
             onCellClicked: cellClickedFunction
         };
 
-        function rowSelectedFunc(event) {
-            console.log($scope.gridOptions.api.getSelectedNodes());
-        }
-
-
+        //function rowSelectedFunc(event) {
+        //}
 
         $scope.selectedCellText = '';
 
 
         function cellClickedFunction(event) {
             $rootScope.$apply(function () {
-                console.log(event.value);
                 $scope.selectedCellText = event.value;
-            })
+            });
+
+            if (event.colDef.field === 'parcel_id') {
+                $state.go("tabs.parcels.parcel", {id:event.node.data.parcel_id})
+            }
+            else if (event.colDef.field === 'party_id') {
+                $state.go("tabs.parties.party", {id:event.node.data.party_id})
+            }
+            else if (event.colDef.field === 'relationship_id') {
+                $state.go("tabs.relationships.relationship", {id:event.node.data.relationship_id})
+            }
+
         }
+
+        $scope.selectAll = function() {
+            $scope.gridOptions.api.forEachNode( function (node) {
+                $scope.gridOptions.api.selectNode(node, true);
+            });
+        };
+
+        var unselectAll = function() {
+            $scope.gridOptions.api.forEachNode( function (node) {
+                $scope.gridOptions.api.selectNode(node, false);
+            });
+        };
 
 
         $scope.updateStatusRows = function(status) {
@@ -57,6 +76,10 @@ app.controller("fieldDatumCtrl", ['$scope', '$rootScope', '$state', '$stateParam
                 console.log(response);
 
                 $scope.successMessage = 'Respondent(s) ' + response.cadasta_validate_respondent + ' have been updated.';
+
+                unselectAll();
+
+                $rootScope.$broadcast('updated-field-data');
 
 
             }, function (err) {
@@ -77,7 +100,10 @@ app.controller("fieldDatumCtrl", ['$scope', '$rootScope', '$state', '$stateParam
                 var rowData = [];
 
                 columnDefs.push({headerName: 'Respondent ID', field: 'respondent_id', checkboxSelection: true, minWidth:110 });
-                columnDefs.push({headerName: 'Validated', field: 'validated', minWidth:90});
+                columnDefs.push({headerName: 'Validated', field: 'validated', minWidth:80});
+                columnDefs.push({headerName: 'Parcel ID', field: 'parcel_id', minWidth:80, cellStyle: {color: '#256c97'}});
+                columnDefs.push({headerName: 'Party ID', field: 'party_id', minWidth:80, cellStyle: {color: '#256c97'}});
+                columnDefs.push({headerName: 'Relationship ID', field: 'relationship_id', minWidth:110, cellStyle: {color: '#256c97'}});
 
 
                 // put colums definitions together
@@ -104,6 +130,9 @@ app.controller("fieldDatumCtrl", ['$scope', '$rootScope', '$state', '$stateParam
                             qad[res.properties.question_id] = res.properties.text;
                             qad['validated'] = res.properties.validated;
                             qad['respondent_id'] = res.properties.respondent_id;
+                            qad['parcel_id'] = res.properties.parcel_id;
+                            qad['party_id'] = res.properties.party_id;
+                            qad['relationship_id'] = res.properties.relationship_id;
                             dict[k] = qad;
                         }
                     })

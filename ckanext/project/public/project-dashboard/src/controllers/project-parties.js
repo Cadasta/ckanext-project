@@ -33,6 +33,7 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
             enableSorting: true,
             rowSelection: 'single',
             rowHeight:50,
+            headerHeight:37,
             onRowSelected: rowSelectedFunc
 
         };
@@ -42,6 +43,11 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
         function rowSelectedFunc(event) {
             $state.go("tabs.parties.party", {id:event.node.data.id})
         }
+
+        // listen for updated field data
+        $scope.$on('updated-field-data', function(e){
+            getParties();
+        });
 
 
         getParties();

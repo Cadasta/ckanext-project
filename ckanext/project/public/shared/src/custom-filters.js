@@ -130,7 +130,7 @@ angular.module('app.filters', [])
                     return arr;
                     break;
 
-                case 'first_name':
+                case 'full_name':
                     var arr = inputs.slice();
                     // sort by DESC
                     arr.sort(function (a, b) {
@@ -167,15 +167,15 @@ angular.module('app.filters', [])
                         var name1;
                         var name2;
 
-                        if (a.properties.first_name) {
-                            name1 = a.properties.first_name
+                        if (a.properties.full_name) {
+                            name1 = a.properties.full_name
                         }
                         else {
                             name1 = a.properties.group_name
                         }
 
-                        if (b.properties.first_name) {
-                            name2 = b.properties.first_name
+                        if (b.properties.full_name) {
+                            name2 = b.properties.full_name
                         }
                         else {
                             name2 = b.properties.group_name

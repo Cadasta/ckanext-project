@@ -130,8 +130,8 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
                 $scope.relationships.forEach(function (v, i) {
 
                     var name = null;
-                    if (v.properties.first_name) {
-                        name = v.properties.first_name;
+                    if (v.properties.full_name) {
+                        name = v.properties.full_name;
                     } else {
                         name = v.properties.group_name;
                     }
@@ -339,7 +339,7 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
                         party.properties.party_name = party.properties.group_name;
                     }
                     else {
-                        party.properties.party_name = party.properties.first_name;
+                        party.properties.party_name = party.properties.full_name;
                     }
                     partyData.push(party.properties);
                 });

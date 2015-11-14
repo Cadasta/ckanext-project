@@ -28,7 +28,7 @@
                              ng-class="{'remove-bottom-border': $index < relationships.length-1 && relationships.length > 0}">
                             <div ng-click="toggleDropdownDetails(r)" class="name">
                                 <a ui-sref="tabs.parties.party({id:r.properties.party_id})">
-                                    <span ng-show="r.properties.first_name">{{r.properties.first_name}}</span>
+                                    <span ng-show="r.properties.full_name">{{r.properties.full_name}}</span>
                                     <span ng-show="r.properties.group_name">{{r.properties.group_name}}</span>
                                 </a>
                                 <i ng_show="!r.showDropDownDetails" class="material-icons right">expand_more</i>
@@ -130,7 +130,7 @@
                         <tbody>
                         <tr ng-repeat="rh in relationship_history">
                             <td>{{rh.properties.relationship_id}}</td>
-                            <td  ng-show="rh.properties.first_name">{{rh.properties.first_name}}</td>
+                            <td  ng-show="rh.properties.full_name">{{rh.properties.full_name}}</td>
                             <td  ng-show="rh.properties.group_name">{{rh.properties.group_name}} </td>
                             <td>{{rh.properties.version}}</td>
                             <td>{{rh.properties.time_updated | emptyString}}</td>
