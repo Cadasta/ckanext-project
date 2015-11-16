@@ -105,23 +105,128 @@ var app = angular.module("app",
         }
       }});
 
+    //// Child State
+    //states.push({
+    //  name: 'tabs.overview',
+    //  url: 'overview?map',
+    //  views: {
+    //    'overviewtab': {controller: 'fieldDataCtrl', templateUrl: '/project-dashboard/src/partials/overview.html'}
+    //  },
+    //  paramsMap:[{key:'map', defaultValue: '(0,0,1)'}],
+    //
+    //  onEnter: function($state, $stateParams, mapUtilityService){
+    //
+    //    $stateParams.map = mapUtilityService.validateMapParam($stateParams.map);
+    //  },
+    //  reloadOnSearch: false,
+    //  deepStateRedirect: dsrCb,
+    //  sticky: true
+    //});
+    //
+    //
+    //
+    //
+    //
+    //
+
+
+
+
+
     // Child State
     states.push({
       name: 'tabs.overview',
-      url: 'overview?map',
+      url: 'overview',
       views: {
-        'overviewtab': {controller: 'overviewCtrl', templateUrl: '/project-dashboard/src/partials/overview.html'}
+        'overviewtab': {  templateUrl: '/project-dashboard/src/partials/overview-base.html' }
       },
-      paramsMap:[{key:'map', defaultValue: '(0,0,1)'}],
-
-      onEnter: function($state, $stateParams, mapUtilityService){
-
-        $stateParams.map = mapUtilityService.validateMapParam($stateParams.map);
-      },
-      reloadOnSearch: false,
-      deepStateRedirect: dsrCb,
+      deepStateRedirect: { default: "tabs.overview.project-overview" },
       sticky: true
     });
+
+    // Grandchild State
+    states.push({
+      name: 'tabs.overview.project-overview',
+      url: '/project-overview',
+      views: {
+        'projectOverviewTab': {
+          controller: 'overviewCtrl',
+          templateUrl: '/project-dashboard/src/partials/overview.html' }
+      },
+        paramsMap:[{key:'map', defaultValue: '(0,0,1)'}],
+
+        onEnter: function($state, $stateParams, mapUtilityService){
+
+          $stateParams.map = mapUtilityService.validateMapParam($stateParams.map);
+        },
+        reloadOnSearch: false,
+        deepStateRedirect: dsrCb,
+        sticky: true
+    });
+
+
+
+    // Grandchild State
+    states.push({
+      name: 'tabs.overview.fieldData',
+      url: '/fieldData',
+      views: {
+        'fieldDatatab': {templateUrl: '/project-dashboard/src/partials/fieldData.html' }
+      },
+      deepStateRedirect: { default: "tabs.overview.fieldData.fieldDataList" },
+      sticky: true
+    });
+
+
+    // Great-grandchild State
+    states.push({
+      name: 'tabs.overview.fieldData.fieldDataList',
+      url: '/list',
+      views: {
+        'fieldDataList': {
+          controller: 'fieldDataCtrl'}
+      },
+      sticky:true,
+      deepStateRedirect: true
+    });
+
+
+
+    // Great-grandchild State
+    states.push({
+      name: 'tabs.overview.fieldData.fieldDatum',
+      url: '/:id',
+      views: {
+        'fieldDatum': {
+          controller: 'fieldDatumCtrl'}
+      },
+      sticky:true,
+      deepStateRedirect: true
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // Child State
     states.push({
@@ -220,7 +325,7 @@ var app = angular.module("app",
       name: 'tabs.relationships.relationship',
       url: '/:id?map',
       views: {
-        'parcel': {
+        'relationship': {
           controller: 'relationshipCtrl',
           templateUrl: '/project-dashboard/src/partials/relationship.html' }
       },
@@ -305,44 +410,44 @@ var app = angular.module("app",
       deepStateRedirect: dsrCb,
       sticky: true
     });
-
-    // Child State for field data list
-    states.push({
-      name: 'tabs.fieldData',
-      url: 'fieldData',
-      views: {
-        'fieldDatatab': {templateUrl: '/project-dashboard/src/partials/fieldData.html' }
-      },
-      deepStateRedirect: { default: "tabs.fieldData.fieldDataList" },
-      sticky: true
-    });
-
-    // Grandchild State
-    states.push({
-      name: 'tabs.fieldData.fieldDataList',
-      url: '/list',
-      views: {
-        'fielddatalist': {
-          controller: 'fieldDataCtrl',
-          templateUrl: '/project-dashboard/src/partials/fieldDataList.html'}
-      },
-      sticky:true,
-      deepStateRedirect: true
-    });
-
-
-    // Grandchild State
-    states.push({
-      name: 'tabs.fieldData.fieldDatum',
-      url: '/:id',
-      views: {
-        'fielddatum': {
-          controller: 'fieldDatumCtrl',
-          templateUrl: '/project-dashboard/src/partials/fieldDatum.html'}
-      },
-      sticky:true,
-      deepStateRedirect: true
-    });
+    //
+    //// Child State for field data list
+    //states.push({
+    //  name: 'tabs.fieldData',
+    //  url: 'fieldData',
+    //  views: {
+    //    'fieldDatatab': {templateUrl: '/project-dashboard/src/partials/fieldData.html' }
+    //  },
+    //  deepStateRedirect: { default: "tabs.fieldData.fieldDataList" },
+    //  sticky: true
+    //});
+    //
+    //// Grandchild State
+    //states.push({
+    //  name: 'tabs.fieldData.fieldDataList',
+    //  url: '/list',
+    //  views: {
+    //    'fielddatalist': {
+    //      controller: 'fieldDataCtrl',
+    //      templateUrl: '/project-dashboard/src/partials/fieldDataList.html'}
+    //  },
+    //  sticky:true,
+    //  deepStateRedirect: true
+    //});
+    //
+    //
+    //// Grandchild State
+    //states.push({
+    //  name: 'tabs.fieldData.fieldDatum',
+    //  url: '/:id',
+    //  views: {
+    //    'fielddatum': {
+    //      controller: 'fieldDatumCtrl',
+    //      templateUrl: '/project-dashboard/src/partials/fieldDatum.html'}
+    //  },
+    //  sticky:true,
+    //  deepStateRedirect: true
+    //});
 
 
 
