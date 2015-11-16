@@ -36,6 +36,7 @@ from .organization import (
 )
 from .party import (
     cadasta_get_project_parties,
-    cadasta_get_project_party_details
+    cadasta_get_project_party_details,
+    cadasta_get_project_party_resources
 )
 # flake8: noqa

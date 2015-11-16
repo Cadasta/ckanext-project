@@ -94,7 +94,11 @@ get_api_map = {
     ),
 
     'cadasta_get_project_party_details': CadastaEndpoint(
-        '/projects/{project_id}/parties/{party_id}',
+        '/projects/{project_id}/parties/{party_id}/details',
+    ),
+
+    'cadasta_get_project_party_resources': CadastaEndpoint(
+        '/projects/{project_id}/parties/{party_id}/resources',
     ),
 }
 
