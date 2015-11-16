@@ -45,12 +45,6 @@ authz.ROLE_PERMISSIONS = OrderedDict([
                     'read_parcel',
                     'upload_parcel_resource',
                     'delete_parcel_resource',
-                    # party
-                    'read_party',
-                    'create_party',
-                    'update_party',
-                    'delete_party',
-                    'create_parcel_relationship',
                     # relationship
                     'read_relationship',
                     'create_relationship',

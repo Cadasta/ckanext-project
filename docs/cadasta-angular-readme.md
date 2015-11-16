@@ -56,4 +56,4 @@ Note that if you edit your Gruntfile to modify the build task, you will need to 
 
 ## Deployment
 
-Note that the  `/ckanext/project/public/build` directory is `.gitignored` from the repository.  We don't want build artifacts to clutter the commit history. However, this means that you will need to run the Grunt build task on the deployment server.
+Note that the  `/ckanext/project/public/build` directory is `.gitignored` from the repository.  We don't want build artifacts to clutter the commit history. However, this means that you will need to run the Grunt build task on the deployment server.  This build task is part of the redeploy script.

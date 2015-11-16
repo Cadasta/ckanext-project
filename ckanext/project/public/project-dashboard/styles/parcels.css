@@ -301,6 +301,11 @@
     top:15px;
 }
 
+#parcelFilter.party .cadasta-round-button.right {
+    left:697px;
+    top:15px;
+}
+
 #parcelDetails .section-map .cadasta-button {
     position: relative;
     bottom: 312px;

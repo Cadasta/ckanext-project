@@ -24,7 +24,7 @@ if_empty_same_as = toolkit.get_validator('if_empty_same_as')
 
 def project_schema():
     return {
-        'country': [ignore_missing, unicode, convert_to_extras],
+        'country': [not_empty, unicode, convert_to_extras],
         'province_state': [ignore_missing, unicode, convert_to_extras],
         'district_county': [ignore_missing, unicode, convert_to_extras],
         'ona_api_key': [ignore_missing, unicode, convert_to_extras],

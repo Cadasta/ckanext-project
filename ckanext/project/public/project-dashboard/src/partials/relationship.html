@@ -15,15 +15,16 @@
                     <div class="caption">Name</div>
                     <div>
                         <a ui-sref="tabs.parties.party({id: relationship.properties.party_id})">
-                            {{relationship.properties.first_name}}
+                           <span ng-show="relationship.properties.full_name">{{relationship.properties.full_name}}</span>
+                            <span ng-show="relationship.properties.group_name">{{relationship.properties.group_name}}</span>
                         </a>
                     </div>
                     <div class="caption">Tenure Type</div>
                     <div>{{relationship.properties.tenure_type }} </div>
                     <div class="caption">How Acquired</div>
-                    <div>{{relationship.properties.how_acquired }} </div>
+                    <div>{{relationship.properties.how_acquired | emptyString }} </div>
                     <div class="caption">Date Acquired</div>
-                    <div>{{relationship.properties.acquired_date | emptyString}}</div>
+                    <div>{{relationship.properties.acquired_dateDMY | emptyString}}</div>
                     <div class="caption">Parcel ID</div>
                     <div>
                         <a ui-sref="tabs.parcels.parcel({id: relationship.properties.parcel_id})">{{relationship.properties.parcel_id}}</a></div>
@@ -33,7 +34,7 @@
             </div>
             <div class="section-map">
                 <div id="relationshipDetailsMap"></div>
-                <div class='cadasta-button float-right' ng-click="updateRelationshipModal()"> Update Relationship Details </div>
+                <div class='cadasta-button float-right' ng-click="updateRelationshipModal()" ng-show="showCRUDLink"> Update Relationship Details </div>
 
             </div>
 
@@ -88,7 +89,7 @@
             <div class="small-heading">
                 Relationship Resources
             </div>
-            <md-button class="md-icon-button right parcel-page-layout" aria-label="More">
+            <md-button class="md-icon-button right parcel-page-layout" aria-label="More" ng-show="showResourceLink">
                 <div class="md-menu-demo">
                     <div class="menu-demo-container" layout-align="center center" layout$="column">
                         <div class="menus" layout-wrap layout="row" layout-align="space-between center">

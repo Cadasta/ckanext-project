@@ -14,7 +14,7 @@
                 <div class="container">
                     <div class="title">Parcel {{parcel.id}} <span ng-show="parcel.gov_pin">({{parcel.gov_pin}})</span> </div>
 
-                    <div class="cadasta-round-button float-right" ng-click="addRelationshipModal()"> Add Relationship </div>
+                    <div class="cadasta-round-button float-right" ng-click="addRelationshipModal()" ng-show="showCRUDLink"> Add Relationship </div>
 
                     <div>
                         <span class="caption">Landuse</span>
@@ -28,7 +28,7 @@
                              ng-class="{'remove-bottom-border': $index < relationships.length-1 && relationships.length > 0}">
                             <div ng-click="toggleDropdownDetails(r)" class="name">
                                 <a ui-sref="tabs.parties.party({id:r.properties.party_id})">
-                                    <span ng-show="r.properties.first_name">{{r.properties.first_name}}</span>
+                                    <span ng-show="r.properties.full_name">{{r.properties.full_name}}</span>
                                     <span ng-show="r.properties.group_name">{{r.properties.group_name}}</span>
                                 </a>
                                 <i ng_show="!r.showDropDownDetails" class="material-icons right">expand_more</i>
@@ -54,7 +54,7 @@
             </div>
             <div class="section-map">
                 <div id="parcelDetailsMap"></div>
-                <div class='cadasta-button float-right' ng-click="updateParcelModal()"> Update Parcel Details </div>
+                <div class='cadasta-button float-right' ng-click="updateParcelModal()" ng-show="showCRUDLink"> Update Parcel Details </div>
             </div>
 
         </div>
@@ -130,7 +130,7 @@
                         <tbody>
                         <tr ng-repeat="rh in relationship_history">
                             <td>{{rh.properties.relationship_id}}</td>
-                            <td  ng-show="rh.properties.first_name">{{rh.properties.first_name}}</td>
+                            <td  ng-show="rh.properties.full_name">{{rh.properties.full_name}}</td>
                             <td  ng-show="rh.properties.group_name">{{rh.properties.group_name}} </td>
                             <td>{{rh.properties.version}}</td>
                             <td>{{rh.properties.time_updated | emptyString}}</td>
@@ -152,7 +152,7 @@
             <div class="small-table-container">
                 <div class="small-heading">
                     Parcel Resources
-                    <div class="cadasta-round-button right parcel-page-layout" ng-click="showAddResourceModal($event)"> Add Resource</div>
+                    <div class="cadasta-round-button right parcel-page-layout" ng-click="showAddResourceModal($event)" ng-show="showResourceLink"> Add Resource</div>
                 </div>
                 <md-button class="md-icon-button right parcel-page-layout" aria-label="More">
 

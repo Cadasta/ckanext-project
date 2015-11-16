@@ -41,6 +41,31 @@ var app = angular.module("app")
             return deferred.promise;
         };
 
+
+        service.updateStatusOfRespondents = function(cadastaProjectId, fieldDataId, respondent_id_array, status){
+            var deferred = $q.defer();
+
+            $http({
+                method: "patch",
+                url: ENV.apiCadastaRoot + '/projects/' + cadastaProjectId + '/fieldData/' + fieldDataId + '/validate_respondents',
+                data: JSON.stringify({
+                    respondent_ids : respondent_id_array,
+                    status: status
+                }),
+                headers: {
+                    'Content-type': 'application/json'
+                }
+            }).then(function (response) {
+                deferred.resolve(response.data);
+            }, function (response) {
+                deferred.reject(response);
+            });
+
+            return deferred.promise;
+
+
+        }
+
         return service;
     }])
 

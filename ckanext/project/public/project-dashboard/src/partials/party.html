@@ -10,10 +10,10 @@
             </div>
             <div class="section">
                 <div class="container">
-                    <div class="title" ng-show="party.first_name">{{party.first_name | capitalize}}</div>
+                    <div class="title" ng-show="party.full_name">{{party.full_name | capitalize}}</div>
                     <div class="title" ng-show="party.group_name">{{party.group_name | capitalize}} </div>
 
-                    <div class="cadasta-round-button float-right" ng-click="addRelationshipModal()"> Add Relationship </div>
+                    <div class="cadasta-round-button float-right" ng-click="addRelationshipModal()" ng-show="showCRUDLink"> Add Relationship </div>
 
                     <div>
                         <span class="caption">Id</span>
@@ -30,7 +30,7 @@
                             <span>{{party.gender | emptyString}}</span>
                             <br>
                             <span class="caption">Date of Birth</span>
-                            <span>{{party.dob | emptyString}}</span>
+                            <span>{{party.dobDMY | emptyString}}</span>
                             <br>
                         </div>
                     </div>
@@ -68,7 +68,7 @@
             </div>
             <div class="section-map">
                 <div id="partyDetailsMap"></div>
-                <div class='cadasta-button float-right' ng-click="updatePartylModal()"> Update Party Details </div>
+                <div class='cadasta-button float-right' ng-click="updatePartylModal()" ng-show="showCRUDLink"> Update Party Details </div>
 
             </div>
         </div>
@@ -124,7 +124,7 @@
             <div class="small-heading">
                 Party Resources
             </div>
-            <md-button class="md-icon-button right parcel-page-layout" aria-label="More">
+            <md-button class="md-icon-button right parcel-page-layout" aria-label="More" ng-show="showResourceLink">
                 <div class="md-menu-demo">
                     <div class="menu-demo-container" layout-align="center center" layout$="column">
                         <div class="menus" layout-wrap layout="row" layout-align="space-between center">

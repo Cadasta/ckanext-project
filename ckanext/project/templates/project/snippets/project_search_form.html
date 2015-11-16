@@ -50,7 +50,9 @@
   </form>
 
   <div class="add-project">
-    {% link_for _('Add project'), controller='ckanext.project.controller:projectController', action='new', class_='cadasta-button right' %}
+      {% if h.check_access('package_create') %}
+        {% link_for _('Add project'), controller='ckanext.project.controller:projectController', action='new', class_='cadasta-button right' %}
+      {% endif %}
   </div>
 
 </div>

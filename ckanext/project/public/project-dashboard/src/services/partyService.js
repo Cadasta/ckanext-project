@@ -13,9 +13,12 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot + '/projects/' + projectId + '/parties', {cache: false}).
+            $http.get(ENV.apiCKANRoot + '/cadasta_get_project_parties?project_id=' + projectId, {cache: false}).
                 then(function (response) {
-                    deferred.resolve(response.data.features);
+                     if(response.data && response.data.error) {
+                        deferred.reject(response.data.error);
+                     }
+                    deferred.resolve(response.data.result.features);
                 }, function (response) {
                     deferred.reject(response);
                 });
@@ -32,9 +35,12 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot + '/projects/' + projectId + '/parties/' + partyId + '/details', {cache: false}).
+            $http.get(ENV.apiCKANRoot + '/cadasta_get_project_party_details?project_id=' + projectId + "&party_id=" + partyId, {cache: false}).
                 then(function (response) {
-                    deferred.resolve(response.data.features[0]);
+                     if(response.data && response.data.error) {
+                        deferred.reject(response.data.error);
+                     }
+                    deferred.resolve(response.data.result.features[0]);
                 }, function (response) {
                     deferred.reject(response);
                 });
@@ -72,9 +78,12 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot + '/projects/' + projectId + '/parties/' + partyId + '/resources', {cache: false})
+            $http.get(ENV.apiCKANRoot + '/cadasta_get_project_party_resources?project_id=' + projectId + "&party_id=" + partyId, {cache: false})
                 .then(function (response) {
-                    deferred.resolve(response.data);
+                    if(response.data && response.data.error) {
+                        deferred.reject(response.data.error);
+                     }
+                    deferred.resolve(response.data.result);
                 }, function (response) {
                     deferred.reject(response);
                 });
@@ -91,10 +100,10 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            var first_name = null, last_name = ' ', group_name = null, party_type = null,
+            var full_name = null, group_name = null, party_type = null,
                 national_id = null, dob = null, gender = null, description = null;
 
-            if (party.first_name) { first_name = party.first_name }
+            if (party.full_name) { full_name = party.full_name }
             if (party.group_name) { group_name = party.group_name }
             if (party.party_type) { party_type = party.party_type }
             if (party.national_id) { national_id = party.national_id }
@@ -103,13 +112,13 @@ var app = angular.module("app")
             if (party.description) { description = party.description }
 
 
-            if (first_name || group_name) {
+            if (full_name || group_name) {
                 $http({
                     method: "post",
-                    url: ENV.apiCadastaRoot + '/projects/' + projectId + '/parties',
+                    url: ENV.apiCKANRoot + '/cadasta_create_project_party',
                     data: JSON.stringify({
-                        first_name: first_name,
-                        last_name: last_name,
+                        project_id: projectId, // only used for CKAN proxy
+                        full_name: full_name,
                         group_name: group_name,
                         party_type: party_type,
                         national_id: national_id,
@@ -121,7 +130,10 @@ var app = angular.module("app")
                         'Content-type': 'application/json'
                     }
                 }).then(function (response) {
-                    deferred.resolve(response.data);
+                    if(response.data && response.data.error) {
+                        deferred.reject(response.data.error);
+                     }
+                    deferred.resolve(response.data.result);
                 }, function (response) {
                     deferred.reject(response);
                 });
@@ -142,10 +154,10 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            var first_name = null, last_name = ' ', group_name = null, party_type = null,
+            var full_name = null, group_name = null, party_type = null,
                 national_id = null, dob = null, gender = null, description = null;
 
-            if (party.first_name) { first_name = party.first_name }
+            if (party.full_name) { full_name = party.full_name }
             if (party.group_name) { group_name = party.group_name }
             if (party.party_type) { party_type = party.party_type }
             if (party.national_id) { national_id = party.national_id }
@@ -154,13 +166,14 @@ var app = angular.module("app")
             if (party.description) { description = party.description }
 
 
-            if (first_name || group_name) {
+            if (full_name || group_name) {
                 $http({
-                    method: "patch",
-                    url: ENV.apiCadastaRoot + '/projects/' + projectId + '/parties/' + partyId,
+                    method: "post",
+                    url: ENV.apiCKANRoot + '/cadasta_update_project_party',
                     data: JSON.stringify({
-                        first_name: first_name,
-                        last_name: last_name,
+                        project_id: projectId, // only used for CKAN proxy
+                        party_id: partyId, // only used for CKAN proxy
+                        full_name: full_name,
                         group_name: group_name,
                         party_type: party_type,
                         national_id: national_id,
@@ -172,7 +185,10 @@ var app = angular.module("app")
                         'Content-type': 'application/json'
                     }
                 }).then(function (response) {
-                    deferred.resolve(response.data);
+                     if(response.data && response.data.error) {
+                        deferred.reject(response.data.error);
+                     }
+                    deferred.resolve(response.data.result);
                 }, function (response) {
                     deferred.reject(response);
                 });

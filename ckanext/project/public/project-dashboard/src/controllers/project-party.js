@@ -1,6 +1,9 @@
-app.controller("partyCtrl", ['$scope', '$state', '$stateParams', 'partyService', '$rootScope', 'paramService', 'utilityService', 'uploadResourceService', '$mdDialog', 'ckanId', 'cadastaProject', 'FileUploader', 'ENV', 'dataService', 'relationshipService', 'parcelService',
-    function ($scope, $state, $stateParams, partyService, $rootScope, paramService, utilityService, uploadResourceService, $mdDialog, ckanId, cadastaProject, FileUploader, ENV, dataService, relationshipService, parcelService) {
+app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 'partyService', '$rootScope', 'paramService', 'utilityService', '$mdDialog', 'ckanId', 'cadastaProject', 'FileUploader', 'ENV', 'dataService', 'relationshipService', 'parcelService', 'USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole', 'PROJECT_RESOURCE_ROLES',
+    function (tenureTypes,$scope, $state, $stateParams, partyService, $rootScope, paramService, utilityService, $mdDialog, ckanId, cadastaProject, FileUploader, ENV, dataService, relationshipService, parcelService, USER_ROLES, PROJECT_CRUD_ROLES, userRole, PROJECT_RESOURCE_ROLES) {
 
+        // Add user's role to the scope
+        $scope.showCRUDLink = PROJECT_CRUD_ROLES.indexOf(userRole) > -1;
+        $scope.showResourceLink = PROJECT_RESOURCE_ROLES.indexOf(userRole) > -1;
 
         $rootScope.$broadcast('tab-change', {tab: 'Parties'}); // notify breadcrumbs of tab on page load
 
@@ -94,7 +97,7 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams', 'partyService',
                 //// format dates
                 $scope.party.time_created = utilityService.formatDate($scope.party.time_created);
                 $scope.party.time_updated = utilityService.formatDate($scope.party.time_created);
-                $scope.party.dob = utilityService.formatDate($scope.party.dob);
+                $scope.party.dobDMY = utilityService.formatDate($scope.party.dob);
 
                 if (response.properties.relationship_history.length > 0) {
 
@@ -112,8 +115,8 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams', 'partyService',
 
                         //create popup for relationship
                         var name = null;
-                        if (val.properties.first_name) {
-                            name = val.properties.first_name;
+                        if (val.properties.full_name) {
+                            name = val.properties.full_name;
                         } else {
                             name = val.properties.group_name;
                         }
@@ -199,8 +202,17 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams', 'partyService',
 
             $scope.uploader = new FileUploader({
                 alias: 'filedata',
-                url: ENV.apiCadastaRoot + '/projects/' + cadastaProject.id + '/party/' + $stateParams.id + '/resources'
+                url: ENV.apiCKANRoot + '/cadasta_upload_project_resources'
             });
+
+            $scope.uploader.onBeforeUploadItem = function (item) {
+                // upload required path params for CKAN to proxy
+                item.formData.push({
+                    project_id: cadastaProject.id,
+                    resource_type: "party",
+                    resource_type_id: $stateParams.id
+                });
+            };
 
             $scope.uploader.onProgressItem = function (item, progress) {
                 $scope.progress = progress;
@@ -208,13 +220,29 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams', 'partyService',
 
             // triggered when FileItem is has completed .upload()
             $scope.uploader.onCompleteItem = function (fileItem, response, status, headers) {
-                if (response.message == "Success") {
+                //
+                // ckan api wrappers return a 'result' key for successful calls
+                // and an 'error' key for unsuccessful calls
+                //
+                if (response.result && response.result.message == "Success"){
                     $scope.response = 'File Successfully uploaded.';
                     $scope.error = ''; // clear error
                     $scope.uploader.clearQueue();
 
                     getPartyResources();
                     $rootScope.$broadcast('new-resource'); // broadcast new resources to the app
+                }
+                else if(response.error){
+
+                    if (response.error.type && response.error.type.pop && response.error.type.pop() === "duplicate") {
+                        $scope.error = 'This resource already exists. Rename resource to complete upload.';
+                    }
+                    else if(response.error.message) {
+                        $scope.error = response.error.message;
+                    }
+                    else {
+                        $scope.error = response.error;
+                    }
                 }
             };
 
@@ -306,10 +334,7 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams', 'partyService',
                             $rootScope.$broadcast('new-relationship');
                             getPartyDetails();
 
-
-                            var timeoutID = window.setTimeout(function () {
-                                $scope.cancel();
-                            }, 300);
+                            $scope.cancel();
                         }
                     }).catch(function (err) {
 
@@ -319,24 +344,7 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams', 'partyService',
                 }
             }
 
-            $scope.tenure_types = [
-                {
-                    type: 'own',
-                    label: 'Own'
-                },
-                {
-                    type: 'lease',
-                    label: 'Lease'
-                },
-                {
-                    type: 'occupy',
-                    label: 'Occupy'
-                },
-                {
-                    type: 'informal occupy',
-                    label: 'Informally Occupy'
-                }
-            ];
+            $scope.tenure_types = tenureTypes;
         }
 
 
@@ -514,12 +522,12 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams', 'partyService',
 
             $scope.cadastaProjectId = cadastaProject.id;
             $scope.party = party;
-
+            $scope.dt = new Date(party.dob);
 
             $scope.updateParty = function (projectId, party) {
 
                 if($scope.dt){
-                    party.dob = $scope.dt.getMonth()+1 + '/' +  $scope.dt.getDate() + '/' + $scope.dt.getFullYear();
+                    party.dob =  new Date($scope.dt.setMinutes( $scope.dt.getTimezoneOffset() ));
                 }
 
                 var updateParty = partyService.updateProjectParty(projectId, $stateParams.id, party);
@@ -532,9 +540,7 @@ app.controller("partyCtrl", ['$scope', '$state', '$stateParams', 'partyService',
                         $rootScope.$broadcast('updated-party');
                         getPartyDetails();
 
-                        var timeoutID = window.setTimeout(function () {
-                            $scope.cancel();
-                        }, 300);
+                        $scope.cancel();
                     }
                 }).catch(function (err) {
                     $scope.partyCreated = 'unable to update party';
