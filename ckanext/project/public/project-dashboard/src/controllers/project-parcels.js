@@ -1,14 +1,28 @@
 var app = angular.module("app");
 
-app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelService', 'dataService', '$rootScope', 'utilityService', 'ckanId', 'cadastaProject', '$mdDialog', '$location','sortByParcel','USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole',
-    function ($scope, $state, $stateParams, parcelService, dataService, $rootScope, utilityService, ckanId, cadastaProject, $mdDialog, $location,sortByParcel,USER_ROLES, PROJECT_CRUD_ROLES, userRole) {
+app.controller("parcelsCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 'parcelService', 'dataService', '$rootScope', 'utilityService', 'ckanId', 'cadastaProject', '$mdDialog', '$location','sortByParcel','USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole',
+    function (tenureTypes,$scope, $state, $stateParams, parcelService, dataService, $rootScope, utilityService, ckanId, cadastaProject, $mdDialog, $location,sortByParcel,USER_ROLES, PROJECT_CRUD_ROLES, userRole) {
 
         $rootScope.$broadcast('tab-change', {tab: 'Parcels'}); // notify breadcrumbs of tab on page load
 
         // Add user's role to the scope
-        $scope.showEditLink = PROJECT_CRUD_ROLES.indexOf(userRole) > -1;
+        $scope.showCRUDLink = PROJECT_CRUD_ROLES.indexOf(userRole) > -1;
+
 
         $scope.$on('updated-parcel', function(e){
+            getParcels();
+        });
+
+        $scope.$on('new-relationship', function(e){
+            getParcels();
+        });
+
+        $scope.$on('updated-relationship', function(e){
+            getParcels();
+        });
+
+        // listen for updated field data
+        $scope.$on('updated-field-data', function(e){
             getParcels();
         });
 
@@ -22,28 +36,7 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
 
         $scope.sort_by = sortByParcel;
 
-        $scope.tenure_types = [
-            {
-                type: 'all',
-                label: 'All Types'
-            },
-            {
-                type: 'own',
-                label: 'Owned Parcels'
-            },
-            {
-                type: 'lease',
-                label: 'Leased Parcels'
-            },
-            {
-                type: 'occupy',
-                label: 'Occupied Parcels'
-            },
-            {
-                type: 'informal occupy',
-                label: 'Informally Occupied Parcels'
-            }
-        ];
+        $scope.tenure_types = tenureTypes;
 
         getParcels();
 
@@ -159,6 +152,7 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
             return $scope.layer;
         }
 
+        $scope.parcelCreatedFeedback = 'Parcel Geometry is required.';
 
         function addParcelCtrl($scope, $mdDialog) {
 
@@ -176,7 +170,7 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
                 var layer = getLayer();
 
                 if (layer === undefined) {
-                    $scope.parcelCreated = "parcel geometry is required";
+                    $scope.parcelCreatedFeedback = "Parcel Geometry is required.";
                 } else {
 
                     var createParcel = parcelService.createProjectParcel(cadastaProject.id, layer.toGeoJSON(), $scope.parcel);
@@ -188,14 +182,12 @@ app.controller("parcelsCtrl", ['$scope', '$state', '$stateParams', 'parcelServic
                             $rootScope.$broadcast('new-parcel');
                             getParcels();
 
-                            var timeoutID = window.setTimeout(function() {
-                                    $scope.cancel();
-                                    $state.go("tabs.parcels.parcel", {id:response.cadasta_parcel_id})
-                                }, 300);
+                            $scope.cancel();
+                            $state.go("tabs.parcels.parcel", {id:response.cadasta_parcel_id});
                         }
-                    }).catch(function(err){
+                    }).catch(function(response){
 
-                        $scope.parcelCreated ='unable to create parcel';
+                        $scope.parcelCreatedFeedback ='Unable to create parcel: ' + response.data.error.message;
                     });
                 }
             }

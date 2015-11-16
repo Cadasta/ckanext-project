@@ -1,6 +1,9 @@
-app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService', '$rootScope', 'paramService', 'utilityService', 'uploadResourceService', 'dataService', '$mdDialog', 'ckanId', 'cadastaProject', 'FileUploader', 'ENV', 'partyService', 'relationshipService',
-    function ($scope, $state, $stateParams, parcelService, $rootScope, paramService, utilityService, uploadResourceService, dataService, $mdDialog, ckanId, cadastaProject, FileUploader, ENV, partyService, relationshipService) {
+app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 'parcelService', '$rootScope', 'paramService', 'utilityService', 'dataService', '$mdDialog', 'ckanId', 'cadastaProject', 'FileUploader', 'ENV', 'partyService', 'relationshipService','USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole', 'PROJECT_RESOURCE_ROLES',
+    function (tenureTypes,$scope, $state, $stateParams, parcelService, $rootScope, paramService, utilityService, dataService, $mdDialog, ckanId, cadastaProject, FileUploader, ENV, partyService, relationshipService, USER_ROLES, PROJECT_CRUD_ROLES, userRole, PROJECT_RESOURCE_ROLES) {
 
+        // Add user's role to the scope
+        $scope.showCRUDLink = PROJECT_CRUD_ROLES.indexOf(userRole) > -1;
+        $scope.showResourceLink = PROJECT_RESOURCE_ROLES.indexOf(userRole) > -1;
 
         var mapStr = $stateParams.map;
 
@@ -127,8 +130,8 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
                 $scope.relationships.forEach(function (v, i) {
 
                     var name = null;
-                    if (v.properties.first_name) {
-                        name = v.properties.first_name;
+                    if (v.properties.full_name) {
+                        name = v.properties.full_name;
                     } else {
                         name = v.properties.group_name;
                     }
@@ -256,9 +259,8 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
 
                         getParcelDetails();
 
-                        var timeoutID = window.setTimeout(function() {
-                            $scope.cancel();
-                        }, 300);
+                        $scope.cancel();
+
                     }
                 }).catch(function(err){
 
@@ -337,7 +339,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
                         party.properties.party_name = party.properties.group_name;
                     }
                     else {
-                        party.properties.party_name = party.properties.first_name;
+                        party.properties.party_name = party.properties.full_name;
                     }
                     partyData.push(party.properties);
                 });
@@ -370,7 +372,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
                 }
                 
                 if ($scope.dt) {
-                    $scope.relationship.acquisition_date = $scope.dt.getMonth() + 1 + '/' + $scope.dt.getDate() + '/' + $scope.dt.getFullYear();
+                    $scope.relationship.acquisition_date = new Date($scope.dt.setMinutes( $scope.dt.getTimezoneOffset() ));
                 }
 
                 if ($scope.relationship.party == undefined) {
@@ -390,9 +392,8 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
                             $rootScope.$broadcast('new-relationship');
                             getParcelDetails();
 
-                            var timeoutID = window.setTimeout(function() {
-                                $scope.cancel();
-                            }, 300);
+                            $scope.cancel();
+
                         }
                     }).catch(function(err){
 
@@ -402,24 +403,7 @@ app.controller("parcelCtrl", ['$scope', '$state', '$stateParams', 'parcelService
                 }
             }
 
-            $scope.tenure_types = [
-                {
-                    type: 'own',
-                    label: 'Own'
-                },
-                {
-                    type: 'lease',
-                    label: 'Lease'
-                },
-                {
-                    type: 'occupy',
-                    label: 'Occupy'
-                },
-                {
-                    type: 'informal occupy',
-                    label: 'Informally Occupy'
-                }
-            ];
+            $scope.tenure_types = tenureTypes;
         }
 
         function addMap(map) {

@@ -16,7 +16,7 @@
 
     {% block form %}
     {% snippet "user/snippets/login_form.html", action=c.login_handler, error_summary=error_summary %}
-    <a class="" href="{{ h.url_for(controller='user', action='request_reset') }}">Forgot your password?</a>
+    <!--<a class="" href="{{ h.url_for(controller='user', action='request_reset') }}">Forgot your password?</a>-->
     {% endblock %}
 </div>
 {% endblock %}

@@ -1,36 +1,47 @@
 var app = angular.module("app");
 
-app.controller("relationshipsCtrl", ['$scope', '$state', '$stateParams', 'relationshipService', '$rootScope', 'utilityService', 'ckanId', 'cadastaProject', '$mdDialog','sortByRelationship', 'partyService', 'dataService',
-    function ($scope, $state, $stateParams, relationshipService, $rootScope, utilityService, ckanId, cadastaProject, $mdDialog, sortByRelationship, partyService, dataService) {
+app.controller("relationshipsCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 'relationshipService', '$rootScope', 'utilityService', 'ckanId', 'cadastaProject', '$mdDialog','sortByRelationship', 'partyService', 'dataService',
+    function (tenureTypes, $scope, $state, $stateParams, relationshipService, $rootScope, utilityService, ckanId, cadastaProject, $mdDialog, sortByRelationship, partyService, dataService) {
 
         $rootScope.$broadcast('tab-change', {tab: 'Relationships'}); // notify breadcrumbs of tab on page load
 
         $scope.relationships = [];
         $scope.relationshipsList = [];
 
-
         // update tenure type on selection
         $scope.setRelationshipFilter = function (type){
             $scope.relationshipFilter = type;
         };
 
-        var promise = relationshipService.getProjectRelationshipsList(cadastaProject.id);
+        var getRelationships = function() {
 
-        promise.then(function (response) {
+            var promise = relationshipService.getProjectRelationshipsList(cadastaProject.id);
 
-            //format dates
-            response.forEach(function (val) {
-                val.properties.time_created = utilityService.formatDate(val.properties.time_created);
-                val.properties.acquired_date = utilityService.formatDate(val.properties.acquired_date);
-            })
+            promise.then(function (response) {
 
-            $scope.relationships = response;
+                //format dates
+                response.forEach(function (val) {
+                    val.properties.time_created = utilityService.formatDate(val.properties.time_created);
+                    if (val.properties.acquired_date) {
+                        val.properties.acquired_dateDMY = utilityService.formatDate(val.properties.acquired_date);
+                    }
+                });
+
+                $scope.relationships = response;
 
 
-        }, function (err) {
-            $scope.overviewData = "Server Error";
+            }, function (err) {
+                $scope.overviewData = "Server Error";
+            });
+
+        }
+
+        getRelationships();
+
+        // listen for updated field data
+        $scope.$on('updated-field-data', function(e){
+            getRelationships();
         });
-
 
 
         //modal for adding a relationship
@@ -110,24 +121,7 @@ app.controller("relationshipsCtrl", ['$scope', '$state', '$stateParams', 'relati
             });
 
 
-            $scope.tenure_types = [
-                {
-                    type: 'own',
-                    label: 'Own'
-                },
-                {
-                    type: 'lease',
-                    label: 'Lease'
-                },
-                {
-                    type: 'occupy',
-                    label: 'Occupy'
-                },
-                {
-                    type: 'informal occupy',
-                    label: 'Informally Occupy'
-                }
-            ];
+            $scope.tenure_types = tenureTypes;
         }
 
 

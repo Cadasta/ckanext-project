@@ -56,6 +56,41 @@ OrganizationDashboardApp.config(function ($stateProvider, $urlRouterProvider) {
         resolve: {
             ckanOrgId: function ($window) {
                 return $window.location.pathname.split('/')[2];
+            },
+
+
+
+            // Get the current user's role on currently view project
+            userRole: function($q, $window, userOrgService) {
+
+                // Get CKAN project name from URL
+                var ckanName = $window.location.pathname.split('/')[2];
+
+                var deferred = $q.defer();
+
+                //  Query the CKAN API to get all organizations (and child projects) that this user is a member to
+                var promise = userOrgService.getUserRole();
+
+                promise.then(function (response) {
+
+                    var role = "public";
+
+                    //  Loop thru orgs
+                    response.forEach(function(org) {
+
+                        //  If the project names match, grab the role this user plays in the current org.
+                        if (org.organization.name === ckanName) {
+                            role = org.role;
+                        }
+                    });
+
+                    deferred.resolve(role);
+                }, function (err) {
+                    console.error(err);
+                    deferred.reject(err);
+
+                });
+                return deferred.promise;
             }
         }
     });

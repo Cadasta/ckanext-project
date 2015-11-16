@@ -147,3 +147,13 @@ md-input-container.relationship-notes textarea {
     -ms-user-select: none;
     user-select: none;
 }
+
+
+#ag-table input[type="text"] {
+    margin: -30px 0 24px 20px;
+}
+
+
+#ag-table .ag-blue .ag-header-cell-label {
+    margin-top:4px;
+}

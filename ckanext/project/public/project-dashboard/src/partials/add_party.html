@@ -27,23 +27,14 @@
 
                                 <md-input-container md-no-float flex class="pin-id" ng-show="(party.party_type === 'individual')">
                                     <label>Full Name</label>
-                                    <input ng-model="party.first_name">
+                                    <input ng-model="party.full_name">
 
-                                    <div ng-messages="newParty.party.first_name.$error">
+                                    <div ng-messages="newParty.party.full_name.$error">
                                         <div ng-message="required" class="font-red">Party name is required.</div>
                                         <br>
                                     </div>
                                 </md-input-container>
 
-                                <!--<md-input-container md-no-float flex class="pin-id" ng-show="(party.party_type === 'individual')">-->
-                                    <!--<label>Last Name</label>-->
-                                    <!--<input ng-model="party.last_name">-->
-
-                                    <!--<div ng-messages="newParty.party.last_name.$error">-->
-                                        <!--<div ng-message="required" class="font-red">Party name is required.</div>-->
-                                        <!--<br>-->
-                                    <!--</div>-->
-                                <!--</md-input-container>-->
                                 <br><br><br>
                                 <div></div>
 

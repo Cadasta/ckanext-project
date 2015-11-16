@@ -16,13 +16,14 @@
     </md-input-container>
 
 
-    <md-button class='cadasta-round-button right' ng-click="addParcelModal()"> Add Parcel </md-button>
+    <md-button class='cadasta-round-button right' ng-click="addParcelModal()" ng-show="showCRUDLink"> Add Parcel </md-button>
 
 </div>
 </div>
 <table id="parcel-table-header">
     <thead>
     <tr>
+        <th>Validated</th>
         <th>Parcel ID</th>
         <th>Area (meters)</th>
         <th>Length (meters)</th>
@@ -37,6 +38,7 @@
         <tbody>
         <tr class="row-link" ng-show="parcelsList.length ==0 " ng-repeat="parcel in parcels | customFilter: TenureTypeModel"
             ng-class="{'last-table-element':$index == parcels.length-1}" ui-sref="^.parcel({id: parcel.properties.id})">
+            <td>{{parcel.properties.validated}}</td>
             <td>{{parcel.properties.id}}</td>
             <td>{{parcel.properties.area | number:0 | emptyString}}</td>
             <td>{{parcel.properties.length | number:0 | emptyString}}</td>

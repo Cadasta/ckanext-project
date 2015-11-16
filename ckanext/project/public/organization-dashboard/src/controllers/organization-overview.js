@@ -1,7 +1,7 @@
 var OrganizationDashboardApp = angular.module("OrganizationDashboardApp");
 
 
-OrganizationDashboardApp.controller("orgOverviewCtrl", ['$scope', '$rootScope', '$state', '$stateParams', '$location', 'paramService', 'dataService', 'ckanOrgId', function ($scope, $rootScope, $state, $stateParams, $location, paramService, dataService, ckanOrgId) {
+OrganizationDashboardApp.controller("orgOverviewCtrl", ['$scope', '$rootScope', '$state', '$stateParams', '$location', 'paramService', 'dataService', 'ckanOrgId', 'userRole', 'PROJECT_CRUD_ROLES', function ($scope, $rootScope, $state, $stateParams, $location, paramService, dataService, ckanOrgId, userRole, PROJECT_CRUD_ROLES) {
 
 
     $scope.route_add_project = function(){
@@ -9,6 +9,11 @@ OrganizationDashboardApp.controller("orgOverviewCtrl", ['$scope', '$rootScope', 
     };
 
     $scope.orgName = ckanOrgId;
+
+
+    // Add user's role to the scope
+    $scope.showCRUDLink = PROJECT_CRUD_ROLES.indexOf(userRole) > -1;
+
 
 
     //Get CKAN data

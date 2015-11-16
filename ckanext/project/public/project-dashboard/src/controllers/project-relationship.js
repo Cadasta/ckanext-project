@@ -1,5 +1,9 @@
-app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relationshipService','$rootScope','paramService', 'utilityService', 'uploadResourceService', '$mdDialog', 'ckanId', 'cadastaProject', 'FileUploader', 'ENV','parcelService', 'partyService',
-    function($scope, $state, $stateParams, relationshipService,$rootScope,paramService, utilityService, uploadResourceService, $mdDialog, ckanId, cadastaProject, FileUploader, ENV, parcelService, partyService){
+app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$stateParams','relationshipService','$rootScope','paramService', 'utilityService', '$mdDialog', 'ckanId', 'cadastaProject', 'FileUploader', 'ENV','parcelService', 'partyService', 'USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole', 'PROJECT_RESOURCE_ROLES',
+    function(tenureTypes, $scope, $state, $stateParams, relationshipService,$rootScope,paramService, utilityService, $mdDialog, ckanId, cadastaProject, FileUploader, ENV, parcelService, partyService, USER_ROLES, PROJECT_CRUD_ROLES, userRole, PROJECT_RESOURCE_ROLES){
+
+        // Add user's role to the scope
+        $scope.showCRUDLink = PROJECT_CRUD_ROLES.indexOf(userRole) > -1;
+        $scope.showResourceLink = PROJECT_RESOURCE_ROLES.indexOf(userRole) > -1;
 
 
         var mapStr = $stateParams.map;
@@ -108,15 +112,14 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
 
                     $scope.relationship  = response;
 
-
-                    response.properties.acquired_date = utilityService.formatDate(response.properties.acquired_date);
-
+                    if (response.properties.acquired_date) {
+                        response.properties.acquired_dateDMY = utilityService.formatDate(response.properties.acquired_date);
+                    }
 
                     //reformat relationship history dates
                     response.properties.relationship_history.forEach(function (val) {
                         val.properties.time_created = utilityService.formatDate(val.properties.time_created);
                         val.properties.time_updated = utilityService.formatDate(val.properties.time_updated);
-                        val.properties.acquired_date = utilityService.formatDate(val.properties.acquired_date);
                     });
 
                     $scope.relationship_history = response.properties.relationship_history;
@@ -222,9 +225,7 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
                 $mdDialog.cancel();
             };
 
-
-            relationship.properties.acquired_date = new Date(relationship.properties.acquired_date.replace(/-/g,'/'));
-
+            $scope.dt = new Date(relationship.properties.acquired_date);
             $scope.cadastaProjectId = cadastaProject.id;
             $scope.relationship = relationship;
 
@@ -241,16 +242,9 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
             // set date picker's max date to today
             $scope.myDate = new Date();
 
-            $scope.relationship.acquisition_date = $scope.relationship.properties.acquisition_date;
-
-
 
             $scope.open = function($event) {
                 $scope.status.opened = true;
-            };
-
-            $scope.setDate = function(year, month, day) {
-                $scope.dt = new Date(year, month, day);
             };
 
 
@@ -267,7 +261,9 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
 
                 var layer = getLayer();
 
-                $scope.relationship.acquired_date = $scope.dt.getMonth()+1 + '/' +  $scope.dt.getDate() + '/' + $scope.dt.getFullYear();
+                if ($scope.dt) {
+                    $scope.relationship.acquired_date = new Date($scope.dt.setMinutes( $scope.dt.getTimezoneOffset() ));
+                }
 
                 if (layer === undefined) {
                     layer = null;
@@ -283,9 +279,7 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
 
                         getRelationship();
 
-                        var timeoutID = window.setTimeout(function() {
-                            $scope.cancel();
-                        }, 300);
+                        $scope.cancel();
                     }
                 }).catch(function(err){
 
@@ -294,24 +288,7 @@ app.controller("relationshipCtrl", ['$scope', '$state', '$stateParams','relation
 
             }
 
-            $scope.tenure_types = [
-                {
-                    type: 'own',
-                    label: 'Own'
-                },
-                {
-                    type: 'lease',
-                    label: 'Lease'
-                },
-                {
-                    type: 'occupy',
-                    label: 'Occupy'
-                },
-                {
-                    type: 'informal occupy',
-                    label: 'Informally Occupy'
-                }
-            ];
+            $scope.tenure_types = tenureTypes;
         }
 
 

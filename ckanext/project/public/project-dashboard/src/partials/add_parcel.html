@@ -16,8 +16,8 @@
                 <div class="modal-content">
                     <div>
                         <p>1. Draw the geometry of a new parcel using the tools on the left.</p>
-                        <div ng-messages="newRelationshipForm.layer.$error">
-                            <div ng-message="required" class="font-red">Parcel Geometry is required.</div>
+                        <div ng-messages="addParcel.$error">
+                            <div ng-message="required" class="font-red">{{ parcelCreatedFeedback }}</div>
                         </div>
                         <br><br>
 

@@ -24,7 +24,7 @@ class TestProjectNameValidator(helpers.FunctionalTestBase):
         factories.Organization(id='my-id', title='organization',
                                name='organization')
         factories.Dataset(id='my-id', title='project',
-                          name='project', owner_org='organization')
+                          name='project', owner_org='organization', ona_api_key='', country='US')
         context = {'package_id': 'my-id',
                    'model': model,
                    'session': model.Session}
@@ -36,6 +36,8 @@ class TestProjectNameValidator(helpers.FunctionalTestBase):
             data={
                 ('name',): 'project',
                 ('title',): 'project',
+                ('country'): 'US',
+                ('ona_api_key'): '',
             },
             errors=errors,
             context=context
@@ -87,7 +89,7 @@ class TestSlugifyValidator(object):
             errors={},
             context=context
         )
-        nosetools.assert_equals(data['name', ], u'a-long-project-title')
+        nosetools.assert_equals(data['name', ], u'a_long_project_title')
         nosetools.assert_equals(data['title', ], u'A long project title')
 
     def test_empty_name_keeps_existing(self):
@@ -105,7 +107,7 @@ class TestSlugifyValidator(object):
             errors={},
             context=context
         )
-        nosetools.assert_equals(data['name', ], u'existing-name')
+        nosetools.assert_equals(data['name', ], u'existing_name')
         nosetools.assert_equals(data['title', ], u'A long project title')
 
     def test_empty_name_keeps_existing_but_slugifys(self):
@@ -116,6 +118,7 @@ class TestSlugifyValidator(object):
         data = {
             ('name',): 'existing name',
             ('title',): 'A long project title',
+
         }
         slugify_title_to_name(
             key=('name',),
@@ -123,5 +126,5 @@ class TestSlugifyValidator(object):
             errors={},
             context=context
         )
-        nosetools.assert_equals(data['name', ], u'existing-name')
+        nosetools.assert_equals(data['name', ], u'existing_name')
         nosetools.assert_equals(data['title', ], u'A long project title')

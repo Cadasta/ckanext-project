@@ -1,7 +1,10 @@
 var app = angular.module("app");
 
-app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService', '$rootScope', 'utilityService', 'ckanId', 'cadastaProject', '$mdDialog','sortByParty',
-    function ($scope, $state, $stateParams, partyService, $rootScope, utilityService, ckanId, cadastaProject, $mdDialog, sortByParty) {
+app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService', '$rootScope', 'utilityService', 'ckanId', 'cadastaProject', '$mdDialog','sortByParty', 'USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole',
+    function ($scope, $state, $stateParams, partyService, $rootScope, utilityService, ckanId, cadastaProject, $mdDialog, sortByParty, USER_ROLES, PROJECT_CRUD_ROLES, userRole) {
+
+        // Add user's role to the scope
+        $scope.showCRUDLink = PROJECT_CRUD_ROLES.indexOf(userRole) > -1;
 
         $rootScope.$broadcast('tab-change', {tab: 'Parties'}); // notify breadcrumbs of tab on page load
 
@@ -15,6 +18,7 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
 
 
         var columnDefs = [
+            {headerName:"Validated", field:"validated"},
             {headerName: "Party ID", field: "id"},
             {headerName: "Name", field: "party_name"},
             {headerName: "Party Type", field: "type"},
@@ -28,14 +32,22 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
             rowData: [],
             enableSorting: true,
             rowSelection: 'single',
+            rowHeight:50,
+            headerHeight:37,
             onRowSelected: rowSelectedFunc
 
         };
 
 
+
         function rowSelectedFunc(event) {
             $state.go("tabs.parties.party", {id:event.node.data.id})
         }
+
+        // listen for updated field data
+        $scope.$on('updated-field-data', function(e){
+            getParties();
+        });
 
 
         getParties();
@@ -61,7 +73,7 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
                         party.properties.party_name = party.properties.group_name;
                     }
                     else {
-                        party.properties.party_name = party.properties.first_name;
+                        party.properties.party_name = party.properties.full_name;
                     }
                     partyData.push(party.properties);
                 });
@@ -109,7 +121,7 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
             $scope.saveNewParty = function(projectId, party){
 
                 if($scope.dt){
-                    party.dob = $scope.dt.getMonth()+1 + '/' +  $scope.dt.getDate() + '/' + $scope.dt.getFullYear();
+                    party.dob =  new Date($scope.dt.setMinutes( $scope.dt.getTimezoneOffset() ));
                 }
 
                 var createParty = partyService.createProjectParty(projectId, party);
@@ -122,10 +134,8 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
                         $rootScope.$broadcast('new-party');
                         getParties();
 
-                        var timeoutID = window.setTimeout(function() {
-                            $scope.cancel();
-                            $state.go("tabs.parties.party", {id:response.cadasta_party_id})
-                        }, 300);
+                        $scope.cancel();
+                        $state.go("tabs.parties.party", {id:response.cadasta_party_id});
                     }
                 }).catch(function(err){
 

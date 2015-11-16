@@ -59,10 +59,16 @@ angular.module('app.filters', [])
         return function (inputs, filter_type) {
             var output = [];
             switch (filter_type) {
-                case 'own':
-                case 'lease':
-                case 'occupy':
-                case 'informal occupy':
+                case 'concessionary rights':
+                case 'carbon rights':
+                case 'easement':
+                case 'equitable servitude':
+                case 'mineral rights':
+                case 'water rights':
+                case 'indigenous land rights':
+                case 'joint tenancy':
+                case 'tenancy in common':
+                case 'undivided co-ownership':
                     //check if array contains filter selection
                     inputs.forEach(function (input, i) {
                         if (input.properties.tenure_type.indexOf(filter_type) !== -1) {
@@ -124,7 +130,7 @@ angular.module('app.filters', [])
                     return arr;
                     break;
 
-                case 'first_name':
+                case 'full_name':
                     var arr = inputs.slice();
                     // sort by DESC
                     arr.sort(function (a, b) {
@@ -161,15 +167,15 @@ angular.module('app.filters', [])
                         var name1;
                         var name2;
 
-                        if (a.properties.first_name) {
-                            name1 = a.properties.first_name
+                        if (a.properties.full_name) {
+                            name1 = a.properties.full_name
                         }
                         else {
                             name1 = a.properties.group_name
                         }
 
-                        if (b.properties.first_name) {
-                            name2 = b.properties.first_name
+                        if (b.properties.full_name) {
+                            name2 = b.properties.full_name
                         }
                         else {
                             name2 = b.properties.group_name

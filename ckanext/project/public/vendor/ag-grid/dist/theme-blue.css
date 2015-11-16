@@ -1,6 +1,6 @@
 .ag-blue .ag-root {
   border: none;
-  font: 10pt Calibri, "Segoe UI", Thonburi, Arial, Verdana, sans-serif;
+  font: 'Open Sans', sans-serif;
 }
 .ag-blue .ag-cell {
   top: -1px;
@@ -14,12 +14,18 @@
 }
 .ag-blue .ag-cell-focus {
   border-bottom: 1px solid #dcdfe1;
+  border-top: 2px solid transparent;
+  border-left: 2px solid transparent;
+  padding-top: 13px;
+  text-align: center;
 }
 .ag-blue .ag-cell-no-focus {
   /*border-right: 1px dotted #9bc2e6;*/
   border-top: 2px solid transparent;
   border-left: 2px solid transparent;
   border-bottom: 1px solid #dcdfe1;
+  padding-top:13px;
+  text-align: center;
 }
 .ag-blue .ag-pinned-header {
   background-color: #51617A;
@@ -40,9 +46,11 @@
 }
 .ag-blue .ag-header-cell-label {
   padding: 4px 2px 4px 2px;
-  text-align:left;
-  font-weight: bold;
+  text-align:center;
+  font-weight: 400;
   color: #fff;
+  font-size:12px;
+  font-family: 'Open Sans', sans-serif;
 }
 .ag-blue .ag-header-cell-text {
   padding-left: 2px;
