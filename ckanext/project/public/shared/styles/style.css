@@ -127,7 +127,7 @@ p.popup-text {
 }
 
 #ag-table {
-    height: 300px;
+    height: 458px;
 }
 
 
@@ -221,4 +221,17 @@ p.popup-text {
     background-color: #dcdfe1;
     margin-bottom: 20px;
     padding: 15px;
+}
+
+
+.field-data .cadasta-round-button {
+    margin-bottom: 10px;
+    width: 55px;
+}
+
+.field-data .cadasta-button {
+    width: 125px;
+    display: inline-block;
+    margin-right: 16px;
+    text-align: center;
 }

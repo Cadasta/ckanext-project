@@ -29,22 +29,6 @@
                                 <div ag-grid="selectPartyGridOptions" class="ag-blue" id="selectPartyGrid" style="height: 100%;"></div>
                             </div>
 
-                            <!--<md-input-container md-no-float class="md-block add-relationship-format">-->
-                                <!--<input ng-model="searchText" placeholder="Begin typing to search for a Party">-->
-
-
-                            <!--</md-input-container>-->
-
-
-                            <!--<div ng-show="relationship.party" flex-initial>-->
-                                <!--<span class="title">Selected User</span>: <span class="md-checked">-->
-                                        <!--<span ng-show="relationship.party.properties.first_name">{{relationship.party.properties.first_name}} {{relationship.party.properties.last_name}}</span>-->
-                                        <!--<span ng-show="relationship.party.properties.group_name">{{relationship.party.properties.group_name}}</span>-->
-                                        <!--<span>, Party Id: {{relationship.party.properties.id}}</span>-->
-                                    <!--</span>-->
-                            <!--</div>-->
-
-
                             <br>
                             <md-radio-group ng-model="relationship.party" ng-show="searchText.length > 0">
                                 <div ng-repeat='party in parties | filter:searchText' class="row">
@@ -52,7 +36,7 @@
                                         <md-radio-button flex
                                                          ng-value="party"
                                                          class="md-primary">
-                                            <span ng-show="party.properties.first_name">{{party.properties.first_name}} {{party.properties.last_name}}</span>
+                                            <span ng-show="party.properties.full_name">{{party.properties.full_name}}</span>
                                             <span ng-show="party.properties.group_name">{{party.properties.group_name}}</span>
                                         </md-radio-button>
                                     </div>

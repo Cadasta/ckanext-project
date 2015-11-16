@@ -13,25 +13,35 @@ app.controller("relationshipsCtrl", ['tenureTypes','$scope', '$state', '$statePa
             $scope.relationshipFilter = type;
         };
 
-        var promise = relationshipService.getProjectRelationshipsList(cadastaProject.id);
+        var getRelationships = function() {
 
-        promise.then(function (response) {
+            var promise = relationshipService.getProjectRelationshipsList(cadastaProject.id);
 
-            //format dates
-            response.forEach(function (val) {
-                val.properties.time_created = utilityService.formatDate(val.properties.time_created);
-                if (val.properties.acquired_date) {
-                    val.properties.acquired_date = utilityService.formatDate(val.properties.acquired_date);
-                }
+            promise.then(function (response) {
+
+                //format dates
+                response.forEach(function (val) {
+                    val.properties.time_created = utilityService.formatDate(val.properties.time_created);
+                    if (val.properties.acquired_date) {
+                        val.properties.acquired_date = utilityService.formatDate(val.properties.acquired_date);
+                    }
+                });
+
+                $scope.relationships = response;
+
+
+            }, function (err) {
+                $scope.overviewData = "Server Error";
             });
 
-            $scope.relationships = response;
+        }
 
+        getRelationships();
 
-        }, function (err) {
-            $scope.overviewData = "Server Error";
+        // listen for updated field data
+        $scope.$on('updated-field-data', function(e){
+            getRelationships();
         });
-
 
 
         //modal for adding a relationship

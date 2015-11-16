@@ -15,7 +15,8 @@
                     <div class="caption">Name</div>
                     <div>
                         <a ui-sref="tabs.parties.party({id: relationship.properties.party_id})">
-                            {{relationship.properties.first_name}}
+                           <span ng-show="relationship.properties.full_name">{{relationship.properties.full_name}}</span>
+                            <span ng-show="relationship.properties.group_name">{{relationship.properties.group_name}}</span>
                         </a>
                     </div>
                     <div class="caption">Tenure Type</div>

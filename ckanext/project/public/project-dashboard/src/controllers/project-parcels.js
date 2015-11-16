@@ -21,6 +21,10 @@ app.controller("parcelsCtrl", ['tenureTypes','$scope', '$state', '$stateParams',
             getParcels();
         });
 
+        // listen for updated field data
+        $scope.$on('updated-field-data', function(e){
+            getParcels();
+        });
 
         $scope.parcels = [];
         $scope.parcelsList = [];
