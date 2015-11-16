@@ -7,7 +7,7 @@ app.controller("fieldDatumCtrl", ['$scope', '$rootScope', '$state', '$stateParam
         $scope.response = '';
         $scope.progress = 0;
         $scope.formObj = {};
-
+        $scope.toggleSelectAll = {value:true, label:'Select All'};
 
         /**
          * Initialize ag-grid table
@@ -47,18 +47,39 @@ app.controller("fieldDatumCtrl", ['$scope', '$rootScope', '$state', '$stateParam
 
         }
 
-        $scope.selectAll = function() {
+
+        /**
+         * toggle select all button for field data responses
+         */
+        $scope.toggleSelectAllButton = function() {
+            if($scope.toggleSelectAll.value){
+                selectAll();
+            } else {
+                unSelectAll()
+            }
+        };
+
+        /**
+         * Select all respondent ag-Grid check boxes
+         */
+        function selectAll(){
             $scope.gridOptions.api.forEachNode( function (node) {
                 $scope.gridOptions.api.selectNode(node, true);
             });
-        };
+            $scope.toggleSelectAll.value = false;
+            $scope.toggleSelectAll.label = 'UnSelect All';
+        }
 
-        var unselectAll = function() {
+        /**
+         * unSelect all respondent ag-Grid check boxes
+         */
+        function unSelectAll(){
             $scope.gridOptions.api.forEachNode( function (node) {
-                $scope.gridOptions.api.selectNode(node, false);
+                $scope.gridOptions.api.deselectNode(node, true);
             });
-        };
-
+            $scope.toggleSelectAll.value = true;
+            $scope.toggleSelectAll.label = 'Select All';
+        }
 
         $scope.updateStatusRows = function(status) {
 
@@ -77,7 +98,8 @@ app.controller("fieldDatumCtrl", ['$scope', '$rootScope', '$state', '$stateParam
 
                 $scope.successMessage = 'Respondent(s) ' + response.cadasta_validate_respondent + ' have been updated.';
 
-                unselectAll();
+                // unselect all checkboxes
+                unSelectAll();
 
                 $rootScope.$broadcast('updated-field-data');
 
@@ -87,7 +109,6 @@ app.controller("fieldDatumCtrl", ['$scope', '$rootScope', '$state', '$stateParam
                 $scope.errorMessage = 'There was an error updating respondents.';
             });
         }
-
 
         getFieldDataResponses();
 

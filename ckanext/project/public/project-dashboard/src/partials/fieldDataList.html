@@ -13,8 +13,9 @@
                 <button ng-click="item.upload()">upload</button>
             </li>
 
-            <div ng-show="progress>0">progress: {{progress}}</div>
-            <div ng-show="response">status: {{response}}</div>
+            <div>{{progress}}</div>
+            <div class="resource-upload-error" >{{error}}</div>
+
         </div>
 
 

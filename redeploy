@@ -1,0 +1,142 @@
+#!/bin/bash
+#
+# Redploy Cadasta application components
+#
+# Usage: ./redeploy <github username> <github password> <CKAN App deploy environment> <Cadasta API deploy environment>
+#
+# Example Usage: ./redeploy myUsername password staging staging_ec2DB
+#
+
+
+if ([ -z "$1" ] || [ -z "$2" ]  || [ -z "$3" ] || [ -z "$4" ])
+then
+	echo
+	tput setaf 1; echo "Please excute script following arguments: "
+	echo "./redeploy.sh <github username> <github password> <CKAN App deploy environment> <Cadasta API deploy environment>"
+	tput sgr0; echo
+	exit 0
+fi
+username=$1
+password=$2
+ckanAppEnv=$3
+nodeApiEnv=$4
+
+echo
+echo "Updating cadasta-private-settings..."
+echo
+
+################################
+# Update private settings      #
+################################
+cd ~/cadasta-private-settings
+
+# URL encode username and password	
+encodedUsername=$(eval "python -c 'import urllib; print urllib.quote_plus(\"$username\");'")
+encodedPassword=$(eval "python -c 'import urllib; print urllib.quote_plus(\"$password\");'")
+
+settingsRepo="https://$encodedUsername:$encodedPassword@github.com/Cadasta/cadasta-private-settings.git"
+
+git stash
+git pull $settingsRepo master
+
+ 
+
+while true; do
+	tput setaf 5;
+	echo
+    read -p "If the cadasta-private-settings pull was successful, please enter 'go' or 'exit': " goexit
+    echo
+    case $goexit in
+        [go]* ) break;;
+        [exit]* ) exit;;
+        * ) tput setaf 1; echo "Please answer 'go' or 'exit'.";;
+    esac
+done
+
+tput sgr0; 
+
+echo
+echo "Updating cadasta-api..."
+echo
+
+################################
+# Redeploy the cadasta-api     #
+################################
+
+cd ~/cadasta-api
+
+# Update from master branch
+git stash
+git pull origin master
+
+# Copy private settings
+cp ~/cadasta-private-settings/cadasta-api/settings.js ~/cadasta-api/app/settings
+cp ~/cadasta-private-settings/cadasta-api/environment-settings.js ~/cadasta-api/app/settings
+
+sudo rm -rf node_modules
+sudo npm install --silent
+sudo pip -q install -r requirements.txt
+
+# Update API docs
+grunt updateDocs  > /dev/null
+
+# Delete old pm2 process
+sudo pm2 delete all
+
+echo
+echo "Restarting cadasta-api..."
+echo
+
+# Serve the API
+sudo pm2 start app/app.js --name cadasta-api -- --env $nodeApiEnv
+
+# Serve the API documentation
+sudo pm2 start docs-app/app.js --name cadasta-api-docs
+
+# Update the pm2 daemon
+pm2 save
+
+
+################################
+# Redeploy the ckanext-project #
+################################
+
+echo
+echo "Updating ckanext-project..."
+echo
+
+cd /usr/lib/ckan/default/src/ckanext-project
+git stash
+git pull origin master
+
+# Activiate Python virtual environment
+. /usr/lib/ckan/default/bin/activate
+
+# Setup the extenstion
+python setup.py develop
+
+# Update npms
+npm install --silent
+
+# Make sure third party libraries are up-to-date
+bower install
+
+echo
+echo "Rebuilding ckanext-project..."
+echo
+
+# Build environment specific settings
+grunt build --env $ckanAppEnv  > /dev/null
+
+
+echo "Restarting Apache..."
+sudo service apache2 reload
+echo
+
+tput setaf 2;
+echo
+echo "DEPLOYMENT COMPLETED."
+echo
+
+tput sgr0;
+
