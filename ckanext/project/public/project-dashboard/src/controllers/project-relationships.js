@@ -23,7 +23,7 @@ app.controller("relationshipsCtrl", ['tenureTypes','$scope', '$state', '$statePa
                 response.forEach(function (val) {
                     val.properties.time_created = utilityService.formatDate(val.properties.time_created);
                     if (val.properties.acquired_date) {
-                        val.properties.acquired_date = utilityService.formatDate(val.properties.acquired_date);
+                        val.properties.acquired_dateDMY = utilityService.formatDate(val.properties.acquired_date);
                     }
                 });
 

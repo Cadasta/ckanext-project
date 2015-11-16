@@ -154,22 +154,7 @@ var app = angular.module("app")
 
             return deferred.promise;
         };
-
-
-        //todo pass in project_id as a parameter
-        service.getProjectParcels = function(id){
-
-            var deferred = $q.defer();
-
-            $http.get(ENV.apiCadastaRoot + '/parcels?project_id=1', { cache: false })
-                .then(function(response) {
-                    deferred.resolve(response.data);
-                }, function(response) {
-                    deferred.reject(response);
-                });
-
-            return deferred.promise;
-        };
+        
 
         service.submitSurvey = function(){
 

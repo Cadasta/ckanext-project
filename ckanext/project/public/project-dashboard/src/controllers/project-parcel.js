@@ -372,7 +372,7 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
                 }
                 
                 if ($scope.dt) {
-                    $scope.relationship.acquisition_date = $scope.dt.getMonth() + 1 + '/' + $scope.dt.getDate() + '/' + $scope.dt.getFullYear();
+                    $scope.relationship.acquisition_date = new Date($scope.dt.setMinutes( $scope.dt.getTimezoneOffset() ));
                 }
 
                 if ($scope.relationship.party == undefined) {

@@ -121,7 +121,7 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
             $scope.saveNewParty = function(projectId, party){
 
                 if($scope.dt){
-                    party.dob = $scope.dt.getMonth()+1 + '/' +  $scope.dt.getDate() + '/' + $scope.dt.getFullYear();
+                    party.dob =  new Date($scope.dt.setMinutes( $scope.dt.getTimezoneOffset() ));
                 }
 
                 var createParty = partyService.createProjectParty(projectId, party);
