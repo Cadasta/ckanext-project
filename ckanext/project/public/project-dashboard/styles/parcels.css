@@ -399,3 +399,36 @@ md-input-container label {
 .selectFieldDataGrid .ag-blue .ag-row-selected {
     background-color: #c7c7c7;
 }
+
+
+.print {
+    margin-top: -40px;
+    width: 166px;
+    float: right;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+
+@media print {
+    .cadasta-button, .cadasta-round-button, #breadcrumb, #breadcrumb *, .masthead-header, .masthead-header *, .icon-icon_edit, #header a {
+        visibility: hidden;
+    }
+
+    .parcel-history-data{
+        max-height: none;
+    }
+
+    #parcelDetails .section .relationship-container {
+        height: auto;
+
+    }
+
+    #parcelDetails .section {
+        height: auto;
+    }
+
+    #parcelDetails .section .container {
+        height: auto;
+    }
+}

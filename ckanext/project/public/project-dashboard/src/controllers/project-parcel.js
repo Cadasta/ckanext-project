@@ -32,6 +32,10 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
             "weight" : 1
         };
 
+        $scope.print = function() {
+            window.print();
+        }
+
         getParcelResources();
 
         var lat = mapArr[0];
@@ -89,7 +93,6 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
             var promise = parcelService.getProjectParcel(cadastaProject.id, $stateParams.id);
 
             promise.then(function (response) {
-                console.log("[ getParcelDetails ]: ", response);
                 $rootScope.$broadcast('parcel-details', {id: $stateParams.id});
 
                 $scope.parcel = response.properties;
@@ -370,7 +373,7 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
                 if (layer) {
                     layer = layer.toGeoJSON().geometry;
                 }
-                
+
                 if ($scope.dt) {
                     $scope.relationship.acquisition_date = new Date($scope.dt.setMinutes( $scope.dt.getTimezoneOffset() ));
                 }
@@ -654,7 +657,10 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
 
         $scope.myDate = new Date();
 
-    }]);
+
+        }]);
+
+
 
 
 // replace null with '-' for table
