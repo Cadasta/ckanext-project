@@ -88,6 +88,10 @@ get_api_map = {
             'returnGeometry': str,
         }
     ),
+
+    'cadasta_get_project_parties': CadastaEndpoint(
+        '/projects/{project_id}/parties',
+    ),
 }
 
 post_api_map = {
