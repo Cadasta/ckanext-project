@@ -97,7 +97,7 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
                 //// format dates
                 $scope.party.time_created = utilityService.formatDate($scope.party.time_created);
                 $scope.party.time_updated = utilityService.formatDate($scope.party.time_created);
-                $scope.party.dob = utilityService.formatDate($scope.party.dob);
+                $scope.party.dobDMY = utilityService.formatDate($scope.party.dob);
 
                 if (response.properties.relationship_history.length > 0) {
 
@@ -497,12 +497,12 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
 
             $scope.cadastaProjectId = cadastaProject.id;
             $scope.party = party;
-
+            $scope.dt = new Date(party.dob);
 
             $scope.updateParty = function (projectId, party) {
 
                 if($scope.dt){
-                    party.dob = $scope.dt.getMonth()+1 + '/' +  $scope.dt.getDate() + '/' + $scope.dt.getFullYear();
+                    party.dob =  new Date($scope.dt.setMinutes( $scope.dt.getTimezoneOffset() ));
                 }
 
                 var updateParty = partyService.updateProjectParty(projectId, $stateParams.id, party);
