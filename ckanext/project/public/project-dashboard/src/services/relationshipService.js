@@ -11,9 +11,12 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot + '/projects/' + projectId + '/relationships/' + relationshipId + '/details?returnGeometry=true', {cache: false}).
+            $http.get(ENV.apiCKANRoot + '/cadasta_get_project_relationship_details?returnGeometry=true&project_id='+projectId+'&relationship_id='+relationshipId, {cache: false}).
                 then(function (response) {
-                    deferred.resolve(response.data.features[0]);
+                    if(response.data && response.data.error) {
+                        deferred.reject(response.data.error);
+                    }
+                    deferred.resolve(response.data.result.features[0]);
                 }, function (response) {
                     deferred.reject(response);
                 });
@@ -29,9 +32,12 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot + '/projects/' + projectId + '/relationships/relationships_list', {cache: false}).
+            $http.get(ENV.apiCKANRoot + '/cadasta_get_project_relationship_list?project_id='+projectId, {cache: false}).
                 then(function (response) {
-                    deferred.resolve(response.data.features);
+                    if(response.data && response.data.error) {
+                        deferred.reject(response.data.error);
+                    }
+                    deferred.resolve(response.data.result.features);
                 }, function (response) {
                     deferred.reject(response);
                 });
@@ -49,9 +55,12 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot +'/projects/'+ projectId + '/relationships/' + relationshipId + '/resources', { cache: false })
+            $http.get(ENV.apiCKANRoot +'/cadasta_get_project_relationship_resources?project_id='+projectId+'&relationship_id='+relationshipId, { cache: false })
                 .then(function(response) {
-                    deferred.resolve(response.data.features);
+                    if(response.data && response.data.error) {
+                        deferred.reject(response.data.error);
+                    }
+                    deferred.resolve(response.data.result.features);
                 }, function(response) {
                     deferred.reject(response);
                 });
@@ -84,8 +93,9 @@ var app = angular.module("app")
 
             $http({
                 method: "post",
-                url: ENV.apiCadastaRoot + '/projects/' + projectId + '/relationships',
+                url: ENV.apiCKANRoot + '/cadasta_create_project_relationship',
                 data: JSON.stringify({
+                    project_id: projectId, // used for CKAN proxy
                     parcel_id: parcel_id,
                     ckan_user_id: null,
                     party_id: relationship.party.id,
@@ -99,7 +109,10 @@ var app = angular.module("app")
                     'Content-type': 'application/json'
                 }
             }).then(function (response) {
-                deferred.resolve(response.data);
+                if(response.data && response.data.error) {
+                    deferred.reject(response.data.error);
+                }
+                deferred.resolve(response.data.result);
             }, function (response) {
                 deferred.reject(response);
             });
@@ -131,9 +144,11 @@ var app = angular.module("app")
 
 
             $http({
-                method: "patch",
-                url: ENV.apiCadastaRoot + '/projects/' + projectId + '/relationships/' + relationshipId,
+                method: "post",
+                url: ENV.apiCKANRoot + '/cadasta_update_project_relationship',
                 data: JSON.stringify({
+                    project_id: projectId, // used in CKAN proxy
+                    relationship_id: relationshipId, // used in CKAN proxy
                     geojson: geom,
                     tenure_type: relationship.tenure_type,
                     acquired_date: acquired_date,
@@ -144,7 +159,10 @@ var app = angular.module("app")
                     'Content-type': 'application/json'
                 }
             }).then(function (response) {
-                deferred.resolve(response.data);
+                if(response.data && response.data.error) {
+                    deferred.reject(response.data.error);
+                }
+                deferred.resolve(response.data.result);
             }, function (response) {
                 deferred.reject(response);
             });
