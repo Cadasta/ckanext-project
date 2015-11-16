@@ -17,21 +17,6 @@ var app = angular.module("app")
             return date_object_formatted;
         };
 
-        /**
-         * This function takes a DMY timestamp and returns MDY
-         * @returns {*}
-         */
-        service.formatDateDMYtoMDY = function(date){
-            var date_object = new Date(date);
-            var month = date_object.getMonth() + 1;
-            var day = date_object.getDate();
-            var year = date_object.getFullYear();
-            var date_object_formatted = day + "/" + month + "/" + year;
-
-            return date_object_formatted;
-        };
-
-
         return service;
     });
 
