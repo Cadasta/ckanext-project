@@ -1,5 +1,5 @@
-app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$stateParams','relationshipService','$rootScope','paramService', 'utilityService', 'uploadResourceService', '$mdDialog', 'ckanId', 'cadastaProject', 'FileUploader', 'ENV','parcelService', 'partyService', 'USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole', 'PROJECT_RESOURCE_ROLES',
-    function(tenureTypes, $scope, $state, $stateParams, relationshipService,$rootScope,paramService, utilityService, uploadResourceService, $mdDialog, ckanId, cadastaProject, FileUploader, ENV, parcelService, partyService, USER_ROLES, PROJECT_CRUD_ROLES, userRole, PROJECT_RESOURCE_ROLES){
+app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$stateParams','relationshipService','$rootScope','paramService', 'utilityService', '$mdDialog', 'ckanId', 'cadastaProject', 'FileUploader', 'ENV','parcelService', 'partyService', 'USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole', 'PROJECT_RESOURCE_ROLES',
+    function(tenureTypes, $scope, $state, $stateParams, relationshipService,$rootScope,paramService, utilityService, $mdDialog, ckanId, cadastaProject, FileUploader, ENV, parcelService, partyService, USER_ROLES, PROJECT_CRUD_ROLES, userRole, PROJECT_RESOURCE_ROLES){
 
         // Add user's role to the scope
         $scope.showCRUDLink = PROJECT_CRUD_ROLES.indexOf(userRole) > -1;
