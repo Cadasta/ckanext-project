@@ -102,6 +102,28 @@ div.tabcontent {
     background-color: #0d4252;
 }
 
+.select-all-button {
+    background-color: #256c97;
+    color: white;
+    padding: 3px 15px;
+    font-weight: 600;
+    max-height:28px;
+    cursor: pointer;
+    width: 70px;
+}
+
+.select-all-button:hover{
+    background-color: #0d4252;
+}
+
+.select-all-text {
+    text-align: center;
+}
+
+.select-all-wrapper {
+    margin-bottom: 10px;
+}
+
 md-dialog > form {
     overflow:hidden;
 }

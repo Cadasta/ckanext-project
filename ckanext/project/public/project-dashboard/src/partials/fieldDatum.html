@@ -12,7 +12,11 @@
 
     <div id="project-header" >
 
-        <div class="cadasta-round-button" ng-click="selectAll()">Select All</div>
+        <div class="select-all-wrapper" ng-click="toggleSelectAllButton()">
+            <div class="select-all-button">
+                <div class="select-all-text">{{toggleSelectAll.label}}</div>
+            </div>
+        </div>
 
 
         <p class="selected-text" ng-show="selectedCellText"> {{selectedCellText}}</p>

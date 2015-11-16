@@ -5,7 +5,8 @@ app.controller("fieldDataCtrl", ['$scope', '$rootScope', '$state', '$stateParams
     function ($scope, $rootScope, $state, $stateParams, $location, dataService, paramService, FileUploader, ENV, onaService, cadastaProject, fieldDataService, utilityService) {
 
         $scope.response = '';
-        $scope.progress = 0;
+        $scope.error = '';
+        $scope.progress = '';
         $scope.formObj = {};
 
         getFieldData();
@@ -31,20 +32,22 @@ app.controller("fieldDataCtrl", ['$scope', '$rootScope', '$state', '$stateParams
         });
 
         $scope.uploader.onProgressItem = function (item, progress) {
-            $scope.progress = progress;
+            $scope.progress = 'Uploading......';
         };
 
         // triggered when FileItem is has completed .upload()
         $scope.uploader.onCompleteItem = function (fileItem, response, status, headers) {
 
-            $scope.response = response;
-            getFieldData(); // get new field data
-
+            if(response.status == "OK"){
+               $scope.progress = response.msg; 
+               getFieldData(); // get new field data
+            }
         };
 
         $scope.uploader.onErrorItem = function (item, response, status, headers) {
 
-            $scope.response = response;
+            $scope.progress = '';
+            $scope.error = response.msg;
 
         }
 

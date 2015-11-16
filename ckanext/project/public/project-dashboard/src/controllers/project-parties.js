@@ -16,7 +16,6 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
             $scope.PartyTypeModel = type;
         };
 
-
         var columnDefs = [
             {headerName:"Validated", field:"validated"},
             {headerName: "Party ID", field: "id"},
@@ -69,6 +68,10 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
 
                 //get row data
                 response.forEach(function (party) {
+
+                    // set validated to string for ag-grid searching
+                    party.properties.validated = party.properties.validated.toString();
+
                     if (party.properties.group_name){
                         party.properties.party_name = party.properties.group_name;
                     }
@@ -76,6 +79,7 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
                         party.properties.party_name = party.properties.full_name;
                     }
                     partyData.push(party.properties);
+                    console.log(partyData);
                 });
 
 
