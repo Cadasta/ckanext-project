@@ -26,7 +26,7 @@ You'll first need an out-of-the-box CKAN application installed.  See CKAN [docs]
 This extension leverages an additional API and database to store Cadasta specific data (parcels, relationships, survey responses, geometries).  See the [Cadasta API](https://github.com/Cadasta/cadasta-api/blob/master/README.md) repository for installation instructions.
 
 ####Cadasta Application Deployment Script
-A bash script for automating the update and redeployment of the above application components
+A [bash script](https://github.com/Cadasta/ckanext-project/blob/master/redeploy) for automating the update and redeployment of the above application components
 
 ####CKAN API Wrappers For Cadasta
 [Documentation](./docs/ckan-cadasta-wrapped-endpoints.md) showing which CKAN endpoints wrap which [Cadasta API endpoints](https://github.com/Cadasta/cadasta-api/blob/master/README.md)
