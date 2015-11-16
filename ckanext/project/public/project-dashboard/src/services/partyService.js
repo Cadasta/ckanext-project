@@ -35,9 +35,12 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot + '/projects/' + projectId + '/parties/' + partyId + '/details', {cache: false}).
+            $http.get(ENV.apiCKANRoot + '/cadasta_get_project_party_details?project_id=' + projectId + "&party_id=" + partyId, {cache: false}).
                 then(function (response) {
-                    deferred.resolve(response.data.features[0]);
+                     if(response.data && response.data.error) {
+                        deferred.reject(response.data.error);
+                     }
+                    deferred.resolve(response.data.result.features[0]);
                 }, function (response) {
                     deferred.reject(response);
                 });

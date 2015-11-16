@@ -92,6 +92,10 @@ get_api_map = {
     'cadasta_get_project_parties': CadastaEndpoint(
         '/projects/{project_id}/parties',
     ),
+
+    'cadasta_get_project_party_details': CadastaEndpoint(
+        '/projects/{project_id}/parties/{party_id}',
+    ),
 }
 
 post_api_map = {
