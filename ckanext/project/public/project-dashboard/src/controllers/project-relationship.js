@@ -113,7 +113,7 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
                     $scope.relationship  = response;
 
                     if (response.properties.acquired_date) {
-                        response.properties.acquired_date = utilityService.formatDate(response.properties.acquired_date);
+                        response.properties.acquired_dateDMY = utilityService.formatDate(response.properties.acquired_date);
                     }
 
                     //reformat relationship history dates
@@ -225,14 +225,7 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
                 $mdDialog.cancel();
             };
 
-            $scope.dt = null;
-
-            if (relationship.properties.acquired_date) {
-                console.log(relationship.properties.acquired_date);
-                relationship.properties.acquired_date = new Date(relationship.properties.acquired_date.replace(/-/g, '/'));
-                $scope.dt = relationship.properties.acquired_date;
-            }
-
+            $scope.dt = new Date(relationship.properties.acquired_date);
             $scope.cadastaProjectId = cadastaProject.id;
             $scope.relationship = relationship;
 
@@ -269,7 +262,7 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
                 var layer = getLayer();
 
                 if ($scope.dt) {
-                    $scope.relationship.acquired_date = $scope.dt.getMonth() + 1 + '/' + $scope.dt.getDate() + '/' + $scope.dt.getFullYear();
+                    $scope.relationship.acquired_date = new Date($scope.dt.setMinutes( $scope.dt.getTimezoneOffset() ));
                 }
 
                 if (layer === undefined) {
