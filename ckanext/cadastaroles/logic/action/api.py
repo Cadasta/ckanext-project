@@ -88,6 +88,18 @@ get_api_map = {
             'returnGeometry': str,
         }
     ),
+
+    'cadasta_get_project_parties': CadastaEndpoint(
+        '/projects/{project_id}/parties',
+    ),
+
+    'cadasta_get_project_party_details': CadastaEndpoint(
+        '/projects/{project_id}/parties/{party_id}/details',
+    ),
+
+    'cadasta_get_project_party_resources': CadastaEndpoint(
+        '/projects/{project_id}/parties/{party_id}/resources',
+    ),
 }
 
 post_api_map = {
@@ -107,6 +119,9 @@ post_api_map = {
         },
         keep_param_key=True
     ),
+    'cadasta_create_project_party': CadastaEndpoint(
+        '/projects/{project_id}/parties',
+    ),
 }
 
 patch_api_map = {
@@ -124,6 +139,9 @@ patch_api_map = {
         argument_types={
             'geojson': dict, # basically, don't stringify it, leave it
         },
+    ),
+    'cadasta_update_project_party': CadastaEndpoint(
+        '/projects/{project_id}/parties/{party_id}',
     ),
 }
 

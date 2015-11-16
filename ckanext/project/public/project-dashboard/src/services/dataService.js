@@ -10,7 +10,10 @@ var app = angular.module("app")
             // Cadasta API
             $http.get(ENV.apiCKANRoot + '/cadasta_get_all_projects?outputFormat=JSON&ckan_id=' + ckanProjectId, { cache: true })
                 .then(function(response) {
-                    deferred.resolve(response.data.result[0]);
+                     if(response.data && response.data.error) {
+                        deferred.reject(response.data.error);
+                     }
+                     deferred.resolve(response.data.result[0]);
                 }, function(err) {
                     deferred.reject(err);
                 });
