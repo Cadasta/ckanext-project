@@ -115,8 +115,9 @@ var app = angular.module("app")
             if (full_name || group_name) {
                 $http({
                     method: "post",
-                    url: ENV.apiCadastaRoot + '/projects/' + projectId + '/parties',
+                    url: ENV.apiCKANRoot + '/cadasta_create_project_party',
                     data: JSON.stringify({
+                        project_id: projectId, // only used for CKAN proxy
                         full_name: full_name,
                         group_name: group_name,
                         party_type: party_type,
@@ -129,7 +130,10 @@ var app = angular.module("app")
                         'Content-type': 'application/json'
                     }
                 }).then(function (response) {
-                    deferred.resolve(response.data);
+                    if(response.data && response.data.error) {
+                        deferred.reject(response.data.error);
+                     }
+                    deferred.resolve(response.data.result);
                 }, function (response) {
                     deferred.reject(response);
                 });
@@ -164,9 +168,11 @@ var app = angular.module("app")
 
             if (full_name || group_name) {
                 $http({
-                    method: "patch",
-                    url: ENV.apiCadastaRoot + '/projects/' + projectId + '/parties/' + partyId,
+                    method: "post",
+                    url: ENV.apiCKANRoot + '/cadasta_update_project_party',
                     data: JSON.stringify({
+                        project_id: projectId, // only used for CKAN proxy
+                        party_id: partyId, // only used for CKAN proxy
                         full_name: full_name,
                         group_name: group_name,
                         party_type: party_type,
@@ -179,7 +185,10 @@ var app = angular.module("app")
                         'Content-type': 'application/json'
                     }
                 }).then(function (response) {
-                    deferred.resolve(response.data);
+                     if(response.data && response.data.error) {
+                        deferred.reject(response.data.error);
+                     }
+                    deferred.resolve(response.data.result);
                 }, function (response) {
                     deferred.reject(response);
                 });
