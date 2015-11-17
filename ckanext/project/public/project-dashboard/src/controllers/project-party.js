@@ -304,8 +304,7 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
             $scope.relationship = {};
 
             $scope.relationship.party = {};
-            $scope.relationship.party.properties = {};
-            $scope.relationship.party.properties.id = $stateParams.id;
+            $scope.relationship.party.id = $stateParams.id;
 
             $scope.maxDate = new Date();
             $scope.format = 'dd/MM/yyyy';
