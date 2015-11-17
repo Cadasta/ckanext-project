@@ -100,6 +100,21 @@ get_api_map = {
     'cadasta_get_project_party_resources': CadastaEndpoint(
         '/projects/{project_id}/parties/{party_id}/resources',
     ),
+
+    'cadasta_get_project_relationship_details': CadastaEndpoint(
+        '/projects/{project_id}/relationships/{relationship_id}/details',
+        argument_types={
+            'returnGeometry': str,
+        }
+    ),
+
+    'cadasta_get_project_relationship_list': CadastaEndpoint(
+        '/projects/{project_id}/relationships/relationships_list',
+    ),
+
+    'cadasta_get_project_relationship_resources': CadastaEndpoint(
+        '/projects/{project_id}/relationships/{relationship_id}/resources',
+    ),
 }
 
 post_api_map = {
@@ -107,7 +122,6 @@ post_api_map = {
         '/projects',
         argument_types={
             'cadasta_organization_id': int,
-            #'ona_api_key': lambda v: None if v is None else v,
         }
     ),
     'cadasta_create_organization': CadastaEndpoint('/organizations'),
@@ -122,6 +136,14 @@ post_api_map = {
     'cadasta_create_project_party': CadastaEndpoint(
         '/projects/{project_id}/parties',
     ),
+    'cadasta_create_project_relationship': CadastaEndpoint(
+        '/projects/{project_id}/relationships',
+        argument_types={
+            'parcel_id': int,
+            'party_id': int,
+            'geojson': dict, # basically, don't stringify it, leave it
+        },
+    ),
 }
 
 patch_api_map = {
@@ -129,9 +151,6 @@ patch_api_map = {
     'cadasta_delete_organization': CadastaEndpoint('/organizations/{cadasta_organization_id}/archive'),
     'cadasta_update_project': CadastaEndpoint(
         '/projects/{cadasta_project_id}',
-        argument_types={
-            #'ona_api_key': lambda v: None if v is None else v,
-        }
     ),
     'cadasta_delete_project': CadastaEndpoint('/projects/{cadasta_project_id}/archive'),
     'cadasta_update_project_parcel': CadastaEndpoint(
@@ -142,6 +161,12 @@ patch_api_map = {
     ),
     'cadasta_update_project_party': CadastaEndpoint(
         '/projects/{project_id}/parties/{party_id}',
+    ),
+    'cadasta_update_project_relationship': CadastaEndpoint(
+        '/projects/{project_id}/relationships/{relationship_id}',
+        argument_types={
+            'geojson': dict, # basically, don't stringify it, leave it
+        },
     ),
 }
 
