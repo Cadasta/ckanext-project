@@ -187,3 +187,30 @@ li.resource-activity-block {
 .leaflet-bottom.leaflet-right {
     z-index: 50;
 }
+
+
+.field-data .material-icons.right {
+    margin-bottom:25px;
+}
+
+.field-datum .small-heading {
+    margin:20px 0 0 10px;
+}
+
+.field-datum .md-button.md-icon-button {
+    bottom:26px;
+}
+
+.field-datum-back-line {
+    margin:-11px 0 -16px 35px;
+}
+
+.field-datum .cadasta-button {
+    width: 153px;
+    display: inline-block;
+    text-align: center;
+}
+
+#ag-grid.selectFieldDataGrid {
+    height: 350px;
+}
