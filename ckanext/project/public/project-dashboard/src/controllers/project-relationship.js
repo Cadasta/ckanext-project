@@ -174,21 +174,46 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
 
             $scope.uploader = new FileUploader({
                 alias: 'filedata',
-                url: ENV.apiCadastaRoot + '/projects/' + cadastaProject.id + '/relationship/' + $stateParams.id + '/resources'
+                url: ENV.apiCKANRoot + '/cadasta_upload_project_resources'
             });
 
             $scope.uploader.onProgressItem = function (item, progress) {
                 $scope.progress = progress;
             };
 
+            $scope.uploader.onBeforeUploadItem = function (item) {
+                // upload required path params
+                item.formData.push({
+                    project_id: cadastaProject.id,
+                    resource_type: "relationship",
+                    resource_type_id: $stateParams.id
+                });
+            };
+
             // triggered when FileItem is has completed .upload()
             $scope.uploader.onCompleteItem = function (fileItem, response, status, headers) {
-                if (response.message == "Success") {
+                //
+                // ckan api wrappers return a 'result' key for successful calls
+                // and an 'error' key for unsuccessful calls
+                //
+                if (response.result && response.result.message == "Success"){
                     $scope.response = 'File Successfully uploaded.';
                     $scope.error = ''; // clear error
                     $scope.uploader.clearQueue();
 
                     getRelationshipResources();
+                }
+                else if(response.error){
+
+                    if (response.error.type && response.error.type.pop && response.error.type.pop() === "duplicate") {
+                        $scope.error = 'This resource already exists. Rename resource to complete upload.';
+                    }
+                    else if(response.error.message) {
+                        $scope.error = response.error.message;
+                    }
+                    else {
+                        $scope.error = response.error;
+                    }
                 }
             };
 

@@ -51,3 +51,25 @@ angular.module('app.config', [])
             "label": "Carbon rights"
         }
     ])
+.constant('activityTypes', [
+        {
+            type: 'all',
+            label: 'All Activities'
+        },
+        {
+            type: 'parcel',
+            label: 'Parcel Activity'
+        },
+        {
+            type: 'party',
+            label: 'Party Activity'
+        },
+        {
+            type: 'relationship',
+            label: 'Relationship Activity'
+        },
+        {
+            type:'field_data',
+            label:'Field Data Activity'
+        }
+    ])
