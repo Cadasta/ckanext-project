@@ -115,6 +115,14 @@ get_api_map = {
     'cadasta_get_project_relationship_resources': CadastaEndpoint(
         '/projects/{project_id}/relationships/{relationship_id}/resources',
     ),
+
+    'cadasta_get_project_fielddata_responses': CadastaEndpoint(
+        '/projects/{project_id}/fieldData/{field_data_id}/show_responses',
+    ),
+
+    'cadasta_get_project_fielddata': CadastaEndpoint(
+        '/projects/{project_id}/fieldData',
+    ),
 }
 
 post_api_map = {
@@ -168,6 +176,13 @@ patch_api_map = {
             'geojson': dict, # basically, don't stringify it, leave it
         },
     ),
+    'cadasta_update_project_fielddata_respondents': CadastaEndpoint(
+        '/projects/{project_id}/fieldData/{field_data_id}/validate_respondents',
+        argument_types={
+            'respondent_ids': list, # basically, don't stringify it, leave it,
+            'status': int,
+        },
+    ),
 }
 
 post_files_api_map = {
@@ -178,6 +193,11 @@ post_files_api_map = {
     ),
     'cadasta_upload_project_resources': CadastaEndpoint(
         '/projects/{project_id}/{resource_type}/{resource_type_id}/resources',
+        argument_types={'filedata': convert_field_storage},
+        upload_fields=['filedata']
+    ),
+    'cadasta_upload_ona_form': CadastaEndpoint(
+        '/providers/ona/load-form/{project_id}',
         argument_types={'filedata': convert_field_storage},
         upload_fields=['filedata']
     ),

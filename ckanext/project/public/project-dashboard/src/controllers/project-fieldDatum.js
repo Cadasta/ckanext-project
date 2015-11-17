@@ -1,8 +1,8 @@
 var app = angular.module("app");
 
 
-app.controller("fieldDatumCtrl", ['$scope', '$rootScope', '$state', '$stateParams', '$location', 'dataService', 'paramService', 'FileUploader', 'ENV', 'onaService', 'cadastaProject', 'fieldDataService', '$mdDialog',
-    function ($scope, $rootScope, $state, $stateParams, $location, dataService, paramService, FileUploader, ENV, onaService, cadastaProject, fieldDataService, $mdDialog) {
+app.controller("fieldDatumCtrl", ['$scope', '$rootScope', '$state', '$stateParams', '$location', 'dataService', 'paramService', 'FileUploader', 'ENV', 'cadastaProject', 'fieldDataService', '$mdDialog',
+    function ($scope, $rootScope, $state, $stateParams, $location, dataService, paramService, FileUploader, ENV, cadastaProject, fieldDataService, $mdDialog) {
 
 
 
@@ -235,8 +235,15 @@ $scope.toggleSelectAll = {value:true, label:'Select All'};
             // validate xls file
             $scope.uploader = new FileUploader({
                 alias: 'xls_file',
-                url: ENV.apiCadastaRoot + '/providers/ona/load-form/' + cadastaProject.id
+                url: ENV.apiCKANRoot + '/cadasta_upload_ona_form'
             });
+
+            $scope.uploader.onBeforeUploadItem = function (item) {
+                // upload required path params for CKAN to proxy
+                item.formData.push({
+                    project_id: cadastaProject.id
+                });
+            };
 
             $scope.uploader.onProgressItem = function (item, progress) {
                 $scope.progress = progress;

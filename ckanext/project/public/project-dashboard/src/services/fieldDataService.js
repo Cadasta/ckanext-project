@@ -12,9 +12,12 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot + '/projects/' + cadastaProjectId + '/fieldData/' + fieldDataId + '/show_responses', { cache: false })
+            $http.get(ENV.apiCKANRoot + '/cadasta_get_project_fielddata_responses?project_id=' + cadastaProjectId + '&field_data_id=' + fieldDataId, { cache: false })
                 .then(function(response) {
-                    deferred.resolve(response.data);
+                    if(response.data && response.data.error){
+                        deferred.reject(response.data.error);
+                    }
+                    deferred.resolve(response.data.result);
                 }, function(response) {
                     deferred.reject(response);
                 });
@@ -31,9 +34,12 @@ var app = angular.module("app")
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCadastaRoot + '/projects/' + cadastaProjectId + '/fieldData/', { cache: false })
+            $http.get(ENV.apiCKANRoot + '/cadasta_get_project_fielddata?project_id=' + cadastaProjectId, { cache: false })
                 .then(function(response) {
-                    deferred.resolve(response.data);
+                    if(response.data && response.data.error){
+                        deferred.reject(response.data.error);
+                    }
+                    deferred.resolve(response.data.result);
                 }, function(response) {
                     deferred.reject(response);
                 });
@@ -46,9 +52,11 @@ var app = angular.module("app")
             var deferred = $q.defer();
 
             $http({
-                method: "patch",
-                url: ENV.apiCadastaRoot + '/projects/' + cadastaProjectId + '/fieldData/' + fieldDataId + '/validate_respondents',
+                method: "post",
+                url: ENV.apiCKANRoot + '/cadasta_update_project_fielddata_respondents',
                 data: JSON.stringify({
+                    project_id: cadastaProjectId, // only for CKAN proxy
+                    field_data_id: fieldDataId, // only for CKAN proxy
                     respondent_ids : respondent_id_array,
                     status: status
                 }),
@@ -56,7 +64,10 @@ var app = angular.module("app")
                     'Content-type': 'application/json'
                 }
             }).then(function (response) {
-                deferred.resolve(response.data);
+                if(response.data && response.data.error){
+                    deferred.reject(response.data.error);
+                }
+                deferred.resolve(response.data.result);
             }, function (response) {
                 deferred.reject(response);
             });
