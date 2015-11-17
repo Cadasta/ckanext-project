@@ -98,7 +98,7 @@ var app = angular.module("app")
                     project_id: projectId, // used for CKAN proxy
                     parcel_id: parcel_id,
                     ckan_user_id: null,
-                    party_id: relationship.party.id,
+                    party_id: relationship.party.properties.id,
                     geojson: geom,
                     tenure_type: relationship.tenure_type,
                     acquired_date: acquired_date,

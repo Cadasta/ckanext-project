@@ -307,6 +307,9 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
             $scope.relationship.party.properties = {};
             $scope.relationship.party.properties.id = $stateParams.id;
 
+            $scope.maxDate = new Date();
+            $scope.format = 'dd/MM/yyyy';
+
             $scope.saveNewRelationship = function () {
 
                 var layer = getLayer();
@@ -324,6 +327,11 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
                     $scope.relationshipCreated = "tenure required";
                 }
                 else if ((relationshipParcelId != undefined) && ($scope.relationship.tenure_type != undefined)) {
+
+                    if($scope.dt){
+                        $scope.relationship.acquisition_date =  new Date($scope.dt.setMinutes( $scope.dt.getTimezoneOffset() ));
+                    }
+                    $scope.relationship.description = $scope.description;
 
                     var createRelationship = relationshipService.createProjectRelationship(cadastaProject.id, relationshipParcelId, layer, $scope.relationship);
 
@@ -506,8 +514,7 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
             })
         };
 
-        $scope.maxDate = new Date();
-        $scope.format = 'dd/MM/yyyy';
+
 
         function updatePartyCtrl($scope, $mdDialog, $stateParams, party, cadastaProject) {
             $scope.hide = function () {
