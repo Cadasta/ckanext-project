@@ -28,8 +28,27 @@ app.controller("fieldDataCtrl", ['$scope', '$rootScope', '$state', '$stateParams
         // validate xls file
         $scope.uploader = new FileUploader({
             alias: 'xls_file',
-            url: ENV.apiCadastaRoot +'/providers/ona/load-form/' + cadastaProject.id
+            url: ENV.apiCadastaRoot +'/providers/ona/load-form/' + cadastaProject.id,
+            removeAfterUpload:true
         });
+
+        $scope.uploader.onAfterAddingFile = function (item){
+
+            if(item.file.name.indexOf('xls') == -1){
+                item.remove();
+                $scope.error = 'Invalid file type';
+            } else {
+
+                // only allow one file item in the queue
+                if ($scope.uploader.queue.length > 1) {
+                    $scope.uploader.removeFromQueue(0);
+                }
+
+                //clear progress and error messages
+                $scope.progress = '';
+                $scope.error = '';
+            }
+        }
 
         $scope.uploader.onProgressItem = function (item, progress) {
             $scope.progress = 'Uploading......';

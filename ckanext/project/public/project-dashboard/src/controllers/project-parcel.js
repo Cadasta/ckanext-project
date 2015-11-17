@@ -301,7 +301,6 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
             $scope.cadastaProjectId = cadastaProject.id;
             $scope.relationship = {};
 
-
             var columnDefs = [
                 {headerName: "Party ID", field: "id"},
                 {headerName: "Name", field: "party_name"},
@@ -309,21 +308,20 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
                 {headerName: "Active Relationships", field: "num_relationships"}
             ];
 
-
             $scope.selectPartyGridOptions = {
                 columnDefs: columnDefs,
                 rowData: [],
                 enableSorting: true,
+                rowHeight:50,
+                headerHeight:37,
                 rowSelection: 'single',
                 onRowSelected: rowSelectedFunc
             };
-
 
             function rowSelectedFunc(event) {
                 $scope.relationship.party = {};
                 $scope.relationship.party.id = event.node.data.id;
             }
-
 
             var promise = partyService.getProjectParties(cadastaProject.id);
 
@@ -331,7 +329,6 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
                 $scope.parties = response;
 
                 var partyData = [];
-
 
                 //get row data
                 response.forEach(function (party) {
@@ -344,24 +341,18 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
                     partyData.push(party.properties);
                 });
 
-
-
                 // add data to column rows
                 $scope.selectPartyGridOptions.api.setRowData(partyData);
                 $scope.selectPartyGridOptions.api.sizeColumnsToFit();
-
-
 
 
             }, function (err) {
                 $scope.parties = "Server Error";
             });
 
-
             $scope.maxDate = new Date();
 
             $scope.format = 'dd/MM/yyyy';
-
 
             $scope.saveNewRelationship = function () {
 

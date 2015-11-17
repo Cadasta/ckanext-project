@@ -1,8 +1,8 @@
 var app = angular.module("app");
 
 
-app.controller("activityCtrl", ['$scope', '$state', '$stateParams','dataService', 'utilityService', '$rootScope', 'ckanId', 'cadastaProject',
-    function($scope, $state, $stateParams, dataService, utilityService,$rootScope,ckanId, cadastaProject){
+app.controller("activityCtrl", ['activityTypes','$scope', '$state', '$stateParams','dataService', 'utilityService', '$rootScope', 'ckanId', 'cadastaProject',
+    function(activityTypes,$scope, $state, $stateParams, dataService, utilityService,$rootScope,ckanId, cadastaProject){
     if($state.current.name !== "tabs.activity") {
         return;
     }
@@ -33,25 +33,7 @@ app.controller("activityCtrl", ['$scope', '$state', '$stateParams','dataService'
         $scope.ActivityTypeModel = type;
     };
 
-    $scope.activity_types = [
-        {
-            type: 'all',
-            label: 'All Activities'
-        },
-        {
-            type: 'parcel',
-            label: 'Parcel Activity'
-        },
-        {
-            type: 'party',
-            label: 'Party Activity'
-        },
-        {
-            type: 'relationship',
-            label: 'Relationship Activity'
-        }
-    ];
-
+    $scope.activity_types = activityTypes;
 
     // listen for new parcels to get activity
     $scope.$on('new-parcel', function(e){
@@ -89,24 +71,3 @@ app.controller("activityCtrl", ['$scope', '$state', '$stateParams','dataService'
 
     }]);
 
-// custom activity type filter
-app.filter('activityType', function () {
-    return function(inputs,filter_type) {
-        var output = [];
-        switch(filter_type){
-            case 'parcel':
-            case 'relationship':
-            case 'party':
-                //check if array contains filter selection
-                inputs.forEach(function (input) {
-                    if (filter_type.indexOf(input.properties.activity_type) !== -1)
-                        output.push(input);
-                });
-                return output;
-                break;
-
-            default:
-                return inputs;
-        }
-    };
-});

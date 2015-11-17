@@ -65,6 +65,13 @@
                         Relationship {{ activity.properties.id }}</a></span>
                     was updated at {{ activity.properties.time_created }}
                 </li>
+                <li ng-if="activity.properties.activity_type === 'field_data'"
+                    ng-class="{'remove-bottom-border': $index == overviewData.activityList.length-1}"
+                    class="activity-block block">
+                    <span class="bold"><a href="#/fieldData/{{ activity.properties.id }}">
+                        {{ activity.properties.name }}</a></span>
+                    field data form uploaded on {{ activity.properties.time_created }}
+                </li>
             </div>
         </div>
 

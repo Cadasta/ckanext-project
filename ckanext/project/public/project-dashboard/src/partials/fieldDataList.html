@@ -8,10 +8,7 @@
 
             <input type="file" nv-file-select uploader="uploader"/><br/>
 
-            <li ng-repeat="item in uploader.queue">
-                Name: <span ng-bind="item.file.name"></span><br/>
-                <button ng-click="item.upload()">upload</button>
-            </li>
+                <button ng-show="uploader.queue.length==1" ng-click="uploader.queue[0].upload()">upload</button>
 
             <div>{{progress}}</div>
             <div class="resource-upload-error" >{{error}}</div>
