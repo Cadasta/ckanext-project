@@ -1,4 +1,4 @@
 <div id="header">
-    <div class="project-title">{{projectTitle}}</div>
-    <a href="/project/edit/{{projectId}}"><div ng-show="showEditLink" class="icon-icon_edit"></div></a>
+    <div class="project-title">{{projectTitle}}</div><a href="/project/edit/{{projectId}}">edit</a>
+    <div class="cadasta-round-button float-right" ui-sref="tabs.overview.fieldData.fieldDataList" ng-click="alertValidateData()">Validate Field Data</div>
 </div>

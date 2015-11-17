@@ -13,6 +13,7 @@ app.controller("fieldDatumCtrl", ['$scope', '$rootScope', '$state', '$stateParam
                 controller: fieldDatumModalCtrl,
                 parent: angular.element(document.body),
                 clickOutsideToClose: false,
+                escapeToClose: false,
                 locals: {cadastaProject: cadastaProject}
             })
         };
@@ -20,13 +21,24 @@ app.controller("fieldDatumCtrl", ['$scope', '$rootScope', '$state', '$stateParam
 
         fieldDatumModal();
 
-        function fieldDatumModalCtrl($scope, $mdDialog, $stateParams) {
+        $scope.$on('validate-datum', function(e){
+            fieldDatumModal();
+        });
+
+
+        function fieldDatumModalCtrl($scope, $mdDialog, $stateParams, fieldDataService) {
             $scope.hide = function () {
                 $mdDialog.hide();
+                $state.go("tabs.overview.project-overview")
             };
             $scope.cancel = function () {
                 $mdDialog.cancel();
+                $state.go("tabs.overview.project-overview")
             };
+
+            $scope.alertValidateData = function(){
+                $rootScope.$broadcast('validate-data');
+            }
 
 
             $scope.response = '';
@@ -43,14 +55,11 @@ app.controller("fieldDatumCtrl", ['$scope', '$rootScope', '$state', '$stateParam
                 enableSorting: true,
                 enableColResize: true,
                 rowSelection: 'multiple',
-                //onRowSelected: rowSelectedFunc,
                 checkboxSelection: true,
                 suppressRowClickSelection: true,
                 onCellClicked: cellClickedFunction
             };
 
-            //function rowSelectedFunc(event) {
-            //}
 
             $scope.selectedCellText = '';
 

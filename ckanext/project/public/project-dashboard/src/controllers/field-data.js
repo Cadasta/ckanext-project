@@ -9,26 +9,35 @@ app.controller("fieldDataCtrl", ['$scope', '$rootScope', '$state', '$stateParams
         //modal for adding a parcel
         var fieldDataModal = function () {
             $mdDialog.show({
-                templateUrl: '/project-dashboard/src/partials/fieldData.html',
+                templateUrl: '/project-dashboard/src/partials/fieldDataList.html',
                 controller: fieldDataModalCtrl,
                 parent: angular.element(document.body),
                 clickOutsideToClose: false,
-                locals: {cadastaProject: cadastaProject}
+                escapeToClose: false
+                //locals: {cadastaProject: cadastaProject}
             })
         };
 
-
         fieldDataModal();
+
+        $scope.$on('validate-data', function(e){
+            fieldDataModal();
+        });
 
 
         function fieldDataModalCtrl($scope, $mdDialog, $stateParams) {
             $scope.hide = function () {
                 $mdDialog.hide();
+                $state.go("tabs.overview.project-overview");
             };
             $scope.cancel = function () {
                 $mdDialog.cancel();
+                $state.go("tabs.overview.project-overview");
             };
 
+            $scope.alertValidateDatum = function(){
+                $rootScope.$broadcast('validate-datum');
+            }
 
             $scope.response = '';
             $scope.progress = 0;

@@ -3,6 +3,12 @@
 
         <div class="small-heading">Upload XLS form</div>
 
+        <div class="right">
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <i class="material-icons right">clear</i>
+            </md-button>
+        </div>
+
         <div id="field-data-upload">
             <p>Upload an XLS survey format.</p>
 
@@ -33,7 +39,7 @@
         <div id="fieldDataList">
             <table>
                 <tbody>
-                <tr class="row-link" ng-repeat="fd in fieldDataList" ui-sref="^.fieldDatum({id: fd.properties.id})">
+                <tr class="row-link" ng-repeat="fd in fieldDataList" ui-sref="^.fieldDatum({id: fd.properties.id})" ng-click="cancel(); alertValidateDatum() ">
                     <td>{{fd.properties.form_id}}</td>
                     <td>{{fd.properties.id_string}}</td>
                     <td>{{fd.properties.num_submissions}}</td>

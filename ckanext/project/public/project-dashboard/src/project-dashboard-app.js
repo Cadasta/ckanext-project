@@ -147,7 +147,7 @@ var app = angular.module("app",
     // Grandchild State
     states.push({
       name: 'tabs.overview.project-overview',
-      url: '/project-overview',
+      url: '/',
       views: {
         'projectOverviewTab': {
           controller: 'overviewCtrl',
