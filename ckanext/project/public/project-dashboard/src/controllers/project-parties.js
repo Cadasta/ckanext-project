@@ -109,6 +109,7 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
         };
 
 
+        $scope.partyCreatedFeedback = '';
 
         function addPartyCtrl($scope, $mdDialog, $stateParams) {
             $scope.hide = function () {
@@ -133,7 +134,7 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
                 createParty.then(function (response) {
                     if (response.cadasta_party_id){
 
-                        $scope.partyCreated = 'party successfully added';
+                        $scope.partyCreatedFeedback = 'Party successfully added';
 
                         $rootScope.$broadcast('new-party');
                         getParties();
@@ -141,9 +142,9 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
                         $scope.cancel();
                         $state.go("tabs.parties.party", {id:response.cadasta_party_id});
                     }
-                }).catch(function(err){
+                }).catch(function(response){
 
-                    $scope.partyCreated ='unable to create party';
+                    $scope.partyCreatedFeedback ='Unable to create party: ' + response.data.error.message;
                 });
             }
         }
