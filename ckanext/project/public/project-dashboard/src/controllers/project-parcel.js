@@ -32,10 +32,6 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
             "weight" : 1
         };
 
-        $scope.print = function() {
-            window.print();
-        }
-
         getParcelResources();
 
         var lat = mapArr[0];
