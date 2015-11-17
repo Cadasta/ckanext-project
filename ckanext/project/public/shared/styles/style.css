@@ -134,6 +134,7 @@ md-dialog > form {
 
 md-dialog {
     max-height: 95%;
+    max-width: 860px;
 }
 
 p.popup-text {
@@ -150,6 +151,7 @@ p.popup-text {
 
 #ag-table {
     height: 458px;
+    width: 830px;
 }
 
 
