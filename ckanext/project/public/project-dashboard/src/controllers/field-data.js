@@ -107,12 +107,14 @@ app.controller("fieldDataCtrl", ['$scope', '$rootScope', '$state', '$stateParams
                     getFieldData(); // get new field data
 
                 }
-                ;
+                else if (response.result.status === "ERROR"){
+                    $scope.progress = response.result.msg;
+                }
             }
 
             $scope.uploader.onErrorItem = function (item, response, status, headers) {
 
-                $scope.progress = '';
+                $scope.progress = 'ERROR: ';
                 $scope.error = response;
             }
         }
