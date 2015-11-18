@@ -198,8 +198,8 @@ post_files_api_map = {
     ),
     'cadasta_upload_ona_form': CadastaEndpoint(
         '/providers/ona/load-form/{project_id}',
-        argument_types={'filedata': convert_field_storage},
-        upload_fields=['filedata']
+        argument_types={'xls_file': convert_field_storage},
+        upload_fields=['xls_file']
     ),
 }
 
