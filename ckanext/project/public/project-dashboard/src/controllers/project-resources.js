@@ -96,6 +96,10 @@ app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService'
 
     function DialogController($scope, $mdDialog, FileUploader) {
 
+        function resetProgress() {
+            $scope.progress = 0;
+        }
+
         $scope.uploader = new FileUploader({
             alias: 'filedata',
             url: ENV.apiCKANRoot + '/cadasta_upload_project_resources'
@@ -125,6 +129,7 @@ app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService'
                 $scope.response = 'File Successfully uploaded.';
                 $scope.error = ''; // clear error
                 $scope.uploader.clearQueue();
+                resetProgress();
 
                 getResources(false); // get resources, do not cache
                 $rootScope.$broadcast('new-resource'); // broadcast new resources to the app
@@ -158,6 +163,8 @@ app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService'
             }
 
             $scope.uploader.clearQueue();
+            resetProgress();
+
         };
 
         $scope.hide = function() {

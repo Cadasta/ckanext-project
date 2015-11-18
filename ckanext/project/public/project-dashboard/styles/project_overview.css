@@ -4,6 +4,10 @@
     margin-top: 13px;
 }
 
+.modal-no-radius{
+    border-radius: 0;
+}
+
 #project-header {
     height:auto;
     margin: 20px 12px 12px 12px;

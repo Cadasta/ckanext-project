@@ -1,18 +1,21 @@
 <md-dialog aria-label="Add Relationship" class="cadasta-modal resources">
 
     <form name="editParty">
+
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Edit Party</h2>
+                <span flex></span>
+
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <i class="material-icons right">clear</i>
+                </md-button>
+            </div>
+        </md-toolbar>
+
         <md-dialog-content>
             <div class="form_upload_content add-party">
-                <div class="cadasta-modal-header">
-                    <div class="small-heading">
-                        Edit Party
-                    </div>
-                    <div class="right">
-                        <md-button class="md-icon-button" ng-click="cancel()">
-                            <i class="material-icons right">clear</i>
-                        </md-button>
-                    </div>
-                </div>
+
                 <div class="modal-content">
                     <div>
                         <md-radio-group ng-model="party.party_type" ng-init="party.party_type=party.type" >

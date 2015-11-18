@@ -212,6 +212,10 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
                 $mdDialog.cancel();
             };
 
+            function resetProgress() {
+                $scope.progress = 0;
+            }
+
             $scope.uploader = new FileUploader({
                 alias: 'filedata',
                 url: ENV.apiCKANRoot + '/cadasta_upload_project_resources'
@@ -240,6 +244,7 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
                     $scope.response = 'File Successfully uploaded.';
                     $scope.error = ''; // clear error
                     $scope.uploader.clearQueue();
+                    resetProgress();
 
                     getPartyResources();
                     $rootScope.$broadcast('new-resource'); // broadcast new resources to the app
@@ -255,6 +260,8 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
                     else {
                         $scope.error = response.error;
                     }
+
+                    resetProgress();
                 }
             };
 
@@ -273,6 +280,7 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
                 }
 
                 $scope.uploader.clearQueue();
+                resetProgress();
             };
         }
 

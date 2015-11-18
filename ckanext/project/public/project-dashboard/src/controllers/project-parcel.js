@@ -585,6 +585,10 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
                 url: ENV.apiCKANRoot + '/cadasta_upload_project_resources'
             });
 
+            function resetProgress() {
+                $scope.progress = 0;
+            }
+
             $scope.uploader.onBeforeUploadItem = function (item) {
                 // upload required path params for CKAN to proxy
                 item.formData.push({
@@ -593,7 +597,6 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
                     resource_type_id: $stateParams.id
                 });
             };
-
 
             $scope.uploader.onProgressItem = function (item, progress) {
                 $scope.progress = progress;
@@ -610,6 +613,8 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
                     $scope.response = 'File Successfully uploaded.';
                     $scope.error = ''; // clear error
                     $scope.uploader.clearQueue();
+
+                    resetProgress();
 
                     getParcelResources();
                     $rootScope.$broadcast('new-resource'); // broadcast new resources to the app
@@ -643,6 +648,7 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
                 }
 
                 $scope.uploader.clearQueue();
+                resetProgress();
             };
 
         }

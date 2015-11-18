@@ -68,7 +68,7 @@
             </div>
             <div class="section-map">
                 <div id="partyDetailsMap"></div>
-                <div class='cadasta-button float-right' ng-click="updatePartylModal()" ng-show="showCRUDLink"> Update Party Details </div>
+                <div class='cadasta-update-button float-right' ng-click="updatePartylModal()" ng-show="showCRUDLink"> Update Party Details </div>
 
             </div>
         </div>
@@ -136,9 +136,6 @@
                                     <md-menu-content width="2">
                                         <md-menu-item>
                                             <md-button ng-click="showAddResourceModal($event)"> Add Resource </md-button>
-                                        </md-menu-item>
-                                        <md-menu-item>
-                                            <md-button ng-click="ctrl.announceClick($index)"> Download Resources </md-button>
                                         </md-menu-item>
                                     </md-menu-content>
                                 </md-menu>

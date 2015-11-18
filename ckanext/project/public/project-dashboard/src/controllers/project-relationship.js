@@ -112,7 +112,7 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
                 // notify breadcrumbs of relationship selection
                 $rootScope.$broadcast('relationship-details', {id: $stateParams.id});
 
-                //clear layers
+                    //clear layers
                     relationshipGroup.clearLayers();
 
                     // If there are any relationships, load the map and zoom to relationship
@@ -153,6 +153,13 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
             promise
                 .then(function(response){
                     $scope.resources = response;
+
+                    //reformat date created of resources
+                    $scope.resources.forEach(function (resource) {
+                        resource.properties.time_created = utilityService.formatDate(resource.properties.time_created);
+                    });
+
+
                 })
                 .catch(function(err){
                     $scope.error = err;
@@ -187,6 +194,10 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
                 $mdDialog.hide(answer);
             };
 
+            function resetProgress() {
+                $scope.progress = 0;
+            }
+
             $scope.uploader = new FileUploader({
                 alias: 'filedata',
                 url: ENV.apiCKANRoot + '/cadasta_upload_project_resources'
@@ -215,6 +226,7 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
                     $scope.response = 'File Successfully uploaded.';
                     $scope.error = ''; // clear error
                     $scope.uploader.clearQueue();
+                    resetProgress();
 
                     getRelationshipResources();
                 }
@@ -247,10 +259,10 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
                 }
 
                 $scope.uploader.clearQueue();
+                resetProgress();
             };
 
         }
-
 
         $scope.relationshipUpdatedFeedback = '';
         /**
@@ -450,9 +462,9 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
 
 
             //add parcel data to the map
-            var promise = parcelService.getProjectParcel(cadastaProject.id, $scope.relationship.properties.parcel_id);
+            var promiseParcel = parcelService.getProjectParcel(cadastaProject.id, $scope.relationship.properties.parcel_id);
 
-            promise.then(function(response){
+            promiseParcel.then(function(response){
 
                     if(response.geometry !== null){
                         var layer = L.geoJson(response, {style: parcelStyle}).addTo(map);
@@ -462,9 +474,9 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
 
 
             //add relationship extent to the map
-            var promise = relationshipService.getProjectRelationship(cadastaProject.id, $stateParams.id);
+            var promiseRelationship = relationshipService.getProjectRelationship(cadastaProject.id, $stateParams.id);
 
-            promise.then(function(response) {
+            promiseRelationship.then(function(response) {
 
                 if (response.geometry) {
                     var layer = L.geoJson(response, {style: relationshipStyle}).addTo(map);

@@ -132,15 +132,17 @@ app.controller("fieldDatumCtrl", ['$scope', '$rootScope', '$state', '$stateParam
                     getFieldDataResponses();
 
                     $scope.successMessage = 'Respondent(s) ' + response.cadasta_validate_respondent + ' have been updated.';
+                    $scope.errorMessage = '';
 
                     // unselect all checkboxes
-                    unselectAll();
+                    unSelectAll();
 
                     $rootScope.$broadcast('updated-field-data');
 
 
                 }, function (err) {
                     $scope.parties = "Server Error";
+                    $scope.successMessage = '';
                     $scope.errorMessage = 'There was an error updating respondents.';
                 });
             }
