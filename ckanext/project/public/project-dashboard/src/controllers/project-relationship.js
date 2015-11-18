@@ -5,7 +5,6 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
         $scope.showCRUDLink = PROJECT_CRUD_ROLES.indexOf(userRole) > -1;
         $scope.showResourceLink = PROJECT_RESOURCE_ROLES.indexOf(userRole) > -1;
 
-
         var mapStr = $stateParams.map;
 
         $scope.relationship = {};
@@ -15,9 +14,8 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
         $rootScope.$broadcast('tab-change', {tab: 'Relationships'}); // notify breadcrumbs of tab on page load
 
         $scope.clearRelationshipBreadCrumb = function () {
-            $rootScope.$broadcast('clear-inner-relationship-tab');
+            $rootScope.$broadcast('clear-inner-tabs');
         };
-
 
         //parse map query param
         var mapArr = mapStr.substring(1,mapStr.length-1).split(',');
@@ -77,6 +75,7 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
             zoomControl: true
         }).addTo(map);
 
+
         var overlays = {"Mapbox Satellite": satellite, "Standard OpenStreetMap": osm};
 
         L.control.layers(overlays,null, {
@@ -113,10 +112,12 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
         function getRelationship () {
             var promise = relationshipService.getProjectRelationship(cadastaProject.id, $stateParams.id);
 
-            promise
-                .then(function(response){
+            promise.then(function(response){
 
-                    //clear layers
+                // notify breadcrumbs of relationship selection
+                $rootScope.$broadcast('relationship-details', {id: $stateParams.id});
+
+                //clear layers
                     relationshipGroup.clearLayers();
 
                     // If there are any relationships, load the map and zoom to relationship
