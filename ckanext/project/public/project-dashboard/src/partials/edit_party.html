@@ -93,6 +93,9 @@
 
                     </div>
                 </div>
+                <div id="party_updated_feedback" ng-messages="editParty.$error">
+                    <div ng-message="required" class="font-red">{{ partyUpdatedFeedback }}</div>
+                </div>
                 <div class="cadasta-button right parcel-save" ng-click="updateParty(cadastaProjectId, party)">Save Party</div>
             </div>
         </md-dialog-content>

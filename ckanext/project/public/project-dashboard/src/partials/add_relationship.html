@@ -108,9 +108,9 @@
                     </div>
                 </div>
 
-                <!--<div class="resource-upload-error">-->
-                <!--{{relationshipCreated}}-->
-                <!--</div>-->
+                <div id="relationship_creation_feedback" ng-messages="newRelationshipForm.$error">
+                    <div ng-message="required" class="font-red">{{ relationshipCreatedFeedback }}</div>
+                </div>
 
                 <div class="cadasta-button right parcel-save"
                      ng-click="saveNewRelationship(cadastaProjectId, layer, relationship)">Save Relationship

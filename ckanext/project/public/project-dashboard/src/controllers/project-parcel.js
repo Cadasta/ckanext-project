@@ -303,6 +303,7 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
             })
         };
 
+        $scope.relationshipCreatedFeedback = '';
 
         function addRelationshipCtrl($scope, $mdDialog, $stateParams) {
             $scope.hide = function () {
@@ -400,9 +401,8 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
                             $scope.cancel();
 
                         }
-                    }).catch(function(err){
-
-                        $scope.parcelCreated ='unable to create parcel';
+                    }).catch(function(response){
+                        $scope.relationshipCreatedFeedback = 'Unable to create relationship: ' + response.data.error.message;
                     });
 
                 }
