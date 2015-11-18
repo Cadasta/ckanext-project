@@ -96,6 +96,7 @@ div.tabcontent {
     font-weight: 600;
     max-height:28px;
     cursor: pointer;
+    border-radius:0;
 }
 
 .cadasta-round-button:hover {
@@ -151,11 +152,12 @@ p.popup-text {
 
 #ag-table {
     height: 458px;
-    width: 830px;
+    width: 100%;
 }
 
 .field-datum #ag-table {
     height: 350px;
+    width: 830px;
 }
 
 
@@ -263,4 +265,13 @@ p.popup-text {
     display: inline-block;
     margin-right: 16px;
     text-align: center;
+}
+
+
+.cancel {
+    padding: 10px 20px;
+    margin-top: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    float: right;
 }

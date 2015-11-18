@@ -92,8 +92,6 @@ app.controller("projectMapCtrl", ['$scope', '$state', '$stateParams', '$location
 
             promise.then(function (response) {
 
-                console.log(response);
-
                 //clear layers
                 if(projectLayer) {
                     projectLayer.removeLayer();
@@ -115,7 +113,6 @@ app.controller("projectMapCtrl", ['$scope', '$state', '$stateParams', '$location
                 if(response.project.features[0].geometry !== null){
                     map.fitBounds(projectLayer.getBounds());
                 } else if (response.parcels.features.length > 0) {
-                    console.log(response.parcels.features.length)
                     map.fitBounds(parcelGroup.getBounds());
                 } else {
                     map.setView([lat, lng], zoom);
