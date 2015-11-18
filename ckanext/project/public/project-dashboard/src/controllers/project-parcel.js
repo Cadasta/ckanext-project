@@ -401,7 +401,7 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
                             $scope.cancel();
 
                         }
-                    }).catch(function(err){
+                    }).catch(function(response){
                         $scope.relationshipCreatedFeedback = 'Unable to create relationship: ' + response.data.error.message;
                     });
 
