@@ -75,6 +75,17 @@ app.controller("projectMapCtrl", ['$scope', '$state', '$stateParams', '$location
             "marker-color": "#e54573"
         };
 
+        var parcelStyleMarker = {
+            "color": "#e54573",
+            "stroke": true,
+            "weight": 3,
+            "fillOpacity": .1,
+            "opacity": .8,
+            "marker-color": "#e54573",
+            "clickable" : false,
+            "radius": 20
+        };
+
         var ExtentStyle = {
             "color": "#256c97",
             "stroke": "#256c97",
@@ -99,12 +110,22 @@ app.controller("projectMapCtrl", ['$scope', '$state', '$stateParams', '$location
                 parcelGroup.clearLayers();
 
                 // If there is a project extent add it to the map
-                projectLayer = L.geoJson(response.project.features, {style: ExtentStyle});
+                projectLayer = L.geoJson(response.project.features, {
+                    style: ExtentStyle,
+                    pointToLayer: function (feature, latlng) {
+                        return L.circleMarker(latlng, ExtentStyle);
+                    }
+                });
                 projectLayer.addTo(map);
 
                 response.parcels.features.forEach(function (parcel) {
                     var popup_content = '<h3>Parcel ' + parcel.properties.id + '</h3><a href="#/parcels/' + parcel.properties.id + '"> See Full Details<i class="material-icons arrow-forward">arrow_forward</i></a>';
-                    var parcelToAdd = L.geoJson(parcel, {style: parcelStyle});
+                    var parcelToAdd = L.geoJson(parcel, {
+                        style: parcelStyle,
+                        pointToLayer: function (feature, latlng) {
+                            return L.circleMarker(latlng, parcelStyle);
+                        }
+                    });
                     parcelToAdd.bindPopup(popup_content);
                     parcelToAdd.addTo(parcelGroup);
                 });

@@ -23,7 +23,6 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
             "clickable" : false
         };
 
-
         var relationshipStyle = {
             "color": "#FF8000",
             "stroke": "#FF8000",
@@ -153,23 +152,13 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
                     var popup_content = '<h3>Relationship ' + v.properties.id + '</h3><p class="popup-text">Tenure Type:' + v.properties.tenure_type + ' </p><p class="popup-text">Party: ' + name + '</p><a href="#/relationships/' + v.properties.id + '"> See Full Details<i class="material-icons arrow-forward">arrow_forward</i></a>';
 
 
-                    var editIcon = L.icon({
-                        iconUrl: '/images/orange_marker.png',
-                        iconSize: [30, 30]
-
-                    });
-
-
                     if(v.geometry !== null){
-
-                        //check if it is a marker
-                        //if (v.geometry.type === 'Point'){
-                        //    layer = L.marker(v);
-                        //    layer.setIcon(editIcon);
-                        //    layer.addTo(relationshipGroup);
-                        //}
-
-                        layer = L.geoJson(v, {style: relationshipStyle});
+                        layer = L.geoJson(v, {
+                            style: relationshipStyle,
+                            pointToLayer: function (feature, latlng) {
+                                return L.circleMarker(latlng, relationshipStyle);
+                            }
+                        });
                         layer.bindPopup(popup_content);
                         layer.addTo(relationshipGroup);
                         map.fitBounds(layer.getBounds());
@@ -185,7 +174,12 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
 
                 // If there are any parcels, load the map and zoom to parcel
                 if (response.geometry) {
-                    layer = L.geoJson(response, {style: parcelStyle}).addTo(parcelGroup);
+                    layer = L.geoJson(response, {
+                        style: parcelStyle,
+                        pointToLayer: function (feature, latlng) {
+                            return L.circleMarker(latlng, parcelStyle);
+                        }
+                    }).addTo(parcelGroup);
                     map.fitBounds(layer.getBounds());
                 } else {
                     map.setView([lat, lng], zoom);
@@ -521,7 +515,12 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
 
                 if(response.features[0].geometry) {
 
-                    var layer = L.geoJson(response.features[0], {style: extentStyle});
+                    var layer = L.geoJson(response.features[0], {
+                        style: extentStyle,
+                        pointToLayer: function (feature, latlng) {
+                            return L.circleMarker(latlng, extentStyle);
+                        }
+                    });
                     layer.addTo(parcelGroup);
                 }
             });
@@ -538,7 +537,12 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
             };
 
             //add parcel extent to the map
-            var parcelLayer = L.geoJson($scope.parcelObject, {style: parcelStyle});
+            var parcelLayer = L.geoJson($scope.parcelObject, {
+                style: parcelStyle,
+                pointToLayer: function (feature, latlng) {
+                    return L.circleMarker(latlng, parcelStyle);
+                }
+            });
 
             parcelLayer.addTo(map);
 

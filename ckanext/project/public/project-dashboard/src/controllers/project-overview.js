@@ -148,11 +148,21 @@ app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location',
 
                 // If there is a project geom load map and zoom to it; else zoom to parcels
                 if ($scope.overviewData.features[0].geometry) {
-                    layer = L.geoJson($scope.overviewData.features[0], {style: extentStyle});
+                    layer = L.geoJson($scope.overviewData.features[0], {
+                        style: extentStyle,
+                        pointToLayer: function (feature, latlng) {
+                            return L.circleMarker(latlng, extentStyle);
+                        }
+                    });
                     layer.addTo(parcelGroup);
 
                 } else if ($scope.overviewData.features[0].properties.parcels.length > 0 && $scope.overviewData.features[0].properties.parcels[0].geometry) {
-                    layer = L.geoJson($scope.overviewData.features[0].properties.parcels, {style: parcelStyle});
+                    layer = L.geoJson($scope.overviewData.features[0].properties.parcels, {
+                        style: parcelStyle,
+                        pointToLayer: function (feature, latlng) {
+                            return L.circleMarker(latlng, parcelStyle);
+                        }
+                    });
                     layer.addTo(parcelGroup);
                 }
 
