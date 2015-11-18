@@ -137,7 +137,12 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
 
                         // add relationship geometries to map
                         if (val.geometry !== null) {
-                            layer = L.geoJson(val, {style: relationshipStyle});
+                            layer = L.geoJson(val, {
+                                style: relationshipStyle,
+                                pointToLayer: function (feature, latlng) {
+                                    return L.circleMarker(latlng, relationshipStyle);
+                                }
+                            });
                             layer.bindPopup(popup_content);
                             layer.addTo(parcelGroup);
                             map.fitBounds(parcelGroup.getBounds());
@@ -152,7 +157,12 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
                 if (parcels.length > 0) {
                     parcels.forEach(function (p) {
                         if (p.geometry !== null) {
-                            layer = L.geoJson(p, {style: parcelStyle});
+                            layer = L.geoJson(p, {
+                                style: parcelStyle,
+                                pointToLayer: function (feature, latlng) {
+                                    return L.circleMarker(latlng, parcelStyle);
+                                }
+                            });
                             layer.addTo(parcelGroup);
                             map.fitBounds(parcelGroup.getBounds());
                         }
@@ -500,11 +510,21 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
             promise.then(function (response) {
 
                 // If there is a project extent add it to the map
-                projectLayer = L.geoJson(response.project.features, {style: extentStyle});
+                projectLayer = L.geoJson(response.project.features, {
+                    style: extentStyle,
+                    pointToLayer: function (feature, latlng) {
+                        return L.circleMarker(latlng, extentStyle);
+                    }
+                });
                 projectLayer.addTo(map);
 
                 response.parcels.features.forEach(function (parcel) {
-                    var parcelToAdd = L.geoJson(parcel, {style: parcelStyle});
+                    var parcelToAdd = L.geoJson(parcel, {
+                        style: parcelStyle,
+                        pointToLayer: function (feature, latlng) {
+                            return L.circleMarker(latlng, parcelStyle);
+                        }
+                    });
                     parcelToAdd.addTo(parcelGroup);
                 });
 

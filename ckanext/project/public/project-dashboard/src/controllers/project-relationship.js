@@ -97,7 +97,12 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
                 .then(function(response){
 
                     if(response.geometry !== null){
-                        var layer = L.geoJson(response, {style: parcelStyle}).addTo(relationshipGroup);
+                        var layer = L.geoJson(response, {
+                            style: parcelStyle,
+                            pointToLayer: function (feature, latlng) {
+                                return L.circleMarker(latlng, parcelStyle);
+                            }
+                        }).addTo(relationshipGroup);
                         map.fitBounds(layer.getBounds());
                     }
 
@@ -117,7 +122,12 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
 
                     // If there are any relationships, load the map and zoom to relationship
                     if (response.geometry) {
-                        var layer = L.geoJson(response, {style: relationshipStyle}).addTo(relationshipGroup);
+                        var layer = L.geoJson(response, {
+                            style: relationshipStyle,
+                            pointToLayer: function (feature, latlng) {
+                                return L.circleMarker(latlng, relationshipStyle);
+                            }
+                        }).addTo(relationshipGroup);
                         map.fitBounds(layer.getBounds());
                     } else {
                         map.setView([lat, lng], zoom);
@@ -467,7 +477,12 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
             promiseParcel.then(function(response){
 
                     if(response.geometry !== null){
-                        var layer = L.geoJson(response, {style: parcelStyle}).addTo(map);
+                        var layer = L.geoJson(response, {
+                            style: parcelStyle,
+                            pointToLayer: function (feature, latlng) {
+                                return L.circleMarker(latlng, parcelStyle);
+                            }
+                        }).addTo(map);
                         map.fitBounds(layer.getBounds());
                     }
                 });
@@ -479,7 +494,12 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
             promiseRelationship.then(function(response) {
 
                 if (response.geometry) {
-                    var layer = L.geoJson(response, {style: relationshipStyle}).addTo(map);
+                    var layer = L.geoJson(response, {
+                        style: relationshipStyle,
+                        pointToLayer: function (feature, latlng) {
+                            return L.circleMarker(latlng, relationshipStyle);
+                        }
+                    }).addTo(map);
                     map.fitBounds(layer.getBounds());
                 }
                 else {
