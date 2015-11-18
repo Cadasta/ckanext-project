@@ -154,6 +154,11 @@ p.popup-text {
     width: 830px;
 }
 
+.field-datum #ag-table {
+    height: 350px;
+}
+
+
 
 #fieldDataList{
     font-size: 12px;

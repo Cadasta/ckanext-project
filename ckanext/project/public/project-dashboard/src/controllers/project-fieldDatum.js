@@ -1,8 +1,8 @@
 var app = angular.module("app");
 
 
-app.controller("fieldDatumCtrl", ['$scope', '$rootScope', '$state', '$stateParams', '$location', 'dataService', 'paramService', 'FileUploader', 'ENV', 'onaService', 'cadastaProject', 'fieldDataService', '$mdDialog',
-    function ($scope, $rootScope, $state, $stateParams, $location, dataService, paramService, FileUploader, ENV, onaService, cadastaProject, fieldDataService, $mdDialog) {
+app.controller("fieldDatumCtrl", ['$scope', '$rootScope', '$state', '$stateParams', '$location', 'dataService', 'paramService', 'FileUploader', 'ENV', 'cadastaProject', 'fieldDataService', '$mdDialog',
+    function ($scope, $rootScope, $state, $stateParams, $location, dataService, paramService, FileUploader, ENV, cadastaProject, fieldDataService, $mdDialog) {
 
 
 
@@ -14,7 +14,7 @@ app.controller("fieldDatumCtrl", ['$scope', '$rootScope', '$state', '$stateParam
                 parent: angular.element(document.body),
                 clickOutsideToClose: false,
                 escapeToClose: false,
-                locals: {cadastaProject: cadastaProject}
+                locals: {cadastaProject: cadastaProject, fieldDataId: $stateParams.id}
             })
         };
 
@@ -26,7 +26,7 @@ app.controller("fieldDatumCtrl", ['$scope', '$rootScope', '$state', '$stateParam
         });
 
 
-        function fieldDatumModalCtrl($scope, $mdDialog, $stateParams, fieldDataService) {
+        function fieldDatumModalCtrl($scope, $mdDialog, $stateParams, fieldDataService, fieldDataId) {
             $scope.hide = function () {
                 $mdDialog.hide();
                 $state.go("tabs.overview.project-overview")
@@ -41,10 +41,10 @@ app.controller("fieldDatumCtrl", ['$scope', '$rootScope', '$state', '$stateParam
             }
 
 
-        $scope.response = '';
-        $scope.progress = 0;
-        $scope.formObj = {};
-$scope.toggleSelectAll = {value:true, label:'Select All'};
+            $scope.response = '';
+            $scope.progress = 0;
+            $scope.formObj = {};
+            $scope.toggleSelectAll = {value:true, label:'Select All'};
 
 
             /**
@@ -83,38 +83,38 @@ $scope.toggleSelectAll = {value:true, label:'Select All'};
             }
 
 
-        /**
-         * toggle select all button for field data responses
-         */
-        $scope.toggleSelectAllButton = function() {
-            if($scope.toggleSelectAll.value){
-                selectAll();
-            } else {
-                unSelectAll()
+            /**
+             * toggle select all button for field data responses
+             */
+            $scope.toggleSelectAllButton = function() {
+                if($scope.toggleSelectAll.value){
+                    selectAll();
+                } else {
+                    unSelectAll()
+                }
+            };
+
+            /**
+             * Select all respondent ag-Grid check boxes
+             */
+            function selectAll(){
+                $scope.gridOptions.api.forEachNode( function (node) {
+                    $scope.gridOptions.api.selectNode(node, true);
+                });
+                $scope.toggleSelectAll.value = false;
+                $scope.toggleSelectAll.label = 'UnSelect All';
             }
-        };
 
-        /**
-         * Select all respondent ag-Grid check boxes
-         */
-        function selectAll(){
-            $scope.gridOptions.api.forEachNode( function (node) {
-                $scope.gridOptions.api.selectNode(node, true);
-            });
-            $scope.toggleSelectAll.value = false;
-            $scope.toggleSelectAll.label = 'UnSelect All';
-        }
-
-        /**
-         * unSelect all respondent ag-Grid check boxes
-         */
-        function unSelectAll(){
-            $scope.gridOptions.api.forEachNode( function (node) {
-                $scope.gridOptions.api.deselectNode(node, true);
-            });
-            $scope.toggleSelectAll.value = true;
-            $scope.toggleSelectAll.label = 'Select All';
-        }
+            /**
+             * unSelect all respondent ag-Grid check boxes
+             */
+            function unSelectAll(){
+                $scope.gridOptions.api.forEachNode( function (node) {
+                    $scope.gridOptions.api.deselectNode(node, true);
+                });
+                $scope.toggleSelectAll.value = true;
+                $scope.toggleSelectAll.label = 'Select All';
+            }
 
 
 
@@ -131,12 +131,10 @@ $scope.toggleSelectAll = {value:true, label:'Select All'};
                 validate_promise.then(function (response) {
                     getFieldDataResponses();
 
-                    console.log(response);
-
                     $scope.successMessage = 'Respondent(s) ' + response.cadasta_validate_respondent + ' have been updated.';
 
-                // unselect all checkboxes
-		unselectAll();
+                    // unselect all checkboxes
+                    unselectAll();
 
                     $rootScope.$broadcast('updated-field-data');
 
@@ -148,10 +146,14 @@ $scope.toggleSelectAll = {value:true, label:'Select All'};
             }
 
 
-        getFieldDataResponses();
+            getFieldDataResponses();
+
 
             function getFieldDataResponses(updatedRows) {
-                var promise = fieldDataService.getResponses(cadastaProject.id, $stateParams.id);
+
+                console.log (fieldDataId);
+
+                var promise = fieldDataService.getResponses(cadastaProject.id, fieldDataId);
 
 
                 promise.then(function (response) {
@@ -235,8 +237,15 @@ $scope.toggleSelectAll = {value:true, label:'Select All'};
             // validate xls file
             $scope.uploader = new FileUploader({
                 alias: 'xls_file',
-                url: ENV.apiCadastaRoot + '/providers/ona/load-form/' + cadastaProject.id
+                url: ENV.apiCKANRoot + '/cadasta_upload_ona_form'
             });
+
+            $scope.uploader.onBeforeUploadItem = function (item) {
+                // upload required path params for CKAN to proxy
+                item.formData.push({
+                    project_id: cadastaProject.id
+                });
+            };
 
             $scope.uploader.onProgressItem = function (item, progress) {
                 $scope.progress = progress;
