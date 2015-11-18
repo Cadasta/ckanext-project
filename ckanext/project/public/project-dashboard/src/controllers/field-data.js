@@ -1,8 +1,8 @@
 var app = angular.module("app");
 
 
-app.controller("fieldDataCtrl", ['$scope', '$rootScope', '$state', '$stateParams', '$location', 'dataService', 'paramService', 'FileUploader', 'ENV', 'onaService', 'cadastaProject', 'fieldDataService', 'utilityService', '$mdDialog',
-    function ($scope, $rootScope, $state, $stateParams, $location, dataService, paramService, FileUploader, ENV, onaService, cadastaProject, fieldDataService, utilityService, $mdDialog) {
+app.controller("fieldDataCtrl", ['$scope', '$rootScope', '$state', '$stateParams', '$location', 'dataService', 'paramService', 'FileUploader', 'ENV', 'cadastaProject', 'fieldDataService', 'utilityService', '$mdDialog',
+    function ($scope, $rootScope, $state, $stateParams, $location, dataService, paramService, FileUploader, ENV, cadastaProject, fieldDataService, utilityService, $mdDialog) {
 
 
 
@@ -64,9 +64,16 @@ app.controller("fieldDataCtrl", ['$scope', '$rootScope', '$state', '$stateParams
             // validate xls file
             $scope.uploader = new FileUploader({
                 alias: 'xls_file',
-                url: ENV.apiCadastaRoot + '/providers/ona/load-form/' + cadastaProject.id,
+                url: ENV.apiCKANRoot + '/cadasta_upload_ona_form',
                 removeAfterUpload: true
             });
+
+            $scope.uploader.onBeforeUploadItem = function (item) {
+                // upload required path params for CKAN to proxy
+                item.formData.push({
+                    project_id: cadastaProject.id
+                });
+            };
 
             $scope.uploader.onAfterAddingFile = function (item) {
 
@@ -94,19 +101,21 @@ app.controller("fieldDataCtrl", ['$scope', '$rootScope', '$state', '$stateParams
             // triggered when FileItem is has completed .upload()
             $scope.uploader.onCompleteItem = function (fileItem, response, status, headers) {
 
-                if (response.status == "OK") {
-                    $scope.progress = response.msg;
+                if (response.result.status == "OK") {
+                    $scope.progress = response.result.msg;
 
                     getFieldData(); // get new field data
 
                 }
-                ;
+                else if (response.result.status === "ERROR"){
+                    $scope.progress = response.result.msg;
+                }
             }
 
             $scope.uploader.onErrorItem = function (item, response, status, headers) {
 
-                $scope.progress = '';
-                $scope.error = response.msg;
+                $scope.progress = 'ERROR: ';
+                $scope.error = response;
             }
         }
     }]);
