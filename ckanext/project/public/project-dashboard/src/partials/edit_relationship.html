@@ -1,6 +1,6 @@
 <md-dialog aria-label="Add Relationship" class="cadasta-modal resources">
 
-    <form>
+    <form name="updateRelationshipForm">
         <md-dialog-content>
             <div class="form_upload_content add-relationship">
                 <div class="cadasta-modal-header">
@@ -83,11 +83,9 @@
                     </div>
                 </div>
 
-                <div class="resource-upload-error">
-                    {{relationshipCreated}}
-                    {{ relationship.acquisition_date }}
+                <div id="relationship_update_feedback" ng-messages="updateRelationshipForm.$error">
+                    <div ng-message="required" class="font-red">{{ relationshipUpdatedFeedback }}</div>
                 </div>
-
                 <div class="cadasta-button right parcel-save"
                      ng-click="updateRelationship(cadastaProjectId, relationshipId, layer, relationship)">Update
                     Relationship

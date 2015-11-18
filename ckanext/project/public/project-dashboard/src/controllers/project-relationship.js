@@ -250,12 +250,12 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
 
         }
 
+
+        $scope.relationshipUpdatedFeedback = '';
         /**
          * Functions related to the update relationship modal
          * @returns {*}
          */
-
-
         function updateRelationshipCtrl($scope, $mdDialog, $stateParams, cadastaProject, relationship) {
             $scope.hide = function () {
                 $mdDialog.hide();
@@ -320,9 +320,8 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
 
                         $scope.cancel();
                     }
-                }).catch(function(err){
-
-                    $scope.relationshipCreated ='unable to update relationship';
+                }).catch(function(response){
+                    $scope.relationshipUpdatedFeedback = 'Unable to update relationship: ' + response.data.error.message;
                 });
 
             }

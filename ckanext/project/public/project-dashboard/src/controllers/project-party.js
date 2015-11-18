@@ -305,6 +305,7 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
             return $scope.relationshipParcelId;
         }
 
+        $scope.relationshipCreatedFeedback = '';
 
         function addRelationshipCtrl($scope, $mdDialog, $stateParams) {
             $scope.hide = function () {
@@ -357,9 +358,8 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
 
                             $scope.cancel();
                         }
-                    }).catch(function (err) {
-
-                        $scope.parcelCreated = 'unable to create parcel';
+                    }).catch(function (response) {
+                        $scope.relationshipCreatedFeedback = 'Unable to create relationship: ' + response.data.error.message;
                     });
 
                 }
@@ -540,7 +540,7 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
             })
         };
 
-
+        $scope.partyUpdatedFeedback = '';
 
         function updatePartyCtrl($scope, $mdDialog, $stateParams, party, cadastaProject) {
             $scope.hide = function () {
@@ -568,16 +568,15 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
                 updateParty.then(function (response) {
                     if (response.cadasta_party_id) {
 
-                        $scope.partyCreated = 'party successfully updated';
+                        $scope.partyUpdatedFeedback = 'party successfully updated';
 
                         $rootScope.$broadcast('updated-party');
                         getPartyDetails();
 
                         $scope.cancel();
                     }
-                }).catch(function (err) {
-                    $scope.partyCreated = 'unable to update party';
-
+                }).catch(function (response) {
+                    $scope.partyUpdatedFeedback ='Unable to update party: ' + response.data.error.message;
                 });
 
 
