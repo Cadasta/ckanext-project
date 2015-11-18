@@ -93,9 +93,7 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
         //layer for adding relationships
         var relationshipGroup = L.featureGroup().addTo(map);
 
-
         getParcelDetails();
-
 
         function getParcelDetails() {
 
@@ -104,6 +102,8 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
             var promise = parcelService.getProjectParcel(cadastaProject.id, $stateParams.id);
 
             promise.then(function (response) {
+
+                // notify breadcrumbs of parcel selection
                 $rootScope.$broadcast('parcel-details', {id: $stateParams.id});
 
                 $scope.parcel = response.properties;

@@ -7,10 +7,8 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
 
         $rootScope.$broadcast('tab-change', {tab: 'Parties'}); // notify breadcrumbs of tab on page load
 
-        $rootScope.$broadcast('party-details', {id: $stateParams.id});
-
         $scope.clearPartyBreadCrumb = function () {
-            $rootScope.$broadcast('clear-inner-party-tab');
+            $rootScope.$broadcast('clear-inner-tabs');
         };
 
         $scope.toggleDropdownDetails = function (obj) {
@@ -89,7 +87,6 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
         var parcelGroup = L.featureGroup().addTo(map);
         var relationshipGroup = L.featureGroup().addTo(map);
 
-
         getPartyDetails();
         getPartyResources();
 
@@ -101,6 +98,7 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
 
             promise.then(function (response) {
 
+                // notify breadcrumbs  of party selection
                 $rootScope.$broadcast('party-details', {id: $stateParams.id});
 
                 $scope.party = response.properties;
