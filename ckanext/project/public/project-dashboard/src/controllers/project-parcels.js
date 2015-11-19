@@ -132,7 +132,7 @@ app.controller("parcelsCtrl", ['tenureTypes','$scope', '$state', '$stateParams',
 
             promise.then(function(response) {
                 // If there is a project geom load map and zoom to it; else zoom to parcels
-                console.log(response);
+
                 var layer;
 
                 var extentStyle = {
