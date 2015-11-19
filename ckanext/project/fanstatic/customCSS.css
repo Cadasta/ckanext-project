@@ -15,6 +15,11 @@ body {
     background-color: #eef2f5;
 }
 
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+    font-family: 'Open Sans', sans-serif;;
+    font-size: 12px;
+}
+
 
 .clearfix:before, .clearfix:after {
     content: " ";
@@ -503,7 +508,7 @@ input[type="text"] {
 }
 
 #profile_options {
-    margin-right: 15px;
+    margin-right: 20px;
     display:inline-block;
 }
 
@@ -710,6 +715,8 @@ input[type="text"].register-input :focus {
 
 .login-block .form-horizontal .control-group {
     margin-bottom: 30px;
+    display: inline-block;
+    width: auto;
 }
 
 .login-block .form-horizontal .controls {
@@ -907,9 +914,12 @@ input[type="text"].register-input :focus {
 }
 
 .control-group.control-medium {
-    width: 85%;
+    width: 40%;
     margin-left: auto;
     margin-right: auto;
+    display: inline-block;
+    padding-left: 64px;
+    /*margin-top:20px;*/
 }
 
 .form-horizontal .controls {
@@ -956,16 +966,16 @@ input[type="text"].register-input :focus {
     margin-left:64px;
 }
 
-.save-new {
-    margin: 20px 0 30px 504px;
-}
+/*.save-new {*/
+    /*margin: 20px 0 30px 504px;*/
+/*}*/
 
 .save-new .cadasta-button {
     margin: 20px 0;
 }
 
 .save-new.org {
-    margin:20px 0 30px 540px;
+    padding:6px 0 56px 0;
 }
 .save-new.org .cadasta-button-simple {
     position: relative;
@@ -973,10 +983,17 @@ input[type="text"].register-input :focus {
     font-size: 12px;
 }
 
+.save-new .cadasta-button.save-org {
+    margin: 38px 64px 0 -62px;
+    float:right;
+}
 
-/*.control-required-message {*/
-    /*margin: 30px 0 0 64px;*/
-/*}*/
+
+.control-required-message {
+    margin: 51px 0 0 64px;
+    width: 150px;
+    display: inline-block;
+}
 
 
 
@@ -1062,7 +1079,7 @@ input[type="text"].register-input :focus {
 }
 
 .right-footer {
-    margin-right: 70px;
+    margin-right: -8px;
     float:right;
     position: relative;
     top: 9px;
@@ -1359,7 +1376,7 @@ input[type="text"].register-input :focus {
 }
 
 #organization-edit-form .control-group.control-full {
-    margin: 30px 0 0 64px;
+    margin: 0 0 0 64px;
 }
 
 #organization-edit-form .controls.editor {
@@ -1490,7 +1507,7 @@ input[type="text"].register-input :focus {
 /*}*/
 
 .js .image-upload #field-image-url {
-    max-width: 725px;
+    max-width: 700px;
 }
 
 .js .image-upload .btn {
@@ -1524,9 +1541,11 @@ label {
 
 .org-header a {
     position: relative;
-    top: 26px;
-    padding-right:28px;
-    float:right;
+    top: 31px;
+    padding-left: 35px;
+    float: left;
+    font-size: 12px;
+    font-weight: 400;
 }
 
 #splash-overlay {
@@ -1553,6 +1572,7 @@ label {
 #splash-page img {
     width: 100%;
     height: 100%;
+    overflow-x:hidden;
 }
 
 #splash-page {
@@ -1623,6 +1643,26 @@ label {
     padding-left: 20px;
 }
 
+#project-list table td {
+    width: 400px;
+}
+
+#project-list table td:first-of-type {
+    width:215px;
+}
+
+#project-list table td:last-of-type {
+    width:160px;
+}
+
+
+#project-list-table-header th:first-of-type {
+    width:215px;
+}
+
+#project-list-table-header th:last-of-type {
+    width:160px;
+}
 
 .userpage .cadasta-round-button {
     background-color: #256c97;
@@ -1713,6 +1753,7 @@ label {
     top: 30px;
     left: 25px;
     font-weight: bold;
+    float:left;
 }
 
 #org-members-add {
@@ -1770,4 +1811,39 @@ label {
 
 #member-table .manage-button.red-button:hover {
     color: red;
+}
+
+
+.cancel {
+    float: right;
+    top: 49px;
+    position: relative;
+    right: 86px;
+    font-size: 14px;
+    color: #444444;
+}
+
+
+
+.control-group.cadasta-input.visibility {
+    display: inline-block;
+    margin-right: 117px;
+}
+
+
+#field-province_state, #field-url, #field-orgURL {
+    width:305px;
+}
+
+.control-group.control-medium.cadasta-org-input.margin-top {
+    margin-top:20px;
+}
+
+.ckan-active-breadcrumb {
+    font-weight: 500;
+    color: #8b8b8b;
+    cursor: default;
+    font-size: 10px;
+    bottom: 8px;
+    position: relative;
 }

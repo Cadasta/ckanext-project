@@ -7,7 +7,8 @@ var app = angular.module("app")
          * This function formats a timestamp and returns it into a simple date dd/mm/yyyy
          * @returns {*}
          */
-        service.formatDate = function(date){
+        service.formatDate = function(dateString){
+            var date = dateString.split("-").join("/").replace( /\.[0-9]+/g, '' );
             var date_object = new Date(date);
             var month = date_object.getMonth() + 1;
             var day = date_object.getDate();

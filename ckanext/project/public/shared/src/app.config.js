@@ -1,6 +1,7 @@
 angular.module('app.config', [])
 
 .constant('USER_ROLES', ['public', 'surveyor', 'editor', 'admin'])
+    .constant('TABS_USER_ROLES', [ 'surveyor', 'editor', 'admin'])
 .constant('PROJECT_CRUD_ROLES', ['editor', 'admin', 'sysadmin'])
 .constant('PROJECT_RESOURCE_ROLES', ['surveyor', 'editor', 'admin', 'sysadmin'])
 .constant('sortByParcel', [{label: 'None', type: 'all'}, {label: 'Parcel ID', type: 'id'}, {label: 'Number of Active Relationships', type: 'num_relationships'}, {label: 'Date Created', type: 'time_created'}])
