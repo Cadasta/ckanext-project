@@ -20,7 +20,7 @@
                         </a>
                     </div>
                     <div class="caption">Tenure Type</div>
-                    <div>{{relationship.properties.tenure_type }} </div>
+                    <div>{{relationship.properties.tenure_type | capitalize}} </div>
                     <div class="caption">How Acquired</div>
                     <div>{{relationship.properties.how_acquired | emptyString }} </div>
                     <div class="caption">Date Acquired</div>
@@ -70,7 +70,7 @@
                     <tr ng-repeat="rh in relationship_history">
                         <td>{{rh.properties.version}}</td>
                         <td>{{rh.properties.time_updated | emptyString}}</td>
-                        <td>{{rh.properties.relationship_type}}</td>
+                        <td>{{rh.properties.relationship_type | capitalize}}</td>
                         <td>{{rh.properties.area | number:2 | emptyString}}</td>
                         <td>{{rh.properties.length | number:2 | emptyString}}</td>
                         <td>{{rh.properties.description | emptyString}}</td>

@@ -90,7 +90,7 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
         var parcelGroup = L.featureGroup().addTo(map);
 
         //layer for adding relationships
-        var relationshipGroup = L.featureGroup().addTo(map);
+//         var relationshipGroup = L.featureGroup().addTo(map);
 
         getParcelDetails();
 
@@ -136,7 +136,7 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
 
                 $scope.relationship_history = response.properties.relationship_history;
 
-                relationshipGroup.clearLayers();
+//                 relationshipGroup.clearLayers();
                 parcelGroup.clearLayers();
 
                 //update values for UI
@@ -160,8 +160,8 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
                             }
                         });
                         layer.bindPopup(popup_content);
-                        layer.addTo(relationshipGroup);
-                        map.fitBounds(layer.getBounds());
+                        layer.addTo(parcelGroup);
+//                         map.fitBounds(parcelGroup.getBounds());
                     }
 
 
@@ -180,7 +180,8 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
                             return L.circleMarker(latlng, parcelStyle);
                         }
                     }).addTo(parcelGroup);
-                    map.fitBounds(layer.getBounds());
+                    map.fitBounds(parcelGroup.getBounds());
+
                 } else {
                     map.setView([lat, lng], zoom);
                 }

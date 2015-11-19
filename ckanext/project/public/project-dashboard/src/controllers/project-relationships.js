@@ -132,28 +132,7 @@ app.controller("relationshipsCtrl", ['tenureTypes','$scope', '$state', '$statePa
 
         $scope.sort_by = sortByRelationship;
 
-        $scope.tenure_types = [
-            {
-                type: 'all',
-                label: 'All Types'
-            },
-            {
-                type: 'own',
-                label: 'Own'
-            },
-            {
-                type: 'lease',
-                label: 'Lease'
-            },
-            {
-                type: 'occupy',
-                label: 'Occupy'
-            },
-            {
-                type: 'informal occupy',
-                label: 'Informally Occupy'
-            }
-        ];
+        $scope.tenure_types = tenureTypes;
 
 
     }]);

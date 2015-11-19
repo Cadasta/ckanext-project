@@ -103,7 +103,11 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
                                 return L.circleMarker(latlng, parcelStyle);
                             }
                         }).addTo(relationshipGroup);
-                        map.fitBounds(layer.getBounds());
+
+                        // zoom to parcel bounds if there is no relationship geometry
+                        if(Object.keys(relationshipGroup._layers).length == 1){
+                            map.fitBounds(relationshipGroup.getBounds());
+                        }
                     }
 
                 })
@@ -128,7 +132,9 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
                                 return L.circleMarker(latlng, relationshipStyle);
                             }
                         }).addTo(relationshipGroup);
-                        map.fitBounds(layer.getBounds());
+
+                        map.fitBounds(relationshipGroup.getBounds());
+
                     } else {
                         map.setView([lat, lng], zoom);
                     }

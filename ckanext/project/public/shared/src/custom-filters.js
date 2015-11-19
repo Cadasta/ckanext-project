@@ -69,6 +69,14 @@ angular.module('app.filters', [])
                 case 'joint tenancy':
                 case 'tenancy in common':
                 case 'undivided co-ownership':
+                case 'freehold':
+                case 'long term leasehold':
+                case 'leasehold':
+                case 'customary rights':
+                case 'occupancy':
+                case 'tenancy':
+                case 'hunting/fishing/harvest rights':
+                case 'grazing rights':
                     //check if array contains filter selection
                     inputs.forEach(function (input, i) {
                         if (input.properties.tenure_type.indexOf(filter_type) !== -1) {
