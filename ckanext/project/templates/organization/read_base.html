@@ -20,7 +20,7 @@
         <img src="{{ c.group_dict.image_display_url or h.url_for_static('/base/images/placeholder-organization.png') }}" alt="{{ c.group_dict.name }}">
     </div>
     <span>{{ c.group_dict.title }}</span>
-    <a href="/project/edit/{{projectId}}">edit</a>
+    <a href="/project/edit/{{c.group_dict.name}}">edit</a>
 
     {% if h.check_access('organization_update', {'id': c.group_dict.id}) %}
     <!--<a href="/organization/edit/{{c.group_dict.name}}"><div class="icon-icon_edit"></div></a>-->
