@@ -10,6 +10,7 @@ app.controller("headerCtrl", ['$scope', '$rootScope','$state', '$stateParams','$
     // Add user's role to the scope
     $scope.showEditLink = PROJECT_CRUD_ROLES.indexOf(userRole) > -1 ? true : false;
 
+
     $scope.alertValidateData = function(){
             $rootScope.$broadcast('validate-data');
         }

@@ -79,7 +79,6 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
                         party.properties.party_name = party.properties.full_name;
                     }
                     partyData.push(party.properties);
-                    console.log(partyData);
                 });
 
 
