@@ -109,7 +109,10 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
                 //// format dates
                 $scope.party.time_created = utilityService.formatDate($scope.party.time_created);
                 $scope.party.time_updated = utilityService.formatDate($scope.party.time_created);
-                $scope.party.dobDMY = utilityService.formatDate($scope.party.dob);
+                
+                if($scope.party.dob !== null){
+                   $scope.party.dobDMY = utilityService.formatDate($scope.party.dob);                        
+                }
 
                 if (response.properties.relationship_history.length > 0) {
 
