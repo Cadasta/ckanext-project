@@ -151,7 +151,7 @@
 #parcelDetails .section .relationship-container {
     height: 221px;
     overflow-y: auto;
-    width: 500px;
+    width: 355px;
 }
 
 #parcelDetails .section .title {
@@ -306,7 +306,7 @@
     top:15px;
 }
 
-#parcelDetails .section-map .cadasta-button {
+#parcelDetails .section-map .cadasta-update-button {
     position: relative;
     bottom: 312px;
 }
@@ -387,7 +387,7 @@ md-input-container label {
 }
 
 #selectPartyGrid {
-    width: 730px;
+    width: 627px;
     border: 1px solid #dcdfe1;
 }
 
@@ -398,4 +398,119 @@ md-input-container label {
 
 .selectFieldDataGrid .ag-blue .ag-row-selected {
     background-color: #c7c7c7;
+}
+
+
+.print {
+    margin-top: -40px;
+    width: 166px;
+    float: right;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.data-upload-button {
+    margin-left:0;
+}
+
+.cadasta-update-button {
+    background-color: #256C97;
+    border: none;
+    color: white;
+    padding: 6px 10px;
+    margin-top: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 10px;
+}
+
+
+@media print {
+
+
+
+    .back-link, #project-tabs, #project-tabs *, .cadasta-button, .cadasta-round-button, #breadcrumb, #breadcrumb *, .masthead-header, .masthead-header *, .icon-icon_edit, #header a {
+        visibility: hidden;
+
+    }
+
+    #project-tabs {
+        height:0px;
+    }
+
+    #parcelDetails .back-link {
+        height:1px;
+    }
+
+    .cadasta-button{
+        height:1px;
+    }
+
+    .parcel-history-data{
+        max-height: none;
+    }
+
+    #parcelDetails .section .container {
+        padding: 20px 10px;
+        width: 340px;
+        height: auto;
+    }
+
+    #parcelDetails .section {
+        width: 370px;
+        height: auto;
+        display: inline-block;
+        margin: 2px 10px 0 0;
+        float: none;
+    }
+
+    #parcelDetails .section .relationship-container {
+        height: 221px;
+        overflow-y: visible;
+        width: 355px;
+    }
+
+    /*#parcelDetails .section-map {*/
+    /*border: 1px solid #dcdfe1;*/
+    /*width: 450px;*/
+    /*height: 291px;*/
+    /*display: inline-block;*/
+    /*margin: 2px 0 0;*/
+    /*position: ab;*/
+    /*bottom: 327px;*/
+    /*left: 374px;*/
+    /*}*/
+
+    #parcelDetails .overview {
+        height: auto;
+        padding: 12px;
+        background-color: #fff;
+    }
+
+    #parcelDetails .details-container {
+        border: 1px solid #dcdfe1;
+        height: auto;
+    }
+
+    #parcelDetails .history-container {
+        border: 1px solid #dcdfe1;
+        margin: 40px 0 0;
+        float: left;
+    }
+
+    .print {
+        margin-top: 0;
+        width: 0;
+        float: none;
+        margin-bottom: 0;
+    }
+    .cadasta-button {
+        padding: 0;
+    }
+
+    #parcelDetails .section-map {
+        float: none;
+    }
 }

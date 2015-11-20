@@ -1,18 +1,20 @@
 <md-dialog aria-label="Add Relationship" class="cadasta-modal resources">
 
-    <form>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Edit Relationship</h2>
+            <span flex></span>
+
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <i class="material-icons right">clear</i>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <form name="updateRelationshipForm">
         <md-dialog-content>
             <div class="form_upload_content add-relationship">
-                <div class="cadasta-modal-header">
-                    <div class="small-heading">
-                        Edit Relationship
-                    </div>
-                    <div class="right">
-                        <md-button class="md-icon-button" ng-click="cancel()">
-                            <i class="material-icons right">clear</i>
-                        </md-button>
-                    </div>
-                </div>
+
                 <div class="modal-content">
                     <md-content layout-padding>
                         <form name="userForm">
@@ -34,19 +36,10 @@
                                 </md-input-container>
                             </div>
 
-                            <!--<md-input-container>-->
-                                <!--<label>Date Acquired</label>-->
-                                <!--<md-datepicker md-max-date="maxDate"-->
-                                               <!--ng-model="relationship.acquired_date"-->
-                                               <!--md-placeholder="{{relationship.properties.acquired_date | date : format : 'M/d/yyyy'}}"></md-datepicker>-->
-                            <!--</md-input-container>-->
-
-
 
                             When was the parcel acquired?
-
                             <div id="custom-date-picker">
-                                <pre>Selected date is: <em>{{dt | date:format:'dd/MM/yyyy' }}</em></pre>
+                                <p>Selected date is: {{dt | date:format:'dd/MM/yyyy' }}</p>
 
                                 <div style="display:inline-block">
                                     <uib-datepicker ng-model="dt" format-day="dd" format-month="MM" format-year="yyyy"
@@ -83,11 +76,9 @@
                     </div>
                 </div>
 
-                <div class="resource-upload-error">
-                    {{relationshipCreated}}
-                    {{ relationship.acquisition_date }}
+                <div id="relationship_update_feedback" ng-messages="updateRelationshipForm.$error">
+                    <div ng-message="required" class="font-red">{{ relationshipUpdatedFeedback }}</div>
                 </div>
-
                 <div class="cadasta-button right parcel-save"
                      ng-click="updateRelationship(cadastaProjectId, relationshipId, layer, relationship)">Update
                     Relationship

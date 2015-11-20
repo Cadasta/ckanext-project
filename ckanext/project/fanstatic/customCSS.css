@@ -15,6 +15,11 @@ body {
     background-color: #eef2f5;
 }
 
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+    font-family: 'Open Sans', sans-serif;;
+    font-size: 12px;
+}
+
 
 .clearfix:before, .clearfix:after {
     content: " ";
@@ -53,6 +58,10 @@ body {
     display: inline-block;
 }
 
+.home-breadcrumb {
+    cursor: pointer;
+}
+
 #sub-nav {
     display: none;
     position: relative;
@@ -63,7 +72,7 @@ body {
     border-bottom-style: none;
     width: 150px;
     top: 6px;
-    right: 14px;
+    right: 28px;
     z-index: 1;
     float: right;
 }
@@ -72,6 +81,11 @@ body {
     padding: 10px 25px;
     border-bottom: 1px solid #dcdfe1;
     cursor: pointer;
+    font-weight: 600;
+}
+
+#sub-nav .dropdown-item:hover {
+    color:#256C97;
 }
 
 .toolbar {
@@ -394,7 +408,7 @@ form .lang-select {
 }
 
 #header-profile-options {
-    padding: 2px 0px;
+    padding: 2px 10px 2px 0px;
     float: right;
     display: flex;
     position: relative;
@@ -494,7 +508,7 @@ input[type="text"] {
 }
 
 #profile_options {
-    margin-right: 15px;
+    margin-right: 20px;
     display:inline-block;
 }
 
@@ -604,12 +618,13 @@ a {
     background-color: #256C97;
     border: none;
     color: white;
-    padding: 10px 20px;
     margin-top: 20px;
     text-transform: uppercase;
     letter-spacing: 1px;
     cursor: pointer;
     font-weight: 600;
+    padding: 6px 10px;
+    font-size: 10px;
 }
 
 .cadasta-button:hover {
@@ -701,6 +716,12 @@ input[type="text"].register-input :focus {
 
 .login-block .form-horizontal .control-group {
     margin-bottom: 30px;
+    display: block;
+    width: auto;
+}
+
+.login-block .form-horizontal .control-group.control-medium {
+    padding-left:0;
 }
 
 .login-block .form-horizontal .controls {
@@ -898,9 +919,12 @@ input[type="text"].register-input :focus {
 }
 
 .control-group.control-medium {
-    width: 85%;
+    width: 40%;
     margin-left: auto;
     margin-right: auto;
+    display: inline-block;
+    padding-left: 64px;
+    /*margin-top:20px;*/
 }
 
 .form-horizontal .controls {
@@ -947,16 +971,16 @@ input[type="text"].register-input :focus {
     margin-left:64px;
 }
 
-.save-new {
-    margin: 20px 0 30px 504px;
-}
+/*.save-new {*/
+    /*margin: 20px 0 30px 504px;*/
+/*}*/
 
 .save-new .cadasta-button {
     margin: 20px 0;
 }
 
 .save-new.org {
-    margin:20px 0 30px 540px;
+    padding:6px 0 105px 0;
 }
 .save-new.org .cadasta-button-simple {
     position: relative;
@@ -964,10 +988,17 @@ input[type="text"].register-input :focus {
     font-size: 12px;
 }
 
+.save-new .cadasta-button.save-org {
+    margin: 38px 64px 0 -62px;
+    float:right;
+}
 
-/*.control-required-message {*/
-    /*margin: 30px 0 0 64px;*/
-/*}*/
+
+.control-required-message {
+    margin: 51px 0 0 64px;
+    width: 150px;
+    display: inline-block;
+}
 
 
 
@@ -1053,7 +1084,7 @@ input[type="text"].register-input :focus {
 }
 
 .right-footer {
-    margin-right: 70px;
+    margin-right: -8px;
     float:right;
     position: relative;
     top: 9px;
@@ -1350,7 +1381,7 @@ input[type="text"].register-input :focus {
 }
 
 #organization-edit-form .control-group.control-full {
-    margin: 30px 0 0 64px;
+    margin: 0 0 0 64px;
 }
 
 #organization-edit-form .controls.editor {
@@ -1375,7 +1406,6 @@ input[type="text"].register-input :focus {
 
 .org-title .black-title-link {
     font-size: 16px;
-    color: #373837;
     font-weight: bold;
 }
 
@@ -1470,24 +1500,30 @@ input[type="text"].register-input :focus {
 
 
 .projects.project-title a {
-    font-size: 18px;
-    color: #2d3644;
+    font-size: 16px;
     font-weight: 700;
 }
 
 
-/*.cadasta-org-input {*/
-    /*padding-top: 30px !important;*/
-/*}*/
-
 .js .image-upload #field-image-url {
-    max-width: 725px;
+    max-width: 700px;
 }
 
 .js .image-upload .btn {
     position: relative;
     top: 0;
     margin-right: 10px;
+    background-color: #256C97;
+    border: none;
+    color: white;
+    margin-top: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    font-weight: 600;
+    padding: 6px 20px 9px 0px;
+    text-align: center;
+    font-size: 10px;
 }
 
 input[type="text"] {
@@ -1515,9 +1551,11 @@ label {
 
 .org-header a {
     position: relative;
-    top: 26px;
-    padding-right:28px;
-    float:right;
+    top: 31px;
+    padding-left: 35px;
+    float: left;
+    font-size: 12px;
+    font-weight: 400;
 }
 
 #splash-overlay {
@@ -1544,6 +1582,7 @@ label {
 #splash-page img {
     width: 100%;
     height: 100%;
+    overflow-x:hidden;
 }
 
 #splash-page {
@@ -1614,15 +1653,40 @@ label {
     padding-left: 20px;
 }
 
+#project-list table td {
+    width: 400px;
+}
+
+#project-list table td:first-of-type {
+    width:215px;
+}
+
+#project-list table td:last-of-type {
+    width:160px;
+}
+
+
+#project-list-table-header th:first-of-type {
+    width:215px;
+}
+
+#project-list-table-header th:last-of-type {
+    width:160px;
+}
 
 .userpage .cadasta-round-button {
     background-color: #256c97;
     color: #fff;
-    padding: 3px 15px;
-    /*border-radius: 15px;*/
     font-weight: 600;
     position: relative;
     top: 12px;
+    background-color: rgb(37, 108, 151);
+    padding: 6px 10px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 10px;
+    text-transform: uppercase;
 }
 
 
@@ -1704,6 +1768,7 @@ label {
     top: 30px;
     left: 25px;
     font-weight: bold;
+    float:left;
 }
 
 #org-members-add {
@@ -1761,4 +1826,56 @@ label {
 
 #member-table .manage-button.red-button:hover {
     color: red;
+}
+
+
+.cancel {
+    float: right;
+    top: 49px;
+    position: relative;
+    right: 86px;
+    font-size: 14px;
+    color: #444444;
+}
+
+
+
+.control-group.cadasta-input.visibility {
+    display: inline-block;
+    margin-right: 117px;
+}
+
+
+#field-province_state, #field-url, #field-orgURL {
+    width:305px;
+}
+
+.control-group.control-medium.cadasta-org-input.margin-top {
+    margin-top:20px;
+}
+
+.ckan-active-breadcrumb {
+    font-weight: 500;
+    color: #8b8b8b;
+    cursor: default;
+    font-size: 10px;
+    bottom: 8px;
+    position: relative;
+}
+
+
+#user-edit-form .control-group .control-label {
+    margin: 0 0 9px 0;
+}
+
+#user-edit-form fieldset {
+    border: 1px solid #dcdfe1;
+}
+
+#user-edit-form .control-group.control-full {
+    margin-left:65px;
+}
+
+#user-edit-form .user-margin-left {
+    margin-left:62px;
 }

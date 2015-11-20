@@ -16,7 +16,6 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
             $scope.PartyTypeModel = type;
         };
 
-
         var columnDefs = [
             {headerName:"Validated", field:"validated"},
             {headerName: "Party ID", field: "id"},
@@ -37,7 +36,6 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
             onRowSelected: rowSelectedFunc
 
         };
-
 
 
         function rowSelectedFunc(event) {
@@ -66,9 +64,12 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
 
                 var partyData = [];
 
-
                 //get row data
                 response.forEach(function (party) {
+
+                    // set validated to string for ag-grid searching
+                    party.properties.validated = party.properties.validated.toString();
+
                     if (party.properties.group_name){
                         party.properties.party_name = party.properties.group_name;
                     }
@@ -79,11 +80,9 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
                 });
 
 
-
                 // add data to column rows
                 $scope.partyGridOptions.api.setRowData(partyData);
                 $scope.partyGridOptions.api.sizeColumnsToFit();
-
 
 
             }, function (err) {
@@ -105,8 +104,9 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
         };
 
 
+        $scope.partyCreatedFeedback = '';
 
-        function addPartyCtrl($scope, $mdDialog, $stateParams) {
+        function addPartyCtrl($scope, $mdDialog, $stateParams, utilityService) {
             $scope.hide = function () {
                 $mdDialog.hide();
             };
@@ -124,12 +124,13 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
                     party.dob =  new Date($scope.dt.setMinutes( $scope.dt.getTimezoneOffset() ));
                 }
 
+                if ($scope.party.properties == undefined){
+                    utilityService.showToast('Name is required.');
+                }
                 var createParty = partyService.createProjectParty(projectId, party);
 
                 createParty.then(function (response) {
                     if (response.cadasta_party_id){
-
-                        $scope.partyCreated = 'party successfully added';
 
                         $rootScope.$broadcast('new-party');
                         getParties();
@@ -137,9 +138,8 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
                         $scope.cancel();
                         $state.go("tabs.parties.party", {id:response.cadasta_party_id});
                     }
-                }).catch(function(err){
-
-                    $scope.partyCreated ='unable to create party';
+                }).catch(function(response){
+                    utilityService.showToast('Unable to create party');
                 });
             }
         }
@@ -165,7 +165,6 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
                 label: 'Groups'
             }
         ];
-
 
     }]);
 

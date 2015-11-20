@@ -73,16 +73,28 @@ app.controller("parcelsCtrl", ['tenureTypes','$scope', '$state', '$stateParams',
 
         function addMap() {
 
-            var map = L.map('addParcelMap');
+            var map = L.map('addParcelMap', {scrollWheelZoom: false});
             $scope.map = map; // expose the map so we access it in the console for testing
 
-            L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+            var satellite = L.tileLayer('https://api.tiles.mapbox.com/v4/mapbox.streets-satellite/{z}/{x}/{y}.png?access_token={accessToken}', {
                 attribution: '',
+                maxZoom: 18,
                 id: 'spatialdev.map-rpljvvub',
                 zoomControl: true,
-                accessToken: 'pk.eyJ1Ijoic3BhdGlhbGRldiIsImEiOiJKRGYyYUlRIn0.PuYcbpuC38WO6D1r7xdMdA#3/0.00/0.00'
+                accessToken: 'pk.eyJ1IjoiZGlnaXRhbGdsb2JlIiwiYSI6ImNpaDN3NzE5dzB5eGR4MW0wdnhpM29ndG8ifQ.3MqbbPFrSfeeQwbmGIES1A'
+            });
+
+            var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+                attribution: '',
+                maxZoom: 18,
+                zoomControl: true
             }).addTo(map);
 
+            var overlays = {"Mapbox Satellite": satellite, "Standard OpenStreetMap": osm};
+
+            L.control.layers(overlays,null, {
+                collapsed:true
+            }).addTo(map);
 
             var featureGroup = L.featureGroup().addTo(map);
 
@@ -90,7 +102,6 @@ app.controller("parcelsCtrl", ['tenureTypes','$scope', '$state', '$stateParams',
                 iconUrl: '/images/pink_marker.png',
                 iconSize: [30, 30]
             });
-
 
             var options = {
                 draw: {
@@ -121,7 +132,7 @@ app.controller("parcelsCtrl", ['tenureTypes','$scope', '$state', '$stateParams',
 
             promise.then(function(response) {
                 // If there is a project geom load map and zoom to it; else zoom to parcels
-                console.log(response);
+
                 var layer;
 
                 var extentStyle = {
@@ -152,9 +163,7 @@ app.controller("parcelsCtrl", ['tenureTypes','$scope', '$state', '$stateParams',
             return $scope.layer;
         }
 
-        $scope.parcelCreatedFeedback = 'Parcel Geometry is required.';
-
-        function addParcelCtrl($scope, $mdDialog) {
+        function addParcelCtrl($scope, $mdDialog,  utilityService) {
 
             $scope.hide = function () {
                 $mdDialog.hide();
@@ -170,7 +179,7 @@ app.controller("parcelsCtrl", ['tenureTypes','$scope', '$state', '$stateParams',
                 var layer = getLayer();
 
                 if (layer === undefined) {
-                    $scope.parcelCreatedFeedback = "Parcel Geometry is required.";
+                    utilityService.showToast("Parcel Geometry is required.");
                 } else {
 
                     var createParcel = parcelService.createProjectParcel(cadastaProject.id, layer.toGeoJSON(), $scope.parcel);
@@ -186,8 +195,7 @@ app.controller("parcelsCtrl", ['tenureTypes','$scope', '$state', '$stateParams',
                             $state.go("tabs.parcels.parcel", {id:response.cadasta_parcel_id});
                         }
                     }).catch(function(response){
-
-                        $scope.parcelCreatedFeedback ='Unable to create parcel: ' + response.data.error.message;
+                        utilityService.showToast("Error creating new parcel");
                     });
                 }
             }

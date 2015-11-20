@@ -1,7 +1,7 @@
 var app = angular.module("app");
 
-app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location', 'dataService', 'paramService', 'utilityService', '$rootScope', 'ckanId', 'cadastaProject', '$mdDialog', 'USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole',
-    function ($scope, $state, $stateParams, $location, dataService, paramService, utilityService, $rootScope, ckanId, cadastaProject, $mdDialog,USER_ROLES, PROJECT_CRUD_ROLES, userRole) {
+app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location', 'dataService', 'paramService', 'utilityService', '$rootScope', 'ckanId', 'cadastaProject', '$mdDialog', 'USER_ROLES', 'PROJECT_CRUD_ROLES', 'TABS_USER_ROLES', 'userRole',
+    function ($scope, $state, $stateParams, $location, dataService, paramService, utilityService, $rootScope, ckanId, cadastaProject, $mdDialog,USER_ROLES, PROJECT_CRUD_ROLES, TABS_USER_ROLES, userRole) {
 
         $rootScope.$broadcast('tab-change', {tab: 'Overview'}); // notify breadcrumbs of tab on page load
 
@@ -15,6 +15,8 @@ app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location',
 
        // Add user's role to the scope
         $scope.showEditLink = PROJECT_CRUD_ROLES.indexOf(userRole) > -1;
+        $scope.nonPublic = TABS_USER_ROLES.indexOf(userRole) > -1;
+        $scope.public = !$scope.nonPublic;
 
 // Get map querystring from state parameters
         var mapStr = $stateParams.map;
@@ -66,11 +68,24 @@ app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location',
             $state.go($state.current.name, $stateParams, {notify: false});
         });
 
-        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+        var satellite = L.tileLayer('https://api.tiles.mapbox.com/v4/mapbox.streets-satellite/{z}/{x}/{y}.png?access_token={accessToken}', {
             attribution: '',
             maxZoom: 18,
             id: 'spatialdev.map-rpljvvub',
-            accessToken: 'pk.eyJ1Ijoic3BhdGlhbGRldiIsImEiOiJKRGYyYUlRIn0.PuYcbpuC38WO6D1r7xdMdA#3/0.00/0.00'
+            zoomControl: true,
+            accessToken: 'pk.eyJ1IjoiZGlnaXRhbGdsb2JlIiwiYSI6ImNpaDN3NzE5dzB5eGR4MW0wdnhpM29ndG8ifQ.3MqbbPFrSfeeQwbmGIES1A'
+        });
+
+        var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+            attribution: '',
+            maxZoom: 18,
+            zoomControl: true
+        }).addTo(map);
+
+        var overlays = {"Mapbox Satellite": satellite, "Standard OpenStreetMap": osm};
+
+        L.control.layers(overlays,null, {
+            collapsed:true
         }).addTo(map);
 
         //add layer for adding parcels
@@ -106,6 +121,10 @@ app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location',
                     resource.properties.time_created = utilityService.formatDate(resource.properties.time_created);
                 });
 
+                $scope.overviewData.features[0].properties.project_resources.forEach(function(resource) {
+                    resource.properties.url = TABS_USER_ROLES.indexOf(userRole) > -1 ? resource.properties.url : '';
+                });
+
                 //reformat date created of activity list
                 $scope.overviewData.features[0].properties.project_activity.forEach(function (activity) {
                     activity.properties.time_created = utilityService.formatDate(activity.properties.time_created);
@@ -135,11 +154,21 @@ app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location',
 
                 // If there is a project geom load map and zoom to it; else zoom to parcels
                 if ($scope.overviewData.features[0].geometry) {
-                    layer = L.geoJson($scope.overviewData.features[0], {style: extentStyle});
+                    layer = L.geoJson($scope.overviewData.features[0], {
+                        style: extentStyle,
+                        pointToLayer: function (feature, latlng) {
+                            return L.circleMarker(latlng, extentStyle);
+                        }
+                    });
                     layer.addTo(parcelGroup);
 
                 } else if ($scope.overviewData.features[0].properties.parcels.length > 0 && $scope.overviewData.features[0].properties.parcels[0].geometry) {
-                    layer = L.geoJson($scope.overviewData.features[0].properties.parcels, {style: parcelStyle});
+                    layer = L.geoJson($scope.overviewData.features[0].properties.parcels, {
+                        style: parcelStyle,
+                        pointToLayer: function (feature, latlng) {
+                            return L.circleMarker(latlng, parcelStyle);
+                        }
+                    });
                     layer.addTo(parcelGroup);
                 }
 
@@ -175,7 +204,7 @@ app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location',
             getOverviewData();
         });
 
-        // listen for new parties to update geom and activity
+        // listen for updated parties to update geom and activity
         $scope.$on('updated-party', function(e){
             getOverviewData();
         });
@@ -186,7 +215,7 @@ app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location',
             getOverviewData();
         });
 
-        // listen for new relationships to update geom and activity
+        // listen for updated relationships to update geom and activity
         $scope.$on('updated-relationship', function(e){
             getOverviewData();
         });

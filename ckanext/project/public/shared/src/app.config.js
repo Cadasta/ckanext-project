@@ -1,6 +1,7 @@
 angular.module('app.config', [])
 
 .constant('USER_ROLES', ['public', 'surveyor', 'editor', 'admin'])
+    .constant('TABS_USER_ROLES', [ 'surveyor', 'editor', 'admin'])
 .constant('PROJECT_CRUD_ROLES', ['editor', 'admin', 'sysadmin'])
 .constant('PROJECT_RESOURCE_ROLES', ['surveyor', 'editor', 'admin', 'sysadmin'])
 .constant('sortByParcel', [{label: 'None', type: 'all'}, {label: 'Parcel ID', type: 'id'}, {label: 'Number of Active Relationships', type: 'num_relationships'}, {label: 'Date Created', type: 'time_created'}])
@@ -49,5 +50,59 @@ angular.module('app.config', [])
         {
             "type": "carbon rights",
             "label": "Carbon rights"
+        },
+        {
+            "type": "freehold",
+            "label": "Freehold"
+        },
+        {
+            "type": "long term leasehold",
+            "label": "Long term leasehold (10+ years)"
+        },
+        {
+            "type": "leasehold",
+            "label": "Leasehold"
+        },
+        {
+            "type": "customary rights",
+            "label": "Customary Rights"
+        },
+        {
+            "type": "occupancy",
+            "label": "Occupancy (no documented rights)"
+        },
+        {
+            "type": "tenancy",
+            "label": "Tenancy (documented sub-lease)"
+        },
+        {
+            "type": "hunting/fishing/harvest rights",
+            "label": "Hunting/Fishing/Harvest Rights"
+        },
+        {
+            "type": "grazing rights",
+            "label": "Grazing Rights"
+        }
+    ])
+.constant('activityTypes', [
+        {
+            type: 'all',
+            label: 'All Activities'
+        },
+        {
+            type: 'parcel',
+            label: 'Parcel Activity'
+        },
+        {
+            type: 'party',
+            label: 'Party Activity'
+        },
+        {
+            type: 'relationship',
+            label: 'Relationship Activity'
+        },
+        {
+            type:'field_data',
+            label:'Field Data Activity'
         }
     ])

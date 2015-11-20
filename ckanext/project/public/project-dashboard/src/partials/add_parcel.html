@@ -1,24 +1,24 @@
 <md-dialog aria-label="Add Relationship" class="cadasta-modal resources">
 
     <form name="addParcel">
+
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Add Parcel</h2>
+                <span flex></span>
+
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <i class="material-icons right">clear</i>
+                </md-button>
+            </div>
+        </md-toolbar>
+
         <md-dialog-content>
             <div class="form_upload_content add-relationship">
-                <div class="cadasta-modal-header">
-                    <div class="small-heading">
-                        Add Parcel
-                    </div>
-                    <div class="right">
-                        <md-button class="md-icon-button" ng-click="cancel()">
-                            <i class="material-icons right">clear</i>
-                        </md-button>
-                    </div>
-                </div>
+
                 <div class="modal-content">
                     <div>
-                        <p>1. Draw the geometry of a new parcel using the tools on the left.</p>
-                        <div ng-messages="addParcel.$error">
-                            <div ng-message="required" class="font-red">{{ parcelCreatedFeedback }}</div>
-                        </div>
+                        <p><span class="font-red">*</span>Draw the geometry of a new parcel using the tools on the left.</p>
                         <br><br>
 
                         <div id="addParcelMap"></div>
@@ -34,28 +34,28 @@
                         </div>
 
                         <md-content class="layout-padding left add-parcel-extra-fields" >
-                            <p>2. Add additional (optional) data to the parcel.</p>
-                                <div layout layout-sm="column">
-
-
-                                    <md-input-container md-no-float flex  class="pin-id md-block">
-                                        <input ng-model="parcel.pinid" placeholder="Government Pin Id">
-                                    </md-input-container>
-
-                                    <md-input-container  md-no-float flex class="landuse md-block">
-                                        <label>Landuse</label>
-                                        <md-select ng-model="parcel.landuse">
-                                            <md-option>Commercial</md-option>
-                                            <md-option>Residential</md-option>
-                                        </md-select>
-                                    </md-input-container>
-                                </div>
-                            <md-input-container md-no-float flex class="notes md-block">
-                                <textarea ng-model="parcel.notes" columns="1" md-maxlength="150" placeholder="Notes"></textarea>
+                            <div layout layout-sm="column">
+                                <md-input-container md-no-float flex class="pin-id">
+                                    <label>Government Pin Id</label>
+                                    <input ng-model="parcel.pinid">
+                                </md-input-container>
+                                <md-input-container flex class="landuse update">
+                                    <label>Landuse</label>
+                                    <md-select ng-model="parcel.landuse">
+                                        <md-option>Commercial</md-option>
+                                        <md-option>Residential</md-option>
+                                    </md-select>
+                                </md-input-container>
+                            </div>
+                            <md-input-container md-no-float flex class="notes">
+                                <label>Notes</label>
+                                <textarea ng-model="parcel.notes" columns="1" md-maxlength="150"></textarea>
                             </md-input-container>
                         </md-content>
-
-                        <div class="cadasta-button right parcel-save" ng-click="saveNewParcel()">Save Parcel</div>
+                        <div>
+                            <div class="cadasta-button right parcel-save" ng-click="saveNewParcel()">Save Parcel</div>
+                            <div class="cancel" ng-click="cancel()">Cancel</div>
+                        </div>
 
                     </div>
                 </div>

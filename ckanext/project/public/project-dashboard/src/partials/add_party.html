@@ -1,23 +1,25 @@
 <md-dialog aria-label="Add Relationship" class="cadasta-modal resources">
 
     <form name="addParty">
+
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Add Party</h2>
+                <span flex></span>
+
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <i class="material-icons right">clear</i>
+                </md-button>
+            </div>
+        </md-toolbar>
+
         <md-dialog-content>
             <div class="form_upload_content add-party">
-                <div class="cadasta-modal-header">
-                    <div class="small-heading">
-                        Add Party
-                    </div>
-                    <div class="right">
-                        <md-button class="md-icon-button" ng-click="cancel()">
-                            <i class="material-icons right">clear</i>
-                        </md-button>
-                    </div>
-                </div>
+
                 <div class="modal-content">
                     <div>
-
                         <md-radio-group ng-model="party.party_type" ng-init="party.party_type='individual'" >
-                            <label class="party-type">Party Type</label>
+                            <label class="party-type"><span class="font-red">*</span>Party Type</label>
                             <md-radio-button value="individual" class="md-primary">Individual</md-radio-button>
                             <md-radio-button value="group">Group</md-radio-button>
                         </md-radio-group>
@@ -26,27 +28,16 @@
                             <div layout layout-sm="column">
 
                                 <md-input-container md-no-float flex class="pin-id" ng-show="(party.party_type === 'individual')">
-                                    <label>Full Name</label>
+                                    <label><span class="font-red">*</span>Full Name</label>
                                     <input ng-model="party.full_name">
-
-                                    <div ng-messages="newParty.party.full_name.$error">
-                                        <div ng-message="required" class="font-red">Party name is required.</div>
-                                        <br>
-                                    </div>
                                 </md-input-container>
 
                                 <br><br><br>
                                 <div></div>
 
                                 <md-input-container md-no-float flex class="pin-id group-name" ng-show="(party.party_type === 'group')">
-                                    <label>Name</label>
+                                    <label><span class="font-red">*</span>Name</label>
                                     <input ng-model="party.group_name">
-
-                                    <div ng-messages="newParty.party.group_name.$error">
-                                        <div ng-message="required" class="font-red">Party name is required.</div>
-                                        <br>
-                                    </div>
-
                                 </md-input-container>
                             </div>
                         </md-content>
@@ -70,7 +61,7 @@
                         <md-content class="layout-padding left add-parcel-extra-fields" >
                             <div ng-show="(party.party_type === 'individual')" layout layout-sm="column">
                                 <div id="custom-date-picker">
-                                    <pre>Selected date is: <em>{{dt | date:format:'dd/MM/yyyy' }}</em></pre>
+                                    <p>Selected date is: {{dt | date:format:'dd/MM/yyyy' }}</p>
 
                                     <div style="display:inline-block">
                                         <uib-datepicker ng-model="dt" format-day="dd" format-month="MM" format-year="yyyy"
@@ -85,15 +76,15 @@
                         <md-content class="layout-padding left add-parcel-extra-fields" >
                             <div layout layout-sm="column">
                                 <md-input-container md-no-float flex class="relationship-notes md-block">
-                                    <textarea ng-model="party.description" columns="1" md-maxlength="150" placeholder="Notes"></textarea>
+                                    <textarea ng-model="party.description" columns="1" placeholder="Notes"></textarea>
                                 </md-input-container>
-
                             </div>
                         </md-content>
 
                     </div>
                 </div>
                 <div class="cadasta-button right parcel-save" ng-click="saveNewParty(cadastaProjectId, party)">Save Party</div>
+                <div class="cancel" ng-click="cancel()">Cancel</div>
             </div>
         </md-dialog-content>
     </form>

@@ -31,6 +31,7 @@ then itself be extended to add/remove blocks of functionality. #}
     <button class="cadasta-button" type="submit" name="save">
       {% block save_button_text %}{{ _('Save Project') }}{% endblock %}
     </button>
+    <a href="/project" class="cancel">cancel</a>
     {% endblock %}
 
     {#
@@ -41,7 +42,7 @@ then itself be extended to add/remove blocks of functionality. #}
     {% endif %}
     {% endblock %}
     #}
-    {{ form.required_message() }}
+    <!--{{ form.required_message() }}-->
 
   </div>
   {% endblock %}

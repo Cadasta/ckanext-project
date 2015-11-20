@@ -5,7 +5,6 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
         $scope.showCRUDLink = PROJECT_CRUD_ROLES.indexOf(userRole) > -1;
         $scope.showResourceLink = PROJECT_RESOURCE_ROLES.indexOf(userRole) > -1;
 
-
         var mapStr = $stateParams.map;
 
         $scope.relationship = {};
@@ -15,9 +14,8 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
         $rootScope.$broadcast('tab-change', {tab: 'Relationships'}); // notify breadcrumbs of tab on page load
 
         $scope.clearRelationshipBreadCrumb = function () {
-            $rootScope.$broadcast('clear-inner-relationship-tab');
+            $rootScope.$broadcast('clear-inner-tabs');
         };
-
 
         //parse map query param
         var mapArr = mapStr.substring(1,mapStr.length-1).split(',');
@@ -63,11 +61,26 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
             $state.go($state.current.name, $stateParams, {notify:false});
         });
 
-        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+        var satellite = L.tileLayer('https://api.tiles.mapbox.com/v4/mapbox.streets-satellite/{z}/{x}/{y}.png?access_token={accessToken}', {
             attribution: '',
             maxZoom: 18,
             id: 'spatialdev.map-rpljvvub',
-            accessToken: 'pk.eyJ1Ijoic3BhdGlhbGRldiIsImEiOiJKRGYyYUlRIn0.PuYcbpuC38WO6D1r7xdMdA#3/0.00/0.00'
+            zoomControl: true,
+            accessToken: 'pk.eyJ1IjoiZGlnaXRhbGdsb2JlIiwiYSI6ImNpaDN3NzE5dzB5eGR4MW0wdnhpM29ndG8ifQ.3MqbbPFrSfeeQwbmGIES1A'
+        });
+
+        var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+            attribution: '',
+            maxZoom: 18,
+            zoomControl: true
+        }).addTo(map);
+
+
+        var overlays = {"Mapbox Satellite": satellite, "Standard OpenStreetMap": osm};
+
+        L.control.layers(overlays,null, {
+            collapsed:true,
+            position:'bottomright'
         }).addTo(map);
 
         //add layer for adding parcels
@@ -84,26 +97,43 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
                 .then(function(response){
 
                     if(response.geometry !== null){
-                        var layer = L.geoJson(response, {style: parcelStyle}).addTo(relationshipGroup);
-                        map.fitBounds(layer.getBounds());
-                    }
+                        var layer = L.geoJson(response, {
+                            style: parcelStyle,
+                            pointToLayer: function (feature, latlng) {
+                                return L.circleMarker(latlng, parcelStyle);
+                            }
+                        }).addTo(relationshipGroup);
 
+                        // zoom to parcel bounds if there is no relationship geometry
+                        if(Object.keys(relationshipGroup._layers).length == 1){
+                            map.fitBounds(relationshipGroup.getBounds());
+                        }
+                    }
                 })
         }
 
         function getRelationship () {
             var promise = relationshipService.getProjectRelationship(cadastaProject.id, $stateParams.id);
 
-            promise
-                .then(function(response){
+            promise.then(function(response){
+
+                // notify breadcrumbs of relationship selection
+                $rootScope.$broadcast('relationship-details', {id: $stateParams.id});
 
                     //clear layers
                     relationshipGroup.clearLayers();
 
                     // If there are any relationships, load the map and zoom to relationship
                     if (response.geometry) {
-                        var layer = L.geoJson(response, {style: relationshipStyle}).addTo(relationshipGroup);
-                        map.fitBounds(layer.getBounds());
+                        var layer = L.geoJson(response, {
+                            style: relationshipStyle,
+                            pointToLayer: function (feature, latlng) {
+                                return L.circleMarker(latlng, relationshipStyle);
+                            }
+                        }).addTo(relationshipGroup);
+
+                        map.fitBounds(relationshipGroup.getBounds());
+
                     } else {
                         map.setView([lat, lng], zoom);
                     }
@@ -138,6 +168,11 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
             promise
                 .then(function(response){
                     $scope.resources = response;
+
+                    //reformat date created of resources
+                    $scope.resources.forEach(function (resource) {
+                        resource.properties.time_created = utilityService.formatDate(resource.properties.time_created);
+                    });
                 })
                 .catch(function(err){
                     $scope.error = err;
@@ -145,78 +180,26 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
         }
 
 
-        /**
-         * Functions related to the project-level resource modal
-         * @returns {*}
-         */
+        $scope.relationshipUpdatedFeedback = '';
 
-        $scope.showAddResourceModal = function (ev) {
-
+        //modal for adding a relationship
+        $scope.updateRelationshipModal = function (ev) {
             $mdDialog.show({
-                controller: resourceDialogController,
-                templateUrl: '/project-dashboard/src/partials/data_upload.html',
+                templateUrl: '/project-dashboard/src/partials/edit_relationship.html',
+                controller: updateRelationshipCtrl,
                 parent: angular.element(document.body),
-                targetEvent: ev,
-                clickOutsideToClose: true
+                clickOutsideToClose: false,
+                onComplete: addMap,
+                locals: {cadastaProject: cadastaProject, relationship:$scope.relationship}
             })
         };
 
-        function resourceDialogController($scope, $mdDialog, FileUploader, ENV) {
-            $scope.hide = function () {
-                $mdDialog.hide();
-            };
-            $scope.cancel = function () {
-                $mdDialog.cancel();
-            };
-            $scope.answer = function (answer) {
-                $mdDialog.hide(answer);
-            };
 
-            $scope.uploader = new FileUploader({
-                alias: 'filedata',
-                url: ENV.apiCadastaRoot + '/projects/' + cadastaProject.id + '/relationship/' + $stateParams.id + '/resources'
-            });
-
-            $scope.uploader.onProgressItem = function (item, progress) {
-                $scope.progress = progress;
-            };
-
-            // triggered when FileItem is has completed .upload()
-            $scope.uploader.onCompleteItem = function (fileItem, response, status, headers) {
-                if (response.message == "Success") {
-                    $scope.response = 'File Successfully uploaded.';
-                    $scope.error = ''; // clear error
-                    $scope.uploader.clearQueue();
-
-                    getRelationshipResources();
-                }
-            };
-
-            $scope.uploader.onAfterAddingFile = function () {
-                //remove previous item from queue
-                if ($scope.uploader.queue.length > 1) {
-                    $scope.uploader.removeFromQueue(0);
-                }
-            };
-
-            $scope.uploader.onErrorItem = function (item, response, status, headers) {
-                if (response.type == "duplicate") {
-                    $scope.error = 'This resource already exists. Rename resource to complete upload.'
-                } else {
-                    $scope.error = response.error;
-                }
-
-                $scope.uploader.clearQueue();
-            };
-
-        }
 
         /**
          * Functions related to the update relationship modal
          * @returns {*}
          */
-
-
         function updateRelationshipCtrl($scope, $mdDialog, $stateParams, cadastaProject, relationship) {
             $scope.hide = function () {
                 $mdDialog.hide();
@@ -281,9 +264,8 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
 
                         $scope.cancel();
                     }
-                }).catch(function(err){
-
-                    $scope.relationshipCreated ='unable to update relationship';
+                }).catch(function(response){
+                    $scope.relationshipUpdatedFeedback = 'Unable to update relationship: ' + response.data.error.message;
                 });
 
             }
@@ -291,10 +273,11 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
             $scope.tenure_types = tenureTypes;
         }
 
-
-
-        function addMap(map) {
-
+        /**
+         * Function is called after modal is instantiated to load map data
+         * @returns {*}
+         */
+        function addMap() {
 
             var mapStr = $stateParams.map;
 
@@ -305,13 +288,27 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
             var lng = mapArr[1];
             var zoom = mapArr[2];
 
-            var map = L.map('editRelationshipMap');
+            var map = L.map('editRelationshipMap', {scrollWheelZoom: false});
 
-            L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+            var satellite = L.tileLayer('https://api.tiles.mapbox.com/v4/mapbox.streets-satellite/{z}/{x}/{y}.png?access_token={accessToken}', {
                 attribution: '',
+                maxZoom: 18,
                 id: 'spatialdev.map-rpljvvub',
                 zoomControl: true,
-                accessToken: 'pk.eyJ1Ijoic3BhdGlhbGRldiIsImEiOiJKRGYyYUlRIn0.PuYcbpuC38WO6D1r7xdMdA#3/0.00/0.00'
+                accessToken: 'pk.eyJ1IjoiZGlnaXRhbGdsb2JlIiwiYSI6ImNpaDN3NzE5dzB5eGR4MW0wdnhpM29ndG8ifQ.3MqbbPFrSfeeQwbmGIES1A'
+            });
+
+            var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+                attribution: '',
+                maxZoom: 18,
+                zoomControl: true
+            }).addTo(map);
+
+            var overlays = {"Mapbox Satellite": satellite, "Standard OpenStreetMap": osm};
+
+            L.control.layers(overlays,null, {
+                collapsed:true,
+                position:'bottomright'
             }).addTo(map);
 
             map.setView([lat, lng], zoom);
@@ -396,26 +393,35 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
             };
 
 
-
             //add parcel data to the map
-            var promise = parcelService.getProjectParcel(cadastaProject.id, $scope.relationship.properties.parcel_id);
+            var promiseParcel = parcelService.getProjectParcel(cadastaProject.id, $scope.relationship.properties.parcel_id);
 
-            promise.then(function(response){
+            promiseParcel.then(function(response){
 
                     if(response.geometry !== null){
-                        var layer = L.geoJson(response, {style: parcelStyle}).addTo(map);
+                        var layer = L.geoJson(response, {
+                            style: parcelStyle,
+                            pointToLayer: function (feature, latlng) {
+                                return L.circleMarker(latlng, parcelStyle);
+                            }
+                        }).addTo(map);
                         map.fitBounds(layer.getBounds());
                     }
                 });
 
 
             //add relationship extent to the map
-            var promise = relationshipService.getProjectRelationship(cadastaProject.id, $stateParams.id);
+            var promiseRelationship = relationshipService.getProjectRelationship(cadastaProject.id, $stateParams.id);
 
-            promise.then(function(response) {
+            promiseRelationship.then(function(response) {
 
                 if (response.geometry) {
-                    var layer = L.geoJson(response, {style: relationshipStyle}).addTo(map);
+                    var layer = L.geoJson(response, {
+                        style: relationshipStyle,
+                        pointToLayer: function (feature, latlng) {
+                            return L.circleMarker(latlng, relationshipStyle);
+                        }
+                    }).addTo(map);
                     map.fitBounds(layer.getBounds());
                 }
                 else {
@@ -427,30 +433,108 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
             $scope.relationship.tenure_type = $scope.relationship.properties.tenure_type;
             $scope.relationship.how_acquired = $scope.relationship.properties.how_acquired;
             $scope.relationship.acquired_date = $scope.relationship.properties.acquired_date;
-
-
         }
 
         function getLayer() {
             return $scope.layer;
         }
 
-        //modal for adding a relationship
-        $scope.updateRelationshipModal = function (ev) {
+
+        /**
+         * Functions related to the project-level resource modal
+         * @returns {*}
+         */
+
+        $scope.showAddResourceModal = function (ev) {
+
             $mdDialog.show({
-                templateUrl: '/project-dashboard/src/partials/edit_relationship.html',
-                controller: updateRelationshipCtrl,
+                controller: resourceDialogController,
+                templateUrl: '/project-dashboard/src/partials/data_upload.html',
                 parent: angular.element(document.body),
-                clickOutsideToClose: false,
-                onComplete: addMap,
-                locals: {cadastaProject: cadastaProject, relationship:$scope.relationship}
+                targetEvent: ev,
+                clickOutsideToClose: true
             })
         };
 
+        function resourceDialogController($scope, $mdDialog, FileUploader, ENV, utilityService) {
+            $scope.hide = function () {
+                $mdDialog.hide();
+            };
+            $scope.cancel = function () {
+                $mdDialog.cancel();
+            };
+            $scope.answer = function (answer) {
+                $mdDialog.hide(answer);
+            };
 
+            function resetProgress() {
+                $scope.progress = 0;
+            }
 
+            $scope.uploader = new FileUploader({
+                alias: 'filedata',
+                url: ENV.apiCKANRoot + '/cadasta_upload_project_resources'
+            });
 
+            $scope.uploader.onProgressItem = function (item, progress) {
+                $scope.progress = progress;
+            };
 
+            $scope.uploader.onBeforeUploadItem = function (item) {
+                // upload required path params
+                item.formData.push({
+                    project_id: cadastaProject.id,
+                    resource_type: "relationship",
+                    resource_type_id: $stateParams.id
+                });
+            };
 
+            // triggered when FileItem is has completed .upload()
+            $scope.uploader.onCompleteItem = function (fileItem, response, status, headers) {
+                //
+                // ckan api wrappers return a 'result' key for successful calls
+                // and an 'error' key for unsuccessful calls
+                //
+                if (response.result && response.result.message == "Success"){
+                    $scope.response = 'File Successfully uploaded.';
+                    $scope.error = ''; // clear error
+                    $scope.uploader.clearQueue();
+                    resetProgress();
+
+                    getRelationshipResources();
+                }
+                else if(response.error){
+
+                    if (response.error.type && response.error.type.pop && response.error.type.pop() === "duplicate") {
+                        utilityService.showToastBottomRight('This resource already exists. Rename resource to complete upload.');
+                    }
+                    else if(response.error.message) {
+                        utilityService.showToastBottomRight('Error uploading resource.');
+                    }
+                    else {
+                        utilityService.showToastBottomRight('Error uploading resource.');
+                    }
+                }
+            };
+
+            $scope.uploader.onAfterAddingFile = function () {
+                //remove previous item from queue
+                if ($scope.uploader.queue.length > 1) {
+                    $scope.uploader.removeFromQueue(0);
+                }
+            };
+
+            $scope.uploader.onErrorItem = function (item, response, status, headers) {
+                if (response.type == "duplicate") {
+                    utilityService.showToastBottomRight('This resource already exists. Rename resource to complete upload.');
+                } else {
+                    utilityService.showToastBottomRight('Error uploading resource.');
+                }
+
+                $scope.uploader.clearQueue();
+                resetProgress();
+            };
+
+        }
     }]);
 

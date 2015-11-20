@@ -32,10 +32,8 @@ authz.ROLE_PERMISSIONS = OrderedDict([
                 'delete_party',
                 'create_parcel_relationship',
                 # relationship
-                'read_relationship',
                 'create_relationship',
                 'update_relationship',
-                'delete_relationship',
                 ]),
     ('surveyor', ['read',
                     # resources
@@ -45,11 +43,6 @@ authz.ROLE_PERMISSIONS = OrderedDict([
                     'read_parcel',
                     'upload_parcel_resource',
                     'delete_parcel_resource',
-                    # relationship
-                    'read_relationship',
-                    'create_relationship',
-                    'update_relationship',
-                    'delete_relationship',
                   ]),
 ])
 

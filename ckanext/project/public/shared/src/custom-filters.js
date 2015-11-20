@@ -69,6 +69,14 @@ angular.module('app.filters', [])
                 case 'joint tenancy':
                 case 'tenancy in common':
                 case 'undivided co-ownership':
+                case 'freehold':
+                case 'long term leasehold':
+                case 'leasehold':
+                case 'customary rights':
+                case 'occupancy':
+                case 'tenancy':
+                case 'hunting/fishing/harvest rights':
+                case 'grazing rights':
                     //check if array contains filter selection
                     inputs.forEach(function (input, i) {
                         if (input.properties.tenure_type.indexOf(filter_type) !== -1) {
@@ -190,4 +198,25 @@ angular.module('app.filters', [])
                     return inputs;
             }
         };
-    });
+    })
+    .filter('activityType', function () {
+    return function(inputs,filter_type) {
+        var output = [];
+        switch(filter_type){
+            case 'parcel':
+            case 'relationship':
+            case 'party':
+            case 'field_data':
+                //check if array contains filter selection
+                inputs.forEach(function (input) {
+                    if (filter_type.indexOf(input.properties.activity_type) !== -1)
+                        output.push(input);
+                });
+                return output;
+                break;
+
+            default:
+                return inputs;
+        }
+    };
+});

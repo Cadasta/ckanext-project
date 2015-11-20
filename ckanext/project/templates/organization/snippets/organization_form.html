@@ -14,9 +14,9 @@
 
             {{ form.markdown('description', label=_('Description'), id='field-description', placeholder=_('A little information about my organization...'), value=data.description, error=errors.description) }}
 
-            {{ form.input("contact", id="field-contact", label=_("Contact Information"), placeholder=_("xxx-xxx-xxxx"), value=data.contact, error=errors.contact, classes=["control-medium", "cadasta-org-input"]) }}
+            {{ form.input("contact", id="field-contact", label=_("Contact Information"), placeholder=_("xxx-xxx-xxxx"), value=data.contact, error=errors.contact, classes=["control-medium", "cadasta-org-input", "margin-top"]) }}
 
-            {{ form.input("orgURL", id="field-orgURL", label=_("URL"), placeholder=_("www.myorganization.com"), value=data.orgURL, error=errors.orgURL, classes=["control-medium", "cadasta-org-input"]) }}
+            {{ form.input("orgURL", id="field-orgURL", label=_("URL"), placeholder=_("www.myorganization.com"), value=data.orgURL, error=errors.orgURL, classes=["control-medium", "cadasta-org-input", "margin-top"]) }}
 
             {% set is_upload = data.image_url and not data.image_url.startswith('http') %}
             {% set is_url = data.image_url and data.image_url.startswith('http') %}
@@ -30,17 +30,19 @@
         {% block custom_fields %}
         {% endblock %}
 
-        {{ form.required_message() }}
-        <!-- add back in to indicate required fields-->
+
+
 
         <div class="save-new org">
+            <!--{{ form.required_message() }}-->
             {#
             <!--{% if h.check_access('organization_delete', {'id': data.id})  %}-->
             {% set locale = h.dump_json({'content': _('Are you sure you want to delete this Organization? This will delete all the public and private datasets belonging to this organization.')}) %}
             <a class="cadasta-button-simple" href="{% url_for controller='organization', action='delete', id=data.id %}" data-module="confirm-action" data-module-i18n="{{ locale }}">{% block delete_button_text %}{{ _('Delete') }}{% endblock %}</a>
             <!--{% endif %}-->
             #}
-            <button class="cadasta-button" name="save" type="submit">{% block save_text %}{{ _('Save Organization') }}{% endblock %}</button>
+            <button class="cadasta-button save-org" name="save" type="submit">{% block save_text %}{{ _('Save Organization') }}{% endblock %}</button>
+            <a href="/project" class="cancel">cancel</a>
         </div>
 </form>
 {% snippet "organization/snippets/uuid_javascript.html" %}

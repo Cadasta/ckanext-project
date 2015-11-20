@@ -100,6 +100,29 @@ get_api_map = {
     'cadasta_get_project_party_resources': CadastaEndpoint(
         '/projects/{project_id}/parties/{party_id}/resources',
     ),
+
+    'cadasta_get_project_relationship_details': CadastaEndpoint(
+        '/projects/{project_id}/relationships/{relationship_id}/details',
+        argument_types={
+            'returnGeometry': str,
+        }
+    ),
+
+    'cadasta_get_project_relationship_list': CadastaEndpoint(
+        '/projects/{project_id}/relationships/relationships_list',
+    ),
+
+    'cadasta_get_project_relationship_resources': CadastaEndpoint(
+        '/projects/{project_id}/relationships/{relationship_id}/resources',
+    ),
+
+    'cadasta_get_project_fielddata_responses': CadastaEndpoint(
+        '/projects/{project_id}/fieldData/{field_data_id}/show_responses',
+    ),
+
+    'cadasta_get_project_fielddata': CadastaEndpoint(
+        '/projects/{project_id}/fieldData',
+    ),
 }
 
 post_api_map = {
@@ -107,7 +130,6 @@ post_api_map = {
         '/projects',
         argument_types={
             'cadasta_organization_id': int,
-            #'ona_api_key': lambda v: None if v is None else v,
         }
     ),
     'cadasta_create_organization': CadastaEndpoint('/organizations'),
@@ -122,6 +144,14 @@ post_api_map = {
     'cadasta_create_project_party': CadastaEndpoint(
         '/projects/{project_id}/parties',
     ),
+    'cadasta_create_project_relationship': CadastaEndpoint(
+        '/projects/{project_id}/relationships',
+        argument_types={
+            'parcel_id': int,
+            'party_id': int,
+            'geojson': dict, # basically, don't stringify it, leave it
+        },
+    ),
 }
 
 patch_api_map = {
@@ -129,9 +159,6 @@ patch_api_map = {
     'cadasta_delete_organization': CadastaEndpoint('/organizations/{cadasta_organization_id}/archive'),
     'cadasta_update_project': CadastaEndpoint(
         '/projects/{cadasta_project_id}',
-        argument_types={
-            #'ona_api_key': lambda v: None if v is None else v,
-        }
     ),
     'cadasta_delete_project': CadastaEndpoint('/projects/{cadasta_project_id}/archive'),
     'cadasta_update_project_parcel': CadastaEndpoint(
@@ -142,6 +169,19 @@ patch_api_map = {
     ),
     'cadasta_update_project_party': CadastaEndpoint(
         '/projects/{project_id}/parties/{party_id}',
+    ),
+    'cadasta_update_project_relationship': CadastaEndpoint(
+        '/projects/{project_id}/relationships/{relationship_id}',
+        argument_types={
+            'geojson': dict, # basically, don't stringify it, leave it
+        },
+    ),
+    'cadasta_update_project_fielddata_respondents': CadastaEndpoint(
+        '/projects/{project_id}/fieldData/{field_data_id}/validate_respondents',
+        argument_types={
+            'respondent_ids': list, # basically, don't stringify it, leave it,
+            'status': int,
+        },
     ),
 }
 
@@ -155,6 +195,11 @@ post_files_api_map = {
         '/projects/{project_id}/{resource_type}/{resource_type_id}/resources',
         argument_types={'filedata': convert_field_storage},
         upload_fields=['filedata']
+    ),
+    'cadasta_upload_ona_form': CadastaEndpoint(
+        '/providers/ona/load-form/{project_id}',
+        argument_types={'xls_file': convert_field_storage},
+        upload_fields=['xls_file']
     ),
 }
 

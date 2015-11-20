@@ -94,7 +94,11 @@ app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService'
         getResources(false);
     });
 
-    function DialogController($scope, $mdDialog, FileUploader) {
+    function DialogController($scope, $mdDialog, FileUploader, utilityService) {
+
+        function resetProgress() {
+            $scope.progress = 0;
+        }
 
         $scope.uploader = new FileUploader({
             alias: 'filedata',
@@ -125,6 +129,7 @@ app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService'
                 $scope.response = 'File Successfully uploaded.';
                 $scope.error = ''; // clear error
                 $scope.uploader.clearQueue();
+                resetProgress();
 
                 getResources(false); // get resources, do not cache
                 $rootScope.$broadcast('new-resource'); // broadcast new resources to the app
@@ -132,13 +137,13 @@ app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService'
             else if(response.error){
 
                 if (response.error.type && response.error.type.pop && response.error.type.pop() === "duplicate") {
-                    $scope.error = 'This resource already exists. Rename resource to complete upload.';
+                    utilityService.showToast('This resource already exists. Rename resource to complete upload.');
                 }
                 else if(response.error.message) {
-                    $scope.error = response.error.message;
+                    utilityService.showToast('Error uploading resource.');
                 }
                 else {
-                    $scope.error = response.error;
+                    utilityService.showToast('Error uploading resource.');
                 }
             }
         };
@@ -152,12 +157,13 @@ app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService'
 
         $scope.uploader.onErrorItem = function (item, response, status, headers) {
             if(response.error.type == "duplicate"){
-                $scope.error = 'This resource already exists. Rename resource to complete upload.'
+                utilityService.showToast('This resource already exists. Rename resource to complete upload.');
             } else {
-                $scope.error = response.error;
+                utilityService.showToast('Error uploading resource.');
             }
 
             $scope.uploader.clearQueue();
+            resetProgress();
         };
 
         $scope.hide = function() {

@@ -7,6 +7,7 @@ app.controller("breadcrumbsCtrl", ['$scope', '$state', '$stateParams','$location
     $scope.tab = '';
     $scope.tab_parcel = '';
     $scope.tab_relationship = '';
+    $scope.tab_party = '';
     $scope.ckanId = ckanId;
     $scope.cadastaProject = cadastaProject;
     $scope.ENV = ENV;
@@ -14,36 +15,45 @@ app.controller("breadcrumbsCtrl", ['$scope', '$state', '$stateParams','$location
     // listen for tab change
     $scope.$on('tab-change',function(evt,data){
         $scope.tab = data.tab;
-        if(!data.parcel){
-            $scope.tab_parcel = '';
-        }
-        if(!data.relationship){
-            $scope.tab_relationship = '';
+
+        // clear breadcrumb details if not one of these 3 entities
+        if(data.tab !== 'Parcels' || data.tab !== 'Parties' || data.tab !== 'Relationships'){
+            $scope.clearBreadCrumb();
         }
     });
 
     // clear inner tab parcel on 'Back to Parcel List click'
     $scope.$on('clear-inner-tabs',function(evt,data){
-        $scope.tab_parcel = '';
+        $scope.clearBreadCrumb();
     });
 
+    // set breadcrumb id to parcel id
     $scope.$on('parcel-details',function(evt,params){
         if(params){
             $scope.tab_parcel = params.id;
         }
     });
 
-
-    // clear inner tab parcel on 'Back to Parcel List click'
-    $scope.$on('clear-inner-relationship-tab',function(evt,data){
-        $scope.tab_relationship = '';
+    // set breadcrumb id to party id
+    $scope.$on('party-details',function(evt,params){
+        if(params){
+            $scope.tab_party = params.id;
+        }
     });
 
+    // set breadcrumb id to relationship id
     $scope.$on('relationship-details',function(evt,params){
         if(params){
             $scope.tab_relationship = params.id;
         }
     });
+
+    // clear all breadcrumbs
+    $scope.clearBreadCrumb = function () {
+        $scope.tab_parcel = '';
+        $scope.tab_relationship = '';
+        $scope.tab_party = '';
+    };
 
     $scope.go = function ( path ) {
         $location.path( path );

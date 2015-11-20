@@ -92,14 +92,40 @@ div.tabcontent {
 .cadasta-round-button {
     background-color: #256c97;
     color: white;
-    padding: 3px 15px;
-    font-weight: 600;
     max-height:28px;
     cursor: pointer;
+    border-radius:0;
+    padding: 6px 10px;
+    letter-spacing: 1px;
+    font-weight: 600;
+    font-size: 10px;
+    text-transform: uppercase;
 }
 
 .cadasta-round-button:hover {
     background-color: #0d4252;
+}
+
+.select-all-button {
+    background-color: #256c97;
+    color: white;
+    padding: 3px 15px;
+    font-weight: 600;
+    max-height:28px;
+    cursor: pointer;
+    width: 70px;
+}
+
+.select-all-button:hover{
+    background-color: #0d4252;
+}
+
+.select-all-text {
+    text-align: center;
+}
+
+.select-all-wrapper {
+    margin-bottom: 10px;
 }
 
 md-dialog > form {
@@ -112,6 +138,7 @@ md-dialog > form {
 
 md-dialog {
     max-height: 95%;
+    max-width: 860px;
 }
 
 p.popup-text {
@@ -128,7 +155,14 @@ p.popup-text {
 
 #ag-table {
     height: 458px;
+    width: 100%;
 }
+
+.field-datum #ag-table {
+    height: 350px;
+    width: 830px;
+}
+
 
 
 #fieldDataList{
@@ -234,4 +268,18 @@ p.popup-text {
     display: inline-block;
     margin-right: 16px;
     text-align: center;
+}
+
+
+.cancel {
+    padding: 10px 0;
+    margin: -33px -48px 0 0;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+
+.md-select-menu-container.md-default-theme.md-active.md-clickable {
+    left: 840px;
+    top: 381px;
 }

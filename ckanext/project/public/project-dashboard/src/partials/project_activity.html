@@ -6,7 +6,7 @@
                 <label>Filter by</label>
                 <!-- todo update to be about resources rather than parcels-->
                 <md-select ng-model="ActivityTypeModel">
-                    <md-option ng-value="t.type" ng-repeat="t in activity_types" ng-click="filterTenureType(t.type)">{{t.label}}</md-option>
+                    <md-option ng-value="t.type" ng-repeat="t in activity_types" ng-click="filterActivityType(t.type)">{{t.label}}</md-option>
                 </md-select>
             </md-input-container>
 
@@ -46,6 +46,14 @@
                     <span class="bold"><a href="#/relationships/{{ activity.properties.id }}">
                         Relationship {{ activity.properties.id }}</a></span>
                     was updated at {{ activity.properties.time_created }}
+                </li>
+
+                <li ng-if="activity.properties.activity_type === 'field_data'"
+                    ng-class="{'remove-bottom-border': $index == overviewData.activityList.length-1}"
+                    class="activity-block block">
+                    <span class="bold"><a href="#/fieldData/{{ activity.properties.id }}">
+                        {{ activity.properties.name }}</a></span>
+                    field data form uploaded on {{ activity.properties.time_created }}
                 </li>
             </div>
         </div>

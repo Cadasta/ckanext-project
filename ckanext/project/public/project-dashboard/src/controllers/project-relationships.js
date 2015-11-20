@@ -83,7 +83,12 @@ app.controller("relationshipsCtrl", ['tenureTypes','$scope', '$state', '$statePa
 
                 // If there are any parcels, load the map and zoom to parcel
                 if (response.geometry) {
-                    layer = L.geoJson(response, {style: parcelStyle}).addTo(parcelGroup);
+                    layer = L.geoJson(response, {
+                        style: parcelStyle,
+                        pointToLayer: function (feature, latlng) {
+                            return L.circleMarker(latlng, parcelStyle);
+                        }
+                    }).addTo(parcelGroup);
                     map.fitBounds(layer.getBounds());
                 } else {
                     map.setView([0, 0], 3);
@@ -127,28 +132,7 @@ app.controller("relationshipsCtrl", ['tenureTypes','$scope', '$state', '$statePa
 
         $scope.sort_by = sortByRelationship;
 
-        $scope.tenure_types = [
-            {
-                type: 'all',
-                label: 'All Types'
-            },
-            {
-                type: 'own',
-                label: 'Own'
-            },
-            {
-                type: 'lease',
-                label: 'Lease'
-            },
-            {
-                type: 'occupy',
-                label: 'Occupy'
-            },
-            {
-                type: 'informal occupy',
-                label: 'Informally Occupy'
-            }
-        ];
+        $scope.tenure_types = tenureTypes;
 
 
     }]);

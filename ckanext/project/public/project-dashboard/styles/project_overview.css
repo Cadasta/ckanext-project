@@ -4,6 +4,10 @@
     margin-top: 13px;
 }
 
+.modal-no-radius{
+    border-radius: 0;
+}
+
 #project-header {
     height:auto;
     margin: 20px 12px 12px 12px;
@@ -173,10 +177,11 @@ li.resource-activity-block {
 }
 
 #header a {
-    position: relative;
-    top: 20px;
-    padding-right:28px;
-    float:right;
+    padding-left:10px;
+}
+
+#header .cadasta-round-button {
+    margin: 16px 24px 0 0;
 }
 
 .leaflet-top.leaflet-left {
@@ -185,4 +190,31 @@ li.resource-activity-block {
 
 .leaflet-bottom.leaflet-right {
     z-index: 50;
+}
+
+
+.field-data .material-icons.right {
+    margin-bottom:25px;
+}
+
+.field-datum .small-heading {
+    margin:20px 0 0 10px;
+}
+
+.field-datum .md-button.md-icon-button {
+    bottom:26px;
+}
+
+.field-datum-back-line {
+    margin:-11px 0 -16px 35px;
+}
+
+.field-datum .cadasta-button {
+    width: 153px;
+    display: inline-block;
+    text-align: center;
+}
+
+#ag-grid.selectFieldDataGrid {
+    height: 350px;
 }
