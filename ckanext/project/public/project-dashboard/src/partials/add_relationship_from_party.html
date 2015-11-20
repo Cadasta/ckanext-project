@@ -21,10 +21,8 @@
                         <form name="userForm">
                             <div layout layout-sm="column">
                             </div>
-                            <p>1. Enter relationship details.</p>
-
                             <md-input-container class="add-relationship-format">
-                                <label>Tenure Type</label>
+                                <label><span class="font-red">*</span>Tenure Type</label>
                                 <md-select ng-model="relationship.tenure_type">
                                     <md-option ng-repeat="t in tenure_types" value="{{t.type}}">
                                         {{t.label}}
@@ -32,15 +30,13 @@
                                 </md-select>
                             </md-input-container>
 
-
                             <md-input-container md-no-float class="md-block add-relationship-format">
                                 <input ng-model="relationship.acquired_type" placeholder="How was the parcel acquired?">
                             </md-input-container>
 
                             When was the parcel acquired?
-
                             <div id="custom-date-picker">
-                                <pre>Selected date is: <em>{{dt | date:format:'dd/MM/yyyy' }}</em></pre>
+                                <p>Selected date is: {{dt | date:format:'dd/MM/yyyy' }}</p>
 
                                 <div style="display:inline-block">
                                     <uib-datepicker ng-model="dt" format-day="dd" format-month="MM" format-year="yyyy"
@@ -56,7 +52,7 @@
                         </form>
                     </md-content>
 
-                    <p>2. Select a parcel and draw the relationship geometry using the tools on the left.</p>
+                    <p><span class="font-red">*</span>Select a parcel and draw the relationship geometry using the tools on the left.</p>
                     <br><br>
 
                     <div id="editParcelMap"></div>
@@ -75,11 +71,6 @@
                             <span class="legend-label">New Relationship Geometry</span>
                         </nav>
                     </div>
-                </div>
-
-
-                <div id="relationship_creation_feedback" ng-messages="newRelationshipForm.$error">
-                    <div ng-message="required" class="font-red">{{ relationshipCreatedFeedback }}</div>
                 </div>
                 <div class="cadasta-button right parcel-save" ng-click="saveNewRelationship(cadastaProjectId, layer, relationship)">Save Relationship</div>
                 <div class="cancel" ng-click="cancel()">Cancel</div>

@@ -24,12 +24,11 @@
     display:block;
     float:left;
     height:15px;
-    width:30px;
-    padding: 0 0 0 10px;
+    width:131px;
+    padding: 0 0 0 4px;
     text-align:left;
     font-size:10px;
     color:#2d3644;
-    width:85px;
     position: relative;
     bottom: 2px;
 }

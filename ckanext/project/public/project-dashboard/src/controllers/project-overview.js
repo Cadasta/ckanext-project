@@ -1,7 +1,7 @@
 var app = angular.module("app");
 
-app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location', 'dataService', 'paramService', 'utilityService', '$rootScope', 'ckanId', 'cadastaProject', '$mdDialog', 'USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole',
-    function ($scope, $state, $stateParams, $location, dataService, paramService, utilityService, $rootScope, ckanId, cadastaProject, $mdDialog,USER_ROLES, PROJECT_CRUD_ROLES, userRole) {
+app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location', 'dataService', 'paramService', 'utilityService', '$rootScope', 'ckanId', 'cadastaProject', '$mdDialog', 'USER_ROLES', 'PROJECT_CRUD_ROLES', 'TABS_USER_ROLES', 'userRole',
+    function ($scope, $state, $stateParams, $location, dataService, paramService, utilityService, $rootScope, ckanId, cadastaProject, $mdDialog,USER_ROLES, PROJECT_CRUD_ROLES, TABS_USER_ROLES, userRole) {
 
         $rootScope.$broadcast('tab-change', {tab: 'Overview'}); // notify breadcrumbs of tab on page load
 
@@ -15,6 +15,8 @@ app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location',
 
        // Add user's role to the scope
         $scope.showEditLink = PROJECT_CRUD_ROLES.indexOf(userRole) > -1;
+        $scope.nonPublic = TABS_USER_ROLES.indexOf(userRole) > -1;
+        $scope.public = !$scope.nonPublic;
 
 // Get map querystring from state parameters
         var mapStr = $stateParams.map;
@@ -117,6 +119,10 @@ app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location',
                 //reformat date created of resources
                 $scope.overviewData.features[0].properties.project_resources.forEach(function (resource) {
                     resource.properties.time_created = utilityService.formatDate(resource.properties.time_created);
+                });
+
+                $scope.overviewData.features[0].properties.project_resources.forEach(function(resource) {
+                    resource.properties.url = TABS_USER_ROLES.indexOf(userRole) > -1 ? resource.properties.url : '';
                 });
 
                 //reformat date created of activity list
