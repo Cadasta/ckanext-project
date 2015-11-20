@@ -26,8 +26,11 @@
                 <li ng-if="activity.properties.activity_type === 'parcel'"
                     ng-class="{'remove-bottom-border': $index == overviewData.activityList.length-1}"
                     class="activity-block block">
-                    <span class="bold"><a href="#/parcels/{{ activity.properties.id }}">
+
+                    <span class="bold" ng-show="nonPublic"><a ui-sref="tabs.parcels.parcel({id:activity.properties.id})">
                         Parcel {{ activity.properties.id }}</a></span>
+
+                    <span class="bold" ng-show="public">Parcel {{ activity.properties.id }}</span>
 
                     was created on {{ activity.properties.time_created }}
                 </li>
@@ -35,8 +38,12 @@
                 <li ng-if="activity.properties.activity_type === 'parcel_history'"
                     ng-class="{'remove-bottom-border': $index == overviewData.activityList.length-1}"
                     class="activity-block block">
-                    <span class="bold"><a href="#/parcels/{{ activity.properties.id }}">
+
+                    <span class="bold" ng-show="nonPublic"><a ui-sref="tabs.parcels.parcel({id:activity.properties.id})">
                         Parcel {{ activity.properties.id }}</a></span>
+
+                    <span class="bold" ng-show="public">Parcel {{ activity.properties.id }}</span>
+
                     was updated at {{ activity.properties.time_created }}
                 </li>
 
@@ -53,23 +60,32 @@
                     Relationship between
                     <span class="bold"> {{ activity.properties.name }}</span>
                     and
-                    <span class="bold"><a href="#/parcels/{{ activity.properties.parcel_id }}">
-                        parcel {{ activity.properties.parcel_id }}</a></span>
+
+                    <span class="bold" ng-show="nonPublic"><a ui-sref="tabs.parcels.parcel({id:activity.properties.id})">
+                        Parcel {{ activity.properties.id }}</a></span>
+
+                    <span class="bold" ng-show="public">Parcel {{ activity.properties.id }}</span>
+
                     was created on {{ activity.properties.time_created }}
                 </li>
 
                 <li ng-if="activity.properties.activity_type === 'relationship_history'"
                     ng-class="{'remove-bottom-border': $index == overviewData.activityList.length-1}"
                     class="activity-block block">
-                    <span class="bold"><a href="#/relationships/{{ activity.properties.id }}">
+
+                    <span class="bold" ng-show="nonPublic"><a ui-sref="tabs.relationships.relationship({id:activity.properties.id})">
                         Relationship {{ activity.properties.id }}</a></span>
+
+                    <span class="bold" ng-show="public">Relationship {{ activity.properties.id }}</span>
+
+
                     was updated at {{ activity.properties.time_created }}
                 </li>
+
                 <li ng-if="activity.properties.activity_type === 'field_data'"
                     ng-class="{'remove-bottom-border': $index == overviewData.activityList.length-1}"
                     class="activity-block block">
-                    <span class="bold"><a href="#/fieldData/{{ activity.properties.id }}">
-                        {{ activity.properties.name }}</a></span>
+                    <span class="bold">{{ activity.properties.name }}</span>
                     field data form uploaded on {{ activity.properties.time_created }}
                 </li>
             </div>
@@ -79,16 +95,12 @@
         <div class='mini-overview project-block' id="project-resource-summary">
             <span class="small-heading">RESOURCES</span>
 
-            <!--<md-button class="cadasta-round-button right" ng-click="showAdvanced($event)" flex flex-md="100">-->
-                <!--Add Resource-->
-            <!--</md-button>-->
-
             <div ng-repeat="resource in overviewData.features[0].properties.project_resources">
                 <li ng-class="{'remove-bottom-border': $index == overviewData.features[0].properties.project_resources.length-1}"
                     class="resource-activity-block block">
                     <span class="bold">{{resource.properties.file_name}}</span> uploaded on
                     {{resource.properties.time_created}}
-                    <div><a href="{{resource.properties.url}}">Download</a></div>
+                    <div ng-show="nonPublic"><a href="{{resource.properties.url}}">Download</a></div>
                 </li>
             </div>
         </div>

@@ -261,7 +261,6 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
                 updateExistingParcel.then(function (response) {
                     if (response.cadata_parcel_history_id){
 
-                        $scope.parcelCreated = 'parcel successfully updated';
 
                         $rootScope.$broadcast('updated-parcel');
 
@@ -299,7 +298,7 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
 
         $scope.relationshipCreatedFeedback = '';
 
-        function addRelationshipCtrl($scope, $mdDialog, $stateParams) {
+        function addRelationshipCtrl($scope, $mdDialog, $stateParams, utilityService) {
             $scope.hide = function () {
                 $mdDialog.hide();
             };
@@ -376,10 +375,10 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
                 }
 
                 if ($scope.relationship.party == undefined) {
-                    $scope.relationshipCreated = "party required";
+                    utilityService.showToast('Party is required');
                 }
                 else if ($scope.relationship.tenure_type == undefined) {
-                    $scope.relationshipCreated = "tenure required";
+                    utilityService.showToast('Tenure type is required');
                 }
                 else if (($scope.relationship.party != undefined) && ($scope.relationship.tenure_type != undefined)  ) {
 
@@ -396,6 +395,7 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
 
                         }
                     }).catch(function(response){
+                        utilityService.showToast('Unable to create relationship');
                         $scope.relationshipCreatedFeedback = 'Unable to create relationship: ' + response.data.error.message;
                     });
 
@@ -405,9 +405,13 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
             $scope.tenure_types = tenureTypes;
         }
 
+        /**
+         * Once modal is instantiated, function addMap is run to instantiate the map and elements of the modal
+         */
+
         function addMap() {
 
-            var map = L.map('editParcelMap');
+            var map = L.map('editParcelMap', {scrollWheelZoom:false});
 
             var satellite = L.tileLayer('https://api.tiles.mapbox.com/v4/mapbox.streets-satellite/{z}/{x}/{y}.png?access_token={accessToken}', {
                 attribution: '',
@@ -438,7 +442,6 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
                 iconSize: [30, 30]
 
             });
-
 
             var options = {
                 draw: {
@@ -491,7 +494,6 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
             //only allow one parcel to be drawn at a time
             map.on('draw:drawstart', function (e) {
                 featureGroup.clearLayers();
-
             });
 
 
@@ -525,7 +527,6 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
                 }
             });
 
-
             var parcelStyle = {
                 "color": "#e54573",
                 "stroke": true,
@@ -548,12 +549,9 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
 
             map.fitBounds(parcelLayer.getBounds());
 
-
             //prepopulate fields to update with existing data
             $scope.parcel.pinid = $scope.parcelObject.properties.gov_pin;
             $scope.parcel.landuse = $scope.parcelObject.properties.land_use;
-
-
         }
 
 
@@ -573,7 +571,7 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
             })
         };
 
-        function resourceDialogController($scope, $mdDialog, FileUploader, ENV) {
+        function resourceDialogController($scope, $mdDialog, FileUploader, ENV, utilityService) {
             $scope.hide = function () {
                 $mdDialog.hide();
             };
@@ -626,13 +624,13 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
                 else if(response.error){
 
                     if (response.error.type && response.error.type.pop && response.error.type.pop() === "duplicate") {
-                        $scope.error = 'This resource already exists. Rename resource to complete upload.';
+                        utilityService.showToastBottomRight('This resource already exists. Rename resource to complete upload.');
                     }
                     else if(response.error.message) {
-                        $scope.error = response.error.message;
+                        utilityService.showToastBottomRight('Error uploading resource.');
                     }
                     else {
-                        $scope.error = response.error;
+                        utilityService.showToastBottomRight('Error uploading resource.');
                     }
                 }
             };
@@ -646,45 +644,18 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
 
             $scope.uploader.onErrorItem = function (item, response, status, headers) {
                 if (response.type == "duplicate") {
-                    $scope.error = 'This resource already exists. Rename resource to complete upload.'
+                    utilityService.showToastBottomRight('This resource already exists. Rename resource to complete upload.');
                 } else {
-                    $scope.error = response.error;
+                    utilityService.showToastBottomRight('Error uploading resource.');
                 }
 
                 $scope.uploader.clearQueue();
                 resetProgress();
             };
-
         }
-
-        // TODO move to config or service
-        // TODO create endpoint that grabs project specific tenure types
-        $scope.tenure_types = [
-
-            {
-                type: 'own',
-                label: 'Owned Parcels'
-            },
-            {
-                type: 'lease',
-                label: 'Leased Parcels'
-            },
-            {
-                type: 'occupy',
-                label: 'Occupied Parcels'
-            },
-            {
-                type: 'informal occupy',
-                label: 'Informally Occupied Parcels'
-            }
-        ];
-
-
         $scope.myDate = new Date();
 
-
         }]);
-
 
 
 

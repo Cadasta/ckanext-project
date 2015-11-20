@@ -25,7 +25,7 @@ app.controller("fieldDataCtrl", ['$scope', '$rootScope', '$state', '$stateParams
         });
 
 
-        function fieldDataModalCtrl($scope, $mdDialog, $stateParams) {
+        function fieldDataModalCtrl($scope, $mdDialog, $stateParams, utilityService) {
             $scope.hide = function () {
                 $mdDialog.hide();
                 $state.go("tabs.overview.project-overview");
@@ -79,7 +79,7 @@ app.controller("fieldDataCtrl", ['$scope', '$rootScope', '$state', '$stateParams
 
                 if (item.file.name.indexOf('xls') == -1) {
                     item.remove();
-                    $scope.error = 'Invalid file type';
+                    utilityService.showToast('Invalid file type');
                 } else {
 
                     // only allow one file item in the queue
@@ -92,7 +92,6 @@ app.controller("fieldDataCtrl", ['$scope', '$rootScope', '$state', '$stateParams
                     $scope.error = '';
                 }
             }
-
 
             $scope.uploader.onProgressItem = function (item, progress) {
                 $scope.progress = 'Uploading......';
@@ -108,14 +107,12 @@ app.controller("fieldDataCtrl", ['$scope', '$rootScope', '$state', '$stateParams
 
                 }
                 else if (response.result.status === "ERROR"){
-                    $scope.progress = response.result.msg;
+                    utilityService.showToast('Error uploading survey format.');
                 }
             }
 
             $scope.uploader.onErrorItem = function (item, response, status, headers) {
-
-                $scope.progress = 'ERROR: ';
-                $scope.error = response;
+                utilityService.showToast('Error uploading survey format. Error: ' + response);
             }
         }
     }]);

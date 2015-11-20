@@ -1,5 +1,5 @@
 var app = angular.module("app")
-    .service("utilityService",function() {
+    .service("utilityService",function($mdToast) {
 
         var service =  {};
 
@@ -16,6 +16,25 @@ var app = angular.module("app")
 
             return date_object_formatted;
         };
+
+
+        service.showToast = function(text) {
+            $mdToast.show(
+                $mdToast.simple()
+                    .content(text)
+                    .hideDelay(3000)
+                    .position('top right')
+            );
+        }
+
+        service.showToastBottomRight = function(text) {
+            $mdToast.show(
+                $mdToast.simple()
+                    .content(text)
+                    .hideDelay(3000)
+                    .position('bottom right')
+            );
+        }
 
         return service;
     });

@@ -38,7 +38,6 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
         };
 
 
-
         function rowSelectedFunc(event) {
             $state.go("tabs.parties.party", {id:event.node.data.id})
         }
@@ -65,7 +64,6 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
 
                 var partyData = [];
 
-
                 //get row data
                 response.forEach(function (party) {
 
@@ -82,11 +80,9 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
                 });
 
 
-
                 // add data to column rows
                 $scope.partyGridOptions.api.setRowData(partyData);
                 $scope.partyGridOptions.api.sizeColumnsToFit();
-
 
 
             }, function (err) {
@@ -110,7 +106,7 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
 
         $scope.partyCreatedFeedback = '';
 
-        function addPartyCtrl($scope, $mdDialog, $stateParams) {
+        function addPartyCtrl($scope, $mdDialog, $stateParams, utilityService) {
             $scope.hide = function () {
                 $mdDialog.hide();
             };
@@ -128,12 +124,13 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
                     party.dob =  new Date($scope.dt.setMinutes( $scope.dt.getTimezoneOffset() ));
                 }
 
+                if ($scope.party.properties == undefined){
+                    utilityService.showToast('Name is required.');
+                }
                 var createParty = partyService.createProjectParty(projectId, party);
 
                 createParty.then(function (response) {
                     if (response.cadasta_party_id){
-
-                        $scope.partyCreatedFeedback = 'Party successfully added';
 
                         $rootScope.$broadcast('new-party');
                         getParties();
@@ -142,8 +139,7 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
                         $state.go("tabs.parties.party", {id:response.cadasta_party_id});
                     }
                 }).catch(function(response){
-
-                    $scope.partyCreatedFeedback ='Unable to create party: ' + response.data.error.message;
+                    utilityService.showToast('Unable to create party');
                 });
             }
         }
@@ -169,7 +165,6 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
                 label: 'Groups'
             }
         ];
-
 
     }]);
 

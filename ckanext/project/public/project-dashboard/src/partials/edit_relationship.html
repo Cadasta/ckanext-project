@@ -36,19 +36,10 @@
                                 </md-input-container>
                             </div>
 
-                            <!--<md-input-container>-->
-                                <!--<label>Date Acquired</label>-->
-                                <!--<md-datepicker md-max-date="maxDate"-->
-                                               <!--ng-model="relationship.acquired_date"-->
-                                               <!--md-placeholder="{{relationship.properties.acquired_date | date : format : 'M/d/yyyy'}}"></md-datepicker>-->
-                            <!--</md-input-container>-->
-
-
 
                             When was the parcel acquired?
-
                             <div id="custom-date-picker">
-                                <pre>Selected date is: <em>{{dt | date:format:'dd/MM/yyyy' }}</em></pre>
+                                <p>Selected date is: {{dt | date:format:'dd/MM/yyyy' }}</p>
 
                                 <div style="display:inline-block">
                                     <uib-datepicker ng-model="dt" format-day="dd" format-month="MM" format-year="yyyy"

@@ -18,10 +18,7 @@
 
                 <div class="modal-content">
                     <div>
-                        <p>1. Draw the geometry of a new parcel using the tools on the left.</p>
-                        <div ng-messages="addParcel.$error">
-                            <div ng-message="required" class="font-red">{{ parcelCreatedFeedback }}</div>
-                        </div>
+                        <p><span class="font-red">*</span>Draw the geometry of a new parcel using the tools on the left.</p>
                         <br><br>
 
                         <div id="addParcelMap"></div>
@@ -37,10 +34,7 @@
                         </div>
 
                         <md-content class="layout-padding left add-parcel-extra-fields" >
-                            <p>2. Add additional (optional) data to the parcel.</p>
                                 <div layout layout-sm="column">
-
-
                                     <md-input-container md-no-float flex  class="pin-id md-block">
                                         <input ng-model="parcel.pinid" placeholder="Government Pin Id">
                                     </md-input-container>
