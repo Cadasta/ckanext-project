@@ -29,9 +29,7 @@
 
                     <span class="bold" ng-show="nonPublic"><a ui-sref="tabs.parcels.parcel({id:activity.properties.id})">
                         Parcel {{ activity.properties.id }}</a></span>
-
                     <span class="bold" ng-show="public">Parcel {{ activity.properties.id }}</span>
-
                     was created on {{ activity.properties.time_created }}
                 </li>
 
@@ -41,16 +39,16 @@
 
                     <span class="bold" ng-show="nonPublic"><a ui-sref="tabs.parcels.parcel({id:activity.properties.id})">
                         Parcel {{ activity.properties.id }}</a></span>
-
                     <span class="bold" ng-show="public">Parcel {{ activity.properties.id }}</span>
-
                     was updated at {{ activity.properties.time_created }}
                 </li>
 
                 <li ng-if="activity.properties.activity_type === 'party'"
                     ng-class="{'remove-bottom-border': $index == overviewData.activityList.length-1}"
                     class="activity-block block">
-                    <span class="bold">Party {{ activity.properties.name }}</span>
+
+                    <span class="bold" ng-show="nonPublic">Party {{ activity.properties.name }}</span>
+                    <span class="bold" ng-show="public">Party {{ activity.properties.id }}</span>
                     was created on {{ activity.properties.time_created }}
                 </li>
 
@@ -58,27 +56,21 @@
                     ng-class="{'remove-bottom-border': $index == overviewData.activityList.length-1}"
                     class="activity-block block">
                     Relationship between
-                    <span class="bold"> {{ activity.properties.name }}</span>
+                    <span class="bold" ng-show="nonPublic"> party {{ activity.properties.name }}</span>
+                    <span class="bold" ng-show="public"> party {{ activity.properties.id }}</span>
                     and
-
                     <span class="bold" ng-show="nonPublic"><a ui-sref="tabs.parcels.parcel({id:activity.properties.id})">
                         Parcel {{ activity.properties.id }}</a></span>
-
                     <span class="bold" ng-show="public">Parcel {{ activity.properties.id }}</span>
-
                     was created on {{ activity.properties.time_created }}
                 </li>
 
                 <li ng-if="activity.properties.activity_type === 'relationship_history'"
                     ng-class="{'remove-bottom-border': $index == overviewData.activityList.length-1}"
                     class="activity-block block">
-
                     <span class="bold" ng-show="nonPublic"><a ui-sref="tabs.relationships.relationship({id:activity.properties.id})">
                         Relationship {{ activity.properties.id }}</a></span>
-
                     <span class="bold" ng-show="public">Relationship {{ activity.properties.id }}</span>
-
-
                     was updated at {{ activity.properties.time_created }}
                 </li>
 
