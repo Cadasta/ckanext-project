@@ -39,11 +39,16 @@ app.controller("fieldDataCtrl", ['$scope', '$rootScope', '$state', '$stateParams
                 $rootScope.$broadcast('validate-datum');
             }
 
+
             $scope.response = '';
             $scope.error = '';
             $scope.progress = '';
 
             $scope.formObj = {};
+
+            function resetProgress() {
+                $scope.progress = 0;
+            }
 
             getFieldData();
 
@@ -94,24 +99,31 @@ app.controller("fieldDataCtrl", ['$scope', '$rootScope', '$state', '$stateParams
             }
 
             $scope.uploader.onProgressItem = function (item, progress) {
-                $scope.progress = 'Uploading......';
+                $scope.progress = progress;
             };
 
             // triggered when FileItem is has completed .upload()
             $scope.uploader.onCompleteItem = function (fileItem, response, status, headers) {
 
                 if (response.result.status == "OK") {
-                    $scope.progress = response.result.msg;
-
+                    resetProgress();
                     getFieldData(); // get new field data
+                    $scope.response = 'Successfully Uploaded Field Data Form'
 
                 }
-                else if (response.result.status === "ERROR"){
-                    utilityService.showToast('Error uploading survey format.');
+                else if (response.result.status === "ERROR" || response.result.status == "NO_ONA_API_KEY"){
+                    utilityService.showToast(response.result.msg);
+                    resetProgress();
+                    $scope.response = '';
+
                 }
             }
 
             $scope.uploader.onErrorItem = function (item, response, status, headers) {
+                $scope.uploader.clearQueue();
+                resetProgress();
+                $scope.response = '';
+
                 utilityService.showToast('Error uploading survey format. Error: ' + response);
             }
         }

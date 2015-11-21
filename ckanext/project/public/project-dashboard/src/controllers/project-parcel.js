@@ -583,6 +583,8 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
                 $mdDialog.hide(answer);
             };
 
+            $scope.resourceDescription = '';
+
             $scope.uploader = new FileUploader({
                 alias: 'filedata',
                 url: ENV.apiCKANRoot + '/cadasta_upload_project_resources'
@@ -597,7 +599,8 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
                 item.formData.push({
                     project_id: cadastaProject.id,
                     resource_type: "parcel",
-                    resource_type_id: $stateParams.id
+                    resource_type_id: $stateParams.id,
+                    description: $scope.resourceDescription
                 });
             };
 
@@ -646,8 +649,6 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
             $scope.uploader.onErrorItem = function (item, response, status, headers) {
                 if (response.type == "duplicate") {
                     utilityService.showToastBottomRight('This resource already exists. Rename resource to complete upload.');
-                } else {
-                    utilityService.showToastBottomRight('Error uploading resource.');
                 }
 
                 $scope.uploader.clearQueue();

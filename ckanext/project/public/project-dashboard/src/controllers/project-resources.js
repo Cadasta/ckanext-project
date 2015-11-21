@@ -100,6 +100,8 @@ app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService'
             $scope.progress = 0;
         }
 
+        $scope.resourceDescription = '';
+
         $scope.uploader = new FileUploader({
             alias: 'filedata',
             url: ENV.apiCKANRoot + '/cadasta_upload_project_resources'
@@ -110,10 +112,11 @@ app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService'
             item.formData.push({
                 project_id: cadastaProject.id,
                 resource_type: "project",
-                resource_type_id: cadastaProject.id
+                resource_type_id: cadastaProject.id,
+                description: $scope.resourceDescription
+
             });
         };
-
 
         $scope.uploader.onProgressItem = function (item, progress) {
             $scope.progress = progress;

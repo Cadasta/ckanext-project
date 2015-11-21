@@ -67,8 +67,8 @@
 
                             </div>
                         </md-content>
-
-                        <md-content class="layout-padding left add-parcel-extra-fields" >
+                        <label>Party Date of Birth</label>
+                        <md-content class="layout-padding left add-parcel-extra-fields" ng-show="(party.party_type === 'individual')">
                             <div layout layout-sm="column">
                                 <div id="custom-date-picker">
                                     <pre>Selected date is: <em>{{dt | date:format:'dd/MM/yyyy' }}</em></pre>
@@ -79,9 +79,6 @@
                                                         class="well well-sm"></uib-datepicker>
                                     </div>
                                 </div>
-
-
-
                             </div>
                         </md-content>
 

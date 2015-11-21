@@ -19,12 +19,17 @@
         <div id="field-data-upload">
             <p>Upload an XLS survey format.</p>
 
+            <div class="resource-upload-success">
+                {{response}}
+            </div>
+
             <input type="file" nv-file-select uploader="uploader"/><br/>
 
                 <button ng-show="uploader.queue.length==1" ng-click="uploader.queue[0].upload()">upload</button>
 
-            <div>{{progress}}</div>
-            <div class="resource-upload-error" >{{error}}</div>
+            <md-progress-circular ng-show="progress>0" md-mode="indeterminate"></md-progress-circular>
+
+            <!--<div class="resource-upload-error" >{{error}}</div>-->
 
         </div>
 

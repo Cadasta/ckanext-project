@@ -14,31 +14,24 @@
         <md-dialog-content>
 
             <div class="form_upload_content">
-                <!--<div class="cadasta-modal-header">-->
-                    <!--<div class="small-heading">-->
-                        <!--Add Resource-->
-                    <!--</div>-->
 
-                    <!--<div class="right">-->
-                        <!--<md-button class="md-icon-button" ng-click="cancel()">-->
-                            <!--<i class="material-icons right">clear</i>-->
-                        <!--</md-button>-->
-                    <!--</div>-->
-                <!--</div>-->
                 <div class="modal-content">
                     <div>
                         <p>Select resource files to upload. All file types and sizes accepted.</p>
 
+                        <md-input-container md-no-float flex>
+                            <label>Description</label>
+                            <textarea ng-model="resourceDescription" columns="1"></textarea>
+                        </md-input-container>
+
                         <br><br>
-                        <div class="resource-upload-error">
-                            {{error}}
-                        </div>
                         <div class="resource-upload-success">
                             {{response}}
                         </div>
                     </div>
 
                     <input type="file" nv-file-select uploader="uploader" multiple/><br/>
+
 
                     <ul>
                         <li ng-repeat="item in uploader.queue">
@@ -48,7 +41,6 @@
                                 <div>Upload Resource</div>
                             </button>
 
-                            <!--<button class="grey-btn" >Upload Resource</button>-->
                         </li>
                     </ul>
 
