@@ -14,3 +14,14 @@
 .field-data-response {
     font-size: 14px;
 }
+
+.form_upload_content md-input-container{
+    width:auto;
+    height: auto;
+}
+
+
+.form_upload_content md-input-container textarea {
+    width:200px;
+    height: 100px;
+}
