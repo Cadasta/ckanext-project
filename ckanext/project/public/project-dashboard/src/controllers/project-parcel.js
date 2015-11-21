@@ -649,8 +649,6 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
             $scope.uploader.onErrorItem = function (item, response, status, headers) {
                 if (response.type == "duplicate") {
                     utilityService.showToastBottomRight('This resource already exists. Rename resource to complete upload.');
-                } else {
-                    utilityService.showToastBottomRight('Error uploading resource.');
                 }
 
                 $scope.uploader.clearQueue();
