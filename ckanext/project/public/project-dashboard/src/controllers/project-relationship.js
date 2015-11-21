@@ -467,6 +467,8 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
                 $mdDialog.hide(answer);
             };
 
+            $scope.resourceDescription = '';
+
             function resetProgress() {
                 $scope.progress = 0;
             }
@@ -485,8 +487,9 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
                 item.formData.push({
                     project_id: cadastaProject.id,
                     resource_type: "relationship",
-                    resource_type_id: $stateParams.id
-                });
+                    resource_type_id: $stateParams.id,
+                    description: $scope.resourceDescription
+            });
             };
 
             // triggered when FileItem is has completed .upload()

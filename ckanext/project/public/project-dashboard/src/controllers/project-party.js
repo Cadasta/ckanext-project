@@ -541,6 +541,8 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
                 $scope.progress = 0;
             }
 
+            $scope.resourceDescription = '';
+
             $scope.uploader = new FileUploader({
                 alias: 'filedata',
                 url: ENV.apiCKANRoot + '/cadasta_upload_project_resources'
@@ -551,7 +553,8 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
                 item.formData.push({
                     project_id: cadastaProject.id,
                     resource_type: "party",
-                    resource_type_id: $stateParams.id
+                    resource_type_id: $stateParams.id,
+                    description: $scope.resourceDescription
                 });
             };
 
