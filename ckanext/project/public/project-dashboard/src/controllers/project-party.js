@@ -11,6 +11,11 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
             $rootScope.$broadcast('clear-inner-tabs');
         };
 
+
+        $scope.$on('new-relationship',function(){
+            getPartyDetails();
+        })
+
         $scope.toggleDropdownDetails = function (obj) {
             obj.showDropDownDetails = !obj.showDropDownDetails;
         };
@@ -488,12 +493,12 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
 
             $scope.cadastaProjectId = cadastaProject.id;
             $scope.party = party;
-            $scope.dt = new Date(party.dob);
+            $scope.dt = utilityService.parseDate(party.dob);
 
             $scope.updateParty = function (projectId, party) {
 
                 if($scope.dt){
-                    party.dob =  new Date($scope.dt.setMinutes( $scope.dt.getTimezoneOffset() ));
+                    party.dob = new Date($scope.dt.setMinutes( $scope.dt.getTimezoneOffset() ));
                 }
 
                 var updateParty = partyService.updateProjectParty(projectId, $stateParams.id, party);
@@ -562,7 +567,7 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
                 $scope.progress = progress;
             };
 
-            // triggered when FileItem is has completed .upload()
+            // triggered file upload complete (independently of the sucess of the operation)
             $scope.uploader.onCompleteItem = function (fileItem, response, status, headers) {
                 //
                 // ckan api wrappers return a 'result' key for successful calls
@@ -580,17 +585,16 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
                 else if(response.error){
 
                     if (response.error.type && response.error.type.pop && response.error.type.pop() === "duplicate") {
-                        utilityService.showToastBottomRight('This resource already exists. Rename resource to complete upload.')
+                        utilityService.showToastBottomRight('This resource already exists. Rename resource to complete upload.');
                     }
                     else if(response.error.message) {
-                        $scope.error = response.error.message;
-                        utilityService.showToastBottomRight('Error uploading file');
+                        utilityService.showToastBottomRight(response.error.message);
                     }
                     else {
-                        $scope.error = response.error;
-                        utilityService.showToastBottomRight('Error uploading file');
+                        utilityService.showToastBottomRight('Error uploading resource');
                     }
 
+                    $scope.uploader.clearQueue();
                     resetProgress();
                 }
             };
@@ -602,16 +606,6 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
                 }
             };
 
-            $scope.uploader.onErrorItem = function (item, response, status, headers) {
-                if (response.type == "duplicate") {
-                    utilityService.showToastBottomRight('This resource already exists. Rename resource to complete upload.')
-                } else {
-                    utilityService.showToastBottomRight('Error uploading file');
-                }
-
-                $scope.uploader.clearQueue();
-                resetProgress();
-            };
         }
 
 

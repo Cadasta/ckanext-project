@@ -18,13 +18,13 @@
 
                 <div class="modal-content">
                     <div>
-                        <md-radio-group ng-model="party.party_type" ng-init="party.party_type='individual'" >
+                        <md-radio-group ng-click="clearPartyFields(party)" ng-model="party.party_type" ng-init="party.party_type='individual'" >
                             <label class="party-type"><span class="font-red">*</span>Party Type</label>
                             <md-radio-button value="individual" class="md-primary">Individual</md-radio-button>
                             <md-radio-button value="group">Group</md-radio-button>
                         </md-radio-group>
 
-                        <md-content class="layout-padding left add-parcel-extra-fields" >
+                        <md-content class="layout-padding add-parcel-extra-fields" >
                             <div layout layout-sm="column">
 
                                 <md-input-container md-no-float flex class="pin-id" ng-show="(party.party_type === 'individual')">
@@ -42,7 +42,7 @@
                             </div>
                         </md-content>
 
-                        <md-content class="layout-padding left add-parcel-extra-fields" >
+                        <md-content class="layout-padding add-parcel-extra-fields" >
                             <div layout layout-sm="column">
 
                                 <md-input-container md-no-float flex class="pin-id" >
@@ -58,8 +58,8 @@
                             </div>
                         </md-content>
 
-                        <md-content class="layout-padding left add-parcel-extra-fields" >
-                            <label>Party Date of Birth</label>
+                        <md-content class="layout-padding add-parcel-extra-fields" >
+                            <label ng-show="(party.party_type === 'individual')">Party Date of Birth</label>
                             <div ng-show="(party.party_type === 'individual')" layout layout-sm="column">
                                 <div id="custom-date-picker">
                                     <p>Selected date is: {{dt | date:format:'dd/MM/yyyy' }}</p>
@@ -74,9 +74,9 @@
 
                         </md-content>
 
-                        <md-content class="layout-padding left add-parcel-extra-fields" >
+                        <md-content class="layout-padding add-parcel-extra-fields" >
                             <div layout layout-sm="column">
-                                <md-input-container md-no-float flex class="relationship-notes md-block">
+                                <md-input-container md-no-float flex class="modal-notes relationship-notes md-block">
                                     <textarea ng-model="party.description" columns="1" placeholder="Notes"></textarea>
                                 </md-input-container>
                             </div>
@@ -84,8 +84,10 @@
 
                     </div>
                 </div>
+
                 <div class="cadasta-button right parcel-save" ng-click="saveNewParty(cadastaProjectId, party)">Save Party</div>
                 <div class="cancel" ng-click="cancel()">Cancel</div>
+
             </div>
         </md-dialog-content>
     </form>

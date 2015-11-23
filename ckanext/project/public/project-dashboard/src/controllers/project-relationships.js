@@ -43,6 +43,15 @@ app.controller("relationshipsCtrl", ['tenureTypes','$scope', '$state', '$statePa
             getRelationships();
         });
 
+        // listen for updates relationship
+        $scope.$on('updated-relationship', function (){
+            getRelationships();
+        });
+
+        // listen for new relationships
+        $scope.$on('new-relationship', function (){
+            getRelationships();
+        });
 
         //modal for adding a relationship
         $scope.addRelationshipModal = function (ev) {

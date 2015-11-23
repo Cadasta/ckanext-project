@@ -1,8 +1,8 @@
 var app = angular.module("app");
 
 
-app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService', 'utilityService','$rootScope', '$mdDialog','FileUploader', 'ENV','ckanId','cadastaProject', 'USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole',
-    function($scope, $state, $stateParams, dataService, utilityService, $rootScope, $mdDialog, FileUploader, ENV, ckanId, cadastaProject, USER_ROLES, PROJECT_CRUD_ROLES, userRole){
+app.controller("resourceCtrl", ['resourceTypes','sortByResource', '$scope', '$state', '$stateParams','dataService', 'utilityService','$rootScope', '$mdDialog','FileUploader', 'ENV','ckanId','cadastaProject', 'USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole',
+    function(resourceTypes,sortByResource,$scope, $state, $stateParams, dataService, utilityService, $rootScope, $mdDialog, FileUploader, ENV, ckanId, cadastaProject, USER_ROLES, PROJECT_CRUD_ROLES, userRole){
 
 
     if($state.current.name !== "tabs.resources") {
@@ -23,39 +23,9 @@ app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService'
 
     getResources(false); //  get resources, cache results
 
-    $scope.resource_types = [
-        {
-            type: 'all',
-            label: 'All Resources'
-        },
-        {
-            type: 'project',
-            label: 'Project Resources'
-        },
-        {
-            type: 'parcel',
-            label: 'Parcel Resources'
-        },
-        {
-            type: 'party',
-            label: 'Party Resources'
-        },
-        {
-            type: 'relationship',
-            label: 'Relationship Resources'
-        }
-    ];
+    $scope.resource_types = resourceTypes;
 
-    $scope.sort_by = [
-        {
-            type: 'name',
-            label: 'Name'
-        },
-        {
-            type: 'time_created',
-            label: 'Date'
-        }
-    ];
+    $scope.sort_by = sortByResource;
 
     $scope.response = '';
     $scope.error = '';
@@ -122,7 +92,7 @@ app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService'
             $scope.progress = progress;
         };
 
-        // triggered when FileItem is has completed .upload()
+        // triggered file upload complete (independently of the sucess of the operation)
         $scope.uploader.onCompleteItem = function (fileItem, response, status, headers) {
             //
             // ckan api wrappers return a 'result' key for successful calls
@@ -140,14 +110,17 @@ app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService'
             else if(response.error){
 
                 if (response.error.type && response.error.type.pop && response.error.type.pop() === "duplicate") {
-                    utilityService.showToast('This resource already exists. Rename resource to complete upload.');
+                    utilityService.showToastBottomRight('This resource already exists. Rename resource to complete upload.');
                 }
                 else if(response.error.message) {
-                    utilityService.showToast('Error uploading resource.');
+                    utilityService.showToastBottomRight(response.error.message);
                 }
                 else {
-                    utilityService.showToast('Error uploading resource.');
+                    utilityService.showToastBottomRight('Error uploading resource');
                 }
+
+                $scope.uploader.clearQueue();
+                resetProgress();
             }
         };
 
@@ -156,17 +129,6 @@ app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService'
             if($scope.uploader.queue.length > 1){
                 $scope.uploader.removeFromQueue(0);
             }
-        };
-
-        $scope.uploader.onErrorItem = function (item, response, status, headers) {
-            if(response.error.type == "duplicate"){
-                utilityService.showToast('This resource already exists. Rename resource to complete upload.');
-            } else {
-                utilityService.showToast('Error uploading resource.');
-            }
-
-            $scope.uploader.clearQueue();
-            resetProgress();
         };
 
         $scope.hide = function() {

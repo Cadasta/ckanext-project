@@ -5,14 +5,14 @@ from .project import has_permission_for_project
 #
 #  GET
 #
-@toolkit.auth_allow_anonymous_access
+#@toolkit.auth_allow_anonymous_access
 def cadasta_get_project_fielddata_responses(context, data_dict):
     data_dict.update({'id':data_dict['project_id']})
     return {
         'success': toolkit.check_access('package_show', context, data_dict)
     }
 
-@toolkit.auth_allow_anonymous_access
+#@toolkit.auth_allow_anonymous_access
 def cadasta_get_project_fielddata(context, data_dict):
     data_dict.update({'id':data_dict['project_id']})
     return {

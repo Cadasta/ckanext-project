@@ -208,7 +208,7 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
                 $mdDialog.cancel();
             };
 
-            $scope.dt = new Date(relationship.properties.acquired_date);
+            $scope.dt = utilityService.parseDate(relationship.properties.acquired_date);
             $scope.cadastaProjectId = cadastaProject.id;
             $scope.relationship = relationship;
 
@@ -492,7 +492,7 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
             });
             };
 
-            // triggered when FileItem is has completed .upload()
+            // triggered file upload complete (independently of the sucess of the operation)
             $scope.uploader.onCompleteItem = function (fileItem, response, status, headers) {
                 //
                 // ckan api wrappers return a 'result' key for successful calls
@@ -512,11 +512,14 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
                         utilityService.showToastBottomRight('This resource already exists. Rename resource to complete upload.');
                     }
                     else if(response.error.message) {
-                        utilityService.showToastBottomRight('Error uploading resource.');
+                        utilityService.showToastBottomRight(response.error.message);
                     }
                     else {
                         utilityService.showToastBottomRight('Error uploading resource.');
                     }
+
+                    $scope.uploader.clearQueue();
+                    resetProgress();
                 }
             };
 
@@ -525,17 +528,6 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
                 if ($scope.uploader.queue.length > 1) {
                     $scope.uploader.removeFromQueue(0);
                 }
-            };
-
-            $scope.uploader.onErrorItem = function (item, response, status, headers) {
-                if (response.type == "duplicate") {
-                    utilityService.showToastBottomRight('This resource already exists. Rename resource to complete upload.');
-                } else {
-                    utilityService.showToastBottomRight('Error uploading resource.');
-                }
-
-                $scope.uploader.clearQueue();
-                resetProgress();
             };
 
         }

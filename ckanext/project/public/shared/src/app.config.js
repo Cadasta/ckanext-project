@@ -106,3 +106,47 @@ angular.module('app.config', [])
             label:'Field Data Activity'
         }
     ])
+
+.constant('sortByResource',[{
+        type: 'name',
+        label: 'File Name'
+    },
+    {
+        type: 'time_created',
+        label: 'Date'
+    }])
+.constant('resourceTypes', [
+        {
+            type: 'all',
+            label: 'All Resources'
+        },
+        {
+            type: 'project',
+            label: 'Project Resources'
+        },
+        {
+            type: 'parcel',
+            label: 'Parcel Resources'
+        },
+        {
+            type: 'party',
+            label: 'Party Resources'
+        },
+        {
+            type: 'relationship',
+            label: 'Relationship Resources'
+        }
+    ]).constant('partyTypes', [
+        {
+            type: 'all',
+            label: 'All Types'
+        },
+        {
+            type: 'individual',
+            label: 'Individuals'
+        },
+        {
+            type: 'group',
+            label: 'Groups'
+        }
+    ])

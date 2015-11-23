@@ -40,11 +40,11 @@ angular.module('app.filters', [])
                     });
                     return arr;
                     break;
-                case 'id':
+                case 'name':
                     // sort by ASC
                     var arr = inputs.slice();
                     arr.sort(function (a, b) {
-                        return a.properties.description - b.properties.description;
+                        return a.properties.file_name.toLowerCase() > b.properties.file_name.toLowerCase();
                     });
                     return arr;
                     break;

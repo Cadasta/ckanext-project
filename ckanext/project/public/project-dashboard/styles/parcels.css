@@ -1,3 +1,13 @@
+md-input-container.tenure-type {
+    position: relative;
+    bottom: 13px;
+}
+
+md-input-container.how-acquired {
+    position: relative;
+    top: 13px;
+}
+
 #parcelDetails.overview-background  {
     margin: 0 auto;
     height: auto;
@@ -221,7 +231,6 @@
 }
 
 #parcelList tbody {
-    height:200px;
     overflow-y: auto;
 }
 
@@ -324,7 +333,19 @@ md-input-container.notes textarea {
  width:310px;
 }
 
+.button-text {
+    position: relative;
+    bottom: 2px;
+}
 
+.tenure-type-left {
+    width: 240px !important;
+}
+
+.landuse-left {
+    margin-right: 50px;
+    width: 185px !important;
+}
 /*.cadasta-button.right.parcel-save {*/
     /*margin-top:147px;*/
 /*}*/
@@ -338,7 +359,9 @@ md-input-container.notes textarea {
 }
 
 
-
+.modal-notes {
+    margin-top: 10px;
+}
 
 .add-parcel-extra-fields md-input-container.pin-id input {
     width: 325px;

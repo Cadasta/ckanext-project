@@ -1,12 +1,17 @@
 var app = angular.module("app");
 
-app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService', '$rootScope', 'utilityService', 'ckanId', 'cadastaProject', '$mdDialog','sortByParty', 'USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole',
-    function ($scope, $state, $stateParams, partyService, $rootScope, utilityService, ckanId, cadastaProject, $mdDialog, sortByParty, USER_ROLES, PROJECT_CRUD_ROLES, userRole) {
+app.controller("partiesCtrl", ['partyTypes','$scope', '$state', '$stateParams', 'partyService', '$rootScope', 'utilityService', 'ckanId', 'cadastaProject', '$mdDialog','sortByParty', 'USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole',
+    function (partyTypes,$scope, $state, $stateParams, partyService, $rootScope, utilityService, ckanId, cadastaProject, $mdDialog, sortByParty, USER_ROLES, PROJECT_CRUD_ROLES, userRole) {
 
         // Add user's role to the scope
         $scope.showCRUDLink = PROJECT_CRUD_ROLES.indexOf(userRole) > -1;
 
         $rootScope.$broadcast('tab-change', {tab: 'Parties'}); // notify breadcrumbs of tab on page load
+
+        // listen for updated party, then go and get updated data from api
+        $scope.$on('updated-party', function(){
+            getParties();
+        });
 
         $scope.parties = [];
         $scope.partiesList = [];
@@ -36,7 +41,6 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
             onRowSelected: rowSelectedFunc
 
         };
-
 
         function rowSelectedFunc(event) {
             $state.go("tabs.parties.party", {id:event.node.data.id})
@@ -118,13 +122,21 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
             $scope.maxDate = new Date();
             $scope.format = 'dd/MM/yyyy';
 
+            $scope.clearPartyFields = function(party){
+                $scope.party = {"party_type": party.party_type};
+            };
+
             $scope.saveNewParty = function(projectId, party){
 
                 if($scope.dt){
                     party.dob =  new Date($scope.dt.setMinutes( $scope.dt.getTimezoneOffset() ));
                 }
 
-                if ($scope.party.properties == undefined){
+                if($scope.party.party_type == 'group' && $scope.party.group_name == undefined){
+                    utilityService.showToast('Group Name is required.');
+                }
+
+                if ($scope.party.party_type == 'individual' && $scope.party.full_name  == undefined){
                     utilityService.showToast('Name is required.');
                 }
                 var createParty = partyService.createProjectParty(projectId, party);
@@ -151,26 +163,6 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
 
         $scope.sort_by = sortByParty;
 
-        $scope.party_types = [
-            {
-                type: 'all',
-                label: 'All Types'
-            },
-            {
-                type: 'individual',
-                label: 'Individuals'
-            },
-            {
-                type: 'group',
-                label: 'Groups'
-            }
-        ];
+        $scope.party_types = partyTypes;
 
     }]);
-
-// replace null with '-' for table
-app.filter('emptyString', function (){
-    return function(input){
-        return input == null ? '-': input;
-    }
-});

@@ -5,6 +5,7 @@
 
 html, body {
     height: 100%;
+    overflow-x: hidden;
 }
 
 body {
@@ -708,10 +709,11 @@ input[type="text"].register-input :focus {
     border: 1px solid #CCCCCB;
 }
 
-.login-block select, .login-block textarea, .login-block input[type="text"], .login-block input[type="password"], .login-block input[type="datetime"], .login-block input[type="datetime-local"], .login-block input[type="date"], .login-block input[type="month"], .login-block input[type="time"], .login-block input[type="week"], .login-block input[type="number"], .login-block input[type="email"], .login-block input[type="url"], .login-block input[type="search"], .login-block input[type="tel"], .login-block input[type="color"], .login-block .uneditable-input {
+.login-block .error-block, .login-block select, .login-block textarea, .login-block input[type="text"], .login-block input[type="password"], .login-block input[type="datetime"], .login-block input[type="datetime-local"], .login-block input[type="date"], .login-block input[type="month"], .login-block input[type="time"], .login-block input[type="week"], .login-block input[type="number"], .login-block input[type="email"], .login-block input[type="url"], .login-block input[type="search"], .login-block input[type="tel"], .login-block input[type="color"], .login-block .uneditable-input {
     height: 40px;
     line-height: 40px;
     border-radius: 1px;
+    margin: auto;
 }
 
 .login-block .form-horizontal .control-group {
@@ -1073,7 +1075,7 @@ input[type="text"].register-input :focus {
 
 #master-footer .container-footer {
     margin: 0 auto;
-    width: 944px;
+    width: 954px;
     height: 30px;
 }
 
@@ -1084,10 +1086,10 @@ input[type="text"].register-input :focus {
 }
 
 .right-footer {
-    margin-right: -8px;
-    float:right;
+    float: right;
     position: relative;
     top: 9px;
+    right: 70px;
 }
 
 .container-footer .pull-left {
@@ -1727,14 +1729,38 @@ label {
     float: none;
 }
 
-.btn.btn-danger.btn-remove-url {
-    background-image: url("/images/url-x.jpg");
-    height: 16px;
-    width: 8px;
-    border-radius: 1;
-    margin-bottom:10px;
-    margin-left:5px;
+/*.btn.btn-danger.btn-remove-url {*/
+    /*background-image: url("/images/url-x.jpg");*/
+    /*height: 16px;*/
+    /*width: 8px;*/
+    /*border-radius: 1;*/
+    /*margin-bottom:10px;*/
+    /*margin-left:5px;*/
+/*}*/
+
+.btn.btn-danger.btn-remove-url .icon-remove{
+    visibility: hidden;
+    position: absolute;
 }
+
+.btn.btn-danger.btn-remove-url {
+    cursor:pointer;
+    color: #fff;
+    border: 1px solid #AEAEAE;
+    border-radius: 30px;
+    background: #605F61;
+    font-size: 31px;
+    font-weight: bold;
+    display: inline-block;
+    line-height: 0px;
+    padding: 11px 3px;
+    margin-bottom: 17px;
+}
+.btn.btn-danger.btn-remove-url:before {
+    content: "×";
+}
+
+
 
 .active-org-nav {
     color: #256c97;

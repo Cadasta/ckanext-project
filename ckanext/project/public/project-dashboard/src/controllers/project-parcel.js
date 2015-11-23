@@ -608,7 +608,7 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
                 $scope.progress = progress;
             };
 
-            // triggered when FileItem is has completed .upload()
+            // triggered file upload complete (independently of the sucess of the operation)
             $scope.uploader.onCompleteItem = function (fileItem, response, status, headers) {
 
                 //
@@ -631,11 +631,14 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
                         utilityService.showToastBottomRight('This resource already exists. Rename resource to complete upload.');
                     }
                     else if(response.error.message) {
-                        utilityService.showToastBottomRight('Error uploading resource.');
+                        utilityService.showToastBottomRight(response.error.message);
                     }
                     else {
-                        utilityService.showToastBottomRight('Error uploading resource.');
+                        utilityService.showToastBottomRight('Error uploading resource');
                     }
+
+                    $scope.uploader.clearQueue();
+                    resetProgress();
                 }
             };
 
@@ -646,14 +649,6 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
                 }
             };
 
-            $scope.uploader.onErrorItem = function (item, response, status, headers) {
-                if (response.type == "duplicate") {
-                    utilityService.showToastBottomRight('This resource already exists. Rename resource to complete upload.');
-                }
-
-                $scope.uploader.clearQueue();
-                resetProgress();
-            };
         }
         $scope.myDate = new Date();
 

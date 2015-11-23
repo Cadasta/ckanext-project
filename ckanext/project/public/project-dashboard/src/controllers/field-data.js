@@ -112,7 +112,7 @@ app.controller("fieldDataCtrl", ['$scope', '$rootScope', '$state', '$stateParams
 
                 }
                 else if (response.result.status === "ERROR" || response.result.status == "NO_ONA_API_KEY"){
-                    utilityService.showToast(response.result.msg);
+                    utilityService.showToast( (response.result.message || response.result.msg));
                     resetProgress();
                     $scope.response = '';
 

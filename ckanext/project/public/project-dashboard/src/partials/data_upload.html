@@ -19,9 +19,13 @@
                     <div>
                         <p>Select resource files to upload. All file types and sizes accepted.</p>
 
-                        <md-input-container md-no-float flex>
-                            <label>Description</label>
-                            <textarea ng-model="resourceDescription" columns="1"></textarea>
+                        <!--<md-input-container md-no-float flex>-->
+                            <!--<label>Description</label>-->
+                            <!--<textarea ng-model="resourceDescription" columns="10"></textarea>-->
+                        <!--</md-input-container>-->
+
+                        <md-input-container md-no-float class="md-block">
+                            <input ng-model="resourceDescription" placeholder="Description">
                         </md-input-container>
 
                         <br><br>

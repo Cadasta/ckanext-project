@@ -25,35 +25,35 @@ def cadasta_get_all_projects(context, data_dict):
         'success': toolkit.check_access('package_show', context, data_dict)
     }
 
-@toolkit.auth_allow_anonymous_access
+#@toolkit.auth_allow_anonymous_access
 def cadasta_get_project_resources(context, data_dict):
     data_dict.update({'id':data_dict['project_id']})
     return {
         'success': toolkit.check_access('package_show', context, data_dict)
     }
 
-@toolkit.auth_allow_anonymous_access
+#@toolkit.auth_allow_anonymous_access
 def cadasta_get_project_activities(context, data_dict):
     data_dict.update({'id':data_dict['project_id']})
     return {
         'success': toolkit.check_access('package_show', context, data_dict)
     }
 
-@toolkit.auth_allow_anonymous_access
+#@toolkit.auth_allow_anonymous_access
 def cadasta_get_project_mapdata(context, data_dict):
     data_dict.update({'id':data_dict['project_id']})
     return {
         'success': toolkit.check_access('package_show', context, data_dict)
     }
 
-@toolkit.auth_allow_anonymous_access
+#@toolkit.auth_allow_anonymous_access
 def cadasta_get_project_details(context, data_dict):
     data_dict.update({'id':data_dict['project_id']})
     return {
         'success': toolkit.check_access('package_show', context, data_dict)
     }
 
-@toolkit.auth_allow_anonymous_access
+#@toolkit.auth_allow_anonymous_access
 def cadasta_get_project(context, data_dict):
     data_dict.update({'id':data_dict['project_id']})
     return {
