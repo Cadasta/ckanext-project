@@ -18,6 +18,34 @@ var app = angular.module("app")
             return date_object_formatted;
         };
 
+        /**
+        * function parses a ISO 8601 date safetly since
+        * IE and Safari cannot handle microseconds
+        * @returns Date Object
+        */
+        service.parseDate = function(dateString){
+            var date = dateString.split("-").join("/").replace( /\.[0-9]+/g, '' );
+            return new Date(date);
+        };
+
+        service.showToast = function(text) {
+            $mdToast.show(
+                $mdToast.simple()
+                    .content(text)
+                    .hideDelay(4000)
+                    .position('top right')
+            );
+        }
+
+        service.showToastBottomRight = function(text) {
+            $mdToast.show(
+                $mdToast.simple()
+                    .content(text)
+                    .hideDelay(3000)
+                    .position('bottom right')
+            );
+        }
+
         return service;
     });
 
