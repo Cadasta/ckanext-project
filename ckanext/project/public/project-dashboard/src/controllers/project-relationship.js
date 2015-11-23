@@ -245,7 +245,7 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
                 var layer = getLayer();
 
                 if ($scope.dt) {
-                    $scope.relationship.acquired_date = utilityService.parseDate($scope.dt.setMinutes( $scope.dt.getTimezoneOffset() ));
+                    $scope.relationship.acquired_date = new Date($scope.dt.setMinutes( $scope.dt.getTimezoneOffset() ));
                 }
 
                 if (layer === undefined) {

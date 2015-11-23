@@ -270,7 +270,7 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
                 else if ((relationshipParcelId != undefined) && ($scope.relationship.tenure_type != undefined)) {
 
                     if($scope.dt){
-                        $scope.relationship.acquisition_date =  utilityService.parseDate($scope.dt.setMinutes( $scope.dt.getTimezoneOffset() ));
+                        $scope.relationship.acquisition_date =  new Date($scope.dt.setMinutes( $scope.dt.getTimezoneOffset() ));
                     }
                     $scope.relationship.description = $scope.description;
 
@@ -498,7 +498,7 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
             $scope.updateParty = function (projectId, party) {
 
                 if($scope.dt){
-                    party.dob = utilityService.parseDate($scope.dt.setMinutes( $scope.dt.getTimezoneOffset() ));
+                    party.dob = new Date($scope.dt.setMinutes( $scope.dt.getTimezoneOffset() ));
                 }
 
                 var updateParty = partyService.updateProjectParty(projectId, $stateParams.id, party);
