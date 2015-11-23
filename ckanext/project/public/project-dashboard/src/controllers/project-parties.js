@@ -129,7 +129,11 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
                     party.dob =  utilityService.parseDate($scope.dt.setMinutes( $scope.dt.getTimezoneOffset() ));
                 }
 
-                if ($scope.party.properties == undefined){
+                if($scope.party.party_type == 'group' && $scope.party.group_name == undefined){
+                    utilityService.showToast('Group Name is required.');
+                }
+
+                if ($scope.party.party_type == 'individual' && $scope.party.full_name  == undefined){
                     utilityService.showToast('Name is required.');
                 }
                 var createParty = partyService.createProjectParty(projectId, party);
