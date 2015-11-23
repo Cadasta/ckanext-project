@@ -23,7 +23,7 @@ var app = angular.module("app")
             $mdToast.show(
                 $mdToast.simple()
                     .content(text)
-                    .hideDelay(4000)
+                    .hideDelay(5000)
                     .position('top right')
             );
         }

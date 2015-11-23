@@ -5,6 +5,7 @@
 
 html, body {
     height: 100%;
+    overflow-x: hidden;
 }
 
 body {
@@ -1073,7 +1074,7 @@ input[type="text"].register-input :focus {
 
 #master-footer .container-footer {
     margin: 0 auto;
-    width: 944px;
+    width: 954px;
     height: 30px;
 }
 
@@ -1084,10 +1085,10 @@ input[type="text"].register-input :focus {
 }
 
 .right-footer {
-    margin-right: -8px;
-    float:right;
+    float: right;
     position: relative;
     top: 9px;
+    right: 70px;
 }
 
 .container-footer .pull-left {

@@ -46,7 +46,7 @@
 
                             <md-input-container class="add-relationship-format">
                                 <label><span class="font-red">*</span>Tenure Type</label>
-                                <md-select ng-model="relationship.tenure_type">
+                                <md-select class="tenure-type-left" ng-model="relationship.tenure_type">
                                     <md-option ng-repeat="t in tenure_types" value="{{t.type}}">
                                         {{t.label}}
                                     </md-option>
@@ -58,8 +58,9 @@
                             </md-input-container>
                             <br><br>
 
-                            When was the parcel acquired?
                             <div id="custom-date-picker">
+                                <div>When was the parcel acquired?</div>
+
                                 <p>Selected date is: {{dt | date:format:'dd/MM/yyyy' }}</p>
 
                                 <div style="display:inline-block">

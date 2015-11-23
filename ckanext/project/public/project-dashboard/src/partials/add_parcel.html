@@ -34,18 +34,28 @@
                         </div>
 
                         <md-content class="layout-padding left add-parcel-extra-fields" >
-                            <div layout layout-sm="column">
+                            <div layout layout-sm="row">
+                                <md-input-container class="landuse-left">
+                                    <label>Landuse</label>
+                                    <md-select ng-model="parcel.landuse">
+                                        <md-option value="Commercial">Commercial</md-option>
+                                        <md-option value="Residential">Residential</md-option>
+                                    </md-select>
+                                </md-input-container>
+
                                 <md-input-container md-no-float flex class="pin-id">
                                     <label>Government Pin Id</label>
                                     <input ng-model="parcel.pinid">
                                 </md-input-container>
-                                <md-input-container flex class="landuse update">
-                                    <label>Landuse</label>
-                                    <md-select ng-model="parcel.landuse">
-                                        <md-option>Commercial</md-option>
-                                        <md-option>Residential</md-option>
-                                    </md-select>
-                                </md-input-container>
+
+                                <!--<md-input-container flex>-->
+                                    <!--<label>Landuse</label>-->
+                                    <!--<md-select ng-model="parcel.landuse">-->
+                                        <!--<md-option>Commercial</md-option>-->
+                                        <!--<md-option>Residential</md-option>-->
+                                    <!--</md-select>-->
+                                <!--</md-input-container>-->
+
                             </div>
                             <md-input-container md-no-float flex class="notes">
                                 <label>Notes</label>

@@ -8,6 +8,11 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
 
         $rootScope.$broadcast('tab-change', {tab: 'Parties'}); // notify breadcrumbs of tab on page load
 
+        // listen for updated party, then go and get updated data from api
+        $scope.$on('updated-party', function(){
+            getParties();
+        });
+
         $scope.parties = [];
         $scope.partiesList = [];
 
