@@ -18,12 +18,21 @@ var app = angular.module("app")
             return date_object_formatted;
         };
 
+        /**
+        * function parses a ISO 8601 date safetly since
+        * IE and Safari cannot handle microseconds
+        * @returns Date Object
+        */
+        service.parseDate = function(dateString){
+            var date = dateString.split("-").join("/").replace( /\.[0-9]+/g, '' );
+            return new Date(date);
+        };
 
         service.showToast = function(text) {
             $mdToast.show(
                 $mdToast.simple()
                     .content(text)
-                    .hideDelay(5000)
+                    .hideDelay(4000)
                     .position('top right')
             );
         }
@@ -36,7 +45,7 @@ var app = angular.module("app")
                     .position('bottom right')
             );
         }
-
+        
         return service;
     });
 

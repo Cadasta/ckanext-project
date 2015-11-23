@@ -126,7 +126,7 @@ app.controller("partiesCtrl", ['$scope', '$state', '$stateParams', 'partyService
             $scope.saveNewParty = function(projectId, party){
 
                 if($scope.dt){
-                    party.dob =  new Date($scope.dt.setMinutes( $scope.dt.getTimezoneOffset() ));
+                    party.dob =  utilityService.parseDate($scope.dt.setMinutes( $scope.dt.getTimezoneOffset() ));
                 }
 
                 if($scope.party.party_type == 'group' && $scope.party.group_name == undefined){
