@@ -1,3 +1,13 @@
+md-input-container.tenure-type {
+    position: relative;
+    bottom: 13px;
+}
+
+md-input-container.how-acquired {
+    position: relative;
+    top: 13px;
+}
+
 #parcelDetails.overview-background  {
     margin: 0 auto;
     height: auto;
@@ -221,7 +231,6 @@
 }
 
 #parcelList tbody {
-    height:200px;
     overflow-y: auto;
 }
 

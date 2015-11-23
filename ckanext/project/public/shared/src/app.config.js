@@ -136,4 +136,17 @@ angular.module('app.config', [])
             type: 'relationship',
             label: 'Relationship Resources'
         }
+    ]).constant('partyTypes', [
+        {
+            type: 'all',
+            label: 'All Types'
+        },
+        {
+            type: 'individual',
+            label: 'Individuals'
+        },
+        {
+            type: 'group',
+            label: 'Groups'
+        }
     ])
