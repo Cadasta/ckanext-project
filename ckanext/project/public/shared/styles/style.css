@@ -92,11 +92,14 @@ div.tabcontent {
 .cadasta-round-button {
     background-color: #256c97;
     color: white;
-    padding: 3px 15px;
-    font-weight: 600;
     max-height:28px;
     cursor: pointer;
     border-radius:0;
+    padding: 6px 10px;
+    letter-spacing: 1px;
+    font-weight: 600;
+    font-size: 10px;
+    text-transform: uppercase;
 }
 
 .cadasta-round-button:hover {
@@ -269,9 +272,14 @@ p.popup-text {
 
 
 .cancel {
-    padding: 10px 20px;
-    margin-top: 20px;
+    padding: 10px 0;
+    margin: -33px -48px 0 0;
     cursor: pointer;
     font-weight: 600;
-    float: right;
+}
+
+
+.md-select-menu-container.md-default-theme.md-active.md-clickable {
+    left: 840px;
+    top: 381px;
 }

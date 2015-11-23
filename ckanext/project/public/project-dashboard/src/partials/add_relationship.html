@@ -21,15 +21,12 @@
                         <form name="userForm">
                             <div layout layout-sm="column">
                             </div>
-                            <p>1. Select a party and enter relationship details.</p>
-                            <div ng-messages="newRelationshipForm.relationship.party.$error">
-                                <div ng-message="required" class="font-red">Party is required.</div>
-                            </div>
+                            <span><span class="font-red">*</span>Select a Party</span>
                             <br><br>
 
                             <div id="ag-table">
                                 <input placeholder="Search" type="text" ng-model="selectPartyGridOptions.quickFilterText"/>
-                                <div ag-grid="selectPartyGridOptions" class="ag-blue" id="selectPartyGrid" style="height: 100%;"></div>
+                                <div ag-grid="selectPartyGridOptions" class="ag-blue" id="selectPartyGrid" style="height:100%"></div>
                             </div>
 
                             <br>
@@ -45,35 +42,26 @@
                                     </div>
                                 </div>
                             </md-radio-group>
-
+                            <br>
 
                             <md-input-container class="add-relationship-format">
-                                <label>Tenure Type</label>
-                                <md-select ng-model="relationship.tenure_type">
+                                <label><span class="font-red">*</span>Tenure Type</label>
+                                <md-select class="tenure-type-left" ng-model="relationship.tenure_type">
                                     <md-option ng-repeat="t in tenure_types" value="{{t.type}}">
                                         {{t.label}}
                                     </md-option>
                                 </md-select>
-
-                                <div ng-messages="newRelationshipForm.relationship.tenure_type.$error">
-                                    <div ng-message="required">Tenure type is required.</div>
-                                </div>
                             </md-input-container>
-
 
                             <md-input-container md-no-float class="md-block add-relationship-format">
                                 <input ng-model="relationship.acquired_type" placeholder="How was the parcel acquired?">
                             </md-input-container>
-
-
-                            <!--<md-datepicker class="md-block add-relationship-format" ng-model="relationship.acquisition_date " md-placeholder="Date of acquisition"></md-datepicker>-->
-                            <!--<br><br>-->
-
-
-                            When was the parcel acquired?
+                            <br><br>
 
                             <div id="custom-date-picker">
-                                <pre>Selected date is: <em>{{dt | date:format:'dd/MM/yyyy' }}</em></pre>
+                                <div>When was the parcel acquired?</div>
+
+                                <p>Selected date is: {{dt | date:format:'dd/MM/yyyy' }}</p>
 
                                 <div style="display:inline-block">
                                     <uib-datepicker ng-model="dt" format-day="dd" format-month="MM" format-year="yyyy"
@@ -81,7 +69,6 @@
                                                     class="well well-sm"></uib-datepicker>
                                 </div>
                             </div>
-
 
                             <md-input-container md-no-float flex class="relationship-notes md-block">
                                 <textarea ng-model="relationship.description" columns="1" md-maxlength="150"

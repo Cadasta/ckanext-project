@@ -31,7 +31,7 @@
     </div>
     <span>{{ c.group_dict.title }}</span>
     {% if h.check_access('organization_update', {'id': c.group_dict.id}) %}
-    <a href="/organization/edit/{{c.group_dict.name}}"><div class="icon-icon_edit"></div></a>
+    <a href="/organization/edit/{{c.group_dict.name}}">edit</a>
     {% endif %}
 </div>
 <div class="org-tab-header">

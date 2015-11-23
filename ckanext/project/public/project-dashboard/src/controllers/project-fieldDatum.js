@@ -71,12 +71,15 @@ app.controller("fieldDatumCtrl", ['$scope', '$rootScope', '$state', '$stateParam
                 });
 
                 if (event.colDef.field === 'parcel_id') {
+                    $scope.cancel();
                     $state.go("tabs.parcels.parcel", {id: event.node.data.parcel_id})
                 }
                 else if (event.colDef.field === 'party_id') {
+                    $scope.cancel();
                     $state.go("tabs.parties.party", {id: event.node.data.party_id})
                 }
                 else if (event.colDef.field === 'relationship_id') {
+                    $scope.cancel();
                     $state.go("tabs.relationships.relationship", {id: event.node.data.relationship_id})
                 }
 

@@ -59,7 +59,7 @@ md-select .md-select-value.md-select-placeholder {
 }
 
 .button-controller.activity-tab {
-    margin:0 0 0 9px;
+    margin:-14px 0 -20px 9px;
     width: 200px;
 }
 
@@ -89,7 +89,7 @@ div.md-text {
 }
 
 md-content.md-default-theme {
-    width:780px;
+    /*width:780px;*/
 }
 
 

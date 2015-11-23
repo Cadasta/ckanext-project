@@ -25,7 +25,7 @@ app.controller("fieldDataCtrl", ['$scope', '$rootScope', '$state', '$stateParams
         });
 
 
-        function fieldDataModalCtrl($scope, $mdDialog, $stateParams) {
+        function fieldDataModalCtrl($scope, $mdDialog, $stateParams, utilityService) {
             $scope.hide = function () {
                 $mdDialog.hide();
                 $state.go("tabs.overview.project-overview");
@@ -39,11 +39,16 @@ app.controller("fieldDataCtrl", ['$scope', '$rootScope', '$state', '$stateParams
                 $rootScope.$broadcast('validate-datum');
             }
 
+
             $scope.response = '';
             $scope.error = '';
             $scope.progress = '';
 
             $scope.formObj = {};
+
+            function resetProgress() {
+                $scope.progress = 0;
+            }
 
             getFieldData();
 
@@ -79,7 +84,7 @@ app.controller("fieldDataCtrl", ['$scope', '$rootScope', '$state', '$stateParams
 
                 if (item.file.name.indexOf('xls') == -1) {
                     item.remove();
-                    $scope.error = 'Invalid file type';
+                    utilityService.showToast('Invalid file type');
                 } else {
 
                     // only allow one file item in the queue
@@ -93,29 +98,33 @@ app.controller("fieldDataCtrl", ['$scope', '$rootScope', '$state', '$stateParams
                 }
             }
 
-
             $scope.uploader.onProgressItem = function (item, progress) {
-                $scope.progress = 'Uploading......';
+                $scope.progress = progress;
             };
 
             // triggered when FileItem is has completed .upload()
             $scope.uploader.onCompleteItem = function (fileItem, response, status, headers) {
 
                 if (response.result.status == "OK") {
-                    $scope.progress = response.result.msg;
-
+                    resetProgress();
                     getFieldData(); // get new field data
+                    $scope.response = 'Successfully Uploaded Field Data Form'
 
                 }
-                else if (response.result.status === "ERROR"){
-                    $scope.progress = response.result.msg;
+                else if (response.result.status === "ERROR" || response.result.status == "NO_ONA_API_KEY"){
+                    utilityService.showToast( (response.result.message || response.result.msg));
+                    resetProgress();
+                    $scope.response = '';
+
                 }
             }
 
             $scope.uploader.onErrorItem = function (item, response, status, headers) {
+                $scope.uploader.clearQueue();
+                resetProgress();
+                $scope.response = '';
 
-                $scope.progress = 'ERROR: ';
-                $scope.error = response;
+                utilityService.showToast('Error uploading survey format. Error: ' + response);
             }
         }
     }]);

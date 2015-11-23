@@ -5403,22 +5403,36 @@ md-select-menu {
     min-width: 136px;
     min-height: 48px;
     max-height: 256px;
-    overflow-y: auto; }
+    overflow-y: auto;
+    }
   md-select-menu > * {
     opacity: 0; }
 
 md-option {
   cursor: pointer;
   position: relative;
-  display: -webkit-flex;
-  display: -ms-flexbox;
+  display: 
+  
+  
+  
+  
+  
+  -webkit-flex;
+  display: 
+  
+  
+  
+  
+  
+  -ms-flexbox;
   display: flex;
   -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   width: auto;
   padding: 0 16px 0 16px;
-  height: 48px; }
+  height: 48px;
+  }
   md-option:focus {
     outline: none; }
   md-option .md-text {

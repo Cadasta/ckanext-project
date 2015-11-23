@@ -109,7 +109,10 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
                 //// format dates
                 $scope.party.time_created = utilityService.formatDate($scope.party.time_created);
                 $scope.party.time_updated = utilityService.formatDate($scope.party.time_created);
-                $scope.party.dobDMY = utilityService.formatDate($scope.party.dob);
+                
+                if($scope.party.dob !== null){
+                   $scope.party.dobDMY = utilityService.formatDate($scope.party.dob);                        
+                }
 
                 if (response.properties.relationship_history.length > 0) {
 
@@ -133,7 +136,6 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
                             name = val.properties.group_name;
                         }
                         var popup_content = '<h3>Relationship ' + val.properties.id + '</h3><p class="popup-text">Tenure Type:' + val.properties.tenure_type + ' </p><p class="popup-text">Party: ' + name + '</p><a href="#/relationships/' + val.properties.id + '"> See Full Details<i class="material-icons arrow-forward">arrow_forward</i></a>';
-
 
                         // add relationship geometries to map
                         if (val.geometry !== null) {
@@ -198,102 +200,6 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
         }
 
 
-        /**
-         * Functions related to add resource modal
-         * @returns {*}
-         */
-
-        $scope.showAddResourceModal = function (ev) {
-
-            $mdDialog.show({
-                controller: resourceDialogController,
-                templateUrl: '/project-dashboard/src/partials/data_upload.html',
-                parent: angular.element(document.body),
-                targetEvent: ev,
-                clickOutsideToClose: true
-            })
-        };
-
-        function resourceDialogController($scope, $mdDialog, FileUploader, ENV) {
-            $scope.hide = function () {
-                $mdDialog.hide();
-            };
-            $scope.cancel = function () {
-                $mdDialog.cancel();
-            };
-
-            function resetProgress() {
-                $scope.progress = 0;
-            }
-
-            $scope.uploader = new FileUploader({
-                alias: 'filedata',
-                url: ENV.apiCKANRoot + '/cadasta_upload_project_resources'
-            });
-
-            $scope.uploader.onBeforeUploadItem = function (item) {
-                // upload required path params for CKAN to proxy
-                item.formData.push({
-                    project_id: cadastaProject.id,
-                    resource_type: "party",
-                    resource_type_id: $stateParams.id
-                });
-            };
-
-            $scope.uploader.onProgressItem = function (item, progress) {
-                $scope.progress = progress;
-            };
-
-            // triggered when FileItem is has completed .upload()
-            $scope.uploader.onCompleteItem = function (fileItem, response, status, headers) {
-                //
-                // ckan api wrappers return a 'result' key for successful calls
-                // and an 'error' key for unsuccessful calls
-                //
-                if (response.result && response.result.message == "Success"){
-                    $scope.response = 'File Successfully uploaded.';
-                    $scope.error = ''; // clear error
-                    $scope.uploader.clearQueue();
-                    resetProgress();
-
-                    getPartyResources();
-                    $rootScope.$broadcast('new-resource'); // broadcast new resources to the app
-                }
-                else if(response.error){
-
-                    if (response.error.type && response.error.type.pop && response.error.type.pop() === "duplicate") {
-                        $scope.error = 'This resource already exists. Rename resource to complete upload.';
-                    }
-                    else if(response.error.message) {
-                        $scope.error = response.error.message;
-                    }
-                    else {
-                        $scope.error = response.error;
-                    }
-
-                    resetProgress();
-                }
-            };
-
-            $scope.uploader.onAfterAddingFile = function () {
-                //remove previous item from queue
-                if ($scope.uploader.queue.length > 1) {
-                    $scope.uploader.removeFromQueue(0);
-                }
-            };
-
-            $scope.uploader.onErrorItem = function (item, response, status, headers) {
-                if (response.type == "duplicate") {
-                    $scope.error = 'This resource already exists. Rename resource to complete upload.'
-                } else {
-                    $scope.error = response.error;
-                }
-
-                $scope.uploader.clearQueue();
-                resetProgress();
-            };
-        }
-
 
         /**
          * Functions related to add relationship modal
@@ -323,7 +229,7 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
 
         $scope.relationshipCreatedFeedback = '';
 
-        function addRelationshipCtrl($scope, $mdDialog, $stateParams) {
+        function addRelationshipCtrl($scope, $mdDialog, $stateParams, utilityService) {
             $scope.hide = function () {
                 $mdDialog.hide();
             };
@@ -351,10 +257,10 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
                 var relationshipParcelId = getRelationshipParcelId();
 
                 if (relationshipParcelId == undefined) {
-                    $scope.relationshipCreated = "parcel required";
+                    utilityService.showToast('Parcel is required');
                 }
                 else if ($scope.relationship.tenure_type == undefined) {
-                    $scope.relationshipCreated = "tenure required";
+                    utilityService.showToast('Tenure type is required');
                 }
                 else if ((relationshipParcelId != undefined) && ($scope.relationship.tenure_type != undefined)) {
 
@@ -368,14 +274,13 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
                     createRelationship.then(function (response) {
                         if (response.cadasta_relationship_id) {
 
-
                             $rootScope.$broadcast('new-relationship');
                             getPartyDetails();
 
                             $scope.cancel();
                         }
                     }).catch(function (response) {
-                        $scope.relationshipCreatedFeedback = 'Unable to create relationship: ' + response.data.error.message;
+                        utilityService.showToast('Unable to create relationship');
                     });
 
                 }
@@ -384,10 +289,12 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
             $scope.tenure_types = tenureTypes;
         }
 
-
+        /**
+         * function called after modal has been instantiated to set up map
+         */
         function addMap() {
 
-            var map = L.map('editParcelMap');
+            var map = L.map('editParcelMap', {scrollWheelZoom: false});
 
             var satellite = L.tileLayer('https://api.tiles.mapbox.com/v4/mapbox.streets-satellite/{z}/{x}/{y}.png?access_token={accessToken}', {
                 attribution: '',
@@ -568,7 +475,7 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
 
         $scope.partyUpdatedFeedback = '';
 
-        function updatePartyCtrl($scope, $mdDialog, $stateParams, party, cadastaProject) {
+        function updatePartyCtrl($scope, $mdDialog, $stateParams, party, cadastaProject, utilityService) {
             $scope.hide = function () {
                 $mdDialog.hide();
             };
@@ -594,20 +501,117 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
                 updateParty.then(function (response) {
                     if (response.cadasta_party_id) {
 
-                        $scope.partyUpdatedFeedback = 'party successfully updated';
-
                         $rootScope.$broadcast('updated-party');
                         getPartyDetails();
 
                         $scope.cancel();
                     }
                 }).catch(function (response) {
-                    $scope.partyUpdatedFeedback ='Unable to update party: ' + response.data.error.message;
+                    utilityService.showToast('Unable to update party');
                 });
+            }
+        }
 
 
+        /**
+         * Functions related to add resource modal
+         * @returns {*}
+         */
+
+        $scope.showAddResourceModal = function (ev) {
+
+            $mdDialog.show({
+                controller: resourceDialogController,
+                templateUrl: '/project-dashboard/src/partials/data_upload.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: true
+            })
+        };
+
+        function resourceDialogController($scope, $mdDialog, FileUploader, ENV, utilityService) {
+            $scope.hide = function () {
+                $mdDialog.hide();
+            };
+            $scope.cancel = function () {
+                $mdDialog.cancel();
+            };
+
+            function resetProgress() {
+                $scope.progress = 0;
             }
 
+            $scope.resourceDescription = '';
+
+            $scope.uploader = new FileUploader({
+                alias: 'filedata',
+                url: ENV.apiCKANRoot + '/cadasta_upload_project_resources'
+            });
+
+            $scope.uploader.onBeforeUploadItem = function (item) {
+                // upload required path params for CKAN to proxy
+                item.formData.push({
+                    project_id: cadastaProject.id,
+                    resource_type: "party",
+                    resource_type_id: $stateParams.id,
+                    description: $scope.resourceDescription
+                });
+            };
+
+            $scope.uploader.onProgressItem = function (item, progress) {
+                $scope.progress = progress;
+            };
+
+            // triggered when FileItem is has completed .upload()
+            $scope.uploader.onCompleteItem = function (fileItem, response, status, headers) {
+                //
+                // ckan api wrappers return a 'result' key for successful calls
+                // and an 'error' key for unsuccessful calls
+                //
+                if (response.result && response.result.message == "Success"){
+                    $scope.response = 'File Successfully uploaded.';
+                    $scope.error = ''; // clear error
+                    $scope.uploader.clearQueue();
+                    resetProgress();
+
+                    getPartyResources();
+                    $rootScope.$broadcast('new-resource'); // broadcast new resources to the app
+                }
+                else if(response.error){
+
+                    if (response.error.type && response.error.type.pop && response.error.type.pop() === "duplicate") {
+                        utilityService.showToastBottomRight('This resource already exists. Rename resource to complete upload.')
+                    }
+                    else if(response.error.message) {
+                        $scope.error = response.error.message;
+                        utilityService.showToastBottomRight('Error uploading file');
+                    }
+                    else {
+                        $scope.error = response.error;
+                        utilityService.showToastBottomRight('Error uploading file');
+                    }
+
+                    resetProgress();
+                }
+            };
+
+            $scope.uploader.onAfterAddingFile = function () {
+                //remove previous item from queue
+                if ($scope.uploader.queue.length > 1) {
+                    $scope.uploader.removeFromQueue(0);
+                }
+            };
+
+            $scope.uploader.onErrorItem = function (item, response, status, headers) {
+                if (response.type == "duplicate") {
+                    utilityService.showToastBottomRight('This resource already exists. Rename resource to complete upload.')
+                } else {
+                    utilityService.showToastBottomRight('Error uploading file');
+                }
+
+                $scope.uploader.clearQueue();
+                resetProgress();
+            };
         }
 
 

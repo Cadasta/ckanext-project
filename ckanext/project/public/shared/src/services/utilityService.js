@@ -1,5 +1,5 @@
 var app = angular.module("app")
-    .service("utilityService",function() {
+    .service("utilityService",function($mdToast) {
 
         var service =  {};
 
@@ -45,7 +45,7 @@ var app = angular.module("app")
                     .position('bottom right')
             );
         }
-
+        
         return service;
     });
 

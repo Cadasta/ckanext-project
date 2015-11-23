@@ -1,6 +1,7 @@
 <div id="project-tabs">
     <ul>
-        <li ui-sref-active="active" ui-sref="tabs.overview" ng-click="setTab('Overview')">
+        <!-- Go back to project overview page, not parent overview-->
+        <li ui-sref-active="active" ui-sref="tabs.overview.project-overview" ng-click="setTab('Overview')">
             <a>OVERVIEW</a>
         </li>
         <li ui-sref-active="active" ui-sref="tabs.map" ng-click="setTab('Map')" ng-show="showTabs">

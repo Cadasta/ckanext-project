@@ -50,6 +50,38 @@ angular.module('app.config', [])
         {
             "type": "carbon rights",
             "label": "Carbon rights"
+        },
+        {
+            "type": "freehold",
+            "label": "Freehold"
+        },
+        {
+            "type": "long term leasehold",
+            "label": "Long term leasehold (10+ years)"
+        },
+        {
+            "type": "leasehold",
+            "label": "Leasehold"
+        },
+        {
+            "type": "customary rights",
+            "label": "Customary Rights"
+        },
+        {
+            "type": "occupancy",
+            "label": "Occupancy (no documented rights)"
+        },
+        {
+            "type": "tenancy",
+            "label": "Tenancy (documented sub-lease)"
+        },
+        {
+            "type": "hunting/fishing/harvest rights",
+            "label": "Hunting/Fishing/Harvest Rights"
+        },
+        {
+            "type": "grazing rights",
+            "label": "Grazing Rights"
         }
     ])
 .constant('activityTypes', [
@@ -72,5 +104,36 @@ angular.module('app.config', [])
         {
             type:'field_data',
             label:'Field Data Activity'
+        }
+    ])
+
+.constant('sortByResource',[{
+        type: 'name',
+        label: 'File Name'
+    },
+    {
+        type: 'time_created',
+        label: 'Date'
+    }])
+.constant('resourceTypes', [
+        {
+            type: 'all',
+            label: 'All Resources'
+        },
+        {
+            type: 'project',
+            label: 'Project Resources'
+        },
+        {
+            type: 'parcel',
+            label: 'Parcel Resources'
+        },
+        {
+            type: 'party',
+            label: 'Party Resources'
+        },
+        {
+            type: 'relationship',
+            label: 'Relationship Resources'
         }
     ])

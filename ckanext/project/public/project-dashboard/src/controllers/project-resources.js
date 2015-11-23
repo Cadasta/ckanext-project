@@ -1,8 +1,8 @@
 var app = angular.module("app");
 
 
-app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService', 'utilityService','$rootScope', '$mdDialog','FileUploader', 'ENV','ckanId','cadastaProject', 'USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole',
-    function($scope, $state, $stateParams, dataService, utilityService, $rootScope, $mdDialog, FileUploader, ENV, ckanId, cadastaProject, USER_ROLES, PROJECT_CRUD_ROLES, userRole){
+app.controller("resourceCtrl", ['resourceTypes','sortByResource', '$scope', '$state', '$stateParams','dataService', 'utilityService','$rootScope', '$mdDialog','FileUploader', 'ENV','ckanId','cadastaProject', 'USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole',
+    function(resourceTypes,sortByResource,$scope, $state, $stateParams, dataService, utilityService, $rootScope, $mdDialog, FileUploader, ENV, ckanId, cadastaProject, USER_ROLES, PROJECT_CRUD_ROLES, userRole){
 
 
     if($state.current.name !== "tabs.resources") {
@@ -23,39 +23,9 @@ app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService'
 
     getResources(false); //  get resources, cache results
 
-    $scope.resource_types = [
-        {
-            type: 'all',
-            label: 'All Resources'
-        },
-        {
-            type: 'project',
-            label: 'Project Resources'
-        },
-        {
-            type: 'parcel',
-            label: 'Parcel Resources'
-        },
-        {
-            type: 'party',
-            label: 'Party Resources'
-        },
-        {
-            type: 'relationship',
-            label: 'Relationship Resources'
-        }
-    ];
+    $scope.resource_types = resourceTypes;
 
-    $scope.sort_by = [
-        {
-            type: 'name',
-            label: 'Name'
-        },
-        {
-            type: 'time_created',
-            label: 'Date'
-        }
-    ];
+    $scope.sort_by = sortByResource;
 
     $scope.response = '';
     $scope.error = '';
@@ -94,11 +64,13 @@ app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService'
         getResources(false);
     });
 
-    function DialogController($scope, $mdDialog, FileUploader) {
+    function DialogController($scope, $mdDialog, FileUploader, utilityService) {
 
         function resetProgress() {
             $scope.progress = 0;
         }
+
+        $scope.resourceDescription = '';
 
         $scope.uploader = new FileUploader({
             alias: 'filedata',
@@ -110,10 +82,11 @@ app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService'
             item.formData.push({
                 project_id: cadastaProject.id,
                 resource_type: "project",
-                resource_type_id: cadastaProject.id
+                resource_type_id: cadastaProject.id,
+                description: $scope.resourceDescription
+
             });
         };
-
 
         $scope.uploader.onProgressItem = function (item, progress) {
             $scope.progress = progress;
@@ -137,13 +110,13 @@ app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService'
             else if(response.error){
 
                 if (response.error.type && response.error.type.pop && response.error.type.pop() === "duplicate") {
-                    $scope.error = 'This resource already exists. Rename resource to complete upload.';
+                    utilityService.showToast('This resource already exists. Rename resource to complete upload.');
                 }
                 else if(response.error.message) {
-                    $scope.error = response.error.message;
+                    utilityService.showToast('Error uploading resource.');
                 }
                 else {
-                    $scope.error = response.error;
+                    utilityService.showToast('Error uploading resource.');
                 }
             }
         };
@@ -157,14 +130,13 @@ app.controller("resourceCtrl", ['$scope', '$state', '$stateParams','dataService'
 
         $scope.uploader.onErrorItem = function (item, response, status, headers) {
             if(response.error.type == "duplicate"){
-                $scope.error = 'This resource already exists. Rename resource to complete upload.'
+                utilityService.showToast('This resource already exists. Rename resource to complete upload.');
             } else {
-                $scope.error = response.error;
+                utilityService.showToast('Error uploading resource.');
             }
 
             $scope.uploader.clearQueue();
             resetProgress();
-
         };
 
         $scope.hide = function() {

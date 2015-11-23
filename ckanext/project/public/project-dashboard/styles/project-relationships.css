@@ -42,7 +42,7 @@
 }
 
 .add-relationship md-input-container.add-relationship-format {
-    width: 351px;
+    width: 300px;
     padding-right: 18px;
  }
 
@@ -86,7 +86,7 @@ md-datepicker.add-relationship-format .md-datepicker-input {
 
 md-input-container.relationship-notes textarea {
     height: 80px!important;
-    width: 719px;
+    width: 450px;
     margin-left: -5px;
     margin-top: -15px;
     border: 1px solid #dcdfe1;
@@ -156,4 +156,14 @@ md-input-container.relationship-notes textarea {
 
 #ag-table .ag-blue .ag-header-cell-label {
     margin-top:4px;
+}
+
+
+.add-relationship #ag-table{
+    height: 330px;
+}
+
+
+.add-relationship #ag-table input[type="text"] {
+    margin: -57px 0 24px 408px;
 }
