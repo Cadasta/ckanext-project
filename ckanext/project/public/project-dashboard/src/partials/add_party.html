@@ -18,7 +18,7 @@
 
                 <div class="modal-content">
                     <div>
-                        <md-radio-group ng-model="party.party_type" ng-init="party.party_type='individual'" >
+                        <md-radio-group ng-click="clearPartyFields(party)" ng-model="party.party_type" ng-init="party.party_type='individual'" >
                             <label class="party-type"><span class="font-red">*</span>Party Type</label>
                             <md-radio-button value="individual" class="md-primary">Individual</md-radio-button>
                             <md-radio-button value="group">Group</md-radio-button>
