@@ -709,10 +709,11 @@ input[type="text"].register-input :focus {
     border: 1px solid #CCCCCB;
 }
 
-.login-block select, .login-block textarea, .login-block input[type="text"], .login-block input[type="password"], .login-block input[type="datetime"], .login-block input[type="datetime-local"], .login-block input[type="date"], .login-block input[type="month"], .login-block input[type="time"], .login-block input[type="week"], .login-block input[type="number"], .login-block input[type="email"], .login-block input[type="url"], .login-block input[type="search"], .login-block input[type="tel"], .login-block input[type="color"], .login-block .uneditable-input {
+.login-block .error-block, .login-block select, .login-block textarea, .login-block input[type="text"], .login-block input[type="password"], .login-block input[type="datetime"], .login-block input[type="datetime-local"], .login-block input[type="date"], .login-block input[type="month"], .login-block input[type="time"], .login-block input[type="week"], .login-block input[type="number"], .login-block input[type="email"], .login-block input[type="url"], .login-block input[type="search"], .login-block input[type="tel"], .login-block input[type="color"], .login-block .uneditable-input {
     height: 40px;
     line-height: 40px;
     border-radius: 1px;
+    margin: auto;
 }
 
 .login-block .form-horizontal .control-group {
