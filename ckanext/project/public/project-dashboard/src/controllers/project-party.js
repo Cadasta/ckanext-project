@@ -11,6 +11,11 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
             $rootScope.$broadcast('clear-inner-tabs');
         };
 
+
+        $scope.$on('new-relationship',function(){
+            getPartyDetails();
+        })
+
         $scope.toggleDropdownDetails = function (obj) {
             obj.showDropDownDetails = !obj.showDropDownDetails;
         };
