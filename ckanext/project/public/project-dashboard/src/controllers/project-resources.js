@@ -92,7 +92,7 @@ app.controller("resourceCtrl", ['resourceTypes','sortByResource', '$scope', '$st
             $scope.progress = progress;
         };
 
-        // triggered when FileItem is has completed .upload()
+        // triggered file upload complete (independently of the sucess of the operation)
         $scope.uploader.onCompleteItem = function (fileItem, response, status, headers) {
             //
             // ckan api wrappers return a 'result' key for successful calls
@@ -110,14 +110,17 @@ app.controller("resourceCtrl", ['resourceTypes','sortByResource', '$scope', '$st
             else if(response.error){
 
                 if (response.error.type && response.error.type.pop && response.error.type.pop() === "duplicate") {
-                    utilityService.showToast('This resource already exists. Rename resource to complete upload.');
+                    utilityService.showToastBottomRight('This resource already exists. Rename resource to complete upload.');
                 }
                 else if(response.error.message) {
-                    utilityService.showToast('Error uploading resource.');
+                    utilityService.showToastBottomRight(response.error.message);
                 }
                 else {
-                    utilityService.showToast('Error uploading resource.');
+                    utilityService.showToastBottomRight('Error uploading resource');
                 }
+
+                $scope.uploader.clearQueue();
+                resetProgress();
             }
         };
 
@@ -126,17 +129,6 @@ app.controller("resourceCtrl", ['resourceTypes','sortByResource', '$scope', '$st
             if($scope.uploader.queue.length > 1){
                 $scope.uploader.removeFromQueue(0);
             }
-        };
-
-        $scope.uploader.onErrorItem = function (item, response, status, headers) {
-            if(response.error.type == "duplicate"){
-                utilityService.showToast('This resource already exists. Rename resource to complete upload.');
-            } else {
-                utilityService.showToast('Error uploading resource.');
-            }
-
-            $scope.uploader.clearQueue();
-            resetProgress();
         };
 
         $scope.hide = function() {
