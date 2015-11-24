@@ -1,3 +1,11 @@
+md-backdrop {
+    position: fixed;
+}
+
+.md-dialog-container {
+    position: fixed;
+}
+
 md-input-container.tenure-type {
     position: relative;
     bottom: 13px;
