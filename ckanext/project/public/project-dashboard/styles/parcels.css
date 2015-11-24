@@ -182,8 +182,19 @@ md-input-container.how-acquired {
 #parcelDetails .section .container {
     padding: 20px 10px;
     width: 340px;
-    height: 240px;
-    float:left;
+    /*height: 240px;*/
+    /*float:left;*/
+}
+
+#parcelDetails .party-relationship-list {
+    height: 123px;
+    overflow-y: scroll;
+}
+
+#parcelDetails .section .container {
+    padding: 0px 10px;
+    width: 340px;
+    height: auto;
 }
 
 #parcelList{
@@ -481,12 +492,6 @@ md-input-container label {
 
     .parcel-history-data{
         max-height: none;
-    }
-
-    #parcelDetails .section .container {
-        padding: 20px 10px;
-        width: 340px;
-        height: auto;
     }
 
     #parcelDetails .section {
