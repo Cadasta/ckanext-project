@@ -208,7 +208,10 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
                 $mdDialog.cancel();
             };
 
-            $scope.dt = utilityService.parseDate(relationship.properties.acquired_date);
+            if(relationship.properties.acquired_date !== null){
+                $scope.dt = utilityService.parseDate(relationship.properties.acquired_date);
+            }
+
             $scope.cadastaProjectId = cadastaProject.id;
             $scope.relationship = relationship;
 
@@ -221,15 +224,12 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
                 $scope.parties = "Server Error";
             });
 
-
             // set date picker's max date to today
             $scope.myDate = new Date();
-
 
             $scope.open = function($event) {
                 $scope.status.opened = true;
             };
-
 
             $scope.format = 'd/M/yyyy';
 

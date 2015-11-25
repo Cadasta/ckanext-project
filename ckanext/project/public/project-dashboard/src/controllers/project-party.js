@@ -493,7 +493,10 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
 
             $scope.cadastaProjectId = cadastaProject.id;
             $scope.party = party;
-            $scope.dt = utilityService.parseDate(party.dob);
+
+            if(party.dob !== null){
+                $scope.dt = utilityService.parseDate(party.dob);
+            }
 
             $scope.updateParty = function (projectId, party) {
 
