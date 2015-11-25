@@ -4,6 +4,9 @@ md-backdrop {
 
 .md-dialog-container {
     position: fixed;
+    top: 0px !important;
+    height: 100% !important;
+
 }
 
 md-input-container.tenure-type {
