@@ -7,7 +7,7 @@
         <a class="title" href="/project/">Projects</a>
 
         <div class="icon-lnr-chevron-right arrow-right"></div>
-        <a class="title" ui-sref="tabs.overview">{{cadastaProject.title}}</a>
+        <a ng-click="clearBreadCrumb(); setOverviewTab()" class="title" ui-sref="tabs.overview">{{cadastaProject.title}}</a>
 
         <div class="icon-lnr-chevron-right arrow-right"></div>
 

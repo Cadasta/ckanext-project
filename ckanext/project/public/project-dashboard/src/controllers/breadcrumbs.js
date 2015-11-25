@@ -52,6 +52,11 @@ app.controller("breadcrumbsCtrl", ['$scope', '$state', '$stateParams','$location
         $scope.tab_party = '';
     };
 
+    // set tab to Overview on project title breadcrumb selection
+    $scope.setOverviewTab = function () {
+        $scope.tab = 'Overview';
+    }
+
     $scope.go = function ( path ) {
         $location.path( path );
     };
