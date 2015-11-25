@@ -72,6 +72,15 @@ def call_api(endpoint, function, **kwargs):
             json.dumps(kwargs,indent=4) if hasattr(kwargs,'files') else kwargs
         ))
 
+        # Work-around for requests v2.3.0 (used in base CKAN install).
+        if 'json' in kwargs:
+            kwargs['data'] = json.dumps(kwargs['json'])
+            del kwargs['json']
+            if 'headers' in kwargs:
+                kwargs['headers']['Content-Type'] = 'application/json'
+            else:
+                kwargs['headers'] = {'Content-Type': 'application/json'}
+
         r = function(urlparse.urljoin(api_url, endpoint), **kwargs)
         result = r.json()
 
