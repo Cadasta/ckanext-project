@@ -628,6 +628,14 @@ a {
     font-size: 10px;
 }
 
+.edit-user-button-group {
+    margin: 0px 10px 30px 63px;
+}
+
+.cadasta-button.edit-user-button {
+    margin: 0px 10px 0px 0px;
+}
+
 .cadasta-button:hover {
     color: white;
     background-color: #0d4252;
