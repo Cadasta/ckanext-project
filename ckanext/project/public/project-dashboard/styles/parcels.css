@@ -474,7 +474,10 @@ md-input-container label {
 
 @media print {
 
-
+    html, body {
+        height: 100%;
+        overflow: visible;
+    }
 
     .back-link, #project-tabs, #project-tabs *, .cadasta-button, .cadasta-round-button, #breadcrumb, #breadcrumb *, .masthead-header, .masthead-header *, .icon-icon_edit, #header a {
         visibility: hidden;

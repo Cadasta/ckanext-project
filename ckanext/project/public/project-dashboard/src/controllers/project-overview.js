@@ -157,7 +157,7 @@ app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location',
                     layer = L.geoJson($scope.overviewData.features[0], {
                         style: extentStyle,
                         pointToLayer: function (feature, latlng) {
-                            return L.circleMarker(latlng, extentStyle);
+                            return L.circle(latlng, 10, {"fillOpacity":.7, "opacity":.7, "weight":0} );
                         }
                     });
                     layer.addTo(parcelGroup);
@@ -166,7 +166,7 @@ app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location',
                     layer = L.geoJson($scope.overviewData.features[0].properties.parcels, {
                         style: parcelStyle,
                         pointToLayer: function (feature, latlng) {
-                            return L.circleMarker(latlng, parcelStyle);
+                            return L.circle(latlng, 10, {"fillOpacity":.7, "opacity":.7, "weight":0} );
                         }
                     });
                     layer.addTo(parcelGroup);

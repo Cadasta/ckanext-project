@@ -27,23 +27,22 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
         // parse map query param
         var mapArr = mapStr.substring(1, mapStr.length - 1).split(',');
 
-
         var parcelStyle = {
+            "clickable" : false,
             "color": "#e54573",
-            "stroke": true,
-            "weight": 3,
-            "fillOpacity": .1,
+            "stroke": "#e54573",
+            "stroke-width": 1,
+            "fill-opacity": .6,
             "opacity": .8,
-            "marker-color": "#e54573",
-            "clickable": false
+            "weight":2
         };
 
         var relationshipStyle = {
             "color": "#FF8000",
-            "stroke": true,
-            "opacity": .5,
-            "fillOpacity": .5,
-            "weight": 1
+            "stroke": "#FF8000",
+            "fill-opacity":.8,
+            "opacity":.6,
+            "weight" : 2
         };
 
         var lat = mapArr[0];
@@ -147,7 +146,7 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
                             layer = L.geoJson(val, {
                                 style: relationshipStyle,
                                 pointToLayer: function (feature, latlng) {
-                                    return L.circleMarker(latlng, relationshipStyle);
+                                    return L.circle(latlng, 10, {"fillOpacity":.7, "opacity":.7, "weight":0} );
                                 }
                             });
                             layer.bindPopup(popup_content);
@@ -167,7 +166,7 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
                             layer = L.geoJson(p, {
                                 style: parcelStyle,
                                 pointToLayer: function (feature, latlng) {
-                                    return L.circleMarker(latlng, parcelStyle);
+                                    return L.circle(latlng, 10, {"fillOpacity":.7, "opacity":.7, "weight":0} );
                                 }
                             });
                             layer.addTo(parcelGroup);
@@ -327,7 +326,7 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
 
 
             var editIcon = L.icon({
-                iconUrl: '/images/orange_marker.png',
+                iconUrl: '/images/green_marker.png',
                 iconSize: [30, 30]
             });
 
@@ -396,16 +395,18 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
             var parcelStyle = {
                 "color": "#e54573",
                 "stroke": "#e54573",
-                "stroke-width": 3,
-                "fill-opacity": .1,
-                "stroke-opacity": .8,
-                "marker-color": "#e54573"
+                "stroke-width": 1,
+                "fill-opacity": .6,
+                "opacity": .8,
+                "weight":2
             };
+
+
 
             var selectStyle = {
                 "color": "#6324C3",
                 "stroke": true,
-                "stroke-width": 3,
+                "stroke-width": 1,
                 "fill-opacity": .1,
                 "stroke-opacity": .8,
                 "marker-color": "#e54573"
@@ -425,7 +426,7 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
                 projectLayer = L.geoJson(response.project.features, {
                     style: extentStyle,
                     pointToLayer: function (feature, latlng) {
-                        return L.circleMarker(latlng, extentStyle);
+                        return L.circle(latlng, 10, {"fillOpacity":.7, "opacity":.7, "weight":0} );
                     }
                 });
                 projectLayer.addTo(map);
@@ -434,7 +435,7 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
                     var parcelToAdd = L.geoJson(parcel, {
                         style: parcelStyle,
                         pointToLayer: function (feature, latlng) {
-                            return L.circleMarker(latlng, parcelStyle);
+                            return L.circle(latlng, 10, {"fillOpacity":.7, "opacity":.7, "weight":0} );
                         }
                     });
                     parcelToAdd.addTo(parcelGroup);

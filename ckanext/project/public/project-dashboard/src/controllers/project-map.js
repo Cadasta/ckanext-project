@@ -75,17 +75,6 @@ app.controller("projectMapCtrl", ['$scope', '$state', '$stateParams', '$location
             "marker-color": "#e54573"
         };
 
-        var parcelStyleMarker = {
-            "color": "#e54573",
-            "stroke": true,
-            "weight": 3,
-            "fillOpacity": .1,
-            "opacity": .8,
-            "marker-color": "#e54573",
-            "clickable" : false,
-            "radius": 20
-        };
-
         var ExtentStyle = {
             "color": "#256c97",
             "stroke": "#256c97",
@@ -113,7 +102,7 @@ app.controller("projectMapCtrl", ['$scope', '$state', '$stateParams', '$location
                 projectLayer = L.geoJson(response.project.features, {
                     style: ExtentStyle,
                     pointToLayer: function (feature, latlng) {
-                        return L.circleMarker(latlng, ExtentStyle);
+                        return L.circle(latlng, 5, ExtentStyle);
                     }
                 });
                 projectLayer.addTo(map);
@@ -123,7 +112,7 @@ app.controller("projectMapCtrl", ['$scope', '$state', '$stateParams', '$location
                     var parcelToAdd = L.geoJson(parcel, {
                         style: parcelStyle,
                         pointToLayer: function (feature, latlng) {
-                            return L.circleMarker(latlng, parcelStyle);
+                            return L.circle(latlng, 10, {"fillOpacity":.7, "opacity":.7, "weight":0} );
                         }
                     });
                     parcelToAdd.bindPopup(popup_content);

@@ -24,23 +24,24 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
         var lng = mapArr[1];
         var zoom = mapArr[2];
 
+
         var parcelStyle = {
+            "clickable" : false,
             "color": "#e54573",
-            "stroke": true,
-            "weight": 3,
-            "fillOpacity": .1,
+            "stroke": "#e54573",
+            "stroke-width": 1,
+            "fill-opacity": .6,
             "opacity": .8,
-            "marker-color": "#e54573",
-            "clickable": false
+            "weight":2
         };
 
         var relationshipStyle = {
             "color": "#FF8000",
             "stroke": "#FF8000",
-            "opacity":.8,
-            "fillOpacity":.5,
-            "weight" : 1,
-            "clickable" : false
+            "fill-opacity":.8,
+            "opacity":.6,
+            "weight" : 2,
+            "clickable":false
         };
 
         // setup map
@@ -100,7 +101,7 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
                         var layer = L.geoJson(response, {
                             style: parcelStyle,
                             pointToLayer: function (feature, latlng) {
-                                return L.circleMarker(latlng, parcelStyle);
+                                return L.circle(latlng, 10, {"fillOpacity":.7, "opacity":.7, "weight":0} );
                             }
                         }).addTo(relationshipGroup);
 
@@ -128,7 +129,7 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
                         var layer = L.geoJson(response, {
                             style: relationshipStyle,
                             pointToLayer: function (feature, latlng) {
-                                return L.circleMarker(latlng, relationshipStyle);
+                                return L.circle(latlng, 10, {"fillOpacity":.7, "opacity":.7, "weight":0} );
                             }
                         }).addTo(relationshipGroup);
 
@@ -316,7 +317,7 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
             var featureGroup = L.featureGroup().addTo(map);
 
             var editIcon = L.icon({
-                iconUrl: '/images/orange_marker.png',
+                iconUrl: '/images/green_marker.png',
                 iconSize: [30, 30]
             });
 
@@ -374,22 +375,24 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
             });
 
 
+
             var parcelStyle = {
+                "clickable" : false,
                 "color": "#e54573",
                 "stroke": "#e54573",
                 "stroke-width": 1,
-                "fill-opacity":.1,
-                "stroke-opacity":.8,
-                "clickable" : false
+                "fill-opacity": .6,
+                "opacity": .8,
+                "weight":2
             };
 
             var relationshipStyle = {
                 "color": "#FF8000",
                 "stroke": "#FF8000",
-                "stroke-width": 1,
-                "fill-opacity":.5,
-                "stroke-opacity":.8,
-                "clickable" : false
+                "fill-opacity":.8,
+                "opacity":.6,
+                "weight" : 2,
+                "clickable":false
             };
 
 
@@ -402,7 +405,7 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
                         var layer = L.geoJson(response, {
                             style: parcelStyle,
                             pointToLayer: function (feature, latlng) {
-                                return L.circleMarker(latlng, parcelStyle);
+                                return L.circle(latlng, 10, {"fillOpacity":.7, "opacity":.7, "weight":0} );
                             }
                         }).addTo(map);
                         map.fitBounds(layer.getBounds());
@@ -419,7 +422,7 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
                     var layer = L.geoJson(response, {
                         style: relationshipStyle,
                         pointToLayer: function (feature, latlng) {
-                            return L.circleMarker(latlng, relationshipStyle);
+                            return L.circle(latlng, 10, {"fillOpacity":.7, "opacity":.7, "weight":0} );
                         }
                     }).addTo(map);
                     map.fitBounds(layer.getBounds());
