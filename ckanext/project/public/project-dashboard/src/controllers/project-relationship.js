@@ -66,7 +66,7 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
             maxZoom: 18,
             id: 'spatialdev.map-rpljvvub',
             zoomControl: true,
-            accessToken: 'pk.eyJ1IjoiZGlnaXRhbGdsb2JlIiwiYSI6ImNpaDN3NzE5dzB5eGR4MW0wdnhpM29ndG8ifQ.3MqbbPFrSfeeQwbmGIES1A'
+            accessToken: 'pk.eyJ1Ijoic3BhdGlhbGRldiIsImEiOiJKRGYyYUlRIn0.PuYcbpuC38WO6D1r7xdMdA'
         });
 
         var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -295,7 +295,7 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
                 maxZoom: 18,
                 id: 'spatialdev.map-rpljvvub',
                 zoomControl: true,
-                accessToken: 'pk.eyJ1IjoiZGlnaXRhbGdsb2JlIiwiYSI6ImNpaDN3NzE5dzB5eGR4MW0wdnhpM29ndG8ifQ.3MqbbPFrSfeeQwbmGIES1A'
+                accessToken: 'pk.eyJ1Ijoic3BhdGlhbGRldiIsImEiOiJKRGYyYUlRIn0.PuYcbpuC38WO6D1r7xdMdA'
             });
 
             var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {

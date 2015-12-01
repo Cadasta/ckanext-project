@@ -13,12 +13,12 @@ app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location',
             getOverviewData();
         });
 
-       // Add user's role to the scope
+        // Add user's role to the scope
         $scope.showEditLink = PROJECT_CRUD_ROLES.indexOf(userRole) > -1;
         $scope.nonPublic = TABS_USER_ROLES.indexOf(userRole) > -1;
         $scope.public = !$scope.nonPublic;
 
-// Get map querystring from state parameters
+        // Get map querystring from state parameters
         var mapStr = $stateParams.map;
 
         // Parse map querystring
@@ -73,7 +73,7 @@ app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location',
             maxZoom: 18,
             id: 'spatialdev.map-rpljvvub',
             zoomControl: true,
-            accessToken: 'pk.eyJ1IjoiZGlnaXRhbGdsb2JlIiwiYSI6ImNpaDN3NzE5dzB5eGR4MW0wdnhpM29ndG8ifQ.3MqbbPFrSfeeQwbmGIES1A'
+            accessToken: 'pk.eyJ1Ijoic3BhdGlhbGRldiIsImEiOiJKRGYyYUlRIn0.PuYcbpuC38WO6D1r7xdMdA'
         });
 
         var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
