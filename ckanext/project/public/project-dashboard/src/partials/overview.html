@@ -55,13 +55,14 @@
                 <li ng-if="activity.properties.activity_type === 'relationship'"
                     ng-class="{'remove-bottom-border': $index == overviewData.activityList.length-1}"
                     class="activity-block block">
-                    Relationship between
+                    Relationship <span class="bold" ng-show="nonPublic"><a ui-sref="tabs.relationships.relationship({id:activity.properties.id})">
+                    {{ activity.properties.id }}</a></span> between
                     <span class="bold" ng-show="nonPublic"> party {{ activity.properties.name }}</span>
                     <span class="bold" ng-show="public"> party {{ activity.properties.id }}</span>
                     and
-                    <span class="bold" ng-show="nonPublic"><a ui-sref="tabs.parcels.parcel({id:activity.properties.id})">
-                        Parcel {{ activity.properties.id }}</a></span>
-                    <span class="bold" ng-show="public">Parcel {{ activity.properties.id }}</span>
+                    <span class="bold" ng-show="nonPublic"><a ui-sref="tabs.parcels.parcel({id:activity.properties.parcel_id})">
+                        Parcel {{ activity.properties.parcel_id }}</a></span>
+                    <span class="bold" ng-show="public">Parcel {{ activity.properties.parcel_id }}</span>
                     was created on {{ activity.properties.time_created }}
                 </li>
 
