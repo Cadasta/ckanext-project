@@ -8,7 +8,9 @@ var app = angular.module("app")
          * @returns {*}
          */
         service.formatDate = function(dateString){
-            var date = dateString.split("-").join("/").replace( /\.[0-9+]+$/g, '' );
+            var date = dateString.split("-").join("/")
+                                 .replace( /\.[0-9+]+$/g, '' )
+                                 .replace(/T/, ' ');
             var date_object = new Date(date);
             var month = date_object.getMonth() + 1;
             var day = date_object.getDate();
@@ -45,7 +47,6 @@ var app = angular.module("app")
                     .position('bottom right')
             );
         }
-        
+
         return service;
     });
-
