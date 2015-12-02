@@ -120,9 +120,21 @@ app.controller("fieldDataCtrl", ['$scope', '$rootScope', '$state', '$stateParams
             }
 
             $scope.uploader.onErrorItem = function (item, response, status, headers) {
-                $scope.uploader.clearQueue();
-                resetProgress();
-                $scope.response = '';
+                if(response.hasOwnProperty('error')){
+                    if(response.error.hasOwnProperty('__type')){
+                        if(response.error.__type == 'Validation Error'){
+                            $scope.response = 'Invalid API token';
+                            $scope.uploader.clearQueue();
+                            resetProgress();
+                        }
+                    }
+
+                } else {
+                    $scope.uploader.clearQueue();
+                    resetProgress();
+                    $scope.response = ('' || response.error.message[0]);
+                }
+
 
                 utilityService.showToast('Error uploading survey format. Error: ' + response);
             }
