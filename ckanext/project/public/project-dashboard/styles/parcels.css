@@ -339,7 +339,7 @@ md-input-container.how-acquired {
 
 #parcelDetails .section-map .cadasta-update-button {
     position: relative;
-    bottom: 312px;
+    bottom: 355px;
 }
 
 .add-relationship md-input-container.pin-id {
@@ -361,7 +361,7 @@ md-input-container.notes textarea {
 }
 
 .tenure-type-left {
-    width: 240px !important;
+    width: 280px !important;
 }
 
 .landuse-left {

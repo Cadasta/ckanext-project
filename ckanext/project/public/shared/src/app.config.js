@@ -58,7 +58,7 @@ angular.module('app.config', [])
         },
         {
             "type": "long term leasehold",
-            "label": "Long term leasehold (10+ years)"
+            "label": "Long term leasehold"
         },
         {
             "type": "leasehold",

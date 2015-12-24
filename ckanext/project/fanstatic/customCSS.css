@@ -1913,3 +1913,50 @@ label {
 #user-edit-form .user-margin-left {
     margin-left:62px;
 }
+
+.modal-footer .btn + .btn {
+    color: #333333;
+    text-shadow: none;
+}
+
+.modal-footer .btn.btn-primary {
+    color: #333333;
+    text-shadow: none;
+}
+
+.modal-footer .btn.btn-cancel {
+    color: #333333;
+    text-shadow: none;
+}
+
+.modal-footer .btn.btn-primary:hover {
+    background-color: #E8E8E8;
+    text-shadow: none;
+}
+
+.js .image-upload #field-image-upload{
+    margin: 20px 0 0 0;
+}
+
+.controls #field-image-upload {
+    cursor:pointer;
+}
+
+
+#organization-edit-form .image-upload label {
+    display:none;
+}
+
+#organization-edit-form .cursor a {
+    pointer:cursor;
+}
+
+
+.image-label {
+    margin: 17px 0 -14px 65px;
+}
+
+
+/*input[type="button" i], input[type="submit" i], input[type="reset" i], input[type="file" i]::-webkit-file-upload-button, button {*/
+    /*cursor: pointer;*/
+/*}*/

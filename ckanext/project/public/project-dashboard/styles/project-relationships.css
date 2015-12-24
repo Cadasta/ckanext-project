@@ -167,3 +167,8 @@ md-input-container.relationship-notes textarea {
 .add-relationship #ag-table input[type="text"] {
     margin: -57px 0 24px 408px;
 }
+
+
+.date-selected {
+    font-weight: 900;
+}
