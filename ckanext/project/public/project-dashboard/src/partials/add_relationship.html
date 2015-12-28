@@ -45,7 +45,8 @@
                             <br>
 
                             <md-input-container class="add-relationship-format">
-                                <label><span class="font-red">*</span>Tenure Type</label>
+                                <div class="ckan-label"><span class="font-red">*</span>Tenure Type:</div>
+                                <!--<label class="ckan-helper-text">ex. Leasehold</label>-->
                                 <md-select class="tenure-type-left" ng-model="relationship.tenure_type">
                                     <md-option ng-repeat="t in tenure_types" value="{{t.type}}">
                                         {{t.label}}
@@ -53,10 +54,20 @@
                                 </md-select>
                             </md-input-container>
 
-                            <md-input-container md-no-float class="md-block add-relationship-format">
-                                <input ng-model="relationship.acquired_type" placeholder="How was the parcel acquired?">
+                            <md-input-container class="md-block add-relationship-format">
+                                <div class="ckan-label">How was the parcel acquired:</div>
+                                <!--<label class="ckan-helper-text">ex. Leasehold</label>-->
+                                <md-select class="tenure-type-left" ng-model="relationship.acquired_type">
+                                    <md-option ng-repeat="a in acquired_types" value="{{a.type}}">
+                                        {{a.label}}
+                                    </md-option>
+                                </md-select>
                             </md-input-container>
-                            <br><br>
+
+                            <!--<md-input-container md-no-float class="md-block add-relationship-format">-->
+                                <!--<input ng-model="relationship.acquired_type" placeholder="How was the parcel acquired?">-->
+                            <!--</md-input-container>-->
+                            <!--<br><br>-->
 
                             <div id="custom-date-picker">
                                 <div>When was the parcel acquired?</div>
@@ -71,8 +82,8 @@
                             </div>
 
                             <md-input-container md-no-float flex class="relationship-notes md-block">
-                                <textarea ng-model="relationship.description" columns="1" md-maxlength="150"
-                                          placeholder="Notes"></textarea>
+                                <div class="ckan-label">Notes:</div>
+                                <textarea ng-model="relationship.description"></textarea>
                             </md-input-container>
 
                         </form>

@@ -344,7 +344,7 @@ md-input-container.how-acquired {
 
 .add-relationship md-input-container.pin-id {
     width: 200px;
-    margin-right: 25px;
+    /*margin-right: 25px;*/
 }
 
 .add-relationship md-input-container.pin-id * {
@@ -400,7 +400,6 @@ md-content.add-parcel-extra-fields md-input-container.notes textarea {
     height: 80px !important;
     width: 723px;
     margin-left: -5px;
-    margin-top: -15px;
     border: 1px solid #dcdfe1;
     box-shadow:none;
 }

@@ -55,15 +55,23 @@
                             <div layout layout-sm="column">
 
 
-                                <md-input-container md-no-float flex class="pin-id" >
-                                    <label>National ID</label>
-                                    <input ng-model="party.national_id">
-                                </md-input-container>
+                                <md-content class="layout-padding add-parcel-extra-fields" >
+                                    <div layout layout-sm="column">
 
-                                <md-input-container md-no-float flex class="pin-id" ng-show="(party.party_type === 'individual')">
-                                    <label>Gender</label>
-                                    <input ng-model="party.gender">
-                                </md-input-container>
+                                        <md-input-container md-no-float flex class="pin-id" >
+                                            <div class="ckan-label">National ID:</div>
+                                            <!--<label>National ID</label>-->
+                                            <input ng-model="party.national_id">
+                                        </md-input-container>
+
+                                        <md-input-container md-no-float flex class="pin-id" ng-show="(party.party_type === 'individual')">
+                                            <!--<label>Gender</label>-->
+                                            <div class="ckan-label">Gender:</div>
+                                            <input ng-model="party.gender">
+                                        </md-input-container>
+
+                                    </div>
+                                </md-content>
 
                             </div>
                         </md-content>
@@ -85,11 +93,10 @@
 
                         <md-content class="layout-padding add-parcel-extra-fields" >
                             <div layout layout-sm="column">
-                                <md-input-container md-no-float flex class="relationship-notes md-block">
-                                    <label>Notes</label>
-                                    <textarea ng-model="party.description" columns="1" md-maxlength="150" ></textarea>
+                                <md-input-container md-no-float flex class="modal-notes relationship-notes md-block">
+                                    <div class="ckan-label">Notes:</div>
+                                    <textarea ng-model="party.description" columns="1"></textarea>
                                 </md-input-container>
-
                             </div>
                         </md-content>
 
