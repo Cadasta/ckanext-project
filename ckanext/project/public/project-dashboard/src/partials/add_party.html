@@ -66,14 +66,16 @@
                         </md-content>
 
                         <md-content class="layout-padding add-parcel-extra-fields" >
-                            <label ng-show="(party.party_type === 'individual')">Party Date of Birth</label>
+
+                            <div ng-show="(party.party_type === 'individual')">Party Date of Birth</div>
+
                             <div ng-show="(party.party_type === 'individual')" layout layout-sm="column">
                                 <div id="custom-date-picker">
                                     <p>Selected date is: <span class="date-selected">{{dt | date:format:'dd/MM/yyyy' }}</span></p>
 
                                     <div style="display:inline-block">
                                         <uib-datepicker ng-model="dt" format-day="dd" format-month="MM" format-year="yyyy"
-                                                        max-date="maxDate" show-weeks="true"
+                                                        max-date="maxDate" show-weeks="false"
                                                         class="well well-sm"></uib-datepicker>
                                     </div>
                                 </div>
@@ -95,7 +97,6 @@
 
                 <div class="cadasta-button right parcel-save" ng-click="saveNewParty(cadastaProjectId, party)">Save Party</div>
                 <div class="cancel" ng-click="cancel()">Cancel</div>
-
             </div>
         </md-dialog-content>
     </form>

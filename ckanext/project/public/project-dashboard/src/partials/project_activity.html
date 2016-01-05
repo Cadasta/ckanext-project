@@ -3,8 +3,7 @@
         <div class="button-controller activity-tab">
 
             <md-input-container>
-                <label>Filter by</label>
-                <!-- todo update to be about resources rather than parcels-->
+                <div class="ckan-label">Filter by:</div>
                 <md-select ng-model="ActivityTypeModel">
                     <md-option ng-value="t.type" ng-repeat="t in activity_types" ng-click="filterActivityType(t.type)">{{t.label}}</md-option>
                 </md-select>

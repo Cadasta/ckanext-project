@@ -13,20 +13,16 @@ angular.module('app.config', [])
             "label":"All Types"
         },
         {
-            "type": "indigenous land rights",
-            "label": "Indigenous Land Rights"
+            "type": "carbon rights",
+            "label": "Carbon rights"
         },
         {
-            "type": "joint tenancy",
-            "label": "Joint Tenancy"
+            "type": "concessionary rights",
+            "label": "Concessionary rights"
         },
         {
-            "type": "tenancy in common",
-            "label": "Tenancy in common"
-        },
-        {
-            "type": "undivided co-ownership",
-            "label": "Undivided Co-ownership"
+            "type": "customary rights",
+            "label": "Customary Rights"
         },
         {
             "type": "easement",
@@ -37,36 +33,36 @@ angular.module('app.config', [])
             "label": "Equitable servitude"
         },
         {
-            "type": "mineral rights",
-            "label": "Mineral rights"
-        },
-        {
-            "type": "water rights",
-            "label": "Water rights"
-        },
-        {
-            "type": "concessionary rights",
-            "label": "Concessionary rights"
-        },
-        {
-            "type": "carbon rights",
-            "label": "Carbon rights"
-        },
-        {
             "type": "freehold",
             "label": "Freehold"
         },
         {
-            "type": "long term leasehold",
-            "label": "Long term leasehold"
+            "type": "grazing rights",
+            "label": "Grazing Rights"
+        },
+        {
+            "type": "hunting/fishing/harvest rights",
+            "label": "Hunting/Fishing/Harvest Rights"
+        },
+        {
+            "type": "indigenous land rights",
+            "label": "Indigenous Land Rights"
+        },
+        {
+            "type": "joint tenancy",
+            "label": "Joint Tenancy"
         },
         {
             "type": "leasehold",
             "label": "Leasehold"
         },
         {
-            "type": "customary rights",
-            "label": "Customary Rights"
+            "type": "long term leasehold",
+            "label": "Long term leasehold"
+        },
+        {
+            "type": "mineral rights",
+            "label": "Mineral rights"
         },
         {
             "type": "occupancy",
@@ -77,18 +73,26 @@ angular.module('app.config', [])
             "label": "Tenancy (documented sub-lease)"
         },
         {
-            "type": "hunting/fishing/harvest rights",
-            "label": "Hunting/Fishing/Harvest Rights"
+            "type": "tenancy in common",
+            "label": "Tenancy in common"
         },
         {
-            "type": "grazing rights",
-            "label": "Grazing Rights"
+            "type": "undivided co-ownership",
+            "label": "Undivided Co-ownership"
+        },
+        {
+            "type": "water rights",
+            "label": "Water rights"
         }
     ])
 .constant('activityTypes', [
         {
             type: 'all',
             label: 'All Activities'
+        },
+        {
+            type:'field_data',
+            label:'Field Data Activity'
         },
         {
             type: 'parcel',
@@ -101,10 +105,6 @@ angular.module('app.config', [])
         {
             type: 'relationship',
             label: 'Relationship Activity'
-        },
-        {
-            type:'field_data',
-            label:'Field Data Activity'
         }
     ])
 
@@ -122,10 +122,6 @@ angular.module('app.config', [])
             label: 'All Resources'
         },
         {
-            type: 'project',
-            label: 'Project Resources'
-        },
-        {
             type: 'parcel',
             label: 'Parcel Resources'
         },
@@ -134,10 +130,15 @@ angular.module('app.config', [])
             label: 'Party Resources'
         },
         {
+            type: 'project',
+            label: 'Project Resources'
+        },
+        {
             type: 'relationship',
             label: 'Relationship Resources'
         }
-    ]).constant('partyTypes', [
+    ])
+.constant('partyTypes', [
         {
             type: 'all',
             label: 'All Types'
@@ -149,5 +150,19 @@ angular.module('app.config', [])
         {
             type: 'group',
             label: 'Groups'
+        }
+    ])
+.constant('acquiredTypes', [
+        {
+            type: 'all',
+            label: 'All Types'
+        },
+        {
+            type: 'inheritance',
+            label: 'Inheritance'
+        },
+        {
+            type: 'purchase',
+            label: 'Purchase'
         }
     ])

@@ -2,14 +2,14 @@
 <div id="parcelFilter" class="filter">
     <div layout="row">
         <md-input-container>
-            <label>Filter by</label>
+            <div class="ckan-label">Filter by:</div>
             <md-select ng-model="TenureTypeModel">
                 <md-option ng-value="t.type" ng-repeat="t in tenure_types" ng-click="setRelationshipFilter(t.type)">{{t.label}}</md-option>
             </md-select>
         </md-input-container>
 
         <md-input-container>
-            <label>Sort by</label>
+            <div class="ckan-label">Sort by:</div>
             <md-select ng-model="TenureTypeModel">
                 <md-option ng-value="s.type" ng-repeat="s in sort_by" ng-click="setRelationshipFilter(s.type)">{{s.label}}</md-option>
             </md-select>

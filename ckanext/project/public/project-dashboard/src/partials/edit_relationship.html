@@ -22,7 +22,6 @@
 
                                 <md-input-container class="add-relationship-format">
                                     <div class="ckan-label"><span class="font-red">*</span>Tenure Type:</div>
-                                    <!--<label class="ckan-helper-text">ex. Leasehold</label>-->
                                     <md-select class="tenure-type-left" ng-model="relationship.tenure_type">
                                         <md-option ng-repeat="t in tenure_types" value="{{t.type}}">
                                             {{t.label}}
@@ -33,7 +32,7 @@
                                 <md-input-container class="md-block add-relationship-format">
                                     <div class="ckan-label">How was the parcel acquired:</div>
                                     <!--<label class="ckan-helper-text">ex. Leasehold</label>-->
-                                    <md-select class="tenure-type-left" ng-model="relationship.acquired_type">
+                                    <md-select class="tenure-type-left" ng-model="relationship.how_acquired">
                                         <md-option ng-repeat="a in acquired_types" value="{{a.type}}">
                                             {{a.label}}
                                         </md-option>
@@ -49,7 +48,7 @@
 
                                 <div style="display:inline-block">
                                     <uib-datepicker ng-model="dt" format-day="dd" format-month="MM" format-year="yyyy"
-                                                    max-date="maxDate" show-weeks="true"
+                                                    max-date="maxDate" show-weeks="false"
                                                     class="well well-sm"></uib-datepicker>
                                 </div>
                             </div>
@@ -90,6 +89,7 @@
                      ng-click="updateRelationship(cadastaProjectId, relationshipId, layer, relationship)">Update
                     Relationship
                 </div>
+                <div class="cancel" ng-click="cancel()">Cancel</div>
             </div>
         </md-dialog-content>
     </form>

@@ -82,11 +82,12 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     padding: 10px 25px;
     border-bottom: 1px solid #dcdfe1;
     cursor: pointer;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 #sub-nav .dropdown-item:hover {
     color:#256C97;
+    background:#f8f9f9;
 }
 
 .toolbar {
@@ -1956,7 +1957,8 @@ label {
     margin: 17px 0 -14px 65px;
 }
 
-
-/*input[type="button" i], input[type="submit" i], input[type="reset" i], input[type="file" i]::-webkit-file-upload-button, button {*/
-    /*cursor: pointer;*/
-/*}*/
+#usersName {
+    color: white;
+    font-weight: 600;
+    padding-right: 20px;
+}

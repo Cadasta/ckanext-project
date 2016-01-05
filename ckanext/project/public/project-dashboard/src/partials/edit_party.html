@@ -28,13 +28,9 @@
                             <div layout layout-sm="column">
 
                                 <md-input-container md-no-float flex class="pin-id" ng-show="(party.party_type === 'individual')">
-                                    <label>Full Name</label>
+                                    <div class="ckan-label">Full Name:</div>
+                                    <!--<label>Full Name</label>-->
                                     <input ng-model="party.full_name">
-
-                                    <div ng-messages="editParty.party.full_name.$error">
-                                        <div ng-message="required" class="font-red">Party name is required.</div>
-                                        <br>
-                                    </div>
                                 </md-input-container>
 
                                 <br><br><br>
@@ -43,10 +39,6 @@
                                     <label>Name</label>
                                     <input ng-model="party.group_name">
 
-                                    <div ng-messages="editParty.party.group_name.$error">
-                                        <div ng-message="required" class="font-red">Party name is required.</div>
-                                        <br>
-                                    </div>
                                 </md-input-container>
                                 </div>
                         </md-content>
@@ -76,11 +68,12 @@
                             </div>
                         </md-content>
                         <md-content class="layout-padding add-parcel-extra-fields" ng-show="(party.party_type === 'individual')">
-                            <label>Party Date of Birth</label>
+
+                            <div ng-show="(party.party_type === 'individual')">Party Date of Birth</div>
 
                             <div layout layout-sm="column">
                                 <div id="custom-date-picker">
-                                    <pre>Selected date is: <em>{{dt | date:format:'dd/MM/yyyy' }}</em></pre>
+                                    <p>Selected date is: <span class="date-selected">{{dt | date:format:'dd/MM/yyyy' }}</span></p>
 
                                     <div style="display:inline-block">
                                         <uib-datepicker ng-model="dt" format-day="dd" format-month="MM" format-year="yyyy"
@@ -102,10 +95,8 @@
 
                     </div>
                 </div>
-                <div id="party_updated_feedback" ng-messages="editParty.$error">
-                    <div ng-message="required" class="font-red">{{ partyUpdatedFeedback }}</div>
-                </div>
                 <div class="cadasta-button right parcel-save" ng-click="updateParty(cadastaProjectId, party)">Save Party</div>
+                <div class="cancel" ng-click="cancel()">Cancel</div>
             </div>
         </md-dialog-content>
     </form>

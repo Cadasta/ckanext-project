@@ -264,7 +264,6 @@ md-input-container.how-acquired {
     padding: 2px;
     margin: 0;
     position: relative;
-    bottom: 10px;
 }
 
 #parcelFilter .md-title {
@@ -328,7 +327,7 @@ md-input-container.how-acquired {
 }
 
 #parcelFilter .cadasta-round-button.right {
-    left:470px;
+    left:300px;
     top:15px;
 }
 

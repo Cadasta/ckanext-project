@@ -171,3 +171,7 @@ md-input-container.relationship-notes textarea {
 .date-selected {
     font-weight: 900;
 }
+
+#DrawRelationshipMap p {
+    padding-bottom: 16px;
+}

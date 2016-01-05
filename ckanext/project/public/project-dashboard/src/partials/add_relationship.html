@@ -56,18 +56,12 @@
 
                             <md-input-container class="md-block add-relationship-format">
                                 <div class="ckan-label">How was the parcel acquired:</div>
-                                <!--<label class="ckan-helper-text">ex. Leasehold</label>-->
-                                <md-select class="tenure-type-left" ng-model="relationship.acquired_type">
+                                <md-select class="tenure-type-left" ng-model="relationship.how_acquired">
                                     <md-option ng-repeat="a in acquired_types" value="{{a.type}}">
                                         {{a.label}}
                                     </md-option>
                                 </md-select>
                             </md-input-container>
-
-                            <!--<md-input-container md-no-float class="md-block add-relationship-format">-->
-                                <!--<input ng-model="relationship.acquired_type" placeholder="How was the parcel acquired?">-->
-                            <!--</md-input-container>-->
-                            <!--<br><br>-->
 
                             <div id="custom-date-picker">
                                 <div>When was the parcel acquired?</div>
@@ -76,8 +70,34 @@
 
                                 <div style="display:inline-block">
                                     <uib-datepicker ng-model="dt" format-day="dd" format-month="MM" format-year="yyyy"
-                                                    max-date="maxDate" show-weeks="true"
+                                                    max-date="maxDate" show-weeks="false"
                                                     class="well well-sm"></uib-datepicker>
+                                </div>
+                            </div>
+
+                            <md-radio-group ng-model="relationshipGeomMap" ng-init="relationshipGeomMap='parcel'">
+                                <div class="ckan-label">Relationship Geometry</div>
+                                <md-radio-button value='parcel' class="md-primary"> Use parcel geometry </md-radio-button>
+                                <md-radio-button value='relationship'> Draw relationship geometry </md-radio-button>
+                            </md-radio-group>
+
+                            <div id="DrawRelationshipMap" class="hidden" >
+                                <p> Draw the relationship geometry using the tools on the left.</p>
+
+                                <div id="editParcelMap"></div>
+
+                                <!--map legend-->
+                                <div id='legend'>
+
+                                    <nav class='legend clearfix'>
+                                        <!--<span class='legend-key' style='background:#256c97;'></span>-->
+                                        <!--<span class="legend-label">Project Extent</span>-->
+                                        <span class='legend-key' style='background:#e54573;'></span>
+                                        <span class="legend-label">Parcel Geometry</span>
+                                        <span class='legend-key' style='background:#88D40E;'></span>
+                                        <span class="legend-label">New Relationship Geometry</span>
+
+                                    </nav>
                                 </div>
                             </div>
 
@@ -89,24 +109,6 @@
                         </form>
                     </md-content>
 
-                    <p>2. Draw the relationship geometry using the tools on the left.</p>
-                    <br><br>
-
-                    <div id="editParcelMap"></div>
-
-                    <!--map legend-->
-                    <div id='legend'>
-
-                        <nav class='legend clearfix'>
-                            <!--<span class='legend-key' style='background:#256c97;'></span>-->
-                            <!--<span class="legend-label">Project Extent</span>-->
-                            <span class='legend-key' style='background:#e54573;'></span>
-                            <span class="legend-label">Parcel Geometry</span>
-                            <span class='legend-key' style='background:#88D40E;'></span>
-                            <span class="legend-label">New Relationship Geometry</span>
-
-                        </nav>
-                    </div>
                 </div>
 
                 <div id="relationship_creation_feedback" ng-messages="newRelationshipForm.$error">

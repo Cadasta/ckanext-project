@@ -34,7 +34,7 @@
                                 <md-input-container class="md-block add-relationship-format">
                                     <div class="ckan-label">How was the parcel acquired:</div>
                                     <!--<label class="ckan-helper-text">ex. Leasehold</label>-->
-                                    <md-select class="tenure-type-left" ng-model="relationship.acquired_type">
+                                    <md-select class="tenure-type-left" ng-model="relationship.how_acquired">
                                         <md-option ng-repeat="a in acquired_types" value="{{a.type}}">
                                             {{a.label}}
                                         </md-option>
@@ -49,14 +49,14 @@
 
                                 <div style="display:inline-block">
                                     <uib-datepicker ng-model="dt" format-day="dd" format-month="MM" format-year="yyyy"
-                                                    max-date="maxDate" show-weeks="true"
+                                                    max-date="maxDate" show-weeks="false"
                                                     class="well well-sm"></uib-datepicker>
                                 </div>
                             </div>
 
                             <md-input-container md-no-float flex class="relationship-notes md-block">
-                                <textarea ng-model="relationship.description" columns="1" md-maxlength="150"
-                                          placeholder="Notes"></textarea>
+                                <div class="ckan-label">Notes:</div>
+                                <textarea ng-model="relationship.description"></textarea>
                             </md-input-container>
 
 

@@ -18,7 +18,7 @@
 
                 <div class="modal-content">
                     <div>
-                        <p><span class="font-red">*</span>Draw the geometry of a new parcel using the tools on the left.</p>
+                        <div class="ckan-label"><span class="font-red">*</span>Draw the geometry of a new parcel using the tools on the left</div>
                         <br><br>
 
                         <div id="addParcelMap"></div>
@@ -35,31 +35,23 @@
 
                         <md-content class="layout-padding left add-parcel-extra-fields" >
                             <div layout layout-sm="column">
-                                <md-input-container class="landuse-left">
-                                    <label>Landuse</label>
+                                <md-input-container flex class="landuse-left">
+                                    <div class="ckan-label">Landuse:</div>
+                                    <!--<label>Landuse</label>-->
                                     <md-select ng-model="parcel.landuse">
                                         <md-option value="Commercial">Commercial</md-option>
                                         <md-option value="Residential">Residential</md-option>
                                     </md-select>
                                 </md-input-container>
-
                                 <md-input-container md-no-float flex class="pin-id">
-                                    <label>Government Pin Id</label>
+                                    <div class="ckan-label">Government Pin ID:</div>
                                     <input ng-model="parcel.pinid">
                                 </md-input-container>
 
-                                <!--<md-input-container flex>-->
-                                    <!--<label>Landuse</label>-->
-                                    <!--<md-select ng-model="parcel.landuse">-->
-                                        <!--<md-option>Commercial</md-option>-->
-                                        <!--<md-option>Residential</md-option>-->
-                                    <!--</md-select>-->
-                                <!--</md-input-container>-->
-
                             </div>
                             <md-input-container md-no-float flex class="notes">
-                                <label>Notes</label>
-                                <textarea ng-model="parcel.notes" columns="1" md-maxlength="150"></textarea>
+                                <div class="ckan-label">Notes:</div>
+                                <textarea ng-model="parcel.notes" columns="1"></textarea>
                             </md-input-container>
                         </md-content>
                         <div>

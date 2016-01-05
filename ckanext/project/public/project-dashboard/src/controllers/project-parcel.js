@@ -1,5 +1,5 @@
-app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 'parcelService', '$rootScope', 'paramService', 'utilityService', 'dataService', '$mdDialog', 'ckanId', 'cadastaProject', 'FileUploader', 'ENV', 'partyService', 'relationshipService','USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole', 'PROJECT_RESOURCE_ROLES',
-    function (tenureTypes,$scope, $state, $stateParams, parcelService, $rootScope, paramService, utilityService, dataService, $mdDialog, ckanId, cadastaProject, FileUploader, ENV, partyService, relationshipService, USER_ROLES, PROJECT_CRUD_ROLES, userRole, PROJECT_RESOURCE_ROLES) {
+app.controller("parcelCtrl", ['tenureTypes', 'acquiredTypes','$scope', '$state', '$stateParams', 'parcelService', '$rootScope', 'paramService', 'utilityService', 'dataService', '$mdDialog', 'ckanId', 'cadastaProject', 'FileUploader', 'ENV', 'partyService', 'relationshipService','USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole', 'PROJECT_RESOURCE_ROLES',
+    function (tenureTypes, acquiredTypes, $scope, $state, $stateParams, parcelService, $rootScope, paramService, utilityService, dataService, $mdDialog, ckanId, cadastaProject, FileUploader, ENV, partyService, relationshipService, USER_ROLES, PROJECT_CRUD_ROLES, userRole, PROJECT_RESOURCE_ROLES) {
 
         // Add user's role to the scope
         $scope.showCRUDLink = PROJECT_CRUD_ROLES.indexOf(userRole) > -1;
@@ -404,6 +404,7 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
             }
 
             $scope.tenure_types = tenureTypes;
+            $scope.acquired_types = acquiredTypes;
         }
 
         /**

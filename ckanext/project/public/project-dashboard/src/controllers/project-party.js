@@ -1,5 +1,5 @@
-app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 'partyService', '$rootScope', 'paramService', 'utilityService', '$mdDialog', 'ckanId', 'cadastaProject', 'FileUploader', 'ENV', 'dataService', 'relationshipService', 'parcelService', 'USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole', 'PROJECT_RESOURCE_ROLES',
-    function (tenureTypes,$scope, $state, $stateParams, partyService, $rootScope, paramService, utilityService, $mdDialog, ckanId, cadastaProject, FileUploader, ENV, dataService, relationshipService, parcelService, USER_ROLES, PROJECT_CRUD_ROLES, userRole, PROJECT_RESOURCE_ROLES) {
+app.controller("partyCtrl", ['tenureTypes', 'acquiredTypes','$scope', '$state', '$stateParams', 'partyService', '$rootScope', 'paramService', 'utilityService', '$mdDialog', 'ckanId', 'cadastaProject', 'FileUploader', 'ENV', 'dataService', 'relationshipService', 'parcelService', 'USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole', 'PROJECT_RESOURCE_ROLES',
+    function (tenureTypes, acquiredTypes, $scope, $state, $stateParams, partyService, $rootScope, paramService, utilityService, $mdDialog, ckanId, cadastaProject, FileUploader, ENV, dataService, relationshipService, parcelService, USER_ROLES, PROJECT_CRUD_ROLES, userRole, PROJECT_RESOURCE_ROLES) {
 
         // Add user's role to the scope
         $scope.showCRUDLink = PROJECT_CRUD_ROLES.indexOf(userRole) > -1;
@@ -286,11 +286,11 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
                     }).catch(function (response) {
                         utilityService.showToast('Unable to create relationship');
                     });
-
                 }
             }
 
             $scope.tenure_types = tenureTypes;
+            $scope.acquired_types = acquiredTypes;
         }
 
         /**
@@ -505,6 +505,11 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
                     party.dob = new Date($scope.dt.setMinutes( $scope.dt.getTimezoneOffset() ));
                 }
 
+                if (!party.group_name || party.full_name == null ){
+                    utilityService.showToast('Party name is required');
+                }
+
+
                 var updateParty = partyService.updateProjectParty(projectId, $stateParams.id, party);
 
                 updateParty.then(function (response) {
@@ -515,7 +520,7 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
 
                         $scope.cancel();
                     }
-                }).catch(function (response) {
+                }).catch(function (err) {
                     utilityService.showToast('Unable to update party');
                 });
             }
