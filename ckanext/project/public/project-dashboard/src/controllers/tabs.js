@@ -16,7 +16,20 @@ app.controller("tabsCtrl", ['$scope', '$rootScope','$state', '$stateParams','$lo
      * @param tab
      */
     $scope.setTab = function(tab){
+
         $rootScope.$broadcast('tab-change', {tab: tab});
+
+        if ($state.params && (tab=='Parties' || tab=='Relationships'|| tab=='Parcels' )) {
+
+            var tabHash = {
+               Parties: {tab_route:'parties.partylist'},
+               Relationships: {tab_route:'relationships.relationshiplist'},
+               Parcels: {tab_route:'parcels.parcellist'}
+            }
+
+            $state.go("tabs." + tabHash[tab].tab_route);
+        }
+
     }
 
 }]);

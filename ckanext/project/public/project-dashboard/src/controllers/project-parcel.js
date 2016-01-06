@@ -367,8 +367,11 @@ app.controller("parcelCtrl", ['tenureTypes', 'acquiredTypes','$scope', '$state',
 
                 var layer = getLayer();
 
-                if (layer) {
+                if (layer && ($scope.relationshipGeomMap == 'relationship')) {
                     layer = layer.toGeoJSON().geometry;
+                }
+                else if (layer && ($scope.relationshipGeomMap == 'parcel')) {
+                    layer = undefined;
                 }
 
                 if ($scope.dt) {
@@ -557,6 +560,18 @@ app.controller("parcelCtrl", ['tenureTypes', 'acquiredTypes','$scope', '$state',
             //prepopulate fields to update with existing data
             $scope.parcel.pinid = $scope.parcelObject.properties.gov_pin;
             $scope.parcel.landuse = $scope.parcelObject.properties.land_use;
+
+            //draw relationship map is hidden unless
+            $('#DrawRelationshipMap').addClass('hidden');
+
+            // using JQuery rather than angular because map needs to be fully rendered before being hidden
+            $('.useRelationshipGeom').on('click', function() {
+                $('#DrawRelationshipMap').removeClass('hidden');
+            });
+
+            $('.useParcelGeom').on('click', function() {
+                $('#DrawRelationshipMap').addClass('hidden');
+            });
         }
 
 

@@ -3,6 +3,7 @@
 <form class="form-horizontal" action="" method="post">
     {{ form.errors(error_summary) }}
     {{ form.input("name", id="field-username", label=_("Username"), placeholder=_("Choose Username"), value=data.name, error=errors.name, classes=["control-medium"]) }}
+    <div id="register-username-helptext">Usernames must be at least 6 characters long and contain only lowercase letters and numbers.</div>
     {{ form.input("fullname", id="field-fullname", label=_("Full Name"), placeholder=_("Full Name"), value=data.fullname, error=errors.fullname, classes=["control-medium"]) }}
     {{ form.input("email", id="field-email", label=_("Email"), type="email", placeholder=_("Email"), value=data.email, error=errors.email, classes=["control-medium"]) }}
     {{ form.input("password1", id="field-password", label=_("Password"), type="password", placeholder="Password", value=data.password1, error=errors.password1, classes=["control-medium"]) }}
