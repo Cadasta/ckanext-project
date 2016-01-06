@@ -154,15 +154,43 @@ angular.module('app.config', [])
     ])
 .constant('acquiredTypes', [
         {
-            type: 'all',
-            label: 'All Types'
+            type: 'contractual',
+            label: 'Contractual/ Share crop'
+        },
+        {
+            type: 'customary_arrangement',
+            label: 'Customary arrangement'
+        },
+        {
+            type: 'gift',
+            label: 'Gift'
+        },
+        {
+            type: 'homestead',
+            label: 'Homestead'
+        },
+        {
+            type: 'informal_occupant',
+            label: 'Informal Occupant'
         },
         {
             type: 'inheritance',
             label: 'Inheritance'
         },
         {
-            type: 'purchase',
-            label: 'Purchase'
+            type: 'leasehold',
+            label: 'Leasehold'
+        },
+        {
+            type: 'purchased_freehold',
+            label: 'Purchased Freehold'
+        },
+        {
+            type: 'rental',
+            label: 'Rental'
+        },
+        {
+            type: 'other',
+            label: 'Other'
         }
     ])

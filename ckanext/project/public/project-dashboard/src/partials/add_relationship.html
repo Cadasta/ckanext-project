@@ -77,26 +77,22 @@
 
                             <md-radio-group ng-model="relationshipGeomMap" ng-init="relationshipGeomMap='parcel'">
                                 <div class="ckan-label">Relationship Geometry</div>
-                                <md-radio-button value='parcel' class="md-primary"> Use parcel geometry </md-radio-button>
-                                <md-radio-button value='relationship'> Draw relationship geometry </md-radio-button>
+                                <md-radio-button value='parcel' class="md-primary useParcelGeom"> Use parcel geometry </md-radio-button>
+                                <md-radio-button value='relationship' class="useRelationshipGeom"> Draw relationship geometry </md-radio-button>
                             </md-radio-group>
 
-                            <div id="DrawRelationshipMap" class="hidden" >
+                            <div id="DrawRelationshipMap" >
                                 <p> Draw the relationship geometry using the tools on the left.</p>
 
                                 <div id="editParcelMap"></div>
 
-                                <!--map legend-->
                                 <div id='legend'>
 
                                     <nav class='legend clearfix'>
-                                        <!--<span class='legend-key' style='background:#256c97;'></span>-->
-                                        <!--<span class="legend-label">Project Extent</span>-->
                                         <span class='legend-key' style='background:#e54573;'></span>
                                         <span class="legend-label">Parcel Geometry</span>
                                         <span class='legend-key' style='background:#88D40E;'></span>
                                         <span class="legend-label">New Relationship Geometry</span>
-
                                     </nav>
                                 </div>
                             </div>

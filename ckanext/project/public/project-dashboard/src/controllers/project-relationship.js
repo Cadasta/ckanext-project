@@ -249,11 +249,20 @@ app.controller("relationshipCtrl", ['tenureTypes', 'acquiredTypes', '$scope', '$
                     $scope.relationship.acquired_date = new Date($scope.dt.setMinutes( $scope.dt.getTimezoneOffset() ));
                 }
 
-                if (layer === undefined) {
-                    layer = null;
-                } else {
+
+                if (layer && ($scope.relationshipGeomMap == 'relationship')) {
                     layer = layer.toGeoJSON();
                 }
+                else {
+                    layer = undefined;
+                }
+
+                //
+                //if (layer === undefined) {
+                //    layer = null;
+                //} else {
+                //    layer = layer.toGeoJSON();
+                //}
                 var updateExistingRelationship = relationshipService.updateProjectRelationship(cadastaProject.id, $stateParams.id, layer, $scope.relationship);
 
                 updateExistingRelationship.then(function (response) {
@@ -437,6 +446,18 @@ app.controller("relationshipCtrl", ['tenureTypes', 'acquiredTypes', '$scope', '$
             $scope.relationship.tenure_type = $scope.relationship.properties.tenure_type;
             $scope.relationship.how_acquired = $scope.relationship.properties.how_acquired;
             $scope.relationship.acquired_date = $scope.relationship.properties.acquired_date;
+
+            //draw relationship map is hidden unless
+            $('#DrawRelationshipMap').addClass('hidden');
+
+            // using JQuery rather than angular because map needs to be fully rendered before being hidden
+            $('.useRelationshipGeom').on('click', function() {
+                $('#DrawRelationshipMap').removeClass('hidden');
+            });
+
+            $('.useParcelGeom').on('click', function() {
+                $('#DrawRelationshipMap').addClass('hidden');
+            });
         }
 
         function getLayer() {

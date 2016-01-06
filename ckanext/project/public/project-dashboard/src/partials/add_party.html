@@ -69,6 +69,10 @@
 
                             <div ng-show="(party.party_type === 'individual')">Party Date of Birth</div>
 
+                            <p >Selected date is: <span class="date-selected" >{{dt | date:format:'dd/MM/yyyy' }}</span></p>
+
+
+
                             <div ng-show="(party.party_type === 'individual')" layout layout-sm="column">
                                 <div id="custom-date-picker">
                                     <p>Selected date is: <span class="date-selected">{{dt | date:format:'dd/MM/yyyy' }}</span></p>
