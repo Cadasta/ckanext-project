@@ -10,7 +10,7 @@ var app = angular.module("app")
     service.getProjectRelationship = function(projectId, relationshipId) {
         
         var deferred = $q.defer();
-        
+
         $http.get(ENV.apiCKANRoot + '/cadasta_get_project_relationship_details?returnGeometry=true&project_id=' + projectId + '&relationship_id=' + relationshipId, {
             cache: false
         }).
