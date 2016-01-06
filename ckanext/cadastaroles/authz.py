@@ -17,8 +17,11 @@ authz.ROLE_PERMISSIONS = OrderedDict([
                 'create_dataset',
                 'update_dataset',
                 # resources
-                'upload_project_resource', # the old API auth
-                'cadasta_upload_project_resources',
+                'cadasta_upload_project_resources', # this adds the following 4 resource permissions too
+                'upload_project_resource',
+                'upload_parcel_resource',
+                'upload_party_resource',
+                'upload_relationship_resource',
                 # parcel
                 'read_parcel',
                 'create_parcel',
@@ -30,19 +33,19 @@ authz.ROLE_PERMISSIONS = OrderedDict([
                 'create_party',
                 'update_party',
                 'delete_party',
-                'create_parcel_relationship',
                 # relationship
                 'create_relationship',
                 'update_relationship',
                 ]),
     ('surveyor', ['read',
                     # resources
-                    'upload_project_resource', # the old API auth
-                    'cadasta_upload_project_resources',
+                    'cadasta_upload_project_resources', # this adds the following 4 resource permissions too
+                    'upload_project_resource',
+                    'upload_parcel_resource',
+                    'upload_party_resource',
+                    'upload_relationship_resource',
                     # parcel
                     'read_parcel',
-                    'upload_parcel_resource',
-                    'delete_parcel_resource',
                   ]),
 ])
 
@@ -62,6 +65,7 @@ def is_cadasta_admin_decorator(method):
             return False
         if CadastaAdmin.is_user_cadasta_admin(model.Session, user_id):
             return True
+
         return method(str(group_id), user_name, permission)
     return decorate_has_user_permission_for_group_or_org
 

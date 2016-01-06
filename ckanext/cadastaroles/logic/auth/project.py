@@ -125,11 +125,6 @@ def cadasta_upload_resource(context, data_dict):
     return has_permission_for_project(context, data_dict, permission,
                                       'project_id')
 
-# cadasta_upload_project_resources = partial(
-#     has_permission_for_project,
-#     permission='cadasta_upload_project_resources',
-#     project_id_parameter='project_id'
-# )
 
 def cadasta_upload_project_resources(context, data_dict):
     resource_type = toolkit.get_or_bust(data_dict, 'resource_type')
