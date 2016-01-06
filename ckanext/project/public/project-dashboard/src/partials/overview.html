@@ -55,13 +55,14 @@
                 <li ng-if="activity.properties.activity_type === 'relationship'"
                     ng-class="{'remove-bottom-border': $index == overviewData.activityList.length-1}"
                     class="activity-block block">
-                    Relationship between
+                    Relationship <span class="bold" ng-show="nonPublic"><a ui-sref="tabs.relationships.relationship({id:activity.properties.id})">
+                    {{ activity.properties.id }}</a></span> between
                     <span class="bold" ng-show="nonPublic"> party {{ activity.properties.name }}</span>
                     <span class="bold" ng-show="public"> party {{ activity.properties.id }}</span>
                     and
-                    <span class="bold" ng-show="nonPublic"><a ui-sref="tabs.parcels.parcel({id:activity.properties.id})">
-                        Parcel {{ activity.properties.id }}</a></span>
-                    <span class="bold" ng-show="public">Parcel {{ activity.properties.id }}</span>
+                    <span class="bold" ng-show="nonPublic"><a ui-sref="tabs.parcels.parcel({id:activity.properties.parcel_id})">
+                        Parcel {{ activity.properties.parcel_id }}</a></span>
+                    <span class="bold" ng-show="public">Parcel {{ activity.properties.parcel_id }}</span>
                     was created on {{ activity.properties.time_created }}
                 </li>
 
@@ -90,7 +91,7 @@
             <div ng-repeat="resource in overviewData.features[0].properties.project_resources">
                 <li ng-class="{'remove-bottom-border': $index == overviewData.features[0].properties.project_resources.length-1}"
                     class="resource-activity-block block">
-                    <span class="bold">{{resource.properties.file_name}}</span> uploaded on
+                    <span class="bold">{{resource.properties.file_name | cut:true:35:' ...'}}</span> uploaded on
                     {{resource.properties.time_created}}
                     <div ng-show="nonPublic"><a href="{{resource.properties.url}}">Download</a></div>
                 </li>

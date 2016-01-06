@@ -6,15 +6,15 @@
             <div class="resources">
                 <div class="button-controller">
 
-                    <md-input-container>
-                        <label>Filter by</label>
+                    <md-input-container class="resource-filter">
+                        <div class="ckan-label">Filter by:</div>
                         <md-select ng-model="ResourceTypeModel">
                             <md-option ng-value="t.type" ng-repeat="t in resource_types" ng-click="filterResourceType(t.type)">{{t.label}}</md-option>
                         </md-select>
                     </md-input-container>
 
                     <md-input-container>
-                        <label>Sort by</label>
+                        <div class="ckan-label">Sort by:</div>
                         <md-select ng-model="ResourceTypeModel">
                             <md-option ng-value="s.type" ng-repeat="s in sort_by" ng-click="filterResourceType(s.type)">{{s.label}}</md-option>
                         </md-select>

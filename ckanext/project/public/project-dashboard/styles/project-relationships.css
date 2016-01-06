@@ -88,7 +88,6 @@ md-input-container.relationship-notes textarea {
     height: 80px!important;
     width: 450px;
     margin-left: -5px;
-    margin-top: -15px;
     border: 1px solid #dcdfe1;
     box-shadow: none;
 }
@@ -102,7 +101,7 @@ md-input-container.relationship-notes textarea {
 
 
 #parcelDetails.party .section .relationship-container {
-    height: 141px;
+    height: 132px;
     overflow-y: auto;
     overflow-x:hidden;
     width: 366px;
@@ -166,4 +165,13 @@ md-input-container.relationship-notes textarea {
 
 .add-relationship #ag-table input[type="text"] {
     margin: -57px 0 24px 408px;
+}
+
+
+.date-selected {
+    font-weight: 900;
+}
+
+#DrawRelationshipMap p {
+    padding-bottom: 16px;
 }

@@ -1,5 +1,5 @@
-app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 'parcelService', '$rootScope', 'paramService', 'utilityService', 'dataService', '$mdDialog', 'ckanId', 'cadastaProject', 'FileUploader', 'ENV', 'partyService', 'relationshipService','USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole', 'PROJECT_RESOURCE_ROLES',
-    function (tenureTypes,$scope, $state, $stateParams, parcelService, $rootScope, paramService, utilityService, dataService, $mdDialog, ckanId, cadastaProject, FileUploader, ENV, partyService, relationshipService, USER_ROLES, PROJECT_CRUD_ROLES, userRole, PROJECT_RESOURCE_ROLES) {
+app.controller("parcelCtrl", ['tenureTypes', 'acquiredTypes','$scope', '$state', '$stateParams', 'parcelService', '$rootScope', 'paramService', 'utilityService', 'dataService', '$mdDialog', 'ckanId', 'cadastaProject', 'FileUploader', 'ENV', 'partyService', 'relationshipService','USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole', 'PROJECT_RESOURCE_ROLES',
+    function (tenureTypes, acquiredTypes, $scope, $state, $stateParams, parcelService, $rootScope, paramService, utilityService, dataService, $mdDialog, ckanId, cadastaProject, FileUploader, ENV, partyService, relationshipService, USER_ROLES, PROJECT_CRUD_ROLES, userRole, PROJECT_RESOURCE_ROLES) {
 
         // Add user's role to the scope
         $scope.showCRUDLink = PROJECT_CRUD_ROLES.indexOf(userRole) > -1;
@@ -14,21 +14,21 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
 
 
         var parcelStyle = {
+            "clickable" : false,
             "color": "#e54573",
-            "stroke": true,
-            "weight": 3,
-            "fillOpacity": .1,
+            "stroke": "#e54573",
+            "stroke-width": 1,
+            "fill-opacity": .6,
             "opacity": .8,
-            "marker-color": "#e54573",
-            "clickable" : false
+            "weight":2
         };
 
         var relationshipStyle = {
             "color": "#FF8000",
             "stroke": "#FF8000",
-            "opacity":.8,
-            "fillOpacity":.5,
-            "weight" : 1
+            "fill-opacity":.8,
+            "opacity":.6,
+            "weight" : 2
         };
 
         getParcelResources();
@@ -60,7 +60,7 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
             maxZoom: 18,
             id: 'spatialdev.map-rpljvvub',
             zoomControl: true,
-            accessToken: 'pk.eyJ1IjoiZGlnaXRhbGdsb2JlIiwiYSI6ImNpaDN3NzE5dzB5eGR4MW0wdnhpM29ndG8ifQ.3MqbbPFrSfeeQwbmGIES1A'
+            accessToken: 'pk.eyJ1Ijoic3BhdGlhbGRldiIsImEiOiJKRGYyYUlRIn0.PuYcbpuC38WO6D1r7xdMdA'
         });
 
         var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -156,7 +156,7 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
                         layer = L.geoJson(v, {
                             style: relationshipStyle,
                             pointToLayer: function (feature, latlng) {
-                                return L.circleMarker(latlng, relationshipStyle);
+                                return L.circle(latlng, 10, {"fillOpacity":.7, "opacity":.7, "weight":0} );
                             }
                         });
                         layer.bindPopup(popup_content);
@@ -177,7 +177,7 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
                     layer = L.geoJson(response, {
                         style: parcelStyle,
                         pointToLayer: function (feature, latlng) {
-                            return L.circleMarker(latlng, parcelStyle);
+                            return L.circle(latlng, 10, {"fillOpacity":.7, "opacity":.7, "weight":0} );
                         }
                     }).addTo(parcelGroup);
                     map.fitBounds(parcelGroup.getBounds());
@@ -404,6 +404,7 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
             }
 
             $scope.tenure_types = tenureTypes;
+            $scope.acquired_types = acquiredTypes;
         }
 
         /**
@@ -419,7 +420,7 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
                 maxZoom: 18,
                 id: 'spatialdev.map-rpljvvub',
                 zoomControl: true,
-                accessToken: 'pk.eyJ1IjoiZGlnaXRhbGdsb2JlIiwiYSI6ImNpaDN3NzE5dzB5eGR4MW0wdnhpM29ndG8ifQ.3MqbbPFrSfeeQwbmGIES1A'
+                accessToken: 'pk.eyJ1Ijoic3BhdGlhbGRldiIsImEiOiJKRGYyYUlRIn0.PuYcbpuC38WO6D1r7xdMdA'
             });
 
             var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -439,7 +440,7 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
 
 
             var editIcon = L.icon({
-                iconUrl: '/images/orange_marker.png',
+                iconUrl: '/images/green_marker.png',
                 iconSize: [30, 30]
 
             });
@@ -521,28 +522,31 @@ app.controller("parcelCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 
                     var layer = L.geoJson(response.features[0], {
                         style: extentStyle,
                         pointToLayer: function (feature, latlng) {
-                            return L.circleMarker(latlng, extentStyle);
+                            return L.circle(latlng, 10, {"fillOpacity": .7, "opacity": .7, "weight": 0});
                         }
                     });
                     layer.addTo(parcelGroup);
                 }
             });
 
+
             var parcelStyle = {
+                "clickable" : false,
                 "color": "#e54573",
-                "stroke": true,
-                "weight": 3,
-                "fillOpacity": .1,
+                "stroke": "#e54573",
+                "stroke-width": 1,
+                "fill-opacity": .6,
                 "opacity": .8,
-                "marker-color": "#e54573",
-                "clickable" : false
+                "weight":2
             };
+
+
 
             //add parcel extent to the map
             var parcelLayer = L.geoJson($scope.parcelObject, {
                 style: parcelStyle,
                 pointToLayer: function (feature, latlng) {
-                    return L.circleMarker(latlng, parcelStyle);
+                    return L.circle(latlng, 10, {"fillOpacity":.7, "opacity":.7, "weight":0} );
                 }
             });
 

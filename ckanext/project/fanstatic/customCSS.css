@@ -82,11 +82,12 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     padding: 10px 25px;
     border-bottom: 1px solid #dcdfe1;
     cursor: pointer;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 #sub-nav .dropdown-item:hover {
     color:#256C97;
+    background:#f8f9f9;
 }
 
 .toolbar {
@@ -626,6 +627,14 @@ a {
     font-weight: 600;
     padding: 6px 10px;
     font-size: 10px;
+}
+
+.edit-user-button-group {
+    margin: 0px 10px 30px 63px;
+}
+
+.cadasta-button.edit-user-button {
+    margin: 0px 10px 0px 0px;
 }
 
 .cadasta-button:hover {
@@ -1906,8 +1915,55 @@ label {
     margin-left:62px;
 }
 
-
 /*https://github.com/Cadasta/ckanext-project/issues/158*/
 .member-management li[data-field-label] {
     display: block;
+}
+
+.modal-footer .btn + .btn {
+    color: #333333;
+    text-shadow: none;
+}
+
+.modal-footer .btn.btn-primary {
+    color: #333333;
+    text-shadow: none;
+}
+
+.modal-footer .btn.btn-cancel {
+    color: #333333;
+    text-shadow: none;
+}
+
+.modal-footer .btn.btn-primary:hover {
+    background-color: #E8E8E8;
+    text-shadow: none;
+}
+
+.js .image-upload #field-image-upload{
+    margin: 20px 0 0 0;
+}
+
+.controls #field-image-upload {
+    cursor:pointer;
+}
+
+
+#organization-edit-form .image-upload label {
+    display:none;
+}
+
+#organization-edit-form .cursor a {
+    pointer:cursor;
+}
+
+
+.image-label {
+    margin: 17px 0 -14px 65px;
+}
+
+#usersName {
+    color: white;
+    font-weight: 600;
+    padding-right: 20px;
 }

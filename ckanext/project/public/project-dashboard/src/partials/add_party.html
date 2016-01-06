@@ -19,7 +19,8 @@
                 <div class="modal-content">
                     <div>
                         <md-radio-group ng-click="clearPartyFields(party)" ng-model="party.party_type" ng-init="party.party_type='individual'" >
-                            <label class="party-type"><span class="font-red">*</span>Party Type</label>
+                            <!--<label class="party-type"><span class="font-red">*</span>Party Type</label>-->
+                            <div class="ckan-label"><span class="font-red">*</span>Party Type</div>
                             <md-radio-button value="individual" class="md-primary">Individual</md-radio-button>
                             <md-radio-button value="group">Group</md-radio-button>
                         </md-radio-group>
@@ -28,7 +29,9 @@
                             <div layout layout-sm="column">
 
                                 <md-input-container md-no-float flex class="pin-id" ng-show="(party.party_type === 'individual')">
-                                    <label><span class="font-red">*</span>Full Name</label>
+                                    <!--<label><span class="font-red">*</span>Full Name</label>-->
+                                    <div class="ckan-label"><span class="font-red">*</span>Full Name:</div>
+
                                     <input ng-model="party.full_name">
                                 </md-input-container>
 
@@ -36,7 +39,9 @@
                                 <div></div>
 
                                 <md-input-container md-no-float flex class="pin-id group-name" ng-show="(party.party_type === 'group')">
-                                    <label><span class="font-red">*</span>Name</label>
+                                    <!--<label><span class="font-red">*</span>Name</label>-->
+                                    <div class="ckan-label"><span class="font-red">*</span>Name:</div>
+
                                     <input ng-model="party.group_name">
                                 </md-input-container>
                             </div>
@@ -46,12 +51,14 @@
                             <div layout layout-sm="column">
 
                                 <md-input-container md-no-float flex class="pin-id" >
-                                    <label>National ID</label>
+                                    <div class="ckan-label">National ID:</div>
+                                    <!--<label>National ID</label>-->
                                     <input ng-model="party.national_id">
                                 </md-input-container>
 
                                 <md-input-container md-no-float flex class="pin-id" ng-show="(party.party_type === 'individual')">
-                                    <label>Gender</label>
+                                    <!--<label>Gender</label>-->
+                                    <div class="ckan-label">Gender:</div>
                                     <input ng-model="party.gender">
                                 </md-input-container>
 
@@ -59,14 +66,16 @@
                         </md-content>
 
                         <md-content class="layout-padding add-parcel-extra-fields" >
-                            <label ng-show="(party.party_type === 'individual')">Party Date of Birth</label>
+
+                            <div ng-show="(party.party_type === 'individual')">Party Date of Birth</div>
+
                             <div ng-show="(party.party_type === 'individual')" layout layout-sm="column">
                                 <div id="custom-date-picker">
-                                    <p>Selected date is: {{dt | date:format:'dd/MM/yyyy' }}</p>
+                                    <p>Selected date is: <span class="date-selected">{{dt | date:format:'dd/MM/yyyy' }}</span></p>
 
                                     <div style="display:inline-block">
                                         <uib-datepicker ng-model="dt" format-day="dd" format-month="MM" format-year="yyyy"
-                                                        max-date="maxDate" show-weeks="true"
+                                                        max-date="maxDate" show-weeks="false"
                                                         class="well well-sm"></uib-datepicker>
                                     </div>
                                 </div>
@@ -77,7 +86,8 @@
                         <md-content class="layout-padding add-parcel-extra-fields" >
                             <div layout layout-sm="column">
                                 <md-input-container md-no-float flex class="modal-notes relationship-notes md-block">
-                                    <textarea ng-model="party.description" columns="1" placeholder="Notes"></textarea>
+                                    <div class="ckan-label">Notes:</div>
+                                    <textarea ng-model="party.description" columns="1"></textarea>
                                 </md-input-container>
                             </div>
                         </md-content>
@@ -87,7 +97,6 @@
 
                 <div class="cadasta-button right parcel-save" ng-click="saveNewParty(cadastaProjectId, party)">Save Party</div>
                 <div class="cancel" ng-click="cancel()">Cancel</div>
-
             </div>
         </md-dialog-content>
     </form>

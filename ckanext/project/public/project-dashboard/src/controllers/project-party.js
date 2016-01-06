@@ -1,5 +1,5 @@
-app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 'partyService', '$rootScope', 'paramService', 'utilityService', '$mdDialog', 'ckanId', 'cadastaProject', 'FileUploader', 'ENV', 'dataService', 'relationshipService', 'parcelService', 'USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole', 'PROJECT_RESOURCE_ROLES',
-    function (tenureTypes,$scope, $state, $stateParams, partyService, $rootScope, paramService, utilityService, $mdDialog, ckanId, cadastaProject, FileUploader, ENV, dataService, relationshipService, parcelService, USER_ROLES, PROJECT_CRUD_ROLES, userRole, PROJECT_RESOURCE_ROLES) {
+app.controller("partyCtrl", ['tenureTypes', 'acquiredTypes','$scope', '$state', '$stateParams', 'partyService', '$rootScope', 'paramService', 'utilityService', '$mdDialog', 'ckanId', 'cadastaProject', 'FileUploader', 'ENV', 'dataService', 'relationshipService', 'parcelService', 'USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole', 'PROJECT_RESOURCE_ROLES',
+    function (tenureTypes, acquiredTypes, $scope, $state, $stateParams, partyService, $rootScope, paramService, utilityService, $mdDialog, ckanId, cadastaProject, FileUploader, ENV, dataService, relationshipService, parcelService, USER_ROLES, PROJECT_CRUD_ROLES, userRole, PROJECT_RESOURCE_ROLES) {
 
         // Add user's role to the scope
         $scope.showCRUDLink = PROJECT_CRUD_ROLES.indexOf(userRole) > -1;
@@ -27,23 +27,22 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
         // parse map query param
         var mapArr = mapStr.substring(1, mapStr.length - 1).split(',');
 
-
         var parcelStyle = {
+            "clickable" : false,
             "color": "#e54573",
-            "stroke": true,
-            "weight": 3,
-            "fillOpacity": .1,
+            "stroke": "#e54573",
+            "stroke-width": 1,
+            "fill-opacity": .6,
             "opacity": .8,
-            "marker-color": "#e54573",
-            "clickable": false
+            "weight":2
         };
 
         var relationshipStyle = {
             "color": "#FF8000",
-            "stroke": true,
-            "opacity": .5,
-            "fillOpacity": .5,
-            "weight": 1
+            "stroke": "#FF8000",
+            "fill-opacity":.8,
+            "opacity":.6,
+            "weight" : 2
         };
 
         var lat = mapArr[0];
@@ -72,7 +71,7 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
             maxZoom: 18,
             id: 'spatialdev.map-rpljvvub',
             zoomControl: true,
-            accessToken: 'pk.eyJ1IjoiZGlnaXRhbGdsb2JlIiwiYSI6ImNpaDN3NzE5dzB5eGR4MW0wdnhpM29ndG8ifQ.3MqbbPFrSfeeQwbmGIES1A'
+            accessToken: 'pk.eyJ1Ijoic3BhdGlhbGRldiIsImEiOiJKRGYyYUlRIn0.PuYcbpuC38WO6D1r7xdMdA'
         });
 
         var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -147,7 +146,7 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
                             layer = L.geoJson(val, {
                                 style: relationshipStyle,
                                 pointToLayer: function (feature, latlng) {
-                                    return L.circleMarker(latlng, relationshipStyle);
+                                    return L.circle(latlng, 10, {"fillOpacity":.7, "opacity":.7, "weight":0} );
                                 }
                             });
                             layer.bindPopup(popup_content);
@@ -167,7 +166,7 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
                             layer = L.geoJson(p, {
                                 style: parcelStyle,
                                 pointToLayer: function (feature, latlng) {
-                                    return L.circleMarker(latlng, parcelStyle);
+                                    return L.circle(latlng, 10, {"fillOpacity":.7, "opacity":.7, "weight":0} );
                                 }
                             });
                             layer.addTo(parcelGroup);
@@ -287,11 +286,11 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
                     }).catch(function (response) {
                         utilityService.showToast('Unable to create relationship');
                     });
-
                 }
             }
 
             $scope.tenure_types = tenureTypes;
+            $scope.acquired_types = acquiredTypes;
         }
 
         /**
@@ -306,7 +305,7 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
                 maxZoom: 18,
                 id: 'spatialdev.map-rpljvvub',
                 zoomControl: true,
-                accessToken: 'pk.eyJ1IjoiZGlnaXRhbGdsb2JlIiwiYSI6ImNpaDN3NzE5dzB5eGR4MW0wdnhpM29ndG8ifQ.3MqbbPFrSfeeQwbmGIES1A'
+                accessToken: 'pk.eyJ1Ijoic3BhdGlhbGRldiIsImEiOiJKRGYyYUlRIn0.PuYcbpuC38WO6D1r7xdMdA'
             });
 
             var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -327,7 +326,7 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
 
 
             var editIcon = L.icon({
-                iconUrl: '/images/orange_marker.png',
+                iconUrl: '/images/green_marker.png',
                 iconSize: [30, 30]
             });
 
@@ -396,16 +395,18 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
             var parcelStyle = {
                 "color": "#e54573",
                 "stroke": "#e54573",
-                "stroke-width": 3,
-                "fill-opacity": .1,
-                "stroke-opacity": .8,
-                "marker-color": "#e54573"
+                "stroke-width": 1,
+                "fill-opacity": .6,
+                "opacity": .8,
+                "weight":2
             };
+
+
 
             var selectStyle = {
                 "color": "#6324C3",
                 "stroke": true,
-                "stroke-width": 3,
+                "stroke-width": 1,
                 "fill-opacity": .1,
                 "stroke-opacity": .8,
                 "marker-color": "#e54573"
@@ -425,7 +426,7 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
                 projectLayer = L.geoJson(response.project.features, {
                     style: extentStyle,
                     pointToLayer: function (feature, latlng) {
-                        return L.circleMarker(latlng, extentStyle);
+                        return L.circle(latlng, 10, {"fillOpacity":.7, "opacity":.7, "weight":0} );
                     }
                 });
                 projectLayer.addTo(map);
@@ -434,7 +435,7 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
                     var parcelToAdd = L.geoJson(parcel, {
                         style: parcelStyle,
                         pointToLayer: function (feature, latlng) {
-                            return L.circleMarker(latlng, parcelStyle);
+                            return L.circle(latlng, 10, {"fillOpacity":.7, "opacity":.7, "weight":0} );
                         }
                     });
                     parcelToAdd.addTo(parcelGroup);
@@ -493,13 +494,21 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
 
             $scope.cadastaProjectId = cadastaProject.id;
             $scope.party = party;
-            $scope.dt = utilityService.parseDate(party.dob);
+
+            if(party.dob !== null){
+                $scope.dt = utilityService.parseDate(party.dob);
+            }
 
             $scope.updateParty = function (projectId, party) {
 
                 if($scope.dt){
                     party.dob = new Date($scope.dt.setMinutes( $scope.dt.getTimezoneOffset() ));
                 }
+
+                if (!party.group_name || party.full_name == null ){
+                    utilityService.showToast('Party name is required');
+                }
+
 
                 var updateParty = partyService.updateProjectParty(projectId, $stateParams.id, party);
 
@@ -511,7 +520,7 @@ app.controller("partyCtrl", ['tenureTypes','$scope', '$state', '$stateParams', '
 
                         $scope.cancel();
                     }
-                }).catch(function (response) {
+                }).catch(function (err) {
                     utilityService.showToast('Unable to update party');
                 });
             }

@@ -3,8 +3,7 @@
         <div class="button-controller activity-tab">
 
             <md-input-container>
-                <label>Filter by</label>
-                <!-- todo update to be about resources rather than parcels-->
+                <div class="ckan-label">Filter by:</div>
                 <md-select ng-model="ActivityTypeModel">
                     <md-option ng-value="t.type" ng-repeat="t in activity_types" ng-click="filterActivityType(t.type)">{{t.label}}</md-option>
                 </md-select>
@@ -29,7 +28,8 @@
 
                 <li ng-if="activity.properties.activity_type === 'relationship'" class="activity-block block">
                     <!-- todo remove hardcoding of project id-->
-                    Relationship between <span class="bold"> {{ activity.properties.name }}</span> and <span
+                    Relationship <span class="bold"><a ui-sref="tabs.relationships.relationship({id:activity.properties.id})">
+                    {{ activity.properties.id }}</a></span> between <span class="bold"> {{ activity.properties.name }}</span> and <span
                         class="bold"><a href="#/parcels/{{ activity.properties.parcel_id }}">
                     parcel {{ activity.properties.parcel_id }}</a></span> was created on {{ activity.properties.time_created }}
                 </li>

@@ -1,3 +1,7 @@
+.resource-filter {
+    width: 175px;
+}
+
 .project-tab-data {
     max-height: 490px;
     overflow: auto;
@@ -46,7 +50,7 @@
 }
 
 md-input-container{
-    width: 100px;
+    width: 200px;
     display: inline-block;
 }
 

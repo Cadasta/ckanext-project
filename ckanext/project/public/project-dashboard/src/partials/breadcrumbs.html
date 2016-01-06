@@ -7,35 +7,35 @@
         <a class="title" href="/project/">Projects</a>
 
         <div class="icon-lnr-chevron-right arrow-right"></div>
-        <a class="title" ui-sref="tabs.overview">{{cadastaProject.title}}</a>
+        <a ng-click="clearBreadCrumb(); setOverviewTab()" class="title" ui-sref="tabs.overview">{{cadastaProject.title}}</a>
 
         <div class="icon-lnr-chevron-right arrow-right"></div>
 
         <!-- breadcrumbs when on a specific tab details page-->
 
         <!-- parcel details breadcrumb -->
-        <a ng-click="clearBreadCrumb()" ng-show="(tab_parcel.length > 0) && (tab_relationship.length <= 0)" class="title" ui-sref="tabs.parcels.parcellist">{{tab}}</a>
+        <a ng-click="clearBreadCrumb()" ng-show="(tab_parcel.length > 0 && tab == 'Parcels')" class="title" ui-sref="tabs.parcels.parcellist">{{tab}}</a>
 
         <!-- relationships details breadcrumb -->
-        <a ng-click="clearBreadCrumb()" ng-show="(tab_parcel.length <= 0) && (tab_relationship.length > 0)" class="title" ui-sref="tabs.relationships.relationshiplist">{{tab}}</a>
+        <a ng-click="clearBreadCrumb()" ng-show="(tab_relationship.length > 0 && tab == 'Relationships')" class="title" ui-sref="tabs.relationships.relationshiplist">{{tab}}</a>
 
         <!-- party details breadcrumb -->
-        <a ng-click="clearBreadCrumb()" ng-show="(tab_parcel.length <= 0) &&  (tab_relationship.length <= 0) && (tab_party.length > 0)" class="title" ui-sref="tabs.parties.partylist">{{tab}}</a>
+        <a ng-click="clearBreadCrumb()" ng-show="(tab_party.length > 0 && tab == 'Parties')" class="title" ui-sref="tabs.parties.partylist">{{tab}}</a>
 
         <!-- entity (parcel/party/relationship) label breadcrumb-->
         <a ng-show="(tab_parcel.length <= 0) && (tab_party.length <= 0) && (tab_relationship.length <= 0)" class="title active" href="">{{tab}}</a>
 
         <!-- parcel details id breadcrumb -->
-        <div ng-show="tab_parcel.length > 0" class="icon-lnr-chevron-right arrow-right"></div>
-        <a ng-show="tab_parcel.length > 0" class="active title" href="">{{tab_parcel}}</a>
+        <div ng-show="tab_parcel.length > 0 && tab == 'Parcels'" class="icon-lnr-chevron-right arrow-right"></div>
+        <a ng-show="tab_parcel.length > 0 && tab == 'Parcels'" class="active title" href="">{{tab_parcel}}</a>
 
         <!-- relationship details id -->
-        <div ng-show="tab_relationship.length > 0" class="icon-lnr-chevron-right arrow-right"></div>
-        <a ng-show="tab_relationship.length > 0" class="active title" href="">{{tab_relationship}}</a>
+        <div ng-show="tab_relationship.length > 0 && tab == 'Relationships'" class="icon-lnr-chevron-right arrow-right"></div>
+        <a ng-show="tab_relationship.length > 0 && tab == 'Relationships'" class="active title" href="">{{tab_relationship}}</a>
 
         <!-- party details id -->
-        <div ng-show="tab_party.length > 0" class="icon-lnr-chevron-right arrow-right"></div>
-        <a ng-show="tab_party.length > 0" class="active title" href="">{{tab_party}}</a>
+        <div ng-show="tab_party.length > 0 && tab == 'Parties'" class="icon-lnr-chevron-right arrow-right"></div>
+        <a ng-show="tab_party.length > 0 && tab == 'Parties'" class="active title" href="">{{tab_party}}</a>
 
     </div>
 </div>

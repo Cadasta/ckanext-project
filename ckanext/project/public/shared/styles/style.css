@@ -150,7 +150,7 @@ p.popup-text {
 }
 
 .md-select-menu-container.md-active md-select-menu {
-    width: 200px;
+    min-width: 200px;
 }
 
 #ag-table {
@@ -282,4 +282,18 @@ p.popup-text {
 .md-select-menu-container.md-default-theme.md-active.md-clickable {
     left: 840px;
     top: 381px;
+}
+
+md-input-container textarea{
+    border: 1px solid #dcdfe1 !important;
+}
+md-input-container.md-input-focused textarea {
+    border: 1px solid rgb(63,81,181) !important;
+}
+
+md-input-container input{
+    border: 1px solid #dcdfe1 !important;
+}
+md-input-container.md-input-focused input {
+    border: 1px solid rgb(63,81,181) !important;
 }

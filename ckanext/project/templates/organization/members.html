@@ -18,7 +18,7 @@
 
 {% block page_primary_action %}
 <div id="org-members-add">
-    {% if h.check_access('group_member_create') %}
+    {% if h.check_access('group_member_create', {'id': c.group_dict.id}) %}
         {% link_for _('Add Member'), controller='organization', action='member_new', id=c.group_dict.id, class_='cadasta-button right' %}
     {% endif %}
 </div>
@@ -63,7 +63,7 @@
         <td>
             {% set locale = h.dump_json({'content': _('Are you sure you want to delete this member?')}) %}
             <div class="">
-                {% if h.check_access('group_member_create') %}
+                {% if h.check_access('group_member_create', {'id': c.group_dict.id}) %}
                 <a class="manage-button" href="{% url_for controller='organization', action='member_new', id=c.group_dict.id, user=user_id %}" title="{{ _('Edit') }}">
                     Edit
                 </a>

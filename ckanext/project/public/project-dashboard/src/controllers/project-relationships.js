@@ -95,7 +95,7 @@ app.controller("relationshipsCtrl", ['tenureTypes','$scope', '$state', '$statePa
                     layer = L.geoJson(response, {
                         style: parcelStyle,
                         pointToLayer: function (feature, latlng) {
-                            return L.circleMarker(latlng, parcelStyle);
+                            return L.circle(latlng, 10, {"fillOpacity":.7, "opacity":.7, "weight":0} );
                         }
                     }).addTo(parcelGroup);
                     map.fitBounds(layer.getBounds());

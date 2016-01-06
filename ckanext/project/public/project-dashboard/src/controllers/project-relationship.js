@@ -1,5 +1,5 @@
-app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$stateParams','relationshipService','$rootScope','paramService', 'utilityService', '$mdDialog', 'ckanId', 'cadastaProject', 'FileUploader', 'ENV','parcelService', 'partyService', 'USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole', 'PROJECT_RESOURCE_ROLES',
-    function(tenureTypes, $scope, $state, $stateParams, relationshipService,$rootScope,paramService, utilityService, $mdDialog, ckanId, cadastaProject, FileUploader, ENV, parcelService, partyService, USER_ROLES, PROJECT_CRUD_ROLES, userRole, PROJECT_RESOURCE_ROLES){
+app.controller("relationshipCtrl", ['tenureTypes', 'acquiredTypes', '$scope', '$state', '$stateParams','relationshipService','$rootScope','paramService', 'utilityService', '$mdDialog', 'ckanId', 'cadastaProject', 'FileUploader', 'ENV','parcelService', 'partyService', 'USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole', 'PROJECT_RESOURCE_ROLES',
+    function(tenureTypes, acquiredTypes, $scope, $state, $stateParams, relationshipService,$rootScope,paramService, utilityService, $mdDialog, ckanId, cadastaProject, FileUploader, ENV, parcelService, partyService, USER_ROLES, PROJECT_CRUD_ROLES, userRole, PROJECT_RESOURCE_ROLES){
 
         // Add user's role to the scope
         $scope.showCRUDLink = PROJECT_CRUD_ROLES.indexOf(userRole) > -1;
@@ -24,23 +24,24 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
         var lng = mapArr[1];
         var zoom = mapArr[2];
 
+
         var parcelStyle = {
+            "clickable" : false,
             "color": "#e54573",
-            "stroke": true,
-            "weight": 3,
-            "fillOpacity": .1,
+            "stroke": "#e54573",
+            "stroke-width": 1,
+            "fill-opacity": .6,
             "opacity": .8,
-            "marker-color": "#e54573",
-            "clickable": false
+            "weight":2
         };
 
         var relationshipStyle = {
             "color": "#FF8000",
             "stroke": "#FF8000",
-            "opacity":.8,
-            "fillOpacity":.5,
-            "weight" : 1,
-            "clickable" : false
+            "fill-opacity":.8,
+            "opacity":.6,
+            "weight" : 2,
+            "clickable":false
         };
 
         // setup map
@@ -66,7 +67,7 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
             maxZoom: 18,
             id: 'spatialdev.map-rpljvvub',
             zoomControl: true,
-            accessToken: 'pk.eyJ1IjoiZGlnaXRhbGdsb2JlIiwiYSI6ImNpaDN3NzE5dzB5eGR4MW0wdnhpM29ndG8ifQ.3MqbbPFrSfeeQwbmGIES1A'
+            accessToken: 'pk.eyJ1Ijoic3BhdGlhbGRldiIsImEiOiJKRGYyYUlRIn0.PuYcbpuC38WO6D1r7xdMdA'
         });
 
         var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -100,7 +101,7 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
                         var layer = L.geoJson(response, {
                             style: parcelStyle,
                             pointToLayer: function (feature, latlng) {
-                                return L.circleMarker(latlng, parcelStyle);
+                                return L.circle(latlng, 10, {"fillOpacity":.7, "opacity":.7, "weight":0} );
                             }
                         }).addTo(relationshipGroup);
 
@@ -128,7 +129,7 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
                         var layer = L.geoJson(response, {
                             style: relationshipStyle,
                             pointToLayer: function (feature, latlng) {
-                                return L.circleMarker(latlng, relationshipStyle);
+                                return L.circle(latlng, 10, {"fillOpacity":.7, "opacity":.7, "weight":0} );
                             }
                         }).addTo(relationshipGroup);
 
@@ -208,7 +209,10 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
                 $mdDialog.cancel();
             };
 
-            $scope.dt = utilityService.parseDate(relationship.properties.acquired_date);
+            if(relationship.properties.acquired_date !== null){
+                $scope.dt = utilityService.parseDate(relationship.properties.acquired_date);
+            }
+
             $scope.cadastaProjectId = cadastaProject.id;
             $scope.relationship = relationship;
 
@@ -221,15 +225,12 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
                 $scope.parties = "Server Error";
             });
 
-
             // set date picker's max date to today
             $scope.myDate = new Date();
-
 
             $scope.open = function($event) {
                 $scope.status.opened = true;
             };
-
 
             $scope.format = 'd/M/yyyy';
 
@@ -271,6 +272,7 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
             }
 
             $scope.tenure_types = tenureTypes;
+            $scope.acquired_types = acquiredTypes;
         }
 
         /**
@@ -295,7 +297,7 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
                 maxZoom: 18,
                 id: 'spatialdev.map-rpljvvub',
                 zoomControl: true,
-                accessToken: 'pk.eyJ1IjoiZGlnaXRhbGdsb2JlIiwiYSI6ImNpaDN3NzE5dzB5eGR4MW0wdnhpM29ndG8ifQ.3MqbbPFrSfeeQwbmGIES1A'
+                accessToken: 'pk.eyJ1Ijoic3BhdGlhbGRldiIsImEiOiJKRGYyYUlRIn0.PuYcbpuC38WO6D1r7xdMdA'
             });
 
             var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -316,7 +318,7 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
             var featureGroup = L.featureGroup().addTo(map);
 
             var editIcon = L.icon({
-                iconUrl: '/images/orange_marker.png',
+                iconUrl: '/images/green_marker.png',
                 iconSize: [30, 30]
             });
 
@@ -374,22 +376,24 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
             });
 
 
+
             var parcelStyle = {
+                "clickable" : false,
                 "color": "#e54573",
                 "stroke": "#e54573",
                 "stroke-width": 1,
-                "fill-opacity":.1,
-                "stroke-opacity":.8,
-                "clickable" : false
+                "fill-opacity": .6,
+                "opacity": .8,
+                "weight":2
             };
 
             var relationshipStyle = {
                 "color": "#FF8000",
                 "stroke": "#FF8000",
-                "stroke-width": 1,
-                "fill-opacity":.5,
-                "stroke-opacity":.8,
-                "clickable" : false
+                "fill-opacity":.8,
+                "opacity":.6,
+                "weight" : 2,
+                "clickable":false
             };
 
 
@@ -402,7 +406,7 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
                         var layer = L.geoJson(response, {
                             style: parcelStyle,
                             pointToLayer: function (feature, latlng) {
-                                return L.circleMarker(latlng, parcelStyle);
+                                return L.circle(latlng, 10, {"fillOpacity":.7, "opacity":.7, "weight":0} );
                             }
                         }).addTo(map);
                         map.fitBounds(layer.getBounds());
@@ -419,7 +423,7 @@ app.controller("relationshipCtrl", ['tenureTypes','$scope', '$state', '$statePar
                     var layer = L.geoJson(response, {
                         style: relationshipStyle,
                         pointToLayer: function (feature, latlng) {
-                            return L.circleMarker(latlng, relationshipStyle);
+                            return L.circle(latlng, 10, {"fillOpacity":.7, "opacity":.7, "weight":0} );
                         }
                     }).addTo(map);
                     map.fitBounds(layer.getBounds());

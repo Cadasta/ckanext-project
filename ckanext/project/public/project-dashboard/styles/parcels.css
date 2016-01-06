@@ -4,6 +4,9 @@ md-backdrop {
 
 .md-dialog-container {
     position: fixed;
+    top: 0px !important;
+    height: 100% !important;
+
 }
 
 md-input-container.tenure-type {
@@ -182,8 +185,19 @@ md-input-container.how-acquired {
 #parcelDetails .section .container {
     padding: 20px 10px;
     width: 340px;
-    height: 240px;
-    float:left;
+    /*height: 240px;*/
+    /*float:left;*/
+}
+
+#parcelDetails .party-relationship-list {
+    height: 123px;
+    overflow-y: scroll;
+}
+
+#parcelDetails .section .container {
+    padding: 0px 10px;
+    width: 340px;
+    height: auto;
 }
 
 #parcelList{
@@ -250,7 +264,6 @@ md-input-container.how-acquired {
     padding: 2px;
     margin: 0;
     position: relative;
-    bottom: 10px;
 }
 
 #parcelFilter .md-title {
@@ -314,7 +327,7 @@ md-input-container.how-acquired {
 }
 
 #parcelFilter .cadasta-round-button.right {
-    left:470px;
+    left:300px;
     top:15px;
 }
 
@@ -325,12 +338,12 @@ md-input-container.how-acquired {
 
 #parcelDetails .section-map .cadasta-update-button {
     position: relative;
-    bottom: 312px;
+    bottom: 355px;
 }
 
 .add-relationship md-input-container.pin-id {
     width: 200px;
-    margin-right: 25px;
+    /*margin-right: 25px;*/
 }
 
 .add-relationship md-input-container.pin-id * {
@@ -347,7 +360,7 @@ md-input-container.notes textarea {
 }
 
 .tenure-type-left {
-    width: 240px !important;
+    width: 280px !important;
 }
 
 .landuse-left {
@@ -386,7 +399,6 @@ md-content.add-parcel-extra-fields md-input-container.notes textarea {
     height: 80px !important;
     width: 723px;
     margin-left: -5px;
-    margin-top: -15px;
     border: 1px solid #dcdfe1;
     box-shadow:none;
 }
@@ -460,7 +472,10 @@ md-input-container label {
 
 @media print {
 
-
+    html, body {
+        height: 100%;
+        overflow: visible;
+    }
 
     .back-link, #project-tabs, #project-tabs *, .cadasta-button, .cadasta-round-button, #breadcrumb, #breadcrumb *, .masthead-header, .masthead-header *, .icon-icon_edit, #header a {
         visibility: hidden;
@@ -481,12 +496,6 @@ md-input-container label {
 
     .parcel-history-data{
         max-height: none;
-    }
-
-    #parcelDetails .section .container {
-        padding: 20px 10px;
-        width: 340px;
-        height: auto;
     }
 
     #parcelDetails .section {

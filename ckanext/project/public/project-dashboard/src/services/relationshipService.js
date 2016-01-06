@@ -103,8 +103,8 @@ var app = angular.module("app")
         if (relationship.acquisition_date) {
             acquired_date = relationship.acquisition_date;
         }
-        if (relationship.acquired_type) {
-            how_acquired = relationship.acquired_type;
+        if (relationship.how_acquired) {
+            how_acquired = relationship.how_acquired;
         }
         if (relationship.description) {
             description = relationship.description;

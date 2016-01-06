@@ -14,12 +14,9 @@ app.controller("breadcrumbsCtrl", ['$scope', '$state', '$stateParams','$location
 
     // listen for tab change
     $scope.$on('tab-change',function(evt,data){
-        $scope.tab = data.tab;
-
-        // clear breadcrumb details if not one of these 3 entities
-        if(data.tab !== 'Parcels' || data.tab !== 'Parties' || data.tab !== 'Relationships'){
-            $scope.clearBreadCrumb();
-        }
+         $scope.tab = data.tab;
+         // clear tab entity id's
+         $scope.clearBreadCrumb();
     });
 
     // clear inner tab parcel on 'Back to Parcel List click'
@@ -54,6 +51,11 @@ app.controller("breadcrumbsCtrl", ['$scope', '$state', '$stateParams','$location
         $scope.tab_relationship = '';
         $scope.tab_party = '';
     };
+
+    // set tab to Overview on project title breadcrumb selection
+    $scope.setOverviewTab = function () {
+        $scope.tab = 'Overview';
+    }
 
     $scope.go = function ( path ) {
         $location.path( path );

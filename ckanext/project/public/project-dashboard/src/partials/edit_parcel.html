@@ -26,8 +26,8 @@
                         <div id='legend'>
 
                             <nav class='legend clearfix'>
-                                <span class='legend-key' style='background:#256c97;'></span>
-                                <span class="legend-label">Project Extent</span>
+                                <!--<span class='legend-key' style='background:#256c97;'></span>-->
+                                <!--<span class="legend-label">Project Extent</span>-->
                                 <span class='legend-key' style='background:#e54573;'></span>
                                 <span class="legend-label">Current Parcel Geometry</span>
                                 <span class='legend-key' style='background:#88D40E;'></span>
@@ -37,26 +37,27 @@
 
                         <md-content class="layout-padding left add-parcel-extra-fields" >
                             <div layout layout-sm="column">
-                                <md-input-container md-no-float flex class="pin-id">
-                                    <label>Government Pin Id</label>
-                                    <input ng-model="parcel.pinid">
-                                </md-input-container>
-                                <md-input-container flex class="landuse update">
-                                    <label>Landuse</label>
+                                <md-input-container flex class="landuse-left">
+                                    <div class="ckan-label">Landuse:</div>
+                                    <!--<label>Landuse</label>-->
                                     <md-select ng-model="parcel.landuse">
-                                        <md-option>Commercial</md-option>
-                                        <md-option>Residential</md-option>
+                                        <md-option value="Commercial">Commercial</md-option>
+                                        <md-option value="Residential">Residential</md-option>
                                     </md-select>
+                                </md-input-container>
+                                <md-input-container md-no-float flex class="pin-id">
+                                    <div class="ckan-label">Government Pin ID:</div>
+                                    <input ng-model="parcel.pinid">
                                 </md-input-container>
                             </div>
                             <md-input-container md-no-float flex class="notes">
-                                <label>Notes</label>
-                                <textarea ng-model="parcel.notes" columns="1" md-maxlength="150"></textarea>
+                                <!--<label>Notes</label>-->
+                                <div class="ckan-label">Notes:</div>
+                                <textarea ng-model="parcel.notes" columns="1"></textarea>
                             </md-input-container>
                         </md-content>
-
                         <div class="cadasta-button right" ng-click="updateParcel(cadastaProjectId, layer)">Update Parcel</div>
-
+                        <div class="cancel" ng-click="cancel()">Cancel</div>
                     </div>
                 </div>
 
