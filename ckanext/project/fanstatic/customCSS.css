@@ -1905,3 +1905,9 @@ label {
 #user-edit-form .user-margin-left {
     margin-left:62px;
 }
+
+
+/*https://github.com/Cadasta/ckanext-project/issues/158*/
+.member-management li[data-field-label] {
+    display: block;
+}
