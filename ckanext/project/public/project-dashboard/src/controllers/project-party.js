@@ -505,24 +505,31 @@ app.controller("partyCtrl", ['tenureTypes', 'acquiredTypes','$scope', '$state', 
                     party.dob = new Date($scope.dt.setMinutes( $scope.dt.getTimezoneOffset() ));
                 }
 
-                if (!party.group_name || party.full_name == null ){
-                    utilityService.showToast('Party name is required');
+                if($scope.party.party_type == 'group' && $scope.party.group_name == undefined){
+                    utilityService.showToast('Group Name is required.');
                 }
 
+                else if ($scope.party.party_type == 'individual' && $scope.party.full_name  == undefined) {
+                    utilityService.showToast('Name is required.');
+                }
 
-                var updateParty = partyService.updateProjectParty(projectId, $stateParams.id, party);
+                else {
 
-                updateParty.then(function (response) {
-                    if (response.cadasta_party_id) {
 
-                        $rootScope.$broadcast('updated-party');
-                        getPartyDetails();
+                    var updateParty = partyService.updateProjectParty(projectId, $stateParams.id, party);
 
-                        $scope.cancel();
-                    }
-                }).catch(function (err) {
-                    utilityService.showToast('Unable to update party');
-                });
+                    updateParty.then(function (response) {
+                        if (response.cadasta_party_id) {
+
+                            $rootScope.$broadcast('updated-party');
+                            getPartyDetails();
+
+                            $scope.cancel();
+                        }
+                    }).catch(function (err) {
+                        utilityService.showToast('Unable to update party');
+                    });
+                }
             }
         }
 
