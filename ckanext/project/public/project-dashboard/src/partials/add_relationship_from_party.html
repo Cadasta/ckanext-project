@@ -33,7 +33,6 @@
 
                                 <md-input-container class="md-block add-relationship-format">
                                     <div class="ckan-label">How was the parcel acquired:</div>
-                                    <!--<label class="ckan-helper-text">ex. Leasehold</label>-->
                                     <md-select class="tenure-type-left" ng-model="relationship.how_acquired">
                                         <md-option ng-repeat="a in acquired_types" value="{{a.type}}">
                                             {{a.label}}
@@ -43,7 +42,7 @@
                             </div>
 
                             <div id="custom-date-picker">
-                                <div ng-click="showRelationshipDatepicker = !showRelationshipDatepicker" class="cadasta-button left parcel-save" >Select date of parcel acquisition?</div>
+                                <div ng-click="showRelationshipDatepicker = !showRelationshipDatepicker" class="cadasta-button left parcel-save" >Select date of parcel acquisition</div>
                                 <br><br><br><br>
 
                                 <div ng-show="showRelationshipDatepicker">
