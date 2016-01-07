@@ -28,15 +28,14 @@
                             <div layout layout-sm="column">
 
                                 <md-input-container md-no-float flex class="pin-id" ng-show="(party.party_type === 'individual')">
-                                    <div class="ckan-label">Full Name:</div>
-                                    <!--<label>Full Name</label>-->
+                                    <div class="ckan-label"><span class="font-red">*</span>Full Name:</div>
                                     <input ng-model="party.full_name">
                                 </md-input-container>
 
                                 <br><br><br>
 
                                 <md-input-container md-no-float flex class="pin-id group-name" ng-show="(party.party_type === 'group')">
-                                    <label>Name</label>
+                                    <div class="ckan-label"><span class="font-red">*</span>Name:</div>
                                     <input ng-model="party.group_name">
 
                                 </md-input-container>
@@ -52,12 +51,10 @@
 
                                         <md-input-container md-no-float flex class="pin-id" >
                                             <div class="ckan-label">National ID:</div>
-                                            <!--<label>National ID</label>-->
                                             <input ng-model="party.national_id">
                                         </md-input-container>
 
                                         <md-input-container md-no-float flex class="pin-id" ng-show="(party.party_type === 'individual')">
-                                            <!--<label>Gender</label>-->
                                             <div class="ckan-label">Gender:</div>
                                             <input ng-model="party.gender">
                                         </md-input-container>

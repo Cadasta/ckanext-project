@@ -152,6 +152,32 @@ angular.module('app.config', [])
             label: 'Groups'
         }
     ])
+.constant('landuseTypes', [
+    {
+        type: 'agriculture',
+        label: 'Agriculture'
+    },
+    {
+        type: 'commercial',
+        label: 'Commercial'
+    },
+    {
+        type: 'community land',
+        label: 'Community Land'
+    },
+    {
+        type: 'grazing',
+        label: 'Grazing'
+    },
+    {
+        type: 'other',
+        label: 'Other'
+    },
+    {
+        type: 'residential',
+        label: 'Residential'
+    }
+])
 .constant('acquiredTypes', [
         {
             type: 'contractual',
