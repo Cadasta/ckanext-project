@@ -1,7 +1,7 @@
 var app = angular.module("app");
 
-app.controller("parcelsCtrl", ['tenureTypes','$scope', '$state', '$stateParams', 'parcelService', 'dataService', '$rootScope', 'utilityService', 'ckanId', 'cadastaProject', '$mdDialog', '$location','sortByParcel','USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole',
-    function (tenureTypes,$scope, $state, $stateParams, parcelService, dataService, $rootScope, utilityService, ckanId, cadastaProject, $mdDialog, $location,sortByParcel,USER_ROLES, PROJECT_CRUD_ROLES, userRole) {
+app.controller("parcelsCtrl", ['tenureTypes', 'landuseTypes', '$scope', '$state', '$stateParams', 'parcelService', 'dataService', '$rootScope', 'utilityService', 'ckanId', 'cadastaProject', '$mdDialog', '$location','sortByParcel','USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole',
+    function (tenureTypes, landuseTypes, $scope, $state, $stateParams, parcelService, dataService, $rootScope, utilityService, ckanId, cadastaProject, $mdDialog, $location,sortByParcel,USER_ROLES, PROJECT_CRUD_ROLES, userRole) {
 
         $rootScope.$broadcast('tab-change', {tab: 'Parcels'}); // notify breadcrumbs of tab on page load
 
@@ -164,6 +164,8 @@ app.controller("parcelsCtrl", ['tenureTypes','$scope', '$state', '$stateParams',
         }
 
         function addParcelCtrl($scope, $mdDialog,  utilityService) {
+
+            $scope.landuse_types = landuseTypes;
 
             $scope.hide = function () {
                 $mdDialog.hide();

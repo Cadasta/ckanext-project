@@ -41,8 +41,9 @@
                                     <div class="ckan-label">Landuse:</div>
                                     <!--<label>Landuse</label>-->
                                     <md-select ng-model="parcel.landuse">
-                                        <md-option value="Commercial">Commercial</md-option>
-                                        <md-option value="Residential">Residential</md-option>
+                                        <md-option ng-repeat="l in landuse_types" value="{{l.type}}">
+                                            {{l.label}}
+                                        </md-option>
                                     </md-select>
                                 </md-input-container>
                                 <md-input-container md-no-float flex class="pin-id">

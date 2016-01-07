@@ -136,7 +136,7 @@ app.controller("partiesCtrl", ['partyTypes','$scope', '$state', '$stateParams', 
                     utilityService.showToast('Group Name is required.');
                 }
 
-                if ($scope.party.party_type == 'individual' && $scope.party.full_name  == undefined){
+                else if ($scope.party.party_type == 'individual' && $scope.party.full_name  == undefined){
                     utilityService.showToast('Name is required.');
                 }
                 var createParty = partyService.createProjectParty(projectId, party);
