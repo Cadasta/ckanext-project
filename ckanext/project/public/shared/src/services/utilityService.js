@@ -8,6 +8,8 @@ var app = angular.module("app")
          * @returns {*}
          */
         service.formatDate = function(dateString){
+            if(!(dateString)) return;
+
             var date = dateString.split("-").join("/")
                                  .replace( /\.[0-9+]+$/g, '' )
                                  .replace(/T/, ' ');
@@ -26,7 +28,8 @@ var app = angular.module("app")
         * @returns Date Object
         */
         service.parseDate = function(dateString){
-            var date = dateString.split("-").join("/").replace( /\.[0-9+]+$/g, '' );
+            if(!(dateString)) return;
+            var date = dateString.split("-").join("/").replace(/\+[0-9]+$/g,'');
             return new Date(date);
         };
 
