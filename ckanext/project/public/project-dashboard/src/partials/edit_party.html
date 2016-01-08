@@ -28,15 +28,14 @@
                             <div layout layout-sm="column">
 
                                 <md-input-container md-no-float flex class="pin-id" ng-show="(party.party_type === 'individual')">
-                                    <div class="ckan-label">Full Name:</div>
-                                    <!--<label>Full Name</label>-->
+                                    <div class="ckan-label"><span class="font-red">*</span>Full Name:</div>
                                     <input ng-model="party.full_name">
                                 </md-input-container>
 
                                 <br><br><br>
 
                                 <md-input-container md-no-float flex class="pin-id group-name" ng-show="(party.party_type === 'group')">
-                                    <label>Name</label>
+                                    <div class="ckan-label"><span class="font-red">*</span>Name:</div>
                                     <input ng-model="party.group_name">
 
                                 </md-input-container>
@@ -47,17 +46,15 @@
                             <div layout layout-sm="column">
 
 
-                                <md-content class="layout-padding add-parcel-extra-fields" >
+                                <md-content class="layout-padding add-parcel-extra-fields no-left-padding" >
                                     <div layout layout-sm="column">
 
                                         <md-input-container md-no-float flex class="pin-id" >
                                             <div class="ckan-label">National ID:</div>
-                                            <!--<label>National ID</label>-->
                                             <input ng-model="party.national_id">
                                         </md-input-container>
 
                                         <md-input-container md-no-float flex class="pin-id" ng-show="(party.party_type === 'individual')">
-                                            <!--<label>Gender</label>-->
                                             <div class="ckan-label">Gender:</div>
                                             <input ng-model="party.gender">
                                         </md-input-container>
@@ -67,22 +64,25 @@
 
                             </div>
                         </md-content>
-                        <md-content class="layout-padding add-parcel-extra-fields" ng-show="(party.party_type === 'individual')">
+                        <md-content class="layout-padding add-parcel-extra-fields" >
 
-                            <div ng-show="(party.party_type === 'individual')">Party Date of Birth</div>
+                            <div ng-show="(party.party_type === 'individual')" class="cadasta-button left parcel-save" ng-click="showDatepicker = !showDatepicker"> Select Party Date of Birth</div>
+                            <br><br><br><br>
 
-                            <div layout layout-sm="column">
+                            <div ng-show="(party.party_type === 'individual') && showDatepicker" layout layout-sm="column">
                                 <div id="custom-date-picker">
                                     <p>Selected date is: <span class="date-selected">{{dt | date:format:'dd/MM/yyyy' }}</span></p>
 
                                     <div style="display:inline-block">
                                         <uib-datepicker ng-model="dt" format-day="dd" format-month="MM" format-year="yyyy"
-                                                        max-date="maxDate" show-weeks="true"
+                                                        max-date="maxDate" show-weeks="false"
                                                         class="well well-sm"></uib-datepicker>
                                     </div>
                                 </div>
                             </div>
+
                         </md-content>
+
 
                         <md-content class="layout-padding add-parcel-extra-fields" >
                             <div layout layout-sm="column">

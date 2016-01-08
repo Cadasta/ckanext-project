@@ -1532,9 +1532,14 @@ input[type="text"].register-input :focus {
     letter-spacing: 1px;
     cursor: pointer;
     font-weight: 600;
-    padding: 6px 20px 9px 0px;
+    padding: 9px 20px 9px 20px;
     text-align: center;
     font-size: 10px;
+}
+
+/*https://github.com/Cadasta/ckanext-project/issues/156*/
+div.image-upload .controls i {
+    display: none !important;
 }
 
 input[type="text"] {

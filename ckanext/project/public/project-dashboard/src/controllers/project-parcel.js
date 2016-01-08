@@ -1,5 +1,5 @@
-app.controller("parcelCtrl", ['tenureTypes', 'acquiredTypes','$scope', '$state', '$stateParams', 'parcelService', '$rootScope', 'paramService', 'utilityService', 'dataService', '$mdDialog', 'ckanId', 'cadastaProject', 'FileUploader', 'ENV', 'partyService', 'relationshipService','USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole', 'PROJECT_RESOURCE_ROLES',
-    function (tenureTypes, acquiredTypes, $scope, $state, $stateParams, parcelService, $rootScope, paramService, utilityService, dataService, $mdDialog, ckanId, cadastaProject, FileUploader, ENV, partyService, relationshipService, USER_ROLES, PROJECT_CRUD_ROLES, userRole, PROJECT_RESOURCE_ROLES) {
+app.controller("parcelCtrl", ['tenureTypes', 'acquiredTypes','landuseTypes', '$scope', '$state', '$stateParams', 'parcelService', '$rootScope', 'paramService', 'utilityService', 'dataService', '$mdDialog', 'ckanId', 'cadastaProject', 'FileUploader', 'ENV', 'partyService', 'relationshipService','USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole', 'PROJECT_RESOURCE_ROLES',
+    function (tenureTypes, acquiredTypes, landuseTypes, $scope, $state, $stateParams, parcelService, $rootScope, paramService, utilityService, dataService, $mdDialog, ckanId, cadastaProject, FileUploader, ENV, partyService, relationshipService, USER_ROLES, PROJECT_CRUD_ROLES, userRole, PROJECT_RESOURCE_ROLES) {
 
         // Add user's role to the scope
         $scope.showCRUDLink = PROJECT_CRUD_ROLES.indexOf(userRole) > -1;
@@ -238,6 +238,9 @@ app.controller("parcelCtrl", ['tenureTypes', 'acquiredTypes','$scope', '$state',
         }
 
         function updateParcelCtrl($scope, $mdDialog, $stateParams, parcel, cadastaProject) {
+
+            $scope.landuse_types = landuseTypes;
+
             $scope.hide = function () {
                 $mdDialog.hide();
             };
@@ -298,6 +301,7 @@ app.controller("parcelCtrl", ['tenureTypes', 'acquiredTypes','$scope', '$state',
         };
 
         $scope.relationshipCreatedFeedback = '';
+        $scope.showDatepicker = false;
 
         function addRelationshipCtrl($scope, $mdDialog, $stateParams, utilityService) {
             $scope.hide = function () {
@@ -374,7 +378,7 @@ app.controller("parcelCtrl", ['tenureTypes', 'acquiredTypes','$scope', '$state',
                     layer = undefined;
                 }
 
-                if ($scope.dt) {
+                if ($scope.dt && $scope.showDatepicker) {
                     $scope.relationship.acquisition_date = new Date($scope.dt.setMinutes( $scope.dt.getTimezoneOffset() ));
                 }
 

@@ -233,6 +233,7 @@ app.controller("partyCtrl", ['tenureTypes', 'acquiredTypes','$scope', '$state', 
 
         $scope.relationshipCreatedFeedback = '';
 
+
         function addRelationshipCtrl($scope, $mdDialog, $stateParams, utilityService) {
             $scope.hide = function () {
                 $mdDialog.hide();
@@ -240,6 +241,8 @@ app.controller("partyCtrl", ['tenureTypes', 'acquiredTypes','$scope', '$state', 
             $scope.cancel = function () {
                 $mdDialog.cancel();
             };
+
+            $scope.showRelationshipDatepicker = false;
 
             $scope.cadastaProjectId = cadastaProject.id;
             $scope.relationship = {};
@@ -268,7 +271,7 @@ app.controller("partyCtrl", ['tenureTypes', 'acquiredTypes','$scope', '$state', 
                 }
                 else if ((relationshipParcelId != undefined) && ($scope.relationship.tenure_type != undefined)) {
 
-                    if($scope.dt){
+                    if($scope.dt && $scope.showRelationshipDatepicker){
                         $scope.relationship.acquisition_date =  new Date($scope.dt.setMinutes( $scope.dt.getTimezoneOffset() ));
                     }
                     $scope.relationship.description = $scope.description;
@@ -480,6 +483,8 @@ app.controller("partyCtrl", ['tenureTypes', 'acquiredTypes','$scope', '$state', 
         };
 
         $scope.partyUpdatedFeedback = '';
+        $scope.showDatepicker = false;
+
 
         function updatePartyCtrl($scope, $mdDialog, $stateParams, party, cadastaProject, utilityService) {
             $scope.hide = function () {
@@ -501,28 +506,35 @@ app.controller("partyCtrl", ['tenureTypes', 'acquiredTypes','$scope', '$state', 
 
             $scope.updateParty = function (projectId, party) {
 
-                if($scope.dt){
+                if($scope.dt && $scope.showDatepicker){
                     party.dob = new Date($scope.dt.setMinutes( $scope.dt.getTimezoneOffset() ));
                 }
 
-                if (!party.group_name || party.full_name == null ){
-                    utilityService.showToast('Party name is required');
+                if($scope.party.party_type == 'group' && $scope.party.group_name == undefined){
+                    utilityService.showToast('Group Name is required.');
                 }
 
+                else if ($scope.party.party_type == 'individual' && $scope.party.full_name  == undefined) {
+                    utilityService.showToast('Name is required.');
+                }
 
-                var updateParty = partyService.updateProjectParty(projectId, $stateParams.id, party);
+                else {
 
-                updateParty.then(function (response) {
-                    if (response.cadasta_party_id) {
 
-                        $rootScope.$broadcast('updated-party');
-                        getPartyDetails();
+                    var updateParty = partyService.updateProjectParty(projectId, $stateParams.id, party);
 
-                        $scope.cancel();
-                    }
-                }).catch(function (err) {
-                    utilityService.showToast('Unable to update party');
-                });
+                    updateParty.then(function (response) {
+                        if (response.cadasta_party_id) {
+
+                            $rootScope.$broadcast('updated-party');
+                            getPartyDetails();
+
+                            $scope.cancel();
+                        }
+                    }).catch(function (err) {
+                        utilityService.showToast('Unable to update party');
+                    });
+                }
             }
         }
 
