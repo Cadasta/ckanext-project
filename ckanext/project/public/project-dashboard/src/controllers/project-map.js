@@ -108,15 +108,18 @@ app.controller("projectMapCtrl", ['$scope', '$state', '$stateParams', '$location
                 projectLayer.addTo(map);
 
                 response.parcels.features.forEach(function (parcel) {
-                    var popup_content = '<h3>Parcel ' + parcel.properties.id + '</h3><a href="#/parcels/' + parcel.properties.id + '"> See Full Details<i class="material-icons arrow-forward">arrow_forward</i></a>';
-                    var parcelToAdd = L.geoJson(parcel, {
-                        style: parcelStyle,
-                        pointToLayer: function (feature, latlng) {
-                            return L.circle(latlng, 10, {"fillOpacity":.7, "opacity":.7, "weight":0} );
-                        }
-                    });
-                    parcelToAdd.bindPopup(popup_content);
-                    parcelToAdd.addTo(parcelGroup);
+                    // only draw if geometry exits
+                    if(parcel.geometry) {
+                        var popup_content = '<h3>Parcel ' + parcel.properties.id + '</h3><a href="#/parcels/' + parcel.properties.id + '"> See Full Details<i class="material-icons arrow-forward">arrow_forward</i></a>';
+                        var parcelToAdd = L.geoJson(parcel, {
+                            style: parcelStyle,
+                            pointToLayer: function (feature, latlng) {
+                                return L.circle(latlng, 10, {"fillOpacity": .7, "opacity": .7, "weight": 0});
+                            }
+                        });
+                        parcelToAdd.bindPopup(popup_content);
+                        parcelToAdd.addTo(parcelGroup);
+                    }
                 });
 
                 //zoom to project extent
