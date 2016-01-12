@@ -152,6 +152,8 @@ app.controller("partyCtrl", ['tenureTypes', 'acquiredTypes','$scope', '$state', 
                             layer.bindPopup(popup_content);
                             layer.addTo(parcelGroup);
                             map.fitBounds(parcelGroup.getBounds());
+                        } else {
+                            map.setView([lat, lng], zoom); // set bounds to default if no geometry
                         }
                     })
                 }

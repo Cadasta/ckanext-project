@@ -558,7 +558,10 @@ app.controller("parcelCtrl", ['tenureTypes', 'acquiredTypes','landuseTypes', '$s
 
                 parcelLayer.addTo(map);
                 map.fitBounds(parcelLayer.getBounds());
+            } else {
+                map.setView([lat, lng], zoom);
             }
+
 
 
             //prepopulate fields to update with existing data

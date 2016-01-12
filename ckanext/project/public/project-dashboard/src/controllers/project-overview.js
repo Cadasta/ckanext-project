@@ -193,7 +193,7 @@ app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location',
                     geom.push(true);
                 }
             });
-            return geom > 0;
+            return geom.length > 0;
         }
 
         // listen for new resources
