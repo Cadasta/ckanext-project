@@ -1,0 +1,15 @@
+<script>
+    /**
+     * we've had problems with default ckan implementation
+     * and how it works with layout and css
+     * and it's not easy to override the Javascript
+     * https://github.com/Cadasta/ckanext-project/issues/155
+     **/
+    (function(){
+        setTimeout(function(){
+            document.querySelector('.image-upload .icon-cloud-upload').parentNode.onclick = function () {
+                document.getElementById('field-image-upload').click();
+            }
+        },1000);
+    })();
+</script>

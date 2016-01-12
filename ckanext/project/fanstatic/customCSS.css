@@ -1947,6 +1947,7 @@ label {
 
 .js .image-upload #field-image-upload{
     margin: 20px 0 0 0;
+    display: none !important;
 }
 
 .controls #field-image-upload {
