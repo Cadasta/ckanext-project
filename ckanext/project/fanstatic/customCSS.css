@@ -414,6 +414,7 @@ form .lang-select {
     float: right;
     display: flex;
     position: relative;
+    width: 350px;
 }
 
 #nav-items {
@@ -512,6 +513,7 @@ input[type="text"] {
 #profile_options {
     margin-right: 20px;
     display:inline-block;
+    float:right;
 }
 
 #profile_options :hover {
@@ -1971,8 +1973,9 @@ label {
     color: white;
     font-weight: 600;
     padding-right: 20px;
-    width: 300px;
+    width: 285px;
     text-align: right;
+    float: left;
 }
 
 #register-username-helptext {

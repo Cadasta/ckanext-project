@@ -9,10 +9,14 @@ var app = angular.module("app")
          */
         service.formatDate = function(dateString){
             if(!(dateString)) return;
-
+            /**
+             * some dates return with microseconds and an offset
+             * while other dates return with one or the other
+             * handle all cases
+             */
             var date = dateString.split("-").join("/")
-                                 .replace(/\+[0-9]+$/g,'')
-                                 .replace(/T/, ' ');
+                                    .replace(/\..*/g,'')
+                                    .replace(/\+[0-9]+$/g,'');
             var date_object = new Date(date);
             var month = date_object.getMonth() + 1;
             var day = date_object.getDate();
@@ -29,7 +33,14 @@ var app = angular.module("app")
         */
         service.parseDate = function(dateString){
             if(!(dateString)) return;
-            var date = dateString.split("-").join("/").replace(/\+[0-9]+$/g,'');
+            /**
+             * some dates return with microseconds and an offset
+             * while other dates return with one or the other
+             * handle all cases
+             */
+            var date = dateString.split("-").join("/")
+                                    .replace(/\..*/g,'')
+                                    .replace(/\+[0-9]+$/g,'');
             return new Date(date);
         };
 

@@ -63,12 +63,14 @@
                             </div>
                         </md-content>
 
-                        <md-content class="layout-padding add-parcel-extra-fields" >
+                        <md-content class="layout-padding add-parcel-extra-fields" ng-show="(party.party_type === 'individual')" >
 
-                            <div ng-show="(party.party_type === 'individual')" class="cadasta-button left parcel-save" ng-click="showDatepicker = !showDatepicker"> Select Party Date of Birth</div>
+                            <div class="cadasta-button left parcel-save" ng-click="showDatepicker = !showDatepicker"> Select Party Date of Birth</div>
+
                             <br><br><br><br>
 
-                            <div ng-show="(party.party_type === 'individual') && showDatepicker" layout layout-sm="column">
+                            <div ng-show="showDatepicker" layout layout-sm="column">
+
                                 <div id="custom-date-picker">
                                     <p>Selected date is: <span class="date-selected">{{dt | date:format:'dd/MM/yyyy' }}</span></p>
 
