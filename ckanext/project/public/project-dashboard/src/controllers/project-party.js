@@ -435,13 +435,16 @@ app.controller("partyCtrl", ['tenureTypes', 'acquiredTypes','$scope', '$state', 
                 projectLayer.addTo(map);
 
                 response.parcels.features.forEach(function (parcel) {
-                    var parcelToAdd = L.geoJson(parcel, {
-                        style: parcelStyle,
-                        pointToLayer: function (feature, latlng) {
-                            return L.circle(latlng, 10, {"fillOpacity":.7, "opacity":.7, "weight":0} );
-                        }
-                    });
-                    parcelToAdd.addTo(parcelGroup);
+                    // only draw if geometry exists
+                    if(parcel.geometry){
+                        var parcelToAdd = L.geoJson(parcel, {
+                            style: parcelStyle,
+                            pointToLayer: function (feature, latlng) {
+                                return L.circle(latlng, 10, {"fillOpacity":.7, "opacity":.7, "weight":0} );
+                            }
+                        });
+                        parcelToAdd.addTo(parcelGroup);
+                    }
                 });
 
 

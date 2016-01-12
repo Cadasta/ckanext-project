@@ -162,7 +162,8 @@ app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location',
                     });
                     layer.addTo(parcelGroup);
 
-                } else if ($scope.overviewData.features[0].properties.parcels.length > 0 && $scope.overviewData.features[0].properties.parcels[0].geometry) {
+                } else if ($scope.overviewData.features[0].properties.parcels.length > 0
+                    && hasGeometry($scope.overviewData.features[0].properties.parcels)) {
                     layer = L.geoJson($scope.overviewData.features[0].properties.parcels, {
                         style: parcelStyle,
                         pointToLayer: function (feature, latlng) {
@@ -182,6 +183,17 @@ app.controller("overviewCtrl", ['$scope', '$state', '$stateParams', '$location',
             }, function (err) {
                 $scope.overviewData = "Server Error";
             });
+        }
+
+        // take an array of geojson and return true if there is geometry
+        function hasGeometry (arr) {
+            var geom = [];
+            arr.forEach(function(obj){
+                if(obj.geometry){
+                    geom.push(true);
+                }
+            });
+            return geom > 0;
         }
 
         // listen for new resources
