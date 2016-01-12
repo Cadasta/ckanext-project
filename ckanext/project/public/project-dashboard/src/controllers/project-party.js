@@ -233,6 +233,7 @@ app.controller("partyCtrl", ['tenureTypes', 'acquiredTypes','$scope', '$state', 
 
         $scope.relationshipCreatedFeedback = '';
 
+
         function addRelationshipCtrl($scope, $mdDialog, $stateParams, utilityService) {
             $scope.hide = function () {
                 $mdDialog.hide();
@@ -240,6 +241,8 @@ app.controller("partyCtrl", ['tenureTypes', 'acquiredTypes','$scope', '$state', 
             $scope.cancel = function () {
                 $mdDialog.cancel();
             };
+
+            $scope.showRelationshipDatepicker = false;
 
             $scope.cadastaProjectId = cadastaProject.id;
             $scope.relationship = {};
@@ -268,7 +271,7 @@ app.controller("partyCtrl", ['tenureTypes', 'acquiredTypes','$scope', '$state', 
                 }
                 else if ((relationshipParcelId != undefined) && ($scope.relationship.tenure_type != undefined)) {
 
-                    if($scope.dt){
+                    if($scope.dt && $scope.showRelationshipDatepicker){
                         $scope.relationship.acquisition_date =  new Date($scope.dt.setMinutes( $scope.dt.getTimezoneOffset() ));
                     }
                     $scope.relationship.description = $scope.description;
@@ -480,6 +483,8 @@ app.controller("partyCtrl", ['tenureTypes', 'acquiredTypes','$scope', '$state', 
         };
 
         $scope.partyUpdatedFeedback = '';
+        $scope.showDatepicker = false;
+
 
         function updatePartyCtrl($scope, $mdDialog, $stateParams, party, cadastaProject, utilityService) {
             $scope.hide = function () {
@@ -501,7 +506,7 @@ app.controller("partyCtrl", ['tenureTypes', 'acquiredTypes','$scope', '$state', 
 
             $scope.updateParty = function (projectId, party) {
 
-                if($scope.dt){
+                if($scope.dt && $scope.showDatepicker){
                     party.dob = new Date($scope.dt.setMinutes( $scope.dt.getTimezoneOffset() ));
                 }
 

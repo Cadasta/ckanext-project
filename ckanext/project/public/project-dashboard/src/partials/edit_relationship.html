@@ -42,14 +42,17 @@
 
 
                             <div id="custom-date-picker">
-                                <div>When was the parcel acquired?</div>
+                                <div ng-click="showDatepicker = !showDatepicker" class="cadasta-button left parcel-save" >Select date of parcel acquisition?</div>
+                                <br><br><br><br>
 
-                                <p >Selected date is: <span class="date-selected" >{{dt | date:format:'dd/MM/yyyy' }}</span></p>
+                                <div ng-show="showDatepicker">
+                                    <p>Selected date is: <span class="date-selected" >{{dt | date:format:'dd/MM/yyyy' }}</span></p>
 
-                                <div style="display:inline-block">
-                                    <uib-datepicker ng-model="dt" format-day="dd" format-month="MM" format-year="yyyy"
-                                                    max-date="maxDate" show-weeks="false"
-                                                    class="well well-sm"></uib-datepicker>
+                                    <div style="display:inline-block">
+                                        <uib-datepicker ng-model="dt" format-day="dd" format-month="MM" format-year="yyyy"
+                                                        max-date="maxDate" show-weeks="false"
+                                                        class="well well-sm"></uib-datepicker>
+                                    </div>
                                 </div>
                             </div>
 

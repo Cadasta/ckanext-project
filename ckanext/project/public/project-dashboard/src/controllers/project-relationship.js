@@ -209,6 +209,8 @@ app.controller("relationshipCtrl", ['tenureTypes', 'acquiredTypes', '$scope', '$
                 $mdDialog.cancel();
             };
 
+            $scope.showDatepicker = false;
+
             if(relationship.properties.acquired_date !== null){
                 $scope.dt = utilityService.parseDate(relationship.properties.acquired_date);
             }
@@ -245,7 +247,7 @@ app.controller("relationshipCtrl", ['tenureTypes', 'acquiredTypes', '$scope', '$
 
                 var layer = getLayer();
 
-                if ($scope.dt) {
+                if ($scope.dt && $scope.showDatepicker ) {
                     $scope.relationship.acquired_date = new Date($scope.dt.setMinutes( $scope.dt.getTimezoneOffset() ));
                 }
 

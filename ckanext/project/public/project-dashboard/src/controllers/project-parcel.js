@@ -301,6 +301,7 @@ app.controller("parcelCtrl", ['tenureTypes', 'acquiredTypes','landuseTypes', '$s
         };
 
         $scope.relationshipCreatedFeedback = '';
+        $scope.showDatepicker = false;
 
         function addRelationshipCtrl($scope, $mdDialog, $stateParams, utilityService) {
             $scope.hide = function () {
@@ -377,7 +378,7 @@ app.controller("parcelCtrl", ['tenureTypes', 'acquiredTypes','landuseTypes', '$s
                     layer = undefined;
                 }
 
-                if ($scope.dt) {
+                if ($scope.dt && $scope.showDatepicker) {
                     $scope.relationship.acquisition_date = new Date($scope.dt.setMinutes( $scope.dt.getTimezoneOffset() ));
                 }
 
