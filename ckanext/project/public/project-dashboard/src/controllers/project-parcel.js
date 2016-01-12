@@ -523,7 +523,6 @@ app.controller("parcelCtrl", ['tenureTypes', 'acquiredTypes','landuseTypes', '$s
                     "clickable":false
                 };
 
-
                 if(response.features[0].geometry) {
 
                     var layer = L.geoJson(response.features[0], {
@@ -536,7 +535,6 @@ app.controller("parcelCtrl", ['tenureTypes', 'acquiredTypes','landuseTypes', '$s
                 }
             });
 
-
             var parcelStyle = {
                 "clickable" : false,
                 "color": "#e54573",
@@ -547,19 +545,24 @@ app.controller("parcelCtrl", ['tenureTypes', 'acquiredTypes','landuseTypes', '$s
                 "weight":2
             };
 
+            // make sure parcelObeject has geometry
+
+            if($scope.parcelObject.geometry){
+                //add parcel extent to the map
+                var parcelLayer = L.geoJson($scope.parcelObject, {
+                    style: parcelStyle,
+                    pointToLayer: function (feature, latlng) {
+                        return L.circle(latlng, 10, {"fillOpacity":.7, "opacity":.7, "weight":0} );
+                    }
+                });
+
+                parcelLayer.addTo(map);
+                map.fitBounds(parcelLayer.getBounds());
+            } else {
+                map.setView([lat, lng], zoom);
+            }
 
 
-            //add parcel extent to the map
-            var parcelLayer = L.geoJson($scope.parcelObject, {
-                style: parcelStyle,
-                pointToLayer: function (feature, latlng) {
-                    return L.circle(latlng, 10, {"fillOpacity":.7, "opacity":.7, "weight":0} );
-                }
-            });
-
-            parcelLayer.addTo(map);
-
-            map.fitBounds(parcelLayer.getBounds());
 
             //prepopulate fields to update with existing data
             $scope.parcel.pinid = $scope.parcelObject.properties.gov_pin;
