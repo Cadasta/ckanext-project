@@ -554,3 +554,27 @@ md-input-container label {
         float: none;
     }
 }
+
+
+#custom-date-picker table thead {
+    display: inline-table;
+}
+
+#custom-date-picker table thead th {
+    min-width: 41px;
+}
+
+
+#custom-date-picker table thead th .btn.btn-default.btn-sm.pull-right{
+    margin-right: 0;
+}
+
+
+#custom-date-picker table thead tr {
+    width: 513px;
+}
+
+
+#custom-date-picker table tbody {
+    display: table;
+}
