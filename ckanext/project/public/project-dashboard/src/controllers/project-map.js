@@ -42,12 +42,21 @@ app.controller("projectMapCtrl", ['$scope', '$state', '$stateParams', '$location
             $state.go($state.current.name, $stateParams, {notify: false});
         });
 
+        /*
         var satellite = L.tileLayer('https://api.tiles.mapbox.com/v4/mapbox.streets-satellite/{z}/{x}/{y}.png?access_token={accessToken}', {
             attribution: '',
             maxZoom: 18,
             id: 'spatialdev.map-rpljvvub',
             zoomControl: true,
             accessToken: 'pk.eyJ1Ijoic3BhdGlhbGRldiIsImEiOiJKRGYyYUlRIn0.PuYcbpuC38WO6D1r7xdMdA'
+        });
+        */
+
+        var dg_satellite = L.tileLayer('https://{s}.tiles.mapbox.com/v4/digitalglobe.nmmigejm/{z}/{x}/{y}.png?access_token={accessToken}', {
+            attribution: '',
+            maxZoom: 18,
+            zoomControl: true,
+            accessToken: 'pk.eyJ1IjoiZGlnaXRhbGdsb2JlIiwiYSI6ImNpaHhtenBmZjAzYW11a2tvY2p3MnpjcGcifQ.vF1gH0mGgK31yeHC1k1Tqw'
         });
 
         var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -56,7 +65,11 @@ app.controller("projectMapCtrl", ['$scope', '$state', '$stateParams', '$location
             zoomControl: true
         }).addTo(map);
 
+        /*
         var overlays = {"Mapbox Satellite": satellite, "Standard OpenStreetMap": osm};
+        */
+
+        var overlays = {"Digital Globe Satellite": dg_satellite, "Standard OpenStreetMap": osm};
 
         L.control.layers(overlays,null, {
             collapsed:true
