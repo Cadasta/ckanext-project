@@ -69,7 +69,7 @@ app.controller("projectMapCtrl", ['$scope', '$state', '$stateParams', '$location
         var overlays = {"Mapbox Satellite": satellite, "Standard OpenStreetMap": osm};
         */
 
-        var overlays = {"Digital Globe Satellite": dg_satellite, "Standard OpenStreetMap": osm};
+        var overlays = {"DigitalGlobe Satellite": dg_satellite, "Standard OpenStreetMap": osm};
 
         L.control.layers(overlays,null, {
             collapsed:true
