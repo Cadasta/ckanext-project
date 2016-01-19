@@ -52,7 +52,7 @@ app.controller("projectMapCtrl", ['$scope', '$state', '$stateParams', '$location
         });
         */
 
-        var dg_satellite = L.tileLayer('https://{s}.tiles.mapbox.com/v4/digitalglobe.nmmigejm/{z}/{x}/{y}.png?access_token={accessToken}', {
+        var dg_satellite = L.tileLayer('https://{s}.tiles.mapbox.com/v4/digitalglobe.nal0g75k/{z}/{x}/{y}.png?access_token={accessToken}', {
             attribution: '',
             maxZoom: 18,
             zoomControl: true,
