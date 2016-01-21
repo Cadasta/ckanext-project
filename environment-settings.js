@@ -2,7 +2,7 @@ module.exports = {
 
     // Environment targets
     development: {
-        apiCadastaRoot: 'http://localhost:5001',
+        apiCadastaRoot: 'http://localhost:3000',
         apiCKANRoot: 'http://localhost:5000/api/3/action'
     },
     ckanLocal_stagingAPI: {
