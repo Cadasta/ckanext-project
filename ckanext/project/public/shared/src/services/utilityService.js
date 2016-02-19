@@ -16,7 +16,7 @@ var app = angular.module("app")
              */
             var date = dateString.split("-").join("/")
                                     .replace(/\..*/g,'')
-                                    .replace(/\+[0-9]+$/g,'')
+                                    .replace(/\+.*/g,'')
                                     .replace(/T/,' ');
             var date_object = new Date(date);
             var month = date_object.getMonth() + 1;
