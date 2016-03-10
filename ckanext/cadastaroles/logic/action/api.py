@@ -69,6 +69,12 @@ get_api_map = {
 
     'cadasta_get_project_parcel': CadastaEndpoint('/projects/{project_id}/parcels/{parcel_id}'),
 
+    'cadasta_get_intersecting_parcels': CadastaEndpoint('/parcels/{parcel_id}/intersects/{buff}',
+        argument_types={
+            'buff': int,
+        }
+     ),
+
     'cadasta_get_project_parcel_details': CadastaEndpoint('/projects/{project_id}/parcels/{parcel_id}/details'),
 
     'cadasta_get_project_parcel_relationship_history': CadastaEndpoint('/projects/{project_id}/parcels/{parcel_id}/show_relationship_history'),

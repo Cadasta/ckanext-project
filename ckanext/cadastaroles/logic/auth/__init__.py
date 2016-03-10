@@ -9,6 +9,7 @@ from .parcel import (
     cadasta_get_project_parcel_resources,
     cadasta_update_project_parcel,
     cadasta_create_project_parcel,
+    cadasta_get_intersecting_parcels,
 )
 from .relationship import (
     cadasta_show_relationships,
