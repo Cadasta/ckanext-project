@@ -75,6 +75,15 @@ get_api_map = {
         }
      ),
 
+    'cadasta_get_parcels_in_bbox': CadastaEndpoint('/parcels/{xmin}/{ymin}/{xmax}/{ymax}',
+        argument_types={
+            'xmin': int,
+            'ymin': int,
+            'xmax': int,
+            'ymax': int,
+        }
+     ),
+
     'cadasta_get_project_parcel_details': CadastaEndpoint('/projects/{project_id}/parcels/{parcel_id}/details'),
 
     'cadasta_get_project_parcel_relationship_history': CadastaEndpoint('/projects/{project_id}/parcels/{parcel_id}/show_relationship_history'),
