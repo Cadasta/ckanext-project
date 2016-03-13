@@ -48,6 +48,28 @@ var app = angular.module("app")
             return deferred.promise;
         };
 
+        /**
+         * Get intersecting parcels.
+         * @param id parcel id from state params
+         * @returns {*}
+         */
+        service.getIntersectingParcels = function (parcelId) {
+
+            var deferred = $q.defer();
+
+            $http.get(ENV.apiCKANRoot + '/cadasta_get_intersecting_parcels?&parcel_id=' + parcelId + '&buff=2', {cache: false}).
+                then(function (response) {
+                    if(response.data && response.data.error){
+                        deferred.reject(response.data.error);
+                    }
+                    deferred.resolve(response.data.result);
+                }, function (response) {
+                    deferred.reject(response);
+                });
+
+            return deferred.promise;
+        };
+
 
         /**
          * Get parcels' relationship history
