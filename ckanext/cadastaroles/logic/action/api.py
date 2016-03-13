@@ -75,12 +75,13 @@ get_api_map = {
         }
      ),
 
-    'cadasta_get_parcels_in_bbox': CadastaEndpoint('/parcels/{xmin}/{ymin}/{xmax}/{ymax}',
+    'cadasta_get_parcels_in_bbox': CadastaEndpoint('/parcels/{project_id}/{xmin}/{ymin}/{xmax}/{ymax}',
         argument_types={
-            'xmin': int,
-            'ymin': int,
-            'xmax': int,
-            'ymax': int,
+            'project_id': int,
+            'xmin': float,
+            'ymin': float,
+            'xmax': float,
+            'ymax': float,
         }
      ),
 
@@ -248,7 +249,7 @@ def make_cadasta_action(action, cadasta_endpoint, decorator, cadasta_api_func):
                     arg_value = cadasta_dict.get(arg, '')
                 else:
                     arg_value = cadasta_dict.pop(arg, '')
-                arg_value = re.sub('[^0-9a-zA-Z]+', '', str(arg_value))
+                arg_value = re.sub('[^\.0-9a-zA-Z]+', '', str(arg_value))
                 endpoint_arg = ''.join(['{', arg, '}'])
                 endpoint = endpoint.replace(endpoint_arg, arg_value)
         if error_dict:

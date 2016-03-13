@@ -84,7 +84,7 @@ def cadasta_get_intersecting_parcels(context, data_dict):
 
 #@toolkit.auth_allow_anonymous_access
 def cadasta_get_parcels_in_bbox(context, data_dict):
-    #data_dict.update({'id':data_dict['project_id']})
+    data_dict.update({'id':data_dict['project_id']})
     return {
         'success': toolkit.check_access('package_show', context, data_dict)
     }

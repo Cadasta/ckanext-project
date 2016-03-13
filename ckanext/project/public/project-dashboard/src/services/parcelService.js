@@ -72,6 +72,33 @@ var app = angular.module("app")
 
 
         /**
+         * Get parcels within the specified bounding box.
+         * @param project_id the project_id
+         * @param xmin west
+         * @param ymin south
+         * @param xmax east
+         * @param ymax north
+         * @returns {*}
+         */
+        service.getParcelsInBBox = function (project_id, xmin, ymin, xmax, ymax) {
+
+            var deferred = $q.defer();
+
+            $http.get(ENV.apiCKANRoot + '/cadasta_get_parcels_in_bbox?project_id=' + project_id + '&xmin=' + xmin + '&ymin=' + ymin + '&xmax=' + xmax + '&ymax=' + ymax, {cache: false}).
+                then(function (response) {
+                    if(response.data && response.data.error){
+                        deferred.reject(response.data.error);
+                    }
+                    deferred.resolve(response.data.result);
+                }, function (response) {
+                    deferred.reject(response);
+                });
+
+            return deferred.promise;
+        };
+
+
+        /**
          * Get parcels' relationship history
          * @param id parcel id from state params
          * @returns {*}
