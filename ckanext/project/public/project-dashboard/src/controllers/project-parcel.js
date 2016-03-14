@@ -555,7 +555,6 @@ app.controller("parcelCtrl", ['tenureTypes', 'acquiredTypes','landuseTypes', '$s
                 featureGroup.clearLayers();
             });
 
-
             //add project extent to the map
             var promise = dataService.getCadastaProjectDetails(cadastaProject.id);
 
