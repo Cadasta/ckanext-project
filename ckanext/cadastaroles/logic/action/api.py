@@ -69,6 +69,23 @@ get_api_map = {
 
     'cadasta_get_project_parcel': CadastaEndpoint('/projects/{project_id}/parcels/{parcel_id}'),
 
+    'cadasta_get_intersecting_parcels': CadastaEndpoint('/parcels/{project_id}/{parcel_id}/intersects/{buff}',
+        argument_types={
+            'project_id': int,
+            'buff': int,
+        }
+     ),
+
+    'cadasta_get_parcels_in_bbox': CadastaEndpoint('/parcels/{project_id}/{xmin}/{ymin}/{xmax}/{ymax}',
+        argument_types={
+            'project_id': int,
+            'xmin': float,
+            'ymin': float,
+            'xmax': float,
+            'ymax': float,
+        }
+     ),
+
     'cadasta_get_project_parcel_details': CadastaEndpoint('/projects/{project_id}/parcels/{parcel_id}/details'),
 
     'cadasta_get_project_parcel_relationship_history': CadastaEndpoint('/projects/{project_id}/parcels/{parcel_id}/show_relationship_history'),
@@ -233,7 +250,7 @@ def make_cadasta_action(action, cadasta_endpoint, decorator, cadasta_api_func):
                     arg_value = cadasta_dict.get(arg, '')
                 else:
                     arg_value = cadasta_dict.pop(arg, '')
-                arg_value = re.sub('[^0-9a-zA-Z]+', '', str(arg_value))
+                arg_value = re.sub('[^\-\.0-9a-zA-Z]+', '', str(arg_value))
                 endpoint_arg = ''.join(['{', arg, '}'])
                 endpoint = endpoint.replace(endpoint_arg, arg_value)
         if error_dict:

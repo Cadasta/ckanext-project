@@ -58,6 +58,12 @@ app.controller("parcelsCtrl", ['tenureTypes', 'landuseTypes', '$scope', '$state'
             });
         }
 
+        // add adjacent parcels to the map
+        function getAdjacentParcels(zoom, xmin, ymin, xmax, ymax){
+            // only return adjacent parcels at zoom levels greater than 10
+
+        }
+
         //modal for adding a parcel
         $scope.addParcelModal = function (ev) {
             $mdDialog.show({
@@ -110,6 +116,7 @@ app.controller("parcelsCtrl", ['tenureTypes', 'landuseTypes', '$scope', '$state'
             }).addTo(map);
 
             var featureGroup = L.featureGroup().addTo(map);
+            var adjacentParcels = L.featureGroup().addTo(map);
 
             var editIcon = L.icon({
                 iconUrl: '/images/pink_marker.png',
@@ -139,6 +146,39 @@ app.controller("parcelsCtrl", ['tenureTypes', 'landuseTypes', '$scope', '$state'
             //only allow one parcel to be drawn at a time
             map.on('draw:drawstart', function (e) {
                 featureGroup.clearLayers();
+            });
+
+            // show adjacent parcels on pan/zoom end
+            map.on('moveend', function(e){
+                adjacentParcels.clearLayers();
+
+                // only show parcels beyond zoom level 7
+                var zoom = map.getZoom();
+                if (zoom < 7) return;
+
+                var bounds = map.getBounds();
+                var xmin = bounds.getWest();
+                var ymin = bounds.getSouth();
+                var xmax = bounds.getEast();
+                var ymax = bounds.getNorth();
+
+                var promise = parcelService.getAdjacentParcels(cadastaProject.id, zoom, xmin, ymin, xmax, ymax);
+                promise.then(function(response){
+                    if (response.type === 'FeatureCollection') {
+                        layer = L.geoJson(response, {
+                            style: {
+                                "clickable" : false,
+                                "color": "#6845e5",
+                                "stroke": "#6845e5",
+                                "stroke-width": 1,
+                                "fill-opacity": .6,
+                                "opacity": .8,
+                                "weight":2
+                            },
+                        }).addTo(adjacentParcels);
+                        $scope.adjacentParcels = response;
+                    }
+                })
             });
 
             var promise = dataService.getCadastaProjectDetails(cadastaProject.id);

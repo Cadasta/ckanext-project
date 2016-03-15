@@ -23,6 +23,16 @@ app.controller("parcelCtrl", ['tenureTypes', 'acquiredTypes','landuseTypes', '$s
             "weight":2
         };
 
+        var adjacentParcelStyle = {
+            "clickable" : false,
+            "color": "#6845e5",
+            "stroke": "#6845e5",
+            "stroke-width": 1,
+            "fill-opacity": .6,
+            "opacity": .8,
+            "weight":2
+        };
+
         var relationshipStyle = {
             "color": "#FF8000",
             "stroke": "#FF8000",
@@ -101,11 +111,13 @@ app.controller("parcelCtrl", ['tenureTypes', 'acquiredTypes','landuseTypes', '$s
 
         //add layer for adding parcels
         var parcelGroup = L.featureGroup().addTo(map);
+        var adjacentParcels = L.featureGroup().addTo(map);
 
         //layer for adding relationships
 //         var relationshipGroup = L.featureGroup().addTo(map);
 
         getParcelDetails();
+        getIntersectingParcels();
 
         function getParcelDetails() {
 
@@ -194,7 +206,6 @@ app.controller("parcelCtrl", ['tenureTypes', 'acquiredTypes','landuseTypes', '$s
                         }
                     }).addTo(parcelGroup);
                     map.fitBounds(parcelGroup.getBounds());
-
                 } else {
                     map.setView([lat, lng], zoom);
                 }
@@ -204,6 +215,19 @@ app.controller("parcelCtrl", ['tenureTypes', 'acquiredTypes','landuseTypes', '$s
             }, function (err) {
                 $scope.overviewData = "Server Error";
             });
+        }
+
+        // add intersecting parcels to the map
+        function getIntersectingParcels(){
+            var promise = parcelService.getIntersectingParcels(cadastaProject.id, $stateParams.id);
+            promise.then(function(response){
+                if (response.type === 'FeatureCollection') {
+                    layer = L.geoJson(response, {
+                        style: adjacentParcelStyle,
+                    }).addTo(adjacentParcels);
+                    $scope.adjacentParcels = response;
+                }
+            })
         }
 
         function getParcelResources() {
@@ -531,7 +555,6 @@ app.controller("parcelCtrl", ['tenureTypes', 'acquiredTypes','landuseTypes', '$s
                 featureGroup.clearLayers();
             });
 
-
             //add project extent to the map
             var promise = dataService.getCadastaProjectDetails(cadastaProject.id);
 
@@ -550,7 +573,6 @@ app.controller("parcelCtrl", ['tenureTypes', 'acquiredTypes','landuseTypes', '$s
                 };
 
                 if(response.features[0].geometry) {
-
                     var layer = L.geoJson(response.features[0], {
                         style: extentStyle,
                         pointToLayer: function (feature, latlng) {
@@ -558,6 +580,14 @@ app.controller("parcelCtrl", ['tenureTypes', 'acquiredTypes','landuseTypes', '$s
                         }
                     });
                     layer.addTo(parcelGroup);
+                }
+
+                // add adjacent parcels
+                if($scope.adjacentParcels) {
+                    var layer = L.geoJson($scope.adjacentParcels, {
+                        style: adjacentParcelStyle,
+                    });
+                    layer.addTo(map);
                 }
             });
 

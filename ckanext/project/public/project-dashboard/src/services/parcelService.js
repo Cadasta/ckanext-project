@@ -48,6 +48,83 @@ var app = angular.module("app")
             return deferred.promise;
         };
 
+        /**
+         * Get adjacent parcels.
+         *
+         * @param project_id id
+         * @param xmin the west bound of the bbox
+         * @param ymin the south bound of the bbox
+         * @param xmax the east bound of the bbox
+         * @param ymax the north bound of the bbox
+         *
+         * @returns {*}
+         */
+        service.getAdjacentParcels = function (project_id, zoom, xmin, ymin, xmax, ymax) {
+
+            var deferred = $q.defer();
+
+            $http.get(ENV.apiCKANRoot + '/cadasta_get_parcels_in_bbox?&project_id=' + project_id + '&xmin=' + xmin + '&ymin=' + ymin + '&xmax=' + xmax + '&ymax=' + ymax, {cache: false}).
+                then(function (response) {
+                    if(response.data && response.data.error){
+                        deferred.reject(response.data.error);
+                    }
+                    deferred.resolve(response.data.result);
+                }, function (response) {
+                    deferred.reject(response);
+                });
+
+            return deferred.promise;
+        };
+
+        /**
+         * Get intersecting parcels.
+         * @param id parcel id from state params
+         * @returns {*}
+         */
+        service.getIntersectingParcels = function (project_id, parcelId) {
+
+            var deferred = $q.defer();
+
+            $http.get(ENV.apiCKANRoot + '/cadasta_get_intersecting_parcels?project_id=' + project_id + '&parcel_id=' + parcelId + '&buff=2', {cache: false}).
+                then(function (response) {
+                    if(response.data && response.data.error){
+                        deferred.reject(response.data.error);
+                    }
+                    deferred.resolve(response.data.result);
+                }, function (response) {
+                    deferred.reject(response);
+                });
+
+            return deferred.promise;
+        };
+
+
+        /**
+         * Get parcels within the specified bounding box.
+         * @param project_id the project_id
+         * @param xmin west
+         * @param ymin south
+         * @param xmax east
+         * @param ymax north
+         * @returns {*}
+         */
+        service.getParcelsInBBox = function (project_id, xmin, ymin, xmax, ymax) {
+
+            var deferred = $q.defer();
+
+            $http.get(ENV.apiCKANRoot + '/cadasta_get_parcels_in_bbox?project_id=' + project_id + '&xmin=' + xmin + '&ymin=' + ymin + '&xmax=' + xmax + '&ymax=' + ymax, {cache: false}).
+                then(function (response) {
+                    if(response.data && response.data.error){
+                        deferred.reject(response.data.error);
+                    }
+                    deferred.resolve(response.data.result);
+                }, function (response) {
+                    deferred.reject(response);
+                });
+
+            return deferred.promise;
+        };
+
 
         /**
          * Get parcels' relationship history
