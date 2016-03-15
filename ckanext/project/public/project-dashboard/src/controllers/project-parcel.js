@@ -219,7 +219,7 @@ app.controller("parcelCtrl", ['tenureTypes', 'acquiredTypes','landuseTypes', '$s
 
         // add intersecting parcels to the map
         function getIntersectingParcels(){
-            var promise = parcelService.getIntersectingParcels($stateParams.id);
+            var promise = parcelService.getIntersectingParcels(cadastaProject.id, $stateParams.id);
             promise.then(function(response){
                 if (response.type === 'FeatureCollection') {
                     layer = L.geoJson(response, {

@@ -150,6 +150,8 @@ app.controller("parcelsCtrl", ['tenureTypes', 'landuseTypes', '$scope', '$state'
 
             // show adjacent parcels on pan/zoom end
             map.on('moveend', function(e){
+                adjacentParcels.clearLayers();
+
                 // only show parcels beyond zoom level 7
                 var zoom = map.getZoom();
                 if (zoom < 7) return;
@@ -159,11 +161,9 @@ app.controller("parcelsCtrl", ['tenureTypes', 'landuseTypes', '$scope', '$state'
                 var ymin = bounds.getSouth();
                 var xmax = bounds.getEast();
                 var ymax = bounds.getNorth();
-                console.log(xmin, ymin, xmax, ymax);
 
                 var promise = parcelService.getAdjacentParcels(cadastaProject.id, zoom, xmin, ymin, xmax, ymax);
                 promise.then(function(response){
-                    adjacentParcels.clearLayers();
                     if (response.type === 'FeatureCollection') {
                         layer = L.geoJson(response, {
                             style: {

@@ -81,11 +81,11 @@ var app = angular.module("app")
          * @param id parcel id from state params
          * @returns {*}
          */
-        service.getIntersectingParcels = function (parcelId) {
+        service.getIntersectingParcels = function (project_id, parcelId) {
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCKANRoot + '/cadasta_get_intersecting_parcels?&parcel_id=' + parcelId + '&buff=2', {cache: false}).
+            $http.get(ENV.apiCKANRoot + '/cadasta_get_intersecting_parcels?project_id=' + project_id + '&parcel_id=' + parcelId + '&buff=2', {cache: false}).
                 then(function (response) {
                     if(response.data && response.data.error){
                         deferred.reject(response.data.error);
