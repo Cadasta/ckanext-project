@@ -302,3 +302,28 @@ md-input-container.md-input-focused input {
     padding-left:0;
 }
 
+/* additional styles */
+
+#content {
+    width: 56%;
+}
+
+#project-desc {
+    width: 60%;
+}
+
+#parcel-pagination {
+    text-align: center;
+    margin-bottom: 20px;
+     border-top: 1px solid lightgrey !important;
+}
+
+ul {
+    margin-bottom: 0px !important;
+}
+
+.well-lg {
+    padding: 0px !important;
+    border-radius: 0px !important;
+}
+

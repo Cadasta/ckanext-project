@@ -84,8 +84,18 @@ def call_api(endpoint, function, **kwargs):
         r = function(urlparse.urljoin(api_url, endpoint), **kwargs)
         result = r.json()
 
+        # check for header-based pagination
+        log.info(r.headers)
+        if r.headers.get('Content-Range'):
+            toolkit.response.headers['Content-Range'] = r.headers['Content-Range']
+            toolkit.response.status_int = 206
+
+        if r.headers.get('Link'):
+            toolkit.response.headers['Link'] = r.headers['Link']
+
         log.debug("[ RESPONSE ]:\nstatus={0}\nerror={1}\nfull_result={2}".format(
             r.status_code,
+            r.headers,
             result.get('error',{}) if hasattr(result, 'get') else {}, # for some reason cadasta-api returns lists instead of a hash with error responses
             json.dumps(result,indent=4)
         ))

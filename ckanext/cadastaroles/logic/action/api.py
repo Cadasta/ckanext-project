@@ -254,8 +254,8 @@ def make_cadasta_action(action, cadasta_endpoint, decorator, cadasta_api_func):
                 endpoint_arg = ''.join(['{', arg, '}'])
                 endpoint = endpoint.replace(endpoint_arg, arg_value)
         if error_dict:
-            raise toolkit.ValidationError(error_dict)
 
+            raise toolkit.ValidationError(error_dict)
         return cadasta_api_func(endpoint, cadasta_dict,
                                 cadasta_endpoint.upload_fields)
 
