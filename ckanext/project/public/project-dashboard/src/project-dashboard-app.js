@@ -200,16 +200,7 @@ var app = angular.module("app",
           templateUrl: '/project-dashboard/src/partials/parcelList.html' }
       },
       sticky:true,
-      deepStateRedirect: true,
-      resolve: {
-          limit: function($window){
-            var url = $window.location.hash;
-            return $window.location.hash.split('#')[2];
-          },
-          offset: function($window){
-            return $window.location.hash.split('#')[2];
-          }
-      }
+      deepStateRedirect: true
     });
 
     // Grandchild State
