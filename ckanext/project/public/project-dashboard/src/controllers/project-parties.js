@@ -51,25 +51,31 @@ app.controller("partiesCtrl", ['partyTypes','$scope', '$state', '$stateParams', 
             getParties();
         });
 
+        // set pagination page size
+        $scope.pageSize = 20;
 
-        getParties();
+        getParties($scope.pageSize, 0);
 
-        function getParties() {
-            var promise = partyService.getProjectParties(cadastaProject.id);
+        function getParties(limit, offset) {
+            var promise = partyService.getProjectParties(cadastaProject.id, limit, offset);
 
             promise.then(function (response) {
+                var contentRange = response.headers('Content-Range');
+                $scope.totalItems = parseInt(contentRange.split('/')[1]);
+                //format dates
+                var features = response.data.result.features;
 
                 //format dates
-                response.forEach(function (val) {
+                features.forEach(function (val) {
                     val.properties.time_created = utilityService.formatDate(val.properties.time_created);
                 })
 
-                $scope.parties = response;
+                $scope.parties = features;
 
                 var partyData = [];
 
                 //get row data
-                response.forEach(function (party) {
+                features.forEach(function (party) {
 
                     // set validated to string for ag-grid searching
                     party.properties.validated = party.properties.validated.toString();
@@ -93,6 +99,11 @@ app.controller("partiesCtrl", ['partyTypes','$scope', '$state', '$stateParams', 
                 $scope.parties = "Server Error";
             });
         }
+
+        $scope.pageChanged = function() {
+            var offset = $scope.pageSize * ($scope.currentPage -1);
+            getParties($scope.pageSize, offset);
+        };
 
 
 

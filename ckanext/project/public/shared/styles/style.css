@@ -315,8 +315,16 @@ md-input-container.md-input-focused input {
 #parcel-pagination, #relationship-pagination {
     text-align: center;
     margin-bottom: 20px;
-     border-top: 1px solid lightgrey !important;
+    border-top: 1px solid lightgrey !important;
 }
+
+#party-pagination {
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    border-top: 1px solid lightgrey !important;
+}
+
 
 ul {
     margin-bottom: 0px !important;

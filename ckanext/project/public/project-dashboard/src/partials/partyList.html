@@ -1,4 +1,4 @@
-
+<div id="partyContainer">
 <div id="parcelFilter" class="filter party">
     <div layout="row">
         <md-button class='cadasta-round-button right' ng-click="addPartyModal()" ng-show="showCRUDLink"> <span class="button-text">Add Party</span> </md-button>
@@ -9,4 +9,9 @@
 <div id="ag-table">
     <input placeholder="Search" type="text" ng-model="partyGridOptions.quickFilterText"/>
     <div ag-grid="partyGridOptions" class="ag-blue" style="height: 100%;"></div>
+</div>
+
+<div id="party-pagination">
+    <uib-pagination total-items="totalItems" items-per-page="pageSize" ng-model="currentPage" force-ellipses="true" max-size="5" rotate="false" class="pagination-sm" ng-change="pageChanged()" boundary-links="true"></uib-pagination>
+</div>
 </div>

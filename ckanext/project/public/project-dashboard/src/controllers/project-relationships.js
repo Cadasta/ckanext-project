@@ -23,7 +23,7 @@ app.controller("relationshipsCtrl", ['tenureTypes','$scope', '$state', '$statePa
             var promise = relationshipService.getProjectRelationshipsList(cadastaProject.id, limit, offset);
 
             promise.then(function (response) {
-                contentRange = response.headers('Content-Range');
+                var contentRange = response.headers('Content-Range');
                 $scope.totalItems = parseInt(contentRange.split('/')[1]);
                 //format dates
                 var features = response.data.result.features;

@@ -65,7 +65,13 @@ get_api_map = {
 
     'cadasta_get_project_mapdata': CadastaEndpoint('/projects/{project_id}/map-data'),
 
-    'cadasta_get_project_parcel_list': CadastaEndpoint('/projects/{project_id}/parcels_list'),
+    'cadasta_get_project_parcel_list': CadastaEndpoint('/projects/{project_id}/parcels_list',
+        argument_types={
+            'project_id': int,
+            'limit': int,
+            'offset': int,
+        }
+    ),
 
     'cadasta_get_project_parcel': CadastaEndpoint('/projects/{project_id}/parcels/{parcel_id}'),
 
