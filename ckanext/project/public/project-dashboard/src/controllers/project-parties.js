@@ -3,6 +3,9 @@ var app = angular.module("app");
 app.controller("partiesCtrl", ['partyTypes','$scope', '$state', '$stateParams', 'partyService', '$rootScope', 'utilityService', 'ckanId', 'cadastaProject', '$mdDialog','sortByParty', 'USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole',
     function (partyTypes,$scope, $state, $stateParams, partyService, $rootScope, utilityService, ckanId, cadastaProject, $mdDialog, sortByParty, USER_ROLES, PROJECT_CRUD_ROLES, userRole) {
 
+        // set pagination page size
+        $scope.pageSize = 20;
+
         // Add user's role to the scope
         $scope.showCRUDLink = PROJECT_CRUD_ROLES.indexOf(userRole) > -1;
 
@@ -10,7 +13,7 @@ app.controller("partiesCtrl", ['partyTypes','$scope', '$state', '$stateParams', 
 
         // listen for updated party, then go and get updated data from api
         $scope.$on('updated-party', function(){
-            getParties();
+            getParties($scope.pageSize, 0);
         });
 
         $scope.parties = [];
@@ -48,11 +51,8 @@ app.controller("partiesCtrl", ['partyTypes','$scope', '$state', '$stateParams', 
 
         // listen for updated field data
         $scope.$on('updated-field-data', function(e){
-            getParties();
+            getParties($scope.pageSize, 0);
         });
-
-        // set pagination page size
-        $scope.pageSize = 20;
 
         getParties($scope.pageSize, 0);
 
@@ -157,7 +157,7 @@ app.controller("partiesCtrl", ['partyTypes','$scope', '$state', '$stateParams', 
                     if (response.cadasta_party_id){
 
                         $rootScope.$broadcast('new-party');
-                        getParties();
+                        getParties($scope.pageSize, 0);
 
                         $scope.cancel();
                         $state.go("tabs.parties.party", {id:response.cadasta_party_id});

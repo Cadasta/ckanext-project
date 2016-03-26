@@ -63,7 +63,7 @@ app.controller("resourceCtrl", ['resourceTypes','sortByResource', '$scope', '$st
 
     // listen for new resources
     $scope.$on('new-resource', function(e){
-        getResources(false);
+        getResources(false, $scope.pageSize, 0);
     });
 
     function DialogController($scope, $mdDialog, FileUploader, utilityService) {
@@ -106,7 +106,7 @@ app.controller("resourceCtrl", ['resourceTypes','sortByResource', '$scope', '$st
                 $scope.uploader.clearQueue();
                 resetProgress();
 
-                getResources(false); // get resources, do not cache
+                getResources(false, $scope.pageSize, 0); // get resources, do not cache
                 $rootScope.$broadcast('new-resource'); // broadcast new resources to the app
             }
             else if(response.error){

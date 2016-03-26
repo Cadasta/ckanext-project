@@ -8,21 +8,24 @@ app.controller("parcelsCtrl", ['tenureTypes', 'landuseTypes', '$scope', '$state'
         // Add user's role to the scope
         $scope.showCRUDLink = PROJECT_CRUD_ROLES.indexOf(userRole) > -1;
 
+        // set default pagination size
+        $scope.pageSize = 20;
+
         $scope.$on('updated-parcel', function(e){
-            getParcels();
+            getParcels($scope.pageSize, 0);
         });
 
         $scope.$on('new-relationship', function(e){
-            getParcels();
+            getParcels($scope.pageSize, 0);
         });
 
         $scope.$on('updated-relationship', function(e){
-            getParcels();
+            getParcels($scope.pageSize, 0);
         });
 
         // listen for updated field data
         $scope.$on('updated-field-data', function(e){
-            getParcels();
+            getParcels($scope.pageSize, 0);
         });
 
         $scope.parcels = [];
@@ -37,17 +40,13 @@ app.controller("parcelsCtrl", ['tenureTypes', 'landuseTypes', '$scope', '$state'
 
         $scope.tenure_types = tenureTypes;
 
-        $scope.pageSize = 20;
-
-        getParcels(20, 0);
+        getParcels($scope.pageSize, 0);
 
         function getParcels(limit, offset) {
             var promise = parcelService.getProjectParcels(cadastaProject.id, limit, offset);
 
-            var contentRange;
-
             promise.then(function (response) {
-                contentRange = response.headers('Content-Range');
+                var contentRange = response.headers('Content-Range');
                 $scope.totalItems = parseInt(contentRange.split('/')[1]);
                 //format dates
                 var features = response.data.result.features;
@@ -248,7 +247,7 @@ app.controller("parcelsCtrl", ['tenureTypes', 'landuseTypes', '$scope', '$state'
 
 
                             $rootScope.$broadcast('new-parcel');
-                            getParcels();
+                            getParcels($scope.pageSize, 0);
 
                             $scope.cancel();
                             $state.go("tabs.parcels.parcel", {id:response.cadasta_parcel_id});

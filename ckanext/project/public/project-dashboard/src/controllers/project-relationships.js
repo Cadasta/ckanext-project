@@ -49,17 +49,17 @@ app.controller("relationshipsCtrl", ['tenureTypes','$scope', '$state', '$statePa
 
         // listen for updated field data
         $scope.$on('updated-field-data', function(e){
-            getRelationships();
+            getRelationships($scope.pageSize, 0);
         });
 
         // listen for updates relationship
         $scope.$on('updated-relationship', function (){
-            getRelationships();
+            getRelationships($scope.pageSize, 0);
         });
 
         // listen for new relationships
         $scope.$on('new-relationship', function (){
-            getRelationships();
+            getRelationships($scope.pageSize, 0);
         });
 
         //modal for adding a relationship
