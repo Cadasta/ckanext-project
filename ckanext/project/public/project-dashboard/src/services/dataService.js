@@ -100,16 +100,16 @@ var app = angular.module("app")
             return deferred.promise;
         };
 
-        service.getProjectResources = function(cadastaProjectId){
+        service.getProjectResources = function(cadastaProjectId, cache, limit, offset){
             var deferred = $q.defer();
 
             // Cadasta API
-            $http.get(ENV.apiCKANRoot + '/cadasta_get_project_resources?project_id=' + cadastaProjectId, { cache: false })
+            $http.get(ENV.apiCKANRoot + '/cadasta_get_project_resources?project_id=' + cadastaProjectId + '&limit=' + limit + '&offset=' + offset, { cache: cache })
                 .then(function(response) {
                     if( response.data && response.data.error ){
                         deferred.reject(response.data.error);
                     }
-                    deferred.resolve(response.data.result);
+                    deferred.resolve(response);
                 }, function(response) {
                     deferred.reject(response);
                 });
@@ -138,23 +138,23 @@ var app = angular.module("app")
          * Get all activities associated with a project
          * @returns {*}
          */
-        service.getProjectActivities = function(cadastaProjectId){
+        service.getProjectActivities = function(cadastaProjectId, limit, offset){
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCKANRoot + '/cadasta_get_project_activities?project_id=' + cadastaProjectId, { cache: false })
+            $http.get(ENV.apiCKANRoot + '/cadasta_get_project_activities?project_id=' + cadastaProjectId + '&limit=' + limit + '&offset=' + offset, { cache: false })
                 .then(function(response) {
                     if(response.data && response.data.error){
                         deferred.reject(response.data.error);
                     }
-                    deferred.resolve(response.data.result);
+                    deferred.resolve(response);
                 }, function(response) {
                     deferred.reject(response);
                 });
 
             return deferred.promise;
         };
-        
+
 
         service.submitSurvey = function(){
 

@@ -21,7 +21,9 @@ app.controller("resourceCtrl", ['resourceTypes','sortByResource', '$scope', '$st
         $scope.ResourceTypeModel = type;
     };
 
-    getResources(false); //  get resources, cache results
+    $scope.pageSize = 20;
+
+    getResources(false, $scope.pageSize, 0); //  get resources, cache results
 
     $scope.resource_types = resourceTypes;
 
@@ -42,11 +44,11 @@ app.controller("resourceCtrl", ['resourceTypes','sortByResource', '$scope', '$st
         })
     };
 
-    function getResources (cache){
-        var promise = dataService.getProjectResources(cadastaProject.id, cache);
+    function getResources (cache, limit, offset){
+        var promise = dataService.getProjectResources(cadastaProject.id, cache, limit, offset);
 
         promise.then(function(response){
-            $scope.allResources = response;
+            $scope.allResources = response.data.results;
 
             //reformat date created of activity list
             $scope.allResources.features.forEach(function(resource) {
@@ -61,7 +63,7 @@ app.controller("resourceCtrl", ['resourceTypes','sortByResource', '$scope', '$st
 
     // listen for new resources
     $scope.$on('new-resource', function(e){
-        getResources(false);
+        getResources(false, $scope.pageSize, 0);
     });
 
     function DialogController($scope, $mdDialog, FileUploader, utilityService) {
@@ -104,7 +106,7 @@ app.controller("resourceCtrl", ['resourceTypes','sortByResource', '$scope', '$st
                 $scope.uploader.clearQueue();
                 resetProgress();
 
-                getResources(false); // get resources, do not cache
+                getResources(false, $scope.pageSize, 0); // get resources, do not cache
                 $rootScope.$broadcast('new-resource'); // broadcast new resources to the app
             }
             else if(response.error){

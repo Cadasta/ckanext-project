@@ -13,22 +13,28 @@ app.controller("relationshipsCtrl", ['tenureTypes','$scope', '$state', '$statePa
             $scope.relationshipFilter = type;
         };
 
-        var getRelationships = function() {
+        // set pagination page size
+        $scope.pageSize = 20;
 
-            var promise = relationshipService.getProjectRelationshipsList(cadastaProject.id);
+        getRelationships($scope.pageSize, 0);
+
+        function getRelationships(limit, offset) {
+
+            var promise = relationshipService.getProjectRelationshipsList(cadastaProject.id, limit, offset);
 
             promise.then(function (response) {
-
+                var contentRange = response.headers('Content-Range');
+                $scope.totalItems = parseInt(contentRange.split('/')[1]);
                 //format dates
-                response.forEach(function (val) {
+                var features = response.data.result.features;
+                features.forEach(function (val) {
                     val.properties.time_created = utilityService.formatDate(val.properties.time_created);
                     if (val.properties.acquired_date) {
                         val.properties.acquired_dateDMY = utilityService.formatDate(val.properties.acquired_date);
                     }
                 });
 
-                $scope.relationships = response;
-
+                $scope.relationships = features;
 
             }, function (err) {
                 $scope.overviewData = "Server Error";
@@ -36,21 +42,24 @@ app.controller("relationshipsCtrl", ['tenureTypes','$scope', '$state', '$statePa
 
         }
 
-        getRelationships();
+        $scope.pageChanged = function() {
+            var offset = $scope.pageSize * ($scope.currentPage -1);
+            getRelationships($scope.pageSize, offset);
+        };
 
         // listen for updated field data
         $scope.$on('updated-field-data', function(e){
-            getRelationships();
+            getRelationships($scope.pageSize, 0);
         });
 
         // listen for updates relationship
         $scope.$on('updated-relationship', function (){
-            getRelationships();
+            getRelationships($scope.pageSize, 0);
         });
 
         // listen for new relationships
         $scope.$on('new-relationship', function (){
-            getRelationships();
+            getRelationships($scope.pageSize, 0);
         });
 
         //modal for adding a relationship

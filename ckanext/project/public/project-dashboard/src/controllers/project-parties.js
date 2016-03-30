@@ -3,6 +3,9 @@ var app = angular.module("app");
 app.controller("partiesCtrl", ['partyTypes','$scope', '$state', '$stateParams', 'partyService', '$rootScope', 'utilityService', 'ckanId', 'cadastaProject', '$mdDialog','sortByParty', 'USER_ROLES', 'PROJECT_CRUD_ROLES', 'userRole',
     function (partyTypes,$scope, $state, $stateParams, partyService, $rootScope, utilityService, ckanId, cadastaProject, $mdDialog, sortByParty, USER_ROLES, PROJECT_CRUD_ROLES, userRole) {
 
+        // set pagination page size
+        $scope.pageSize = 20;
+
         // Add user's role to the scope
         $scope.showCRUDLink = PROJECT_CRUD_ROLES.indexOf(userRole) > -1;
 
@@ -10,7 +13,7 @@ app.controller("partiesCtrl", ['partyTypes','$scope', '$state', '$stateParams', 
 
         // listen for updated party, then go and get updated data from api
         $scope.$on('updated-party', function(){
-            getParties();
+            getParties($scope.pageSize, 0);
         });
 
         $scope.parties = [];
@@ -48,28 +51,31 @@ app.controller("partiesCtrl", ['partyTypes','$scope', '$state', '$stateParams', 
 
         // listen for updated field data
         $scope.$on('updated-field-data', function(e){
-            getParties();
+            getParties($scope.pageSize, 0);
         });
 
+        getParties($scope.pageSize, 0);
 
-        getParties();
-
-        function getParties() {
-            var promise = partyService.getProjectParties(cadastaProject.id);
+        function getParties(limit, offset) {
+            var promise = partyService.getProjectParties(cadastaProject.id, limit, offset);
 
             promise.then(function (response) {
+                var contentRange = response.headers('Content-Range');
+                $scope.totalItems = parseInt(contentRange.split('/')[1]);
+                //format dates
+                var features = response.data.result.features;
 
                 //format dates
-                response.forEach(function (val) {
+                features.forEach(function (val) {
                     val.properties.time_created = utilityService.formatDate(val.properties.time_created);
                 })
 
-                $scope.parties = response;
+                $scope.parties = features;
 
                 var partyData = [];
 
                 //get row data
-                response.forEach(function (party) {
+                features.forEach(function (party) {
 
                     // set validated to string for ag-grid searching
                     party.properties.validated = party.properties.validated.toString();
@@ -93,6 +99,11 @@ app.controller("partiesCtrl", ['partyTypes','$scope', '$state', '$stateParams', 
                 $scope.parties = "Server Error";
             });
         }
+
+        $scope.pageChanged = function() {
+            var offset = $scope.pageSize * ($scope.currentPage -1);
+            getParties($scope.pageSize, offset);
+        };
 
 
 
@@ -146,7 +157,7 @@ app.controller("partiesCtrl", ['partyTypes','$scope', '$state', '$stateParams', 
                     if (response.cadasta_party_id){
 
                         $rootScope.$broadcast('new-party');
-                        getParties();
+                        getParties($scope.pageSize, 0);
 
                         $scope.cancel();
                         $state.go("tabs.parties.party", {id:response.cadasta_party_id});

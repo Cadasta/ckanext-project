@@ -8,22 +8,24 @@ app.controller("parcelsCtrl", ['tenureTypes', 'landuseTypes', '$scope', '$state'
         // Add user's role to the scope
         $scope.showCRUDLink = PROJECT_CRUD_ROLES.indexOf(userRole) > -1;
 
+        // set default pagination size
+        $scope.pageSize = 20;
 
         $scope.$on('updated-parcel', function(e){
-            getParcels();
+            getParcels($scope.pageSize, 0);
         });
 
         $scope.$on('new-relationship', function(e){
-            getParcels();
+            getParcels($scope.pageSize, 0);
         });
 
         $scope.$on('updated-relationship', function(e){
-            getParcels();
+            getParcels($scope.pageSize, 0);
         });
 
         // listen for updated field data
         $scope.$on('updated-field-data', function(e){
-            getParcels();
+            getParcels($scope.pageSize, 0);
         });
 
         $scope.parcels = [];
@@ -38,31 +40,32 @@ app.controller("parcelsCtrl", ['tenureTypes', 'landuseTypes', '$scope', '$state'
 
         $scope.tenure_types = tenureTypes;
 
-        getParcels();
+        getParcels($scope.pageSize, 0);
 
-        function getParcels() {
-            var promise = parcelService.getProjectParcels(cadastaProject.id);
+        function getParcels(limit, offset) {
+            var promise = parcelService.getProjectParcels(cadastaProject.id, limit, offset);
 
             promise.then(function (response) {
-
+                var contentRange = response.headers('Content-Range');
+                $scope.totalItems = parseInt(contentRange.split('/')[1]);
                 //format dates
-                response.forEach(function (val) {
+                var features = response.data.result.features;
+                features.forEach(function (val) {
                     val.properties.time_created = utilityService.formatDate(val.properties.time_created);
                 });
 
-                $scope.parcels = response;
-
+                $scope.parcels = features;
 
             }, function (err) {
                 $scope.overviewData = "Server Error";
             });
         }
 
-        // add adjacent parcels to the map
-        function getAdjacentParcels(zoom, xmin, ymin, xmax, ymax){
-            // only return adjacent parcels at zoom levels greater than 10
+        $scope.pageChanged = function() {
+            var offset = $scope.pageSize * ($scope.currentPage -1);
+            getParcels($scope.pageSize, offset);
+        };
 
-        }
 
         //modal for adding a parcel
         $scope.addParcelModal = function (ev) {
@@ -244,7 +247,7 @@ app.controller("parcelsCtrl", ['tenureTypes', 'landuseTypes', '$scope', '$state'
 
 
                             $rootScope.$broadcast('new-parcel');
-                            getParcels();
+                            getParcels($scope.pageSize, 0);
 
                             $scope.cancel();
                             $state.go("tabs.parcels.parcel", {id:response.cadasta_parcel_id});

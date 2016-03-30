@@ -65,7 +65,13 @@ get_api_map = {
 
     'cadasta_get_project_mapdata': CadastaEndpoint('/projects/{project_id}/map-data'),
 
-    'cadasta_get_project_parcel_list': CadastaEndpoint('/projects/{project_id}/parcels_list'),
+    'cadasta_get_project_parcel_list': CadastaEndpoint('/projects/{project_id}/parcels_list',
+        argument_types={
+            'project_id': int,
+            'limit': int,
+            'offset': int,
+        }
+    ),
 
     'cadasta_get_project_parcel': CadastaEndpoint('/projects/{project_id}/parcels/{parcel_id}'),
 
@@ -254,8 +260,8 @@ def make_cadasta_action(action, cadasta_endpoint, decorator, cadasta_api_func):
                 endpoint_arg = ''.join(['{', arg, '}'])
                 endpoint = endpoint.replace(endpoint_arg, arg_value)
         if error_dict:
-            raise toolkit.ValidationError(error_dict)
 
+            raise toolkit.ValidationError(error_dict)
         return cadasta_api_func(endpoint, cadasta_dict,
                                 cadasta_endpoint.upload_fields)
 

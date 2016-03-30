@@ -9,16 +9,16 @@ var app = angular.module("app")
          */
 
 
-        service.getProjectParties = function (projectId) {
+        service.getProjectParties = function (projectId, limit, offset) {
 
             var deferred = $q.defer();
 
-            $http.get(ENV.apiCKANRoot + '/cadasta_get_project_parties?project_id=' + projectId, {cache: false}).
+            $http.get(ENV.apiCKANRoot + '/cadasta_get_project_parties?project_id=' + projectId + '&limit=' + limit + '&offset=' + offset, {cache: false}).
                 then(function (response) {
                      if(response.data && response.data.error) {
                         deferred.reject(response.data.error);
                      }
-                    deferred.resolve(response.data.result.features);
+                    deferred.resolve(response);
                 }, function (response) {
                     deferred.reject(response);
                 });

@@ -302,3 +302,45 @@ md-input-container.md-input-focused input {
     padding-left:0;
 }
 
+/*
+    Added bootstrap css which requires
+    adjustments to stylesheet
+*/
+
+#content {
+    width: 890px;
+}
+
+#project-desc {
+    width: 60%;
+}
+
+#parcel-pagination, #relationship-pagination, #resource-pagination, #activity-pagination {
+    text-align: center;
+    margin-bottom: 20px;
+    border-top: 1px solid lightgrey !important;
+}
+
+#party-pagination {
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    border-top: 1px solid lightgrey !important;
+}
+
+
+ul {
+    margin-bottom: 0px !important;
+}
+
+.well-lg {
+    padding: 0px !important;
+    border-radius: 0px !important;
+}
+
+.modal-content {
+    box-shadow: none !important;
+    border: none !important;
+}
+
+

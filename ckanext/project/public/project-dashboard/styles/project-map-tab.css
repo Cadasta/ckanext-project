@@ -60,7 +60,7 @@
 #addParcelMap {
     height: 350px;
     width: 95%;
-    margin-top: -40px;
+    margin-top: -30px;
 }
 
 
@@ -72,7 +72,10 @@
 
 
 .cadasta-modal.resources .add-relationship  .modal-content {
-    margin:4px 7px 10px 13px;
+    margin: 4px 7px 10px 13px;
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0px !important;
 }
 
 .cadasta-modal.resources .add-relationship  .small-heading {

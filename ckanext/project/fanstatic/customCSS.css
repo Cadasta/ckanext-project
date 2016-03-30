@@ -9,11 +9,10 @@ html, body {
 }
 
 body {
-
-    font-family: 'Open Sans', sans-serif;
-    font-size: 12px;
+    font-family: 'Open Sans', sans-serif !important;
+    font-size: 14px;
     background: none;
-    background-color: #eef2f5;
+    background-color: #eef2f5 !important;
 }
 
 select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
@@ -235,15 +234,19 @@ header .header-container {
     text-decoration: none;
 }
 
+
 .masthead-header ul li:hover {
-    border-bottom: 1px solid #fff;
+    border-bottom: 2px solid #fff;
+    /*
     font-weight: 700;
     font-size: 12px;
     text-decoration: none;
-
+    */
 }
 
+
 .masthead-header ul li a:hover {
+    font-weight: 700;
     color: #fff;
     text-decoration: none;
 }
@@ -253,7 +256,7 @@ header .header-container {
 }
 
 #content {
-    width: 860px;
+    width: 890px;
 }
 
 li {
@@ -478,7 +481,7 @@ input[type="text"] {
     padding-right: 0;
     margin-right: 35px;
     margin-bottom: 10px;
-    height: 21px;
+    height: 24px;
     cursor: pointer;
 }
 
@@ -627,8 +630,9 @@ a {
     letter-spacing: 1px;
     cursor: pointer;
     font-weight: 600;
-    padding: 6px 10px;
+    padding: 8px 10px;
     font-size: 10px;
+    height: 32px;
 }
 
 .edit-user-button-group {
@@ -755,11 +759,9 @@ input[type="text"].register-input :focus {
     -webkit-box-shadow: 0 0 0 1px #ffffff;
     -moz-box-shadow: 0 0 0 1px #ffffff;
     box-shadow: 0 0 0 1px #ffffff;
-
     color: #468847;
     background-color: #dff0d8;
     border: 1px solid #d6e9c6;
-
     padding: 10px;
 }
 
@@ -769,9 +771,17 @@ input[type="text"].register-input :focus {
     box-shadow: 0 0 0 1px #ffffff color : #a94442;
     background-color: #f2dede;
     border-color: #ebccd1;
-
     padding: 10px;
+}
 
+.flash-messages .alert {
+    width: 80%;
+    text-align: center;
+    margin-left: 100px;
+}
+
+.flash-messages .alert .close {
+    right: 0px;
 }
 
 .parcel-details-table {
@@ -909,9 +919,13 @@ input[type="text"].register-input :focus {
     float: right;
 }
 
-.control-full.error-block {
-    width: 85%;
+.control-full .error-block {
+    width: 85% !important;
     margin-left:64px;
+}
+
+.control-medium .error-block {
+    width: 100%;
 }
 
 .control-label {
@@ -967,7 +981,7 @@ input[type="text"].register-input :focus {
 
 
 .controls #field-name {
-    width: 98%
+    width: 100%
 }
 
 .controls #field-title {
@@ -981,7 +995,7 @@ input[type="text"].register-input :focus {
 }
 
 .control-group .controls #field-private {
-    margin-left:64px;
+    margin-left: 5px;
 }
 
 /*.save-new {*/
@@ -1213,10 +1227,11 @@ input[type="text"].register-input :focus {
 
 .add-project-header .add-project .cadasta-button{
     margin-top:0;
+
 }
 
 .add-project-header {
-    height: 75px;
+    height: 117px;
     padding: 40px 20px 0 20px;
     background-color:#f8f9f9;
 }
@@ -1269,11 +1284,11 @@ input[type="text"].register-input :focus {
 }
 
 .org-tab-header {
+    padding-top: 35px;
     padding-left: 25px;
     border-left: 1px solid #dcdfe1;
     border-right: 1px solid #dcdfe1;
     background-color: #f8f9f9;
-
 }
 
 .org-tab-header li {
@@ -1414,7 +1429,7 @@ input[type="text"].register-input :focus {
     padding-top: 18px;
     padding-bottom: 20px;
     padding-left: 25px;
-    width:833px;
+    width: 100%;
 }
 
 .org-title .black-title-link {
@@ -1544,9 +1559,10 @@ div.image-upload .controls i {
     display: none !important;
 }
 
-input[type="text"] {
+input[type="text"], input[type="email"], input[type="password"] {
     font-size:12px;
     font-family: 'Open Sans', sans-serif;
+    height: 30px;
 }
 
 input, button, select, textarea {
@@ -1556,6 +1572,11 @@ input, button, select, textarea {
 label {
     cursor: pointer;
     font-size: 12px;
+    text-align: left !important;
+}
+
+label[for="field-private"]{
+    margin-left: 5px !important;
 }
 
 .control-group.control-full.control-large.cadasta-input.title label {
@@ -1984,4 +2005,8 @@ label {
     text-align: left;
     margin: -23px 0 0 268px;
     height: 50px;
+}
+
+.breadcrumb>li+li:before {
+    content: "" !important;
 }
