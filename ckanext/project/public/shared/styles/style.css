@@ -302,10 +302,13 @@ md-input-container.md-input-focused input {
     padding-left:0;
 }
 
-/* additional styles */
+/*
+    Added bootstrap css which requires
+    adjustments to stylesheet
+*/
 
 #content {
-    width: 56%;
+    width: 890px;
 }
 
 #project-desc {
@@ -334,4 +337,10 @@ ul {
     padding: 0px !important;
     border-radius: 0px !important;
 }
+
+.modal-content {
+    box-shadow: none !important;
+    border: none !important;
+}
+
 
