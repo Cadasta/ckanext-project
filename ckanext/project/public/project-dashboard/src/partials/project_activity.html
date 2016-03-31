@@ -16,9 +16,15 @@
             <div ng-repeat="activity in allActivities.features | activityType: ActivityTypeModel">
                 <!-- repeat each activity in the list and depending on the type of activity, print a different string-->
 
-                <li ng-if="activity.properties.activity_type === 'parcel'" class="activity-block block"><span
-                        class="bold"><a href="#/parcels/{{ activity.properties.id }}">
-                    Parcel {{activity.properties.id }}</a></span> was created on {{ activity.properties.time_created }}
+
+
+                <li ng-if="activity.properties.activity_type === 'parcel'"
+                    ng-class="{'remove-bottom-border': $index == overviewData.activityList.length-1}"
+                    class="activity-block block">
+                    <span class="bold"><a ui-sref="tabs.parcels.parcel({id:activity.properties.id})">
+                        Parcel {{ activity.properties.id }}</a></span>
+                    <span class="bold" ng-show="public">Parcel {{ activity.properties.id }}</span>
+                    was created on {{ activity.properties.time_created }}
                 </li>
 
                 <li ng-if="activity.properties.activity_type === 'party'" class="activity-block block">Party<span
@@ -30,20 +36,20 @@
                     <!-- todo remove hardcoding of project id-->
                     Relationship <span class="bold"><a ui-sref="tabs.relationships.relationship({id:activity.properties.id})">
                     {{ activity.properties.id }}</a></span> between <span class="bold"> {{ activity.properties.name }}</span> and <span
-                        class="bold"><a href="#/parcels/{{ activity.properties.parcel_id }}">
-                    parcel {{ activity.properties.parcel_id }}</a></span> was created on {{ activity.properties.time_created }}
+                        class="bold"><a ui-sref="tabs.parcels.parcel({id:activity.properties.id})">
+                        Parcel {{ activity.properties.id }}</a></span> was created on {{ activity.properties.time_created }}
                 </li>
                 <li ng-if="activity.properties.activity_type === 'parcel_history'"
                     ng-class="{'remove-bottom-border': $index == overviewData.activityList.length-1}"
                     class="activity-block block">
-                    <span class="bold"><a href="#/parcels/{{ activity.properties.id }}">
+                    <span class="bold"><a ui-sref="tabs.parcels.parcel({id:activity.properties.id})">
                         Parcel {{ activity.properties.id }}</a></span>
                     was updated at {{ activity.properties.time_created }}
                 </li>
                 <li ng-if="activity.properties.activity_type === 'relationship_history'"
                     ng-class="{'remove-bottom-border': $index == overviewData.activityList.length-1}"
                     class="activity-block block">
-                    <span class="bold"><a href="#/relationships/{{ activity.properties.id }}">
+                    <span class="bold"><a ui-sref="tabs.relationships.relationship({id:activity.properties.id})">
                         Relationship {{ activity.properties.id }}</a></span>
                     was updated at {{ activity.properties.time_created }}
                 </li>
