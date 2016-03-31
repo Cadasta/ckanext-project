@@ -7,6 +7,7 @@ app.controller("tabsCtrl", ['$scope', '$rootScope','$state', '$stateParams','$lo
 
     // Add user's role to the scope
     $scope.showTabs = TABS_USER_ROLES.indexOf(userRole) > -1 ? true : false;
+    //$scope.showTabs = true;
 
 
 
