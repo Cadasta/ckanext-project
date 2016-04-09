@@ -146,6 +146,10 @@ get_api_map = {
     'cadasta_get_project_fielddata': CadastaEndpoint(
         '/projects/{project_id}/fieldData',
     ),
+
+    'cadasta_export_project_parcel_data': CadastaEndpoint(
+         '/projects/{project_id}/export_parcels',
+    ),
 }
 
 post_api_map = {

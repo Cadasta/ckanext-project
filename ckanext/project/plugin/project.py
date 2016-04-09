@@ -108,12 +108,14 @@ class projectPlugin(plugins.SingletonPlugin, toolkit.DefaultDatasetForm):
         # done for demo 10/14
         map.redirect('/dashboard', '/project')
 
-
-
         with SubMapper(map, controller='ckanext.project.controller:projectController') as m:
             m.connect('project_new', '/project/new', action='new')
             m.connect('project_edit', '/project/edit', action='edit')
             m.connect('project_delete', '/project/delete/{id}', action='delete')
+
+        # add export controller mapping
+        with SubMapper(map, controller='ckanext.project.controller:ExportController') as m:
+            m.connect('/project/{project_id}/{project_title}/export_parcels', action='dump_parcels')
 
         return map
 

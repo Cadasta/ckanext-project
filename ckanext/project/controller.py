@@ -1,6 +1,12 @@
 from urllib import urlencode
 import logging
 
+import StringIO
+import unicodecsv as csv
+
+import json
+
+import pylons
 from pylons import config
 
 from ckan.plugins import toolkit as tk
@@ -68,3 +74,40 @@ class projectController(PackageController):
         c.pkg_dict = pkg
 
         redirect(h.url_for('project_edit', id=pkg['name']))
+
+
+class ExportController(base.BaseController):
+    """
+    Controller to  handle cadasta exports.
+    """
+    def dump_parcels(self, project_id, project_title):
+        context = {
+            'user': p.toolkit.c.user
+        }
+
+        data_dict = {
+            'project_id': project_id,
+            'outputFormat': 'json',
+            'limit': request.GET.get('limit', 100000),
+            'offset': request.GET.get('offset', 0)
+        }
+
+        action = p.toolkit.get_action('cadasta_export_project_parcel_data')
+        try:
+            result = action(context, data_dict)
+        except p.toolkit.ObjectNotFound:
+            base.abort(404, p.toolkit._('Cadasta resource not found'))
+
+        pylons.response.headers['Content-Type'] = 'text/csv; charset=utf-8'
+        pylons.response.headers['Content-disposition'] = \
+            'attachment; filename="cadasta_{title}_{name}.csv"'.format(title=project_title.lower(), name='parcel_data')
+        f = StringIO.StringIO()
+        wr = csv.writer(f, encoding='utf-8')
+
+        header = [x for x in result[0].keys()]
+        wr.writerow(header)
+
+        for record in result:
+            wr.writerow(record.values())
+        return f.getvalue()
+
