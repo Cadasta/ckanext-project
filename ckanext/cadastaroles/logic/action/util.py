@@ -85,13 +85,19 @@ def call_api(endpoint, function, **kwargs):
         result = r.json()
 
         # check for header-based pagination
-        log.info(r.headers)
         if r.headers.get('Content-Range'):
             toolkit.response.headers['Content-Range'] = r.headers['Content-Range']
             toolkit.response.status_int = 206
 
         if r.headers.get('Link'):
             toolkit.response.headers['Link'] = r.headers['Link']
+
+        # check for export headers
+        if r.headers.get('Content-Disposition'):
+            toolkit.response.headers['Content-Disposition'] = r.headers['Content-Disposition']
+
+        if r.headers.get('Content-Type'):
+            toolkit.response.content_type = r.headers['Content-Type']
 
         log.debug("[ RESPONSE ]:\nstatus={0}\nerror={1}\nfull_result={2}".format(
             r.status_code,

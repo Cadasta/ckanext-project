@@ -11,6 +11,9 @@ app.controller("parcelsCtrl", ['tenureTypes', 'landuseTypes', '$scope', '$state'
         // set default pagination size
         $scope.pageSize = 20;
 
+        $scope.projectId = cadastaProject.id;
+        $scope.projectTitle = cadastaProject.title;
+
         $scope.$on('updated-parcel', function(e){
             getParcels($scope.pageSize, 0);
         });

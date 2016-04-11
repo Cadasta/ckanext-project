@@ -15,8 +15,10 @@
         </md-select>
     </md-input-container>
 
-
-    <md-button class='cadasta-round-button right' ng-click="addParcelModal()" ng-show="showCRUDLink"> <span class="button-text">Add Parcel</span> </md-button>
+    <div id="parcelButtons">
+        <md-button class='cadasta-round-button left' ng-click="addParcelModal()" ng-show="showCRUDLink"> <span class="button-text">Add Parcel</span> </md-button>
+        <md-button class='cadasta-round-button left' href="/project/{{projectId}}/{{projectTitle}}/export_parcels"> <span class="button-text">Export Parcel Data</span> </md-button>
+    </div>
 
 </div>
 </div>

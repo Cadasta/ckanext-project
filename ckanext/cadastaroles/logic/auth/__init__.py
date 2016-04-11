@@ -34,6 +34,7 @@ from .project import (
     cadasta_get_project_details,
     cadasta_get_project_mapdata,
     cadasta_get_project_resources,
+    cadasta_export_project_parcel_data,
 )
 from .organization import (
     cadasta_create_organization,

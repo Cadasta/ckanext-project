@@ -260,6 +260,15 @@ md-input-container.how-acquired {
     padding:10px 25px;
 }
 
+#parcelFilter .md-button {
+    top: 16px;
+    margin-left: 20px;
+}
+
+#parcelButtons {
+    margin-left: 50px;
+}
+
 #parcelFilter md-input-container {
     padding: 2px;
     margin: 0;
