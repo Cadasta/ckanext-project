@@ -1,0 +1,61 @@
+/**
+ * Mobile related styles - April 2016
+ */
+
+header {
+    width: 100% important;
+}
+
+.navbar-inverse {
+    background-color: #2d3644 !important;
+    text-align: center;
+}
+
+.nav > .active > a {
+    background-color: #2d3644 !important;
+}
+
+.navbar-toggle {
+    background-color: #2d3644 !important;
+    padding-top: 5px !important;
+    margin-right: 50px !important;
+}
+
+.navbar-brand {
+    float: left;
+    height: 45px;
+    padding: 15px 15px;
+
+}
+
+.nav > li > a {
+    position: relative;
+    height: 25px;
+    padding: 0px 0px 0px 0px !important;
+}
+
+.nav > li {
+    position: relative;
+    margin: 5px 0px 0px 25px !important;
+}
+
+.nav > li.active > a {
+    border-bottom: 2px solid white;
+}
+
+.collapse {
+    position: relative;
+    height: 0;
+    overflow: hidden;
+}
+
+.collapse .in {
+    display: block;
+    background-color: #2d3644 !important;
+}
+
+.navbar .nav {
+    position: relative;
+    display: block;
+    margin: 10px 0px 5px 0px;
+}

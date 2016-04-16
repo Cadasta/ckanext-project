@@ -308,7 +308,7 @@ md-input-container.md-input-focused input {
 */
 
 #content {
-    width: 890px;
+    width: 890px !important;
 }
 
 #project-desc {
@@ -342,5 +342,3 @@ ul {
     box-shadow: none !important;
     border: none !important;
 }
-
-

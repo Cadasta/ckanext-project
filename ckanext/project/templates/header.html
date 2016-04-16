@@ -1,9 +1,41 @@
 
-<header class="masthead-header">
-    <div class="header-container">
+<header>
 
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span id="header-logo">
+          <a class="navbar-brand" href="{{ h.url('home') }}"><div class="icon-logo_header" title="{{ g.site_title }}"></div></a>
+        </span>
+      </div>
+      <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          {{ h.build_nav_main(
+          ('project_search', _('Projects')),
+          ('organizations_index', _('Organizations'))
+          ) }}
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </nav>
+
+
+
+
+    <!--
+    <div class="header-container">
         <div id="header-container-inner">
             <div class="container-header">
+
+
+
+
             <span id="header-logo">
                 <a href="{{ h.url('home') }}"><div class="icon-logo_header" title="{{ g.site_title }}"></div></a>
             </span>
@@ -56,6 +88,6 @@
             </div>
         </div>
     </div>
-
+  -->
 </header>
 
