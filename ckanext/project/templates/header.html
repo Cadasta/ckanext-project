@@ -20,6 +20,46 @@
           ('project_search', _('Projects')),
           ('organizations_index', _('Organizations'))
           ) }}
+          <li>
+          <!--
+          <div class="profile-options-dropdown">
+                    <div id="header-profile-options">
+
+                        <div id="usersName"> {{ c.userobj.fullname }}</div>
+                        <div id='profile_options'>
+                            <div class="icon-icon_profile"></div>
+                        </div>
+                    </div>
+                    <div id="sub-nav">
+                        {% if c.userobj %}
+                        <a href="{{ h.url_for(controller='user', action='read', id=c.userobj.name) }}" class="image"
+                           title="{{ _('View profile') }}">
+                            <div class="dropdown-item">View Profile</div>
+                        </a>
+                        <a href="{{ h.url_for(controller='user', action='edit', id=c.userobj.name) }}"
+                           title="{{ _('Edit settings') }}">
+                            <div class="dropdown-item">Cadasta Settings</div>
+                        </a>
+                        <a href="{{ h.url_for('/user/_logout') }}" title="{{ _('Log out') }}">
+                            <div class="dropdown-item">Log out</div>
+                        </a>
+
+                        {% else %}
+                        <a href="{{ h.url_for('/user/login') }}" title="{{ _('Log in') }}">
+                            <div class="dropdown-item">Log in</div>
+                        </a>
+
+                        {% if h.check_access('user_create') %}
+                        <a href="{{ h.url_for('/user/register') }}" title="{{ _('Register') }}">
+                            <div class="dropdown-item">Register</div>
+                        </a>
+
+                        {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+                -->
+          </li>
         </ul>
       </div><!--/.nav-collapse -->
     </div>

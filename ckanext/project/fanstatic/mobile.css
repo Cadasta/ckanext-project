@@ -8,6 +8,7 @@ header {
 
 body {
     min-width: 320px !important;
+    width: auto !important;
 }
 
 .navbar-inverse {
@@ -70,13 +71,19 @@ body {
 @media (max-width: 992px){
     #content {
         width:100% !important;
+        min-width: 320px !important;
+        min-width: 320px !important;
     }
-    .container {
+    .container-fluid {
         width: 100%;
         padding-right: 0px !important;
         padding-left: 0px !important;
         margin-right: auto;
         margin-left: auto;
+        min-width: 320px !important;
+    }
+    .container-fluid {
+        min-width: 320px !important;
     }
     #header-logo {
         padding-left: 0px !important;
@@ -85,23 +92,32 @@ body {
     .navbar-brand {
         margin-left: 8px !important;
     }
+    body {
+        min-width: 320px !important;
+    }
 }
 
 
 @media (max-width: 768px){
     #content {
         width:100% !important;
+        min-width: 320px !important;
     }
-    .container {
+    .container-fluid {
         width: 100%;
         padding-right: 0px !important;
         padding-left: 0px !important;
         margin-right: auto;
         margin-left: auto;
+        min-width: 320px !important;
+    }
+    .container-fluid {
+        min-width: 320px !important;
     }
     body {
         padding-right: 0px !important;
         padding-left: 0px !important;
+        min-width: 320px !important;
     }
     #header-logo {
         padding-left: 0px !important;

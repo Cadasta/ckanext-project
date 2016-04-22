@@ -13,10 +13,6 @@ show_remove    - If True, show the remove button to remove project/dataset assoc
 {% set title = package.title or package.name %}
 {% set notes = h.markdown_extract(package.notes, extract_length=truncate) %}
 
-<div class="project-row">
-
-    <table>
-        <tbody>
         <tr>
             <td class="project-title projects">
                 {{ h.link_to(package.title, h.url_for('project_read', id=package.name)) }}
@@ -34,6 +30,4 @@ show_remove    - If True, show the remove button to remove project/dataset assoc
                 {{ h.render_datetime(package.metadata_modified) }}
             </td>
         </tr>
-        </tbody>
-    </table>
-</div>
+

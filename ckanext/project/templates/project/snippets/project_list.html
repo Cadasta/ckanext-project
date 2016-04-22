@@ -10,20 +10,29 @@ show_remove    - If True, show the remove button to remove the project/dataset a
 
 #}
 {% block package_list %}
-  {% if packages %}
+{% if packages %}
 {% block package_list_inner %}
 
-    <div class="media-grid" data-module="media-grid" style="height: auto !important;">
-        <div id="project-list">
+<div class="media-grid" data-module="media-grid" style="height: auto !important;">
+    <div id="project-list">
+        <table id="project-list-table-header" class="table table-responsive">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Last Modified</th>
+                </tr>
+            </thead>
+
             {% for package in packages %}
 
             {% snippet 'project/snippets/project_item.html', package=package, item_class=item_class, truncate=truncate, truncate_title=truncate_title, show_remove=show_remove %}
 
             {% endfor %}
-
-        </div>
+        </table>
     </div>
+</div>
 {% endblock %}
 
-  {% endif %}
+{% endif %}
 {% endblock %}

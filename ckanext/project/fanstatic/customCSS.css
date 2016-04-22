@@ -169,7 +169,7 @@ subtab {
     padding-top: 18px;
     padding-bottom: 20px;
     padding-left: 25px;
-
+    text-align: left !important;
 }
 
 #project-title {
@@ -1682,6 +1682,7 @@ label[for="field-private"]{
     width: 98%;
     margin: auto;
     background-color: white;
+
 }
 
 
@@ -1693,28 +1694,34 @@ label[for="field-private"]{
     text-align: left;
     padding: 8px;
     line-height: 20px;
-    padding-left: 20px;
+    /*padding-left: 20px;*/
 }
 
 #project-list table td {
-    width: 400px;
+    /*width: 400px;*/
 }
 
 #project-list table td:first-of-type {
-    width:215px;
+    /*width:215px;*/
 }
 
 #project-list table td:last-of-type {
-    width:160px;
+    /*width:160px;*/
 }
 
 
 #project-list-table-header th:first-of-type {
-    width:215px;
+    /*width:215px;*/
 }
 
 #project-list-table-header th:last-of-type {
-    width:160px;
+    /*width:160px;*/
+}
+
+#project-list-table-header td {
+    text-align: left;
+    padding: 30px;
+    font-size: small;
 }
 
 .userpage .cadasta-round-button {
