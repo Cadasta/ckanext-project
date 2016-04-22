@@ -7,52 +7,61 @@
 {% set no_bottom_border = no_bottom_border if no_bottom_border else false %}
 {% set form_id = form_id if form_id else false %}
 
-<div class="add-project-header projects">
 
-  <form {% if form_id %}id="{{ form_id }}" {% endif %}class="left search-form{% if no_bottom_border %} no-bottom-border{% endif %}" method="get" data-module="select-switch">
+<div class="row">
+  <div class="col-md-12">
+    <div class="add-project-header projects">
+      <div class="row">
+        <div class="col-md-8">
+          <form {% if form_id %}id="{{ form_id }}" {% endif %}class="left search-form{% if no_bottom_border %} no-bottom-border{% endif %}" method="get" data-module="select-switch">
+            {% block search_sortby %}
+            {% if sorting %}
+
+            <div class="form-select control-group control-order-by">
+              <label for="field-order-by">{{ _('Order by') }}</label>
+              <select id="field-order-by" name="sort">
+                {% for label, value in sorting %}
+                {% if label and value %}
+                <option value="{{ value }}"{% if sorting_selected == value %} selected="selected"{% endif %}>{{ label }}</option>
+                {% endif %}
+                {% endfor %}
+              </select>
+              {% block search_sortby_button %}
+              <button class="btn js-hide" type="submit">{{ _('Go') }}</button>
+              {% endblock %}
+            </div>
+            {% endif %}
+            {% endblock %}
+
+            {% block search_input %}
+            <div class="search-input control-group projects {{ search_class }}">
+              <input type="text" class="search" name="q" value="{{ query }}" autocomplete="off" placeholder="{{ placeholder }}">
+              {% block search_input_button %}
+              <button type="submit" value="search">
+                <i class="icon-icon_search_loop"></i>
+                <span>{{ _('Submit') }}</span>
+              </button>
+              {% endblock %}
+            </div>
+            {% endblock %}
+
+            {% block search_search_fields %}
+            {% if fields -%}
+            <span>{{ form.hidden_from_list(fields=fields) }}</span>
+            {%- endif %}
+            {% endblock %}
 
 
-    {% block search_input %}
-    <div class="search-input control-group projects {{ search_class }}">
-      <input type="text" class="search" name="q" value="{{ query }}" autocomplete="off" placeholder="{{ placeholder }}">
-      {% block search_input_button %}
-      <button type="submit" value="search">
-        <i class="icon-icon_search_loop"></i>
-        <span>{{ _('Submit') }}</span>
-      </button>
-      {% endblock %}
+          </form>
+        </div>
+        <div class="col-md-4">
+          <div class="add-project">
+            {% if h.check_access('package_create') %}
+            {% link_for _('Add project'), controller='ckanext.project.controller:projectController', action='new', class_='cadasta-button right' %}
+            {% endif %}
+          </div>
+        </div>
+      </div>
     </div>
-    {% endblock %}
-
-    {% block search_search_fields %}
-    {% if fields -%}
-    <span>{{ form.hidden_from_list(fields=fields) }}</span>
-    {%- endif %}
-    {% endblock %}
-
-    {% block search_sortby %}
-    {% if sorting %}
-    <div class="form-select control-group control-order-by">
-      <label for="field-order-by">{{ _('Order by') }}</label>
-      <select id="field-order-by" name="sort">
-        {% for label, value in sorting %}
-        {% if label and value %}
-        <option value="{{ value }}"{% if sorting_selected == value %} selected="selected"{% endif %}>{{ label }}</option>
-        {% endif %}
-        {% endfor %}
-      </select>
-      {% block search_sortby_button %}
-      <button class="btn js-hide" type="submit">{{ _('Go') }}</button>
-      {% endblock %}
-    </div>
-    {% endif %}
-    {% endblock %}
-  </form>
-
-  <div class="add-project">
-      {% if h.check_access('package_create') %}
-        {% link_for _('Add project'), controller='ckanext.project.controller:projectController', action='new', class_='cadasta-button right' %}
-      {% endif %}
   </div>
-
 </div>

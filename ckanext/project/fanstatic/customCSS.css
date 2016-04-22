@@ -497,6 +497,7 @@ input[type="text"] {
 
 .search-form .control-order-by {
     margin-right: 20px;
+    float: left !important;
 }
 
 .dataset-list {
@@ -1203,12 +1204,17 @@ input[type="text"].register-input :focus {
 }
 
 .search-form .search-input.projects {
+    /*
     position: relative;
     margin-bottom: 20px;
     width: 200px;
     display: inline-block;
     float: right;
-
+    */
+   width: 200px;
+   display: inline-block;
+   float: left;
+   margin-left: 65px;
 }
 
 .media-heading {
@@ -1217,8 +1223,9 @@ input[type="text"].register-input :focus {
 
 .add-project-header .add-project {
     height: 50px;
-    float: right;
-    margin: -5px 0 0 0;
+    float: left;
+    /*margin: -5px 0 0 0;*/
+    margin: -5px 0 0 65px;
 }
 
 .add-project-header .add-project .cadasta-button{
@@ -1227,8 +1234,9 @@ input[type="text"].register-input :focus {
 }
 
 .add-project-header {
-    height: 117px;
-    padding: 40px 20px 0 20px;
+    /*height: 117px;*/
+    height: auto;
+    padding: 40px 20px 30px 20px;
     background-color:#f8f9f9;
 }
 

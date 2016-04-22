@@ -6,6 +6,10 @@ header {
     width: 100% important;
 }
 
+body {
+    min-width: 320px !important;
+}
+
 .navbar-inverse {
     background-color: #2d3644 !important;
     text-align: center;
@@ -59,3 +63,60 @@ header {
     display: block;
     margin: 10px 0px 5px 0px;
 }
+
+
+/* container styles */
+
+@media (max-width: 992px){
+    #content {
+        width:100% !important;
+    }
+    .container {
+        width: 100%;
+        padding-right: 0px !important;
+        padding-left: 0px !important;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    #header-logo {
+        padding-left: 0px !important;
+        margin-left: -15px !important;
+    }
+    .navbar-brand {
+        margin-left: 8px !important;
+    }
+}
+
+
+@media (max-width: 768px){
+    #content {
+        width:100% !important;
+    }
+    .container {
+        width: 100%;
+        padding-right: 0px !important;
+        padding-left: 0px !important;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    body {
+        padding-right: 0px !important;
+        padding-left: 0px !important;
+    }
+    #header-logo {
+        padding-left: 0px !important;
+        margin-left: 20px !important;
+    }
+    .navbar-brand {
+        margin-left: 8px !important;
+    }
+}
+
+/*
+@media (min-width: 768px){
+    [role=main],
+    .main {
+        padding-top: 0px !important;
+    }
+}
+*/
