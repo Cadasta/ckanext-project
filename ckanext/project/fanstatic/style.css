@@ -81,6 +81,9 @@
 	color:white;
 	font-size:20px;
 }
+.icon-icon_profile {
+	margin-right: 15px !important;
+}
 .icon-logo_header:before {
 	content: "\e617";
 	font-size:22px;

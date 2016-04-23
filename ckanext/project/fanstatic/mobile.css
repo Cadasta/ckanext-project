@@ -72,6 +72,7 @@ body {
 .dropdown-menu {
     min-width: 100px !important;
     max-width: 160px !important;
+    margin-top: 11px !important;
 }
 .dropdown-menu:before {
     display: none !important;
@@ -83,6 +84,16 @@ body {
 
 li.dropdown {
     border: 0px !important;
+}
+
+ul.dropdown-menu > li:hover {
+    border-bottom: 0px !important;
+}
+
+ul.dropdown-menu > li > a:hover {
+    background: transparent;
+    font-weight: 400;
+    text-decoration: underline;
 }
 
 .dropdown-toggle{
@@ -172,6 +183,12 @@ li.dropdown {
     #header-logo {
         padding-left: 0px !important;
         margin-left: 20px !important;
+    }
+    #usersName {
+        display: none;
+    }
+    .navbar-right {
+        clear: both;
     }
 }
 

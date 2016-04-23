@@ -1005,6 +1005,9 @@ input[type="text"].register-input :focus {
     margin-left: 15px;
 }
 
+.checkbox {
+    display: inline !important;
+}
 .control-group .controls #field-private {
     margin-left: 5px;
 }
@@ -2003,6 +2006,7 @@ label[for="field-private"]{
 }
 
 #usersName {
+    margin-top: 5px;
     color: white;
     font-weight: 600;
     padding-right: 20px;
