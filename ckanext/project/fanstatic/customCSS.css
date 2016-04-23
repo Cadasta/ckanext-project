@@ -406,6 +406,7 @@ form .lang-select {
 #header-logo {
     padding-left: 20px;
     float: left;
+    width: 120px;
 }
 
 #header-profile-options {
@@ -464,6 +465,14 @@ input[type="text"] {
     text-align: center;
 }
 
+.table td {
+    border: 0px !important;
+}
+
+ .table>tbody>tr>td {
+    border: 0px !important;
+}
+
 #project-result-text {
     padding-left: 20px;
     font-size: 14px;
@@ -518,6 +527,12 @@ input[type="text"] {
 
 #profile_options :hover {
     cursor: pointer;
+}
+
+.profile-options-dropdown {
+    width: 140px;
+    height: 120px;
+    float: right;
 }
 
 #about-button {
@@ -910,12 +925,6 @@ input[type="text"].register-input :focus {
     width: 60%;
 }
 
-.profile-options-dropdown {
-    width: 140px;
-    height: 120px;
-    float: right;
-}
-
 .control-full .error-block {
     width: 85% !important;
     margin-left:64px;
@@ -972,7 +981,7 @@ input[type="text"].register-input :focus {
 }
 
 .control-group .control-label {
-    margin: 0 0 9px 64px;
+    margin: 0 0 9px 15px;
 }
 
 
@@ -987,8 +996,13 @@ input[type="text"].register-input :focus {
 }
 
 .controls #s2id_field-organizations{
-    width:85%;
+    width: 85%;
     margin-left:64px;
+}
+
+.controls #field-organizations{
+    width: 95%;
+    margin-left: 15px;
 }
 
 .control-group .controls #field-private {
@@ -1902,7 +1916,6 @@ label[for="field-private"]{
     color: red;
 }
 
-
 .cancel {
     float: right;
     top: 49px;
@@ -1910,18 +1923,6 @@ label[for="field-private"]{
     right: 86px;
     font-size: 14px;
     color: #444444;
-}
-
-
-
-.control-group.cadasta-input.visibility {
-    display: inline-block;
-    margin-right: 117px;
-}
-
-
-#field-province_state, #field-url, #field-orgURL {
-    width:305px;
 }
 
 .control-group.control-medium.cadasta-org-input.margin-top {
@@ -1936,7 +1937,6 @@ label[for="field-private"]{
     bottom: 8px;
     position: relative;
 }
-
 
 #user-edit-form .control-group .control-label {
     margin: 0 0 9px 0;

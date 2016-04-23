@@ -20,50 +20,86 @@
           ('project_search', _('Projects')),
           ('organizations_index', _('Organizations'))
           ) }}
-          <li>
           <!--
-          <div class="profile-options-dropdown">
-                    <div id="header-profile-options">
-
-                        <div id="usersName"> {{ c.userobj.fullname }}</div>
-                        <div id='profile_options'>
-                            <div class="icon-icon_profile"></div>
-                        </div>
-                    </div>
-                    <div id="sub-nav">
-                        {% if c.userobj %}
-                        <a href="{{ h.url_for(controller='user', action='read', id=c.userobj.name) }}" class="image"
-                           title="{{ _('View profile') }}">
-                            <div class="dropdown-item">View Profile</div>
-                        </a>
-                        <a href="{{ h.url_for(controller='user', action='edit', id=c.userobj.name) }}"
-                           title="{{ _('Edit settings') }}">
-                            <div class="dropdown-item">Cadasta Settings</div>
-                        </a>
-                        <a href="{{ h.url_for('/user/_logout') }}" title="{{ _('Log out') }}">
-                            <div class="dropdown-item">Log out</div>
-                        </a>
-
-                        {% else %}
-                        <a href="{{ h.url_for('/user/login') }}" title="{{ _('Log in') }}">
-                            <div class="dropdown-item">Log in</div>
-                        </a>
-
-                        {% if h.check_access('user_create') %}
-                        <a href="{{ h.url_for('/user/register') }}" title="{{ _('Register') }}">
-                            <div class="dropdown-item">Register</div>
-                        </a>
-
-                        {% endif %}
-                        {% endif %}
-                    </div>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              <div id="usersName"> {{ c.userobj.fullname }}</div>
+                <div id='profile_options'>
+                  <div class="icon-icon_profile"></div>
                 </div>
-                -->
-          </li>
-        </ul>
-      </div><!--/.nav-collapse -->
-    </div>
-  </nav>
+            <span class="caret"></span></a>
+            <div class="profile-options-dropdown">
+              <div id="header-profile-options">
+
+
+              </div>
+              <div id="sub-nav">
+                {% if c.userobj %}
+                <a href="{{ h.url_for(controller='user', action='read', id=c.userobj.name) }}" class="image"
+                title="{{ _('View profile') }}">
+                <div class="dropdown-item">View Profile</div>
+              </a>
+              <a href="{{ h.url_for(controller='user', action='edit', id=c.userobj.name) }}"
+              title="{{ _('Edit settings') }}">
+              <div class="dropdown-item">Cadasta Settings</div>
+            </a>
+            <a href="{{ h.url_for('/user/_logout') }}" title="{{ _('Log out') }}">
+              <div class="dropdown-item">Log out</div>
+            </a>
+
+            {% else %}
+            <a href="{{ h.url_for('/user/login') }}" title="{{ _('Log in') }}">
+              <div class="dropdown-item">Log in</div>
+            </a>
+
+            {% if h.check_access('user_create') %}
+            <a href="{{ h.url_for('/user/register') }}" title="{{ _('Register') }}">
+              <div class="dropdown-item">Register</div>
+            </a>
+
+            {% endif %}
+            {% endif %}
+          </div>
+        </div>
+      </li>
+    -->
+  </ul>
+  <ul class="nav navbar-nav navbar-right">
+    <div id="usersName"> {{ c.userobj.fullname }}</div>
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="icon-icon_profile"></span></a>
+      <ul class="dropdown-menu">
+        {% if c.userobj %}
+        <li><a href="{{ h.url_for(controller='user', action='read', id=c.userobj.name) }}" class="image"
+          title="{{ _('View profile') }}">View Profile
+        </a></li>
+        <li><a href="{{ h.url_for(controller='user', action='edit', id=c.userobj.name) }}"
+          title="{{ _('Edit settings') }}">Cadasta Settings
+        </a>
+      </li>
+      <li><a href="{{ h.url_for('/user/_logout') }}" title="{{ _('Log out') }}">
+        Log out
+      </a>
+    </li>
+    {% else %}
+    <li><a href="{{ h.url_for('/user/login') }}" title="{{ _('Log in') }}">
+      <div class="dropdown-item">Log in</div>
+    </a>
+  </li>
+  {% if h.check_access('user_create') %}
+  <li>
+    <a href="{{ h.url_for('/user/register') }}" title="{{ _('Register') }}">
+      <div class="dropdown-item">Register</div>
+    </a>
+  </li>
+  {% endif %}
+  {% endif %}
+</ul>
+</li>
+</ul>
+</div><!--/.nav-collapse -->
+</div>
+</nav>
 
 
 
