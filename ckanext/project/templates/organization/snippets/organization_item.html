@@ -3,10 +3,6 @@
 {% set search_facet = h.organization_get_project_count(organization) %}
 
 
-
-<div class="project-row">
-    <table>
-        <tbody>
         <tr>
             <td class="org-logo">
                 <a href="{{ url }}"><img src="{{ organization.image_display_url or h.url_for_static('/base/images/placeholder-organization.png') }}" alt="{{ organization.name }}">
@@ -15,7 +11,7 @@
                 <h3 class="black-title-link"> {{ organization.title }}</h3>
             </a></td>
 
-            <td>
+            <td class="org-count">
                 {% if search_facet.package_count %}
                 <strong class="count">{{ ungettext('{num} Project', '{num} Projects', search_facet.package_count).format(num=search_facet.package_count) }}</strong>
                 {% else %}
@@ -23,7 +19,4 @@
                 {% endif %}
             </td>
         </tr>
-        </tbody>
-    </table>
-</div>
 

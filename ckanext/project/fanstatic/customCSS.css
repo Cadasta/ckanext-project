@@ -1259,8 +1259,8 @@ input[type="text"].register-input :focus {
 
 .add-org {
     height: 50px;
-    float: right;
-    margin: 6px 20px 0 0;
+    float: left;
+    margin: 4px 20px 0 65px;
 }
 
 
@@ -1352,14 +1352,23 @@ input[type="text"].register-input :focus {
 }
 
 /*org list page*/
+
+table#organization-list td {
+    text-align: left;
+}
+
 .project-row {
-    border-bottom: 1px solid #dcdfe1;
+    /*border-bottom: 1px solid #dcdfe1;*/
     border-left: 1px solid #dcdfe1;
     border-right: 1px solid #dcdfe1;
 }
 
 .project-row tr {
-    height: 110px;
+    /*height: 110px;*/
+}
+
+.project-row td {
+    float: left;
 }
 
 .project-row .org-logo img {
@@ -1369,17 +1378,28 @@ input[type="text"].register-input :focus {
 }
 
 .project-row .org-logo {
-    width:138px;
-
+    /*width:138px;*/
+    min-width: 33%
 }
 
 .project-row .org-title {
-    width:500px;
+    /*width:500px;*/
+    padding-left: 20px;
+    text-align: left;
+    vertical-align: middle;
+    min-width: 33%;
+}
+
+.project-row .org-count {
+    font-size: small;
+    padding: 20px;
+    min-width: 33%;
 }
 
 #org-list {
     /*max-height: 500px;*/
     overflow: auto;
+    background: white;
 }
 
 #org-list .project-row {

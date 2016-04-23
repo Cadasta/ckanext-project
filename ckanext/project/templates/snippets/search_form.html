@@ -7,6 +7,23 @@
 {% set form_id = form_id if form_id else false %}
 
 <form {% if form_id %}id="{{ form_id }}" {% endif %}class="left search-form{% if no_bottom_border %} no-bottom-border{% endif %}" method="get" data-module="select-switch">
+    {% block search_sortby %}
+    {% if sorting %}
+    <div class="form-select control-group control-order-by">
+        <label for="field-order-by">{{ _('Order by') }}</label>
+        <select id="field-order-by" name="sort">
+            {% for label, value in sorting %}
+            {% if label and value %}
+            <option value="{{ value }}"{% if sorting_selected == value %} selected="selected"{% endif %}>{{ label }}</option>
+            {% endif %}
+            {% endfor %}
+        </select>
+        {% block search_sortby_button %}
+        <button class="btn js-hide" type="submit">{{ _('Go') }}</button>
+        {% endblock %}
+    </div>
+    {% endif %}
+    {% endblock %}
 
     {% block search_input %}
     <div class="search-input control-group {{ search_class }}">
@@ -24,24 +41,6 @@
     {% if fields -%}
     <span>{{ form.hidden_from_list(fields=fields) }}</span>
     {%- endif %}
-    {% endblock %}
-
-    {% block search_sortby %}
-    {% if sorting %}
-    <div class="form-select control-group control-order-by">
-        <label for="field-order-by">{{ _('Order by') }}</label>
-        <select id="field-order-by" name="sort">
-            {% for label, value in sorting %}
-            {% if label and value %}
-            <option value="{{ value }}"{% if sorting_selected == value %} selected="selected"{% endif %}>{{ label }}</option>
-            {% endif %}
-            {% endfor %}
-        </select>
-        {% block search_sortby_button %}
-        <button class="btn js-hide" type="submit">{{ _('Go') }}</button>
-        {% endblock %}
-    </div>
-    {% endif %}
     {% endblock %}
 
     {% block search_title %}

@@ -12,9 +12,15 @@ Example:
 <div class="media-grid" data-module="media-grid">
     {% block organization_list_inner %}
     <div id="org-list">
+        <div class="project-row">
+        <table id="organization-list" class="table table-responsive">
+        <tbody>
         {% for organization in organizations %}
         {% snippet "organization/snippets/organization_item.html", organization=organization, position=loop.index %}
         {% endfor %}
+        </tbody>
+        </table>
+        </div>
     </div>
     {% endblock %}
 </div>
