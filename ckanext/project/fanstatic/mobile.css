@@ -167,6 +167,11 @@ ul.dropdown-menu > li > a:hover {
     .navbar-brand {
         margin-left: 8px !important;
     }
+    .mini-overview {
+        width: 100% !important;
+        clear: both !important;
+        margin-bottom: 1em !important;
+    }
 }
 
 
@@ -192,5 +197,9 @@ ul.dropdown-menu > li > a:hover {
     }
     .search-form .search-input.projects {
        margin-left: 65px;
+    }
+    .mini-overview {
+        width: 100%;
+        clear: both;
     }
 }

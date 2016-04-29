@@ -1,4 +1,5 @@
 <!--primary content-->
+<div class="row">
 <div class="clearfix overview-background">
     <div id="org-header">
         <div id='org-desc'>
@@ -6,17 +7,18 @@
         </div>
     </div>
 </div>
-
+</div>
 <!--secondary content-->
 <!--organization projects-->
 <div class="span3 organization-overview-page">
     <div id="project-content">
-
+        <div class="row">
+        <div class="col-md-12">
         <div class='overview-background org-projects'>
             <span class="small-heading">PROJECTS</span>
             <a href="/project/new"><span class="cadasta-round-button right" ng-click="route_add_project()" ng-show="showCRUDLink">ADD PROJECT</span></a>
 
-            <table id="project-table-header">
+            <table id="project-table-header" class="table table-responsive">
                 <thead>
                 <tr>
                     <th>Name</th>
@@ -27,7 +29,7 @@
             </table>
 
             <div id="projectList">
-                <table>
+                <table id="org-projects" class="table table-responsive">
                     <tbody>
                     <tr class="row-link" ng-repeat="project in orgProjects"
                         ng-class="{'last-table-element':$index == parcels.length-1}">
@@ -40,6 +42,9 @@
                 </table>
             </div>
         </div>
+      </div>
+      </div>
+      <div class="row">
 
         <div class='mini-overview project-block'>
 
@@ -67,8 +72,7 @@
                     Project <a href="/project/{{project.name}}">{{activity.data.package.title}}</a> was updated on {{ activity.timestamp }}
                 </li>
             </div>
-        </div>
-
+      </div>
         <!-- project resources-->
         <div class='mini-overview project-block' id="project-resource-summary">
             <span class="small-heading">ORGANIZATION USERS</span>
@@ -80,6 +84,6 @@
                 </li>
             </div>
         </div>
-
+    </div>
     </div>
 </div>

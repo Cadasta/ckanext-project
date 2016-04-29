@@ -251,9 +251,11 @@ header ul li a:hover {
     margin-left: -20px;
 }
 
+
 #content {
     width: 890px;
 }
+
 
 li {
     display: inline-block;
@@ -996,8 +998,8 @@ input[type="text"].register-input :focus {
 }
 
 .controls #s2id_field-organizations{
-    width: 85%;
-    margin-left:64px;
+    width: 100% !important;
+    margin-left: 15px;
 }
 
 .controls #field-organizations{
@@ -1259,7 +1261,7 @@ input[type="text"].register-input :focus {
 .add-org {
     height: 50px;
     float: left;
-    margin: 4px 20px 0 65px;
+    margin: 2px 20px 0 65px;
 }
 
 
