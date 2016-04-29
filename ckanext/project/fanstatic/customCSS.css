@@ -1231,7 +1231,6 @@ input[type="text"].register-input :focus {
    width: 200px;
    display: inline-block;
    float: left;
-   margin-left: 65px;
 }
 
 .media-heading {
@@ -2049,5 +2048,3 @@ label[for="field-private"]{
 header {
     margin-bottom: 50px;
 }
-
-

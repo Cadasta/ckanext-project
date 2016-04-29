@@ -190,5 +190,7 @@ ul.dropdown-menu > li > a:hover {
     .navbar-right {
         clear: both;
     }
+    .search-form .search-input.projects {
+       margin-left: 65px;
+    }
 }
-

@@ -12,7 +12,7 @@
 </div>
 {% endblock %}
 
-{% block scripts %}
+{%- block scripts %}
 
 <script src='https://api.tiles.mapbox.com/mapbox.js/v2.2.1/mapbox.js'></script>
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -31,9 +31,9 @@
 <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.14.3.js"></script>
 
 
-<script type="text/javascript" src="../../build/project-dashboard-app.min.js?rel=1461424692247"></script>
-
-{% endblock %}
+<script type="text/javascript" src="../../build/project-dashboard-app.min.js?rel=1461935930824"></script>
+{{ super() }}
+{% endblock -%}
 
 
 {% block links %}
@@ -41,7 +41,7 @@
 <link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.2/leaflet.draw.css' rel='stylesheet' />
 <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-draw/v0.2.2/leaflet.draw.css' rel='stylesheet' />
 <link href='../vendor/angular-material/angular-material.css' rel='stylesheet' />
-<link href='../build/project-dashboard-app.min.css?rel=1461424692247' rel='stylesheet' />
+<link href='../build/project-dashboard-app.min.css?rel=1461935930824' rel='stylesheet' />
 <link href='../vendor/ag-grid/dist/ag-grid.min.css' rel='stylesheet' />
 <link href='../vendor/ag-grid/dist/theme-blue.css' rel='stylesheet' />
 <link href='../vendor/ag-grid/dist/theme-fresh.css' rel='stylesheet' />
