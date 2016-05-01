@@ -1,33 +1,42 @@
-
 <div class="clearfix overview-background resources">
 
     <div id="project-header">
         <div class="resources-container">
-            <div class="resources">
-                <div class="button-controller">
-
-                    <md-input-container class="resource-filter">
-                        <div class="ckan-label">Filter by:</div>
-                        <md-select ng-model="ResourceTypeModel">
-                            <md-option ng-value="t.type" ng-repeat="t in resource_types" ng-click="filterResourceType(t.type)">{{t.label}}</md-option>
-                        </md-select>
-                    </md-input-container>
-
-                    <md-input-container>
-                        <div class="ckan-label">Sort by:</div>
-                        <md-select ng-model="ResourceTypeModel">
-                            <md-option ng-value="s.type" ng-repeat="s in sort_by" ng-click="filterResourceType(s.type)">{{s.label}}</md-option>
-                        </md-select>
-                    </md-input-container>
-
-                    <md-button class="cadasta-round-button right" ng-click="showAdvanced($event)"  ng-show="showCRUDLink" flex flex-md="100">
-                        <span class="button-text">Add Resource</span>
-                    </md-button>
-
+            <div class="row">
+                <div class="resources">
+                    <div class="button-controller">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-8">
+                                    <div class="col-md-6">
+                                        <md-input-container class="resource-filter">
+                                            <div class="ckan-label">Filter by:</div>
+                                            <md-select ng-model="ResourceTypeModel">
+                                                <md-option ng-value="t.type" ng-repeat="t in resource_types" ng-click="filterResourceType(t.type)">{{t.label}}</md-option>
+                                            </md-select>
+                                        </md-input-container>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <md-input-container>
+                                            <div class="ckan-label">Sort by:</div>
+                                            <md-select ng-model="ResourceTypeModel">
+                                                <md-option ng-value="s.type" ng-repeat="s in sort_by" ng-click="filterResourceType(s.type)">{{s.label}}</md-option>
+                                            </md-select>
+                                        </md-input-container>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <md-button id="addResource" class="cadasta-round-button right" ng-click="showAdvanced($event)" ng-show="showCRUDLink" flex flex-md="100">
+                                        <span class="button-text">Add Resource</span>
+                                    </md-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-                <table class="parcel-history">
-                    <thead>
+            <table class="parcel-history">
+                <thead>
                     <tr>
                         <th>Name</th>
                         <th>Description</th>
@@ -35,11 +44,11 @@
                         <th>Type</th>
                         <th>View</th>
                     </tr>
-                    </thead>
-                </table>
-                <div class="parcel-history-data relationship">
-                    <table>
-                        <tbody>
+                </thead>
+            </table>
+            <div class="parcel-history-data relationship">
+                <table>
+                    <tbody>
                         <tr ng-repeat="r in allResources.features | resourceType: ResourceTypeModel">
                             <td>{{r.properties.file_name}}</td>
                             <td>{{r.properties.description}}</td>
@@ -47,14 +56,14 @@
                             <td>{{r.properties.type}}</td>
                             <td><a href="{{r.properties.url}}">Download</a></td>
                         </tr>
-                        </tbody>
-                    </table>
-                </div>
+                    </tbody>
+                </table>
             </div>
-            <div id="resource-pagination">
-                <uib-pagination total-items="totalItems" items-per-page="pageSize" ng-model="currentPage" force-ellipses="true" max-size="5" rotate="false" class="pagination-sm" ng-change="pageChanged()" boundary-links="true"></uib-pagination>
-            </div>
-
         </div>
+        <div id="resource-pagination">
+            <uib-pagination total-items="totalItems" items-per-page="pageSize" ng-model="currentPage" force-ellipses="true" max-size="5" rotate="false" class="pagination-sm" ng-change="pageChanged()" boundary-links="true"></uib-pagination>
+        </div>
+
     </div>
+</div>
 </div>

@@ -161,7 +161,7 @@ md-input-container.how-acquired {
 
 #parcelDetails .section-map {
     border: 1px solid #dcdfe1;
-    width: 450px;
+    width: 100%;
     height: 291px;
     display: inline-block;
     margin: 2px 0 0;
@@ -172,7 +172,7 @@ md-input-container.how-acquired {
 #parcelDetails .section .relationship-container {
     height: 221px;
     overflow-y: auto;
-    width: 355px;
+    width: 100%;
 }
 
 #parcelDetails .section .title {
@@ -357,9 +357,9 @@ md-input-container.how-acquired {
     /*top:15px;*/
 }
 
-#parcelDetails .section-map .cadasta-update-button {
+#parcelDetails .cadasta-update-button {
     position: relative;
-    bottom: 355px;
+    width: 175px;
 }
 
 .add-relationship md-input-container.pin-id {
@@ -482,12 +482,12 @@ md-input-container label {
     border: none;
     color: white;
     padding: 6px 10px;
-    margin-top: 20px;
     text-transform: uppercase;
     letter-spacing: 1px;
     cursor: pointer;
     font-weight: 600;
     font-size: 10px;
+    margin-left: .5em;
 }
 
 
@@ -520,17 +520,20 @@ md-input-container label {
     }
 
     #parcelDetails .section {
-        width: 370px;
+        /*width: 370px;*/
         height: auto;
         display: inline-block;
-        margin: 2px 10px 0 0;
-        float: none;
+        margin: 1em;
     }
 
     #parcelDetails .section .relationship-container {
         height: 221px;
         overflow-y: visible;
         width: 355px;
+    }
+
+    .overview > #wrapSections {
+        margin-top: 1em !important;
     }
 
     /*#parcelDetails .section-map {*/

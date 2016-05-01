@@ -201,6 +201,11 @@ a.md-button:not([disabled]):hover, .md-button:not([disabled]):focus {
     color:green;
 }
 
+#addResource.md-button {
+    margin: 2em 0em 0em 1.5em;
+    float: left;
+}
+
 
 
 /*.md-dialog-container {*/
