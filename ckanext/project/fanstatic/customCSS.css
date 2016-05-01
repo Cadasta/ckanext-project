@@ -133,9 +133,9 @@ subtab {
 
 #project-extent {
     border: 1px solid #dcdfe1;
-    width: 291px;
+    width: auto;
     height: 291px;
-    display: inline-block;
+    display: block;
     float: right;
 }
 
@@ -163,6 +163,9 @@ subtab {
 }
 
 .project-title {
+    font-size: medium;
+    margin-right: 2em;
+    /*
     font-size: 18px;
     color: #2d3644;
     display: inline-block;
@@ -170,6 +173,7 @@ subtab {
     padding-bottom: 20px;
     padding-left: 25px;
     text-align: left !important;
+    */
 }
 
 #project-title {
@@ -2049,4 +2053,12 @@ label[for="field-private"]{
 
 header {
     margin-bottom: 50px;
+}
+
+.nav > li.active > a {
+    background-color: transparent !important;
+}
+
+.nav > li > a {
+    height: 20px !important;
 }

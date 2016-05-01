@@ -14,23 +14,13 @@
     font-family: "Open Sans";
 }
 
-#project-resource-summary {
-    float:right;
-    width:327px;
-    font-size:12px;
-    min-height:200px;
-    height:auto;
-    overflow-x:hidden;
-    border: 1px solid #dcdfe1;
-}
-
 select, input[type="file"] {
     height: 30px;
     line-height: 0px;
 }
 
 #project-desc {
-    width: 510px;
+    width: 100%;
     display: inline-block;
     height: 292px;
     border: 1px solid #dcdfe1;
@@ -118,7 +108,7 @@ select, input[type="file"] {
 
 #project-extent {
     border: 1px solid #dcdfe1;
-    width:308px;
+    width: 100%;
     height:291px;
     display:inline-block;
     float:right;
@@ -176,17 +166,23 @@ li.resource-activity-block {
     overflow:auto;
 }
 
+#header {
+    padding: 2em 0em 2em 1em;
+    width: 100%;
+    margin-left: 0px;
+}
+
 
 #header .icon-icon_edit:before {
     font-size: 30px;
 }
 
 #header a {
-    padding-left:10px;
+    /*padding-left:10px;*/
 }
 
 #header .cadasta-round-button {
-    margin: 16px 24px 0 0;
+    /*margin: 16px 24px 0 0;*/
 }
 
 .leaflet-top.leaflet-left {
@@ -222,4 +218,19 @@ li.resource-activity-block {
 
 #ag-grid.selectFieldDataGrid {
     height: 350px;
+}
+
+#project-activity-summary {
+    width: 100%;
+    margin-right: .8em;
+}
+
+#project-resource-summary {
+    float: left;
+    width:100%;
+    font-size:12px;
+    min-height:200px;
+    height:auto;
+    overflow-x:hidden;
+    border: 1px solid #dcdfe1;
 }

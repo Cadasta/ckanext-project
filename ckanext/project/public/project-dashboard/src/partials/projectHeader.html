@@ -1,4 +1,12 @@
-<div id="header">
-    <div class="project-title">{{projectTitle}}</div><a ng-show="nonPublic" href="/project/edit/{{projectId}}">edit</a>
-    <div class="cadasta-round-button float-right" ng-show="nonPublic" ui-sref="tabs.overview.fieldData.fieldDataList" ng-click="alertValidateData()">Data Collection</div>
+<div id="header" class="row">
+    <div class="col-sm-2">
+        <div class="project-title">{{projectTitle}}</div>
+    </div>
+    <div class="col-sm-2">
+        <a ng-show="nonPublic" href="/project/edit/{{projectId}}">edit</a>
+    </div>
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+        <div class="cadasta-round-button float-right" ng-show="nonPublic" ui-sref="tabs.overview.fieldData.fieldDataList" ng-click="alertValidateData()">Data Collection</div>
+    </div>
 </div>

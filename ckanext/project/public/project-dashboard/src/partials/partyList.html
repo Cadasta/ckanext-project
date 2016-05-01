@@ -1,17 +1,27 @@
 <div id="partyContainer">
-<div id="parcelFilter" class="filter party">
-    <div layout="row">
-        <md-button class='cadasta-round-button right' ng-click="addPartyModal()" ng-show="showCRUDLink"> <span class="button-text">Add Party</span> </md-button>
-
+    <div id="parcelFilter" class="filter party">
+        <div class="row">
+            <div class="col-sm-10">
+                <div>
+                    <input placeholder="Search" type="text" ng-model="partyGridOptions.quickFilterText" />
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div layout="row">
+                    <md-button id="addParty" class='cadasta-round-button right' ng-click="addPartyModal()" ng-show="showCRUDLink"> <span class="button-text">Add Party</span> </md-button>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div id="ag-table">
+                <div ag-grid="partyGridOptions" class="ag-blue" style="height: 100%;"></div>
+            </div>
+        </div>
+    </div>
 
-<div id="ag-table">
-    <input placeholder="Search" type="text" ng-model="partyGridOptions.quickFilterText"/>
-    <div ag-grid="partyGridOptions" class="ag-blue" style="height: 100%;"></div>
-</div>
-
-<div id="party-pagination">
-    <uib-pagination total-items="totalItems" items-per-page="pageSize" ng-model="currentPage" force-ellipses="true" max-size="5" rotate="false" class="pagination-sm" ng-change="pageChanged()" boundary-links="true"></uib-pagination>
-</div>
+    <div id="party-pagination">
+        <uib-pagination total-items="totalItems" items-per-page="pageSize" ng-model="currentPage" force-ellipses="true" max-size="5" rotate="false" class="pagination-sm" ng-change="pageChanged()" boundary-links="true"></uib-pagination>
+    </div>
 </div>

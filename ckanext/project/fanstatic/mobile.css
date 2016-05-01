@@ -39,6 +39,10 @@ body {
     padding: 0px 0px 0px 0px !important;
 }
 
+.nav > li > a:hover {
+    background: transparent !important;
+}
+
 .nav > li {
     position: relative;
     margin: 5px 0px 0px 25px !important;
@@ -136,6 +140,9 @@ ul.dropdown-menu > li > a:hover {
     .navbar-right {
         margin-right: 8px !important;
     }
+    #parcelButtons > a.md-button {
+        margin-left: 1em;
+    }
 }
 
 
@@ -171,6 +178,12 @@ ul.dropdown-menu > li > a:hover {
         width: 100% !important;
         clear: both !important;
         margin-bottom: 1em !important;
+    }
+    #project-desc {
+      margin-bottom: 1em !important;
+    }
+    button#addParty {
+        margin-top: 1em !important;
     }
 }
 

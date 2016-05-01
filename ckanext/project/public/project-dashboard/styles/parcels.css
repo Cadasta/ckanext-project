@@ -212,6 +212,7 @@ md-input-container.how-acquired {
     width: 100%;
     margin: auto;
     background-color: white;
+    margin-top: 1em;
 }
 
 #parcelList .row-link{
@@ -257,16 +258,25 @@ md-input-container.how-acquired {
 }
 
 #parcelFilter {
-    padding:10px 25px;
+    /*padding:10px 25px;*/
+    padding: 2em;
 }
 
 #parcelFilter .md-button {
+    margin: 0px;
+    /*
     top: 16px;
     margin-left: 20px;
+    */
 }
 
 #parcelButtons {
-    margin-left: 50px;
+    margin: 1.5em 1em 1em 0em;
+    float: left;
+}
+
+#parcelButtons .md-button {
+    margin-bottom: 1em;
 }
 
 #parcelFilter md-input-container {
@@ -336,13 +346,15 @@ md-input-container.how-acquired {
 }
 
 #parcelFilter .cadasta-round-button.right {
+    /*
     left:300px;
     top:15px;
+    */
 }
 
 #parcelFilter.party .cadasta-round-button.right {
-    left:697px;
-    top:15px;
+    /*left:697px;*/
+    /*top:15px;*/
 }
 
 #parcelDetails .section-map .cadasta-update-button {
