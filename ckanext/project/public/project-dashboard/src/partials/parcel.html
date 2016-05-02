@@ -4,12 +4,12 @@
         <div class="overview">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="back-link">
                             <a ng-click="clearParcelBreadCrumb()" ui-sref="^.parcellist"><i class="material-icons back_space">keyboard_backspace</i> Back to list</a>
                         </div>
                     </div>
-                    <div class="col-md-7">
+                    <div class="col-md-8">
                         <div class='cadasta-update-button' ng-click="updateParcelModal()" ng-show="showCRUDLink"> Update Parcel Details </div>
                     </div>
                 </div>
@@ -17,13 +17,11 @@
 
             <div id="wrapSections" class="row">
                 <div class="col-md-12">
-                    <div class="col-md-5">
+                    <div class="col-md-6">
                         <div class="section">
                             <div class="container">
                                 <div class="title">Parcel {{parcel.id}} <span ng-show="parcel.gov_pin">({{parcel.gov_pin}})</span> </div>
                                 <div class="cadasta-round-button float-right" ng-click="addRelationshipModal()" ng-show="showCRUDLink"> Add Relationship </div>
-
-
                                 <div>
                                     <span class="caption">Landuse</span>
                                     <span>{{parcel.land_use | emptyString}}</span>
@@ -60,7 +58,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-7">
+                    <div class="col-md-6">
                         <div class="section-map">
                             <div id="parcelDetailsMap"></div>
                         </div>
