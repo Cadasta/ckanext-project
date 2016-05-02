@@ -123,6 +123,7 @@ md-dialog {
 
 md-content {
     width: 100%;
+    padding: 1em !important;
 }
 
 md-content.add-parcel-extra-fields md-input-container.notes {
@@ -133,7 +134,15 @@ md-content.add-parcel-extra-fields md-input-container.notes textarea {
     width: 100% !important;
 }
 
-#editParcelMap {
+md-input-container.relationship-notes textarea {
+    width: 100%;
+}
+
+.add-relationship md-input-container {
+    width: 100% !important;
+}
+
+#editParcelMap, #editRelationshipMap {
     width: 100% !important;
 }
 

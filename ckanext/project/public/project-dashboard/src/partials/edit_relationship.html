@@ -18,50 +18,53 @@
                 <div class="modal-content">
                     <md-content layout-padding>
                         <form name="userForm">
+
                             <div layout="row">
+                                <div class="row">
+                                    <md-input-container class="add-relationship-format">
+                                        <div class="ckan-label"><span class="font-red">*</span>Tenure Type:</div>
+                                        <md-select class="tenure-type-left" ng-model="relationship.tenure_type">
+                                            <md-option ng-repeat="t in tenure_types" value="{{t.type}}">
+                                                {{t.label}}
+                                            </md-option>
+                                        </md-select>
+                                    </md-input-container>
 
-                                <md-input-container class="add-relationship-format">
-                                    <div class="ckan-label"><span class="font-red">*</span>Tenure Type:</div>
-                                    <md-select class="tenure-type-left" ng-model="relationship.tenure_type">
-                                        <md-option ng-repeat="t in tenure_types" value="{{t.type}}">
-                                            {{t.label}}
-                                        </md-option>
-                                    </md-select>
-                                </md-input-container>
-
-                                <md-input-container class="md-block add-relationship-format">
-                                    <div class="ckan-label">How was the parcel acquired:</div>
-                                    <!--<label class="ckan-helper-text">ex. Leasehold</label>-->
-                                    <md-select class="tenure-type-left" ng-model="relationship.how_acquired">
-                                        <md-option ng-repeat="a in acquired_types" value="{{a.type}}">
-                                            {{a.label}}
-                                        </md-option>
-                                    </md-select>
-                                </md-input-container>
-                            </div>
-
-
-                            <div id="custom-date-picker">
-                                <div ng-click="showDatepicker = !showDatepicker" class="cadasta-button left parcel-save" >Select date of parcel acquisition?</div>
-                                <br><br><br><br>
-
-                                <div ng-show="showDatepicker">
-                                    <p>Selected date is: <span class="date-selected" >{{dt | date:format:'dd/MM/yyyy' }}</span></p>
-
-                                    <div style="display:inline-block">
-                                        <uib-datepicker ng-model="dt" format-day="dd" format-month="MM" format-year="yyyy"
-                                                        max-date="maxDate" show-weeks="false"
-                                                        class="well well-sm"></uib-datepicker>
-                                    </div>
+                                    <md-input-container class="md-block add-relationship-format">
+                                        <div class="ckan-label">How was the parcel acquired:</div>
+                                        <!--<label class="ckan-helper-text">ex. Leasehold</label>-->
+                                        <md-select class="tenure-type-left" ng-model="relationship.how_acquired">
+                                            <md-option ng-repeat="a in acquired_types" value="{{a.type}}">
+                                                {{a.label}}
+                                            </md-option>
+                                        </md-select>
+                                    </md-input-container>
                                 </div>
                             </div>
 
+                            <div class="row">
+                                <div id="custom-date-picker">
+                                    <div ng-click="showDatepicker = !showDatepicker" class="cadasta-button left parcel-save">Select date of parcel acquisition?</div>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <br>
 
-                            <md-input-container md-no-float flex class="relationship-notes md-block">
-                                <div class="ckan-label">Notes:</div>
-                                <textarea ng-model="relationship.description"></textarea>
-                            </md-input-container>
+                                    <div ng-show="showDatepicker">
+                                        <p>Selected date is: <span class="date-selected">{{dt | date:format:'dd/MM/yyyy' }}</span></p>
 
+                                        <div style="display:inline-block">
+                                            <uib-datepicker ng-model="dt" format-day="dd" format-month="MM" format-year="yyyy" max-date="maxDate" show-weeks="false" class="well well-sm"></uib-datepicker>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <md-input-container md-no-float flex class="relationship-notes md-block">
+                                    <div class="ckan-label">Notes:</div>
+                                    <textarea ng-model="relationship.description"></textarea>
+                                </md-input-container>
+                            </div>
 
                         </form>
                     </md-content>
@@ -72,10 +75,11 @@
                         <md-radio-button value='relationship' class="useRelationshipGeom"> Draw relationship geometry </md-radio-button>
                     </md-radio-group>
 
-                    <div id="DrawRelationshipMap" >
+                    <div id="DrawRelationshipMap">
 
                         <p>2. Draw the relationship geometry using the tools on the left.</p>
-                        <br><br>
+                        <br>
+                        <br>
 
                         <div id="editRelationshipMap"></div>
 
@@ -97,9 +101,7 @@
                 <div id="relationship_update_feedback" ng-messages="updateRelationshipForm.$error">
                     <div ng-message="required" class="font-red">{{ relationshipUpdatedFeedback }}</div>
                 </div>
-                <div class="cadasta-button right parcel-save"
-                     ng-click="updateRelationship(cadastaProjectId, relationshipId, layer, relationship)">Update
-                    Relationship
+                <div class="cadasta-button right parcel-save" ng-click="updateRelationship(cadastaProjectId, relationshipId, layer, relationship)">Update Relationship
                 </div>
                 <div class="cancel" ng-click="cancel()">Cancel</div>
             </div>
