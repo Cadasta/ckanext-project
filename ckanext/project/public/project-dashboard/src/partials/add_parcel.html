@@ -19,7 +19,8 @@
                 <div class="modal-content">
                     <div>
                         <div class="ckan-label"><span class="font-red">*</span>Draw the geometry of a new parcel using the tools on the left</div>
-                        <br><br>
+                        <br>
+                        <br>
 
                         <div id="addParcelMap"></div>
 
@@ -35,7 +36,7 @@
                             </nav>
                         </div>
 
-                        <md-content class="layout-padding left add-parcel-extra-fields" >
+                        <md-content class="layout-padding left add-parcel-extra-fields">
                             <div layout layout-sm="column">
                                 <md-input-container flex class="landuse-left">
                                     <div class="ckan-label">Landuse:</div>
@@ -52,16 +53,23 @@
                                 </md-input-container>
 
                             </div>
-                            <md-input-container md-no-float flex class="notes">
-                                <div class="ckan-label">Notes:</div>
-                                <textarea ng-model="parcel.notes" columns="1"></textarea>
-                            </md-input-container>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <md-input-container md-no-float flex class="notes">
+                                        <div class="ckan-label">Notes:</div>
+                                        <textarea ng-model="parcel.notes" columns="1"></textarea>
+                                    </md-input-container>
+                                </div>
+                            </div>
                         </md-content>
-                        <div>
-                            <div class="cadasta-button right parcel-save" ng-click="saveNewParcel()">Save Parcel</div>
-                            <div class="cancel" ng-click="cancel()">Cancel</div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div>
+                                    <div class="cadasta-button right parcel-save" ng-click="saveNewParcel()">Save Parcel</div>
+                                    <div class="cancel" ng-click="cancel()">Cancel</div>
+                                </div>
+                            </div>
                         </div>
-
                     </div>
                 </div>
             </div>

@@ -108,6 +108,31 @@ ul.dropdown-menu > li > a:hover {
     display: block;
 }
 
+/* Dialog responsiveness */
+md-dialog {
+    margin-top: 2em;
+}
+
+.cadasta-modal {
+    margin-top: 3em !important;
+}
+
+.form_upload_content {
+    width: 100% !important;
+}
+
+md-content {
+    width: 100%;
+}
+
+md-content.add-parcel-extra-fields md-input-container.notes {
+    width:100% !important;
+}
+
+md-content.add-parcel-extra-fields md-input-container.notes textarea {
+    width: 100% !important;
+}
+
 /* container styles */
 
 @media (max-width: 992px){
