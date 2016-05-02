@@ -133,6 +133,14 @@ md-content.add-parcel-extra-fields md-input-container.notes textarea {
     width: 100% !important;
 }
 
+#editParcelMap {
+    width: 100% !important;
+}
+
+#partySearch {
+    margin-left: 2em;
+}
+
 /* container styles */
 
 @media (max-width: 992px){

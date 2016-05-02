@@ -22,11 +22,11 @@
                             <div layout layout-sm="column">
                             </div>
                             <span><span class="font-red">*</span>Select a Party</span>
+                            <input id="partySearch" placeholder="Search" type="text" ng-model="selectPartyGridOptions.quickFilterText"/>
                             <br><br>
 
                             <div id="ag-table">
-                                <input placeholder="Search" type="text" ng-model="selectPartyGridOptions.quickFilterText"/>
-                                <div ag-grid="selectPartyGridOptions" class="ag-blue" id="selectPartyGrid" style="height:100%"></div>
+                                <div ag-grid="selectPartyGridOptions" class="ag-blue" id="selectPartyGrid" style="height:100%; width:100%;"></div>
                             </div>
 
                             <br>
