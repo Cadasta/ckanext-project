@@ -1,26 +1,28 @@
-
 <header>
 
-  <nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <span id="header-logo">
-          <a class="navbar-brand" href="{{ h.url('home') }}"><div class="icon-logo_header" title="{{ g.site_title }}"></div></a>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <span id="header-logo">
+          <a class="navbar-brand" href="{{ h.url('home') }}">
+              <img src="/images/logo-white.png"/>
+              <!--
+              <div class="icon-logo_header" title="{{ g.site_title }}">
+              </div>
+                -->
+          </a>
         </span>
-      </div>
-      <div id="navbar" class="collapse navbar-collapse">
-        <ul class="nav navbar-nav">
-          {{ h.build_nav_main(
-          ('project_search', _('Projects')),
-          ('organizations_index', _('Organizations'))
-          ) }}
-          <!--
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    {{ h.build_nav_main( ('project_search', _('Projects')), ('organizations_index', _('Organizations')) ) }}
+                    <!--
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
               <div id="usersName"> {{ c.userobj.fullname }}</div>
@@ -63,45 +65,44 @@
         </div>
       </li>
     -->
-  </ul>
-  <ul class="nav navbar-nav navbar-right">
-    <div id="usersName"> {{ c.userobj.fullname }}</div>
-    <li class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="icon-icon_profile"></span></a>
-      <ul class="dropdown-menu">
-        {% if c.userobj %}
-        <li><a href="{{ h.url_for(controller='user', action='read', id=c.userobj.name) }}" class="image"
-          title="{{ _('View profile') }}">View Profile
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <div id="usersName"> {{ c.userobj.fullname }}</div>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="icon-icon_profile"></span></a>
+                        <ul class="dropdown-menu">
+                            {% if c.userobj %}
+                            <li><a href="{{ h.url_for(controller='user', action='read', id=c.userobj.name) }}" class="image" title="{{ _('View profile') }}">View Profile
         </a></li>
-        <li role="separator" class="divider"></li>
-        <li><a href="{{ h.url_for(controller='user', action='edit', id=c.userobj.name) }}"
-          title="{{ _('Edit settings') }}">Cadasta Settings
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{{ h.url_for(controller='user', action='edit', id=c.userobj.name) }}" title="{{ _('Edit settings') }}">Cadasta Settings
         </a>
-      </li>
-      <li role="separator" class="divider"></li>
-      <li><a href="{{ h.url_for('/user/_logout') }}" title="{{ _('Log out') }}">
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{{ h.url_for('/user/_logout') }}" title="{{ _('Log out') }}">
         Log out
       </a>
-    </li>
-    {% else %}
-    <li><a href="{{ h.url_for('/user/login') }}" title="{{ _('Log in') }}">
-      <div class="dropdown-item">Log in</div>
-    </a>
-  </li>
-  {% if h.check_access('user_create') %}
-  <li>
-    <a href="{{ h.url_for('/user/register') }}" title="{{ _('Register') }}">
-      <div class="dropdown-item">Register</div>
-    </a>
-  </li>
-  {% endif %}
-  {% endif %}
-</ul>
-</li>
-</ul>
-</div><!--/.nav-collapse -->
-</div>
-</nav>
+                            </li>
+                            {% else %}
+                            <li>
+                                <a href="{{ h.url_for('/user/login') }}" title="{{ _('Log in') }}">
+                                    <div class="dropdown-item">Log in</div>
+                                </a>
+                            </li>
+                            {% if h.check_access('user_create') %}
+                            <li>
+                                <a href="{{ h.url_for('/user/register') }}" title="{{ _('Register') }}">
+                                    <div class="dropdown-item">Register</div>
+                                </a>
+                            </li>
+                            {% endif %} {% endif %}
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </nav>
 
 
 
@@ -168,4 +169,3 @@
     </div>
   -->
 </header>
-

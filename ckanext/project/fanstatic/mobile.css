@@ -33,6 +33,10 @@ body {
 
 }
 
+.navbar-brand img {
+    margin: 5px 0 0 5px;
+}
+
 .nav > li > a {
     position: relative;
     height: 25px;
@@ -150,6 +154,15 @@ md-input-container.relationship-notes textarea {
     margin-left: 2em;
 }
 
+#splash-overlay {
+    height: auto !important;
+}
+
+#splash-overlay img {
+    width: 550px !important;
+    margin: 2em 1em 2em 1em !important;
+}
+
 /* container styles */
 
 @media (max-width: 992px){
@@ -256,5 +269,11 @@ md-input-container.relationship-notes textarea {
     .mini-overview {
         width: 100%;
         clear: both;
+    }
+}
+
+@media (max-width: 350px){
+    .right-footer {
+        float: left !important;
     }
 }
